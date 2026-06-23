@@ -1,0 +1,51 @@
+/* Anchored to the bottom-left of the actual viewport so it stays on
+   screen at any game-canvas scale. position: fixed escapes the
+   1920×1080 transform-scaled wrapper used by useGameScale. */
+.widget {
+  position: fixed;
+  /* Sit just above the 61px taskbar so the widget never covers the
+     Start button — otherwise the player can't click Start again to
+     dismiss the widget. */
+  left: 16px;
+  bottom: 77px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border: 2px solid #fff;
+  border-radius: 999px;
+  font-family: var(--font-main, system-ui, sans-serif);
+  font-size: 12px;
+  line-height: 1;
+  user-select: none;
+  backdrop-filter: blur(4px);
+}
+
+.muteBtn {
+  background: transparent;
+  border: none;
+  color: inherit;
+  font-size: 18px;
+  line-height: 1;
+  padding: 0 2px;
+  cursor: pointer;
+}
+
+.muteBtn:hover {
+  filter: brightness(1.2);
+}
+
+.slider {
+  width: 100px;
+  accent-color: #fff;
+  cursor: pointer;
+}
+
+.pct {
+  min-width: 32px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}

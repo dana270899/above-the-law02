@@ -1,0 +1,133 @@
+/* ─── Window ─────────────────────────────────────── */
+.window {
+  width: 520px;
+  height: 360px;
+  background: var(--light-yellow-100);
+  border: 2px solid var(--black);
+  border-radius: 12px;
+  font-family: var(--font-main);
+  color: var(--black);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+}
+
+/* While running, the cursor over the whole window is the hammer.
+   `crosshair` is a graceful fallback until the user adds the asset. */
+.windowRunning {
+  composes: window;
+  cursor: url('/images/whack/hammer.png') 8 8, crosshair;
+}
+
+/* ─── Title bar ──────────────────────────────────── */
+.titleBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 10px;
+  background: var(--light-blue-200);
+  border-bottom: 2px solid var(--black);
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.closeBtn {
+  width: 24px;
+  height: 24px;
+  font-size: 18px;
+  line-height: 1;
+  background: var(--white);
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.closeBtn:hover {
+  background: var(--pink);
+}
+
+/* ─── Score row ──────────────────────────────────── */
+.scoreRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 24px 0;
+  font-size: 24px;
+}
+
+/* ─── Holes row ──────────────────────────────────── */
+.holes {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+  flex: 1;
+  padding: 16px 0;
+}
+
+.hole {
+  position: relative;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: var(--grey);
+  border: 2px solid var(--black);
+  padding: 0;
+  cursor: inherit;
+  font: inherit;
+  overflow: hidden;
+}
+
+.mole {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  /* Brown fallback so a missing PNG still reads as a mole. */
+  background-color: #8b5a2b;
+  border-radius: 50%;
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ─── Controls ───────────────────────────────────── */
+.controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 0 0 18px;
+}
+
+.gameOver {
+  font-size: 20px;
+  color: var(--red);
+}
+
+.startBtn,
+.stopBtn {
+  font-family: inherit;
+  font-size: 20px;
+  color: var(--white);
+  border: 2px solid var(--black);
+  border-radius: 8px;
+  padding: 8px 28px;
+  cursor: pointer;
+}
+
+.startBtn {
+  background: var(--green);
+}
+
+.stopBtn {
+  background: var(--red);
+}

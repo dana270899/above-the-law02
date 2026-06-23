@@ -1,0 +1,167 @@
+/* ═══════════════════════════════════════════════
+   EDITOR — MESSAGE NODE
+   Live BossMessage preview on top, edit form below.
+════════════════════════════════════════════════ */
+
+.wrap {
+  background: #fffbe6;
+  border: 2px solid #b58900;
+  border-radius: 8px;
+  padding: 10px;
+  width: 290px;
+  font-family: sans-serif;
+  font-size: 12px;
+  color: #333;
+}
+
+.title {
+  font-weight: 700;
+  color: #8a6500;
+  margin-bottom: 8px;
+}
+
+/* ─── Live preview wrapper ────────────────────── */
+/* The BossMessage is 556px wide and ~220–252px tall.
+   We render it at full size and scale it down with CSS
+   transform so the editor card stays compact. */
+.previewBox {
+  position: relative;
+  width: 270px;
+  height: 108px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  pointer-events: none;        /* preview must not steal editor clicks */
+  background: #ffffff;
+  border: 1px dashed #d6c46a;
+  border-radius: 4px;
+}
+.previewBoxLink {
+  height: 130px;               /* link variant is taller (has a footer button) */
+}
+.previewScale {
+  transform: scale(0.45);
+  transform-origin: top left;
+}
+
+/* ─── Form fields ─────────────────────────────── */
+.label {
+  font-size: 10px;
+  color: #888;
+  margin-top: 8px;
+  margin-bottom: 2px;
+}
+.field {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 4px 6px;
+  font-size: 12px;
+  font-family: inherit;
+}
+.textarea {
+  min-height: 56px;
+  resize: vertical;
+}
+.row {
+  display: flex;
+  gap: 6px;
+}
+.coord {
+  flex: 1;
+  font-size: 10px;
+  color: #666;
+}
+
+/* ─── Subtitle schedule ─────────────────────── */
+.cueList {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 2px;
+}
+.cueEmpty {
+  font-size: 10px;
+  font-style: italic;
+  color: #999;
+  padding: 4px 0;
+}
+.cueRow {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+}
+.cueAt {
+  flex: 0 0 56px;
+  display: flex;
+  flex-direction: column;
+  font-size: 10px;
+  color: #666;
+}
+.cueText {
+  flex: 1 0 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  font-size: 10px;
+  color: #666;
+}
+.cueRemove {
+  flex: 0 0 24px;
+  height: 24px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #fff;
+  color: #b58900;
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+  align-self: flex-end;
+  margin-bottom: 1px;
+}
+.cueRemove:hover {
+  background: #fff0ac;
+}
+.cueAdd {
+  margin-top: 4px;
+  padding: 4px 8px;
+  border: 1px dashed #b58900;
+  border-radius: 4px;
+  background: #fffbe6;
+  color: #8a6500;
+  font-size: 11px;
+  cursor: pointer;
+  align-self: flex-start;
+}
+.cueAdd:hover {
+  background: #fff0ac;
+}
+
+/* ─── Tutorial / spotlight block ──────────────
+   Visually grouped panel so authors can see the
+   tutorial section is a discrete feature. */
+.tutorialPanel {
+  margin-top: 10px;
+  padding: 8px;
+  border: 1px solid #d6c46a;
+  border-radius: 6px;
+  background: #fff8d4;
+}
+.tutorialToggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  color: #8a6500;
+  cursor: pointer;
+  user-select: none;
+}
+.tutorialToggle input {
+  margin: 0;
+}
+.tutorialHint {
+  font-size: 10px;
+  color: #8a6500;
+  margin-top: 4px;
+  line-height: 1.3;
+}

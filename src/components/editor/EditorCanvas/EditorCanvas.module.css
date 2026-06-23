@@ -1,0 +1,54 @@
+.wrap {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 8px 12px;
+  background: #fafafa;
+  border-bottom: 1px solid #e0e0e0;
+  flex-shrink: 0;
+}
+
+.addBtn {
+  padding: 6px 14px;
+  background: #fffbe6;
+  border: 1px solid #b58900;
+  border-radius: 4px;
+  color: #8a6500;
+  font-size: 12px;
+  font-family: sans-serif;
+  cursor: pointer;
+}
+
+.addBtn:hover {
+  background: #fff5b8;
+}
+
+.addBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  background: #fffbe6;
+}
+
+.saveStatus,
+.saveError {
+  padding: 6px 12px;
+  border-bottom: 1px solid #e0e0e0;
+  font: 12px sans-serif;
+}
+
+.saveStatus {
+  background: #eef6ff;
+  color: #24537a;
+}
+
+.saveError {
+  background: #fff0f0;
+  color: #9b1c1c;
+}

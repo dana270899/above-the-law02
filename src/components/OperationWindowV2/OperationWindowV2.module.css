@@ -1,0 +1,380 @@
+/* ============================================================
+   OPERATION WINDOW V2
+   Counter-based redesign of the Operation planner. Each item
+   has a quantity stepper (− 0 +) instead of an on/off toggle.
+   Pixel mapping comes from Figma node 575:24765.
+   Chrome and gauge geometry mirror the original OperationWindow
+   so the two windows stay visually consistent.
+   ============================================================ */
+
+.window {
+  width: 1180px;
+  max-width: calc(100vw - 32px);
+  max-height: calc(100vh - 61px - 24px);
+  background: var(--white);
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  overflow: clip;
+  font-family: var(--font-main);
+  color: var(--black);
+}
+
+.draggable { position: absolute; }
+.draggable .upperBar { cursor: move; user-select: none; }
+
+.windowMinimized {
+  height: auto;
+  max-height: none;
+  min-height: 0;
+}
+
+/* ─── Window chrome (title bar) ─────────────────────── */
+.upperBar {
+  width: 100%;
+  background: var(--white);
+  border-bottom: 2px solid var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow: clip;
+  flex-shrink: 0;
+}
+
+.upperBarTitle {
+  padding: 0 16px;
+  font-size: 22px;
+  line-height: 28px;
+  color: var(--grey);
+  white-space: nowrap;
+}
+
+.upperBarBtns {
+  display: flex;
+  align-items: center;
+}
+
+.chromeBtn {
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--black);
+  margin-right: -2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: clip;
+  cursor: pointer;
+  padding: 7px;
+  background: var(--white);
+}
+
+.chromeBtn:last-child { margin-right: 0; }
+.chromeBtn img { display: block; width: 100%; height: 100%; }
+
+.chromeExpand   { background: var(--green);  padding: 6px 7px; }
+.chromeMinimize { background: var(--yellow); padding: 8px; }
+.chromeClose    { background: var(--red);    padding: 8px; }
+
+/* ─── Body: header row + main row ──────────────────── */
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  overflow: clip;
+  width: 100%;
+}
+
+/* "Start operation" + cart icon */
+.headerRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 1096px;
+  max-width: 100%;
+}
+
+.headerTitle {
+  font-size: 32px;
+  line-height: 30px;
+  color: var(--grey);
+  white-space: nowrap;
+}
+
+.cartWrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.cart {
+  background: var(--light-blue-100);
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: clip;
+}
+
+.cart svg { display: block; }
+
+/* Yellow notification badge sitting on the cart's top-right
+   corner — slight outward offset so it overlaps the border. */
+.cartBadge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 32px;
+  height: 32px;
+  background: var(--yellow);
+  border: 2px solid var(--black);
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  line-height: 28px;
+  color: var(--black);
+}
+
+/* Toggles grid + gauge */
+.mainRow {
+  display: flex;
+  gap: 40px;
+  align-items: stretch;
+  width: 1096px;
+  max-width: 100%;
+}
+
+/* ─── Item grid (3 cols × 2 rows, 5 cells) ─────────── */
+.itemsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 144px);
+  grid-auto-rows: max-content;
+  gap: 32px;
+  width: 496px;
+  flex-shrink: 0;
+  align-self: flex-start;
+}
+
+.itemCell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+/* 144×144 illustration tile — light-blue-200 to match the
+   tile background already baked into each illustration SVG. */
+.illustration {
+  background: var(--light-blue-200);
+  border: 2px solid var(--black);
+  border-radius: 5px;
+  width: 144px;
+  height: 144px;
+  overflow: clip;
+  flex-shrink: 0;
+}
+
+/* The tile's outer black stroke comes from `.illustration`'s
+   own CSS border. The shared SVGs no longer carry their own
+   stroke (it was removed at the asset level so V1 and V2 share
+   a single-stroke tile). */
+.illustration img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Quantity stepper — yellow buttons either side of a number.
+   Per Figma node 575:23989, the stepper reads as one rounded
+   black stroke with two vertical dividers inside.
+
+   Architecture: the container provides the outer 2px stroke
+   (and rounded corners + overflow clip). Each end button has
+   NO border of its own — only a single-side `border-right` /
+   `border-left` that acts as the divider. This sidesteps any
+   border-overlap math: there's exactly one 2px stroke on each
+   visible edge. */
+.counter {
+  border: 2px solid var(--black);
+  border-radius: 8px;
+  display: flex;
+  align-items: stretch;
+  gap: 11.077px;
+  overflow: clip;
+  background: var(--white);
+  height: 44.308px;
+}
+
+.counterBtn {
+  background: var(--yellow);
+  border: 0;
+  width: 44.308px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  padding: 0;
+  font: inherit;
+  transition: background-color 120ms ease;
+}
+
+.counterBtn:first-child { border-right: 2px solid var(--black); }
+.counterBtn:last-child  { border-left:  2px solid var(--black); }
+
+/* Hover state — applied per button. The Figma component (node
+   575:23991) lights up the hovered − or + individually, not
+   both at once. */
+.counterBtn:not(:disabled):hover {
+  background: var(--light-yellow-200);
+}
+
+/* Disabled state — bumped from a tan/cream so disabled steppers
+   read as "off" without losing the yellow family entirely. */
+.counterBtn:disabled {
+  background: #F3EDDD;
+  cursor: not-allowed;
+}
+
+.counterBtn svg { display: block; }
+
+.counterValue {
+  font-family: var(--font-main);
+  font-size: 33.231px;
+  line-height: 38.769px;
+  color: var(--black);
+  min-width: 33.231px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.itemLabel {
+  font-family: var(--font-main);
+  font-size: 24px;
+  line-height: 28px;
+  color: var(--black);
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* ─── Gauge box (right side) — same geometry as v1 ─── */
+.gaugeBox {
+  background: var(--light-blue-100);
+  border: 2px solid var(--black);
+  border-radius: 8px;
+  flex: 1 0 0;
+  min-width: 0;
+  align-self: stretch;
+  position: relative;
+  overflow: clip;
+  min-height: 480px;
+}
+
+.gaugeArc {
+  position: absolute;
+  left: 17.95px;
+  top: 131.03px;
+  width: 510.992px;
+  height: 241.642px;
+  display: block;
+}
+
+.gaugeLabel {
+  position: absolute;
+  font-family: var(--font-main);
+  font-size: 16px;
+  line-height: 18px;
+  color: var(--black);
+  white-space: nowrap;
+  text-align: center;
+}
+
+.gaugeLabel p {
+  margin: 0;
+  line-height: 18px;
+}
+
+.gaugeLabelLeft   { text-align: left; }
+.gaugeLabelRight  { text-align: right;  transform: translateX(-100%); }
+.gaugeLabelCenter { text-align: center; transform: translateX(-50%); }
+
+.gaugeNeedleAnchor {
+  position: absolute;
+  left: 273.446px;
+  top: 372.672px;
+  width: 0;
+  height: 0;
+}
+
+.gaugeNeedle {
+  position: absolute;
+  left: -11.5px;
+  bottom: 0;
+  width: 23px;
+  height: 113px;
+  display: block;
+  transform-origin: 50% 100%;
+  transition: transform 350ms ease;
+}
+
+/* ─── Footer: CTA only (right-aligned) ─────────────── */
+.footer {
+  background: var(--white);
+  border-top: 2px solid var(--black);
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.cta {
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  padding: 12px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-main);
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 26px;
+  color: var(--white);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.ctaArrest {
+  background: var(--red);
+  transition: background-color 200ms ease;
+}
+
+.ctaDisabled {
+  background: var(--grey);
+  cursor: not-allowed;
+  transition: background-color 200ms ease;
+}
+
+/* ─── Fly-to-cart animation ────────────────────────── */
+/* The ghost is a position-fixed clone of the illustration. The
+   Web Animations API (see FlyGhost) drives transform + opacity
+   from the tile's rect to the cart centre with a scale-down +
+   fade. pointer-events:none so the ghost never blocks clicks
+   during the animation. */
+.flyGhost {
+  position: fixed;
+  pointer-events: none;
+  z-index: 1000;
+  border-radius: 5px;
+  transform-origin: center;
+  will-change: transform, opacity;
+}

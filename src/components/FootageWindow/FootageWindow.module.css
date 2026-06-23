@@ -1,0 +1,100 @@
+/* ============================================================
+   FOOTAGE WINDOW
+   Chrome (title bar + green/yellow/red traffic-light buttons) plus a
+   842×474 sketch frame. The scene body is a single SVG per variant
+   (see VARIANT_SRC in FootageWindow.tsx), so this file only styles
+   the window shell — no per-scene primitives.
+   ============================================================ */
+
+.window {
+  width: 842px;
+  background: var(--white);
+  border: 2px solid var(--black);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  overflow: clip;
+  font-family: var(--font-main);
+  color: var(--black);
+  max-width: calc(100vw - 32px);
+}
+
+/* Draggable variant: window is absolute-positioned + title bar is a drag handle. */
+.draggable {
+  position: absolute;
+}
+
+.draggable .upperBar {
+  cursor: move;
+  user-select: none;
+}
+
+/* When minimized only the title bar shows. */
+.windowMinimized .sketch {
+  display: none;
+}
+
+/* ─── Window upper bar (title + chrome) ─────────────── */
+.upperBar {
+  width: 100%;
+  background: var(--white);
+  border-bottom: 2px solid var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow: clip;
+  flex-shrink: 0;
+}
+
+.upperBarTitle {
+  padding: 0 16px;
+  font-size: 22px;
+  line-height: 28px;
+  color: var(--grey);
+  white-space: nowrap;
+}
+
+.upperBarBtns {
+  display: flex;
+  align-items: center;
+}
+
+.chromeBtn {
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--black);
+  margin-right: -2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: clip;
+  cursor: pointer;
+  padding: 7px;
+  background: var(--white);
+}
+
+.chromeBtn:last-child { margin-right: 0; }
+.chromeBtn img { display: block; width: 100%; height: 100%; }
+
+.chromeExpand   { background: var(--green);  padding: 6px 7px; }
+.chromeMinimize { background: var(--yellow); padding: 8px; }
+.chromeClose    { background: var(--red);    padding: 8px; }
+
+/* ─── Sketch: the CCTV footage content area ─────────── */
+.sketch {
+  position: relative;
+  width: 842px;
+  height: 474px;
+  overflow: clip;
+  flex-shrink: 0;
+  background: var(--white);
+}
+
+/* The 842×474 scene SVG fills the sketch frame at its native size. */
+.sketchImg {
+  display: block;
+  width: 842px;
+  height: 474px;
+  max-width: none;
+  pointer-events: none;
+}

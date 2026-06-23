@@ -1,0 +1,42 @@
+/* ═══════════════════════════════════════════════
+   SUBTITLES — bottom-of-desktop overlay
+   Pixel-perfect from Figma node 477:18935
+   Centered, white bold ArbelHagilda with a thick
+   black stroke, anchored just above the taskbar.
+════════════════════════════════════════════════ */
+
+.layer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 20px;                /* thin strip pinned to the bottom; the
+                                  text vertically centers on it and the
+                                  larger glyphs naturally extend upward */
+  display: flex;
+  justify-content: center;
+  align-items: center;         /* vertically centered on the taskbar */
+  pointer-events: none;       /* don't intercept clicks on the taskbar */
+  z-index: 10;                 /* above the taskbar, below dialogs */
+  padding: 0 clamp(16px, 14vw, 275px);
+}
+
+.text {
+  margin: 0;
+  font-family: var(--font-main);
+  font-weight: 700;
+  /* Figma uses 69.346px on a 1920-wide canvas (3.6% of the width).
+     Scale with the viewport so it stays readable but never huge. */
+  font-size: clamp(28px, 3.6vw, 70px);
+  line-height: 1.16;
+  text-align: center;
+  /* White letter fill, painted ON TOP of a black outline so the inside
+     stays solid white. Stroke is em-based so it scales with the font,
+     plus a flat 1px on top so the outline reads as crisp at any size. */
+  color: var(--white);
+  -webkit-text-stroke: calc(0.04em + 3px) var(--black);
+  paint-order: stroke fill;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35));
+  white-space: pre-line;       /* respect \n if author uses it */
+  word-break: break-word;
+}

@@ -1,0 +1,21 @@
+/* Covers the whole Desktop area — including the taskbar — so the
+   backdrop-filter reaches every desktop element. The Desktop renders
+   this slot AFTER the taskbar, and the boss message lives in `children`
+   with a higher z-index, so the message stays painted on top. */
+.wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* Real grayscale: each strip is positioned absolutely around the
+   target. backdrop-filter applies to the pixels of the desktop
+   painted behind the strip, so luminance and detail are preserved.
+   The target area in the middle has no strip over it, so it shows
+   through in its original colors. */
+.bw {
+  position: absolute;
+  backdrop-filter: grayscale(1);
+  -webkit-backdrop-filter: grayscale(1);
+}

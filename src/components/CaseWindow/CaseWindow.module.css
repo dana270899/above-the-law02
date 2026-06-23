@@ -1,0 +1,922 @@
+/* ============================================================
+   CASE WINDOW
+   Pixel-perfect implementation of the Figma "Case Window" frame
+   (node 427:19243). Single source of truth — used both by the
+   editor's CaseNode (editable mode) and by the running game
+   (play mode).
+   ============================================================ */
+
+.window {
+  /* Figma quotes the chrome at 1105px, but the inner panel (833px) +
+     tabs (184px) + scroll column (40px) + 2× 32px content padding
+     overflow that, so we widen to 1140px to fit the file column in
+     the suspicion row without clipping. */
+  width: 1140px;
+  /* Native size from Figma: 898px tall. Caps to viewport so the
+     window always fits inside the screen. The Desktop's overlay slot
+     has `inset: 0 0 61px 0` (excludes the 61px taskbar), so we
+     subtract that plus a small margin. The head flexes within. */
+  height: 898px;
+  max-width: calc(100vw - 32px);
+  max-height: calc(100vh - 61px - 24px);
+  background: var(--white);
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  overflow: clip;
+  font-family: var(--font-main);
+  color: var(--black);
+}
+
+/* Draggable variant: window is absolute-positioned + title bar is a
+   drag handle. Position is set inline by the component (centered until
+   first drag, then explicit pixel coords). */
+.draggable {
+  position: absolute;
+}
+
+.draggable .upperBar {
+  cursor: move;
+  user-select: none;
+}
+
+/* When minimized only the title bar shows. */
+.windowMinimized {
+  height: auto;
+  max-height: none;
+  min-height: 0;
+}
+
+/* ─── Window upper bar (title + window chrome) ──────── */
+.upperBar {
+  width: 100%;
+  background: var(--white);
+  border-bottom: 2px solid var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow: clip;
+}
+
+.upperBarTitle {
+  padding: 0 16px;
+  font-size: 22px;
+  line-height: 28px;
+  color: var(--grey);
+  white-space: nowrap;
+}
+
+.upperBarBtns {
+  display: flex;
+  align-items: center;
+}
+
+.chromeBtn {
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--black);
+  margin-right: -2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: clip;
+  cursor: pointer;
+  padding: 7px;
+  background: var(--white);
+}
+
+.chromeBtn:last-child { margin-right: 0; }
+.chromeBtn img { display: block; width: 100%; height: 100%; }
+
+.chromeExpand   { background: var(--green); padding: 6px 7px; }
+.chromeMinimize { background: var(--yellow); padding: 8px; }
+.chromeClose    { background: var(--red);    padding: 8px; }
+
+/* ─── Window head: upper bar + main row ─────────────
+   In Figma the whole "head" (upperBar + bodyRow) is 800px tall and
+   the footer sits OUTSIDE it. We let it flex within the .window so
+   the head naturally reaches 800px when the window is at its native
+   898px, and shrinks when the viewport caps the window. */
+.windowHead {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.windowMinimized .windowHead {
+  flex: 0 0 auto;
+}
+
+.upperBar {
+  flex-shrink: 0;
+}
+
+/* ─── Main row: contains the body (tabs + case body) ── */
+.mainRow {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
+  flex-direction: column;
+}
+
+.bodyRow {
+  display: flex;
+  flex: 1 0 0;
+  align-items: stretch;
+  width: 100%;
+  min-height: 0;
+}
+
+/* ─── Cases tabs (left side menu) ───────────────────── */
+.tabs {
+  background: var(--light-blue-100);
+  border-right: 2px solid var(--black);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  overflow: clip;
+  flex-shrink: 0;
+}
+
+.tab {
+  width: 184px;
+  height: 88px;
+  padding: 16px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  justify-content: center;
+  align-items: flex-start;
+  border-bottom: 2px solid var(--grey);
+  color: var(--grey);
+  background: transparent;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.tabActive {
+  background: var(--light-blue-200);
+  border-bottom-color: var(--black);
+  color: var(--black);
+}
+
+/* Locked tab — previous case isn't completed yet. Dim and non-clickable. */
+.tabLocked {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.tabId {
+  font-size: 24px;
+  line-height: 28px;
+  /* Figma: items-start on the parent + no text-align on this <p>,
+     so the text sits at the tab's left padding. */
+  text-align: left;
+}
+
+.tabTime {
+  font-size: 18px;
+  line-height: 18px;
+  text-align: left;
+}
+
+/* fill the remaining vertical space with the tabs' bg color */
+.tabsFiller { flex: 1 0 0; background: var(--light-blue-100); }
+
+/* ─── Case body (right side) ────────────────────────── */
+.caseBody {
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 0;
+  height: 100%;
+  min-width: 0;
+  align-items: stretch;
+}
+
+/* Case header (id + created + status chip) */
+.caseHeader {
+  background: var(--white);
+  border-bottom: 2px solid var(--black);
+  padding: 16px 32px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.caseHeaderInner {
+  display: flex;
+  flex: 1 0 0;
+  align-items: flex-end;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+.caseHeaderLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1 0 0;
+  min-width: 0;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+.caseId {
+  font-size: 32px;
+  line-height: 30px;
+  color: var(--black);
+  white-space: nowrap;
+}
+
+.caseCreated {
+  font-size: 18px;
+  line-height: 18px;
+  color: var(--grey);
+}
+
+/* Status chip */
+.chip {
+  border: 2px solid var(--black);
+  border-radius: 16px;
+  padding: 4px 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  font-size: 18px;
+  line-height: 18px;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.chipGreen  { background: var(--green);  }
+.chipRed    { background: var(--red);    }
+.chipYellow { background: var(--yellow); color: var(--black); }
+.chipGrey   { background: var(--grey);   }
+
+/* Header chip row — extra chips (defined per case) sit to the left of
+   the status chip. */
+.headerChips {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* Edit-mode variant — same row, but wraps so the inline label + color
+   + remove controls for each chip have room when the list grows. */
+.headerChipsEditable {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  max-width: 60%;
+}
+
+/* Scrollable content + right-side scroll panel */
+.contentRow {
+  display: flex;
+  flex: 1 0 0;
+  align-items: stretch;
+  min-height: 0;
+  width: 100%;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  flex: 1 0 0;
+  min-width: 0;
+  padding: 32px;
+  height: 100%;
+  overflow-x: clip;
+  overflow-y: auto;
+  /* Hide the native scrollbar — the right-side .scrollColumn provides
+     our own arrows + thumb. */
+  scrollbar-width: none;
+}
+
+.content::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none;
+}
+
+/* Right-side scroll arrows column — width + button size match
+   Figma node 588:23625 (40px column, 40px arrows). */
+.scrollColumn {
+  background: var(--white);
+  border-left: 2px solid var(--black);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  width: 40px;
+  flex-shrink: 0;
+  overflow: clip;
+}
+
+.scrollBtn {
+  background: var(--light-yellow-100);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 7px;
+  border: none;
+  border-bottom: 2px solid var(--black);
+  cursor: pointer;
+}
+
+.scrollBtnBottom {
+  border-top: 2px solid var(--black);
+  border-bottom: none;
+}
+
+.scrollBtn img {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.scrollBtnRotateUp   img { transform: rotate(-90deg); }
+.scrollBtnRotateDown img { transform: rotate(90deg);  }
+
+.scrollTrack {
+  flex: 1 0 0;
+  background: var(--light-yellow-100);
+  border-top: 2px solid var(--black);
+  border-bottom: 2px solid var(--black);
+  position: relative;
+  cursor: pointer;
+}
+
+/* Draggable thumb on the scroll track. Position + height are set inline
+   from the React effect that mirrors the body's scroll position.
+   Matches Figma node 588:23625 — a `--light-yellow-100` segment that
+   spans the column, framed by 2px black borders top and bottom (the
+   same chunky retro look as the arrow buttons). */
+.scrollThumb {
+  position: absolute;
+  left: 0;
+  right: 0;
+  background: var(--light-yellow-100);
+  border-top: 2px solid var(--black);
+  border-bottom: 2px solid var(--black);
+  cursor: grab;
+}
+
+.scrollThumb:active {
+  cursor: grabbing;
+}
+
+/* ─── Identity row: photo + details ─────────────────── */
+.identity {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.photo {
+  width: 264px;
+  height: 264px;
+  background: var(--light-blue-200);
+  border: 1.737px solid var(--black);
+  border-radius: 3.474px;
+  overflow: clip;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.photoDefault {
+  position: absolute;
+  left: -2.62px;
+  top: 17.23px;
+  width: 265.775px;
+  height: 362.065px;
+  display: block;
+}
+
+.photoImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+
+/* Editable photo: input is invisible but covers the photo box */
+.photoEditWrap {
+  position: relative;
+  cursor: pointer;
+}
+
+.photoEditOverlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(23, 23, 23, 0.55);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  opacity: 0;
+  transition: opacity .15s;
+}
+
+.photoEditWrap:hover .photoEditOverlay { opacity: 1; }
+
+.photoFileInput {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Details column */
+.details {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-start;
+  flex-shrink: 0;
+}
+
+.fullName {
+  font-size: 40px;
+  line-height: normal;
+  color: var(--black);
+  min-width: 100%;
+}
+
+.detailsGrid {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  gap: 8px 16px;
+  align-items: start;
+}
+
+.detailLabel {
+  font-size: 22px;
+  line-height: 28px;
+  color: #858585;
+  white-space: nowrap;
+}
+
+.detailValue {
+  font-size: 22px;
+  line-height: 28px;
+  color: var(--black);
+}
+
+.detailValueRed   { color: var(--red);   }
+.detailValueGreen { color: var(--green); }
+
+/* ─── Yellow panels (Criminal Record + Suspicion) ───── */
+.panel {
+  background: var(--light-yellow-200);
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+.panelSection {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.panelTitle {
+  font-size: 24px;
+  line-height: 28px;
+  color: var(--black);
+}
+
+/* Empty-state row — sits inside the .recordTable container. */
+.emptyRow {
+  background: transparent;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.emptyRow p {
+  flex: 1 0 0;
+  text-align: left;
+  font-size: 22px;
+  line-height: 28px;
+  color: var(--grey);
+}
+
+/* Editable variant of the empty-state placeholder. Same look as the
+   read-only text, but stretches to fill the row so the builder can type
+   a longer hint without the field truncating. */
+.emptyRowInput {
+  flex: 1 0 0;
+  font-size: 22px;
+  line-height: 28px;
+  color: var(--grey);
+}
+
+/* Outer table container — white card holding the column header row and
+   the per-entry row cards. Used by both criminal record + suspicion. */
+.recordTable {
+  background: var(--white);
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  padding: 16px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+}
+
+/* Column-header row inside .recordTable. Same column widths as
+   .recordRowMain so labels line up over their cells. */
+.recordTableHeader {
+  display: grid;
+  grid-template-columns: 24px 286px 120px 1fr;
+  column-gap: 32px;
+  align-items: center;
+  padding: 0 16px;
+  width: 100%;
+}
+
+.susTableHeader {
+  display: grid;
+  grid-template-columns: 24px 286px 91px 120px 56px;
+  column-gap: 32px;
+  align-items: center;
+  padding: 0 16px;
+  width: 100%;
+}
+
+.susTableHeaderEditable {
+  grid-template-columns: 24px 200px 170px 130px 56px;
+}
+
+.recordHeader {
+  font-size: 22px;
+  line-height: 28px;
+  font-weight: 700;
+  color: var(--black);
+  white-space: nowrap;
+}
+
+.recordHeaderSpacer {
+  width: 24px;
+  height: 1px;
+}
+
+/* One row card — light-blue base, hover deepens to #e8f7ff. Expanded
+   stacks details below the main row. */
+.recordRow {
+  background: var(--light-blue-100);
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  transition: background .15s;
+}
+
+.recordRow:hover {
+  background: #e8f7ff;
+}
+
+.recordRowMain {
+  display: grid;
+  grid-template-columns: 24px 286px 120px 1fr;
+  column-gap: 32px;
+  align-items: center;
+  width: 100%;
+}
+
+.recordRowMainEditable {
+  grid-template-columns: 24px 1fr 170px 130px max-content;
+  column-gap: 16px;
+}
+
+.susRowMain {
+  display: grid;
+  grid-template-columns: 24px 286px 91px 120px 56px;
+  column-gap: 32px;
+  align-items: center;
+  width: 100%;
+}
+
+.susRowMainEditable {
+  grid-template-columns: 24px 1fr 170px 130px max-content;
+  column-gap: 16px;
+}
+
+.recordExpandBtn {
+  width: 24px;
+  height: 24px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.recordExpandBtn:disabled {
+  cursor: default;
+  opacity: 0.4;
+}
+
+.recordExpandBtn img {
+  width: 24px;
+  height: 24px;
+  transform: rotate(-90deg);
+  display: block;
+  transition: transform .15s;
+}
+
+/* Arrow rotates to point down when the row is expanded (▶ → ▼). */
+.recordExpandBtnOpen img {
+  transform: rotate(0deg);
+}
+
+.recordSubject {
+  background: transparent;
+  border: none;
+  padding: 0;
+  font: inherit;
+  text-align: left;
+  font-size: 22px;
+  line-height: 28px;
+  color: var(--black);
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.recordSubjectInput {
+  width: 100%;
+}
+
+.recordDate {
+  font-size: 22px;
+  line-height: 28px;
+  color: var(--grey);
+  white-space: nowrap;
+  justify-self: end;
+}
+
+/* Expanded details body — white card aligned under the row, indented to
+   start under the subject column (same offset on both criminal record +
+   suspicion since the arrow column is identical). */
+.recordDetails {
+  background: var(--white);
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  padding: 16px;
+  margin-left: 56px;
+  align-self: stretch;
+}
+
+.susDetailsParagraph {
+  font-size: 22px;
+  line-height: 28px;
+  color: var(--black);
+  white-space: pre-wrap;
+}
+
+.susDetailsParagraph + .susDetailsParagraph {
+  margin-top: 28px;
+}
+
+.susDetailsTextarea {
+  font: inherit;
+  width: 100%;
+  min-height: 140px;
+  resize: vertical;
+  background: transparent;
+  border: 1px dashed var(--grey);
+  border-radius: 4px;
+  padding: 8px;
+  color: inherit;
+  font-size: 22px;
+  line-height: 28px;
+}
+
+.attachBtn {
+  background: var(--yellow);
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  padding: 2px 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
+.attachBtn img { width: 24px; height: 24px; display: block; }
+
+.attachBtnDisabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* When the user clicks a suspicion row's attachment, the chosen Footage
+   Window opens here — fixed-position fullscreen backdrop that closes on
+   click; the inner `.footageStage` centers and contains the window. */
+.footageOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  background: rgba(23, 23, 23, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footageStage {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ─── Footer: Make a decision + CTAs ────────────────── */
+.footer {
+  background: var(--white);
+  border-top: 2px solid var(--black);
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.footerText {
+  font-size: 22px;
+  line-height: 28px;
+  color: var(--grey);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.ctas {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.cta {
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  padding: 12px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-main);
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 26px;
+  color: var(--white);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.ctaArrest  { background: var(--red);   }
+.ctaRelease { background: var(--green); }
+
+/* Decision pill — shown in the footer once the player has decided.
+   Same chrome as a CTA but rounded-32 (vs rounded-4 for the buttons),
+   and the label switches to "Arrested" / "Released". Matches Figma
+   variants 2 and 3 (462:10977 / 462:10988). */
+.decisionPill {
+  border: 2px solid var(--black);
+  border-radius: 32px;
+  padding: 12px 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-main);
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 26px;
+  color: var(--white);
+  white-space: nowrap;
+}
+
+.decisionPillRed   { background: var(--red);   }
+.decisionPillGreen { background: var(--green); }
+
+/* ─── Editable mode controls ────────────────────────── */
+.editableInput,
+.editableTextarea {
+  font: inherit;
+  background: transparent;
+  border: 1px dashed var(--grey);
+  border-radius: 4px;
+  padding: 2px 6px;
+  color: inherit;
+  width: 100%;
+}
+
+.editableTextarea {
+  resize: vertical;
+  min-height: 60px;
+}
+
+.editableInputInline {
+  font: inherit;
+  background: transparent;
+  border: 1px dashed var(--grey);
+  border-radius: 4px;
+  padding: 0 4px;
+  color: inherit;
+}
+
+.editableName {
+  font-size: 40px;
+}
+
+.editableValue {
+  font-size: 22px;
+  width: 220px;
+}
+
+.editableSelect {
+  font: inherit;
+  background: transparent;
+  border: 1px dashed var(--grey);
+  border-radius: 4px;
+  padding: 2px 6px;
+  color: inherit;
+}
+
+.rowControls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.rowControlBtn {
+  font: inherit;
+  font-size: 14px;
+  border: 1px solid var(--black);
+  background: var(--white);
+  border-radius: 4px;
+  padding: 2px 8px;
+  cursor: pointer;
+}
+
+.rowControlBtnRemove {
+  background: var(--red);
+  color: var(--white);
+  border-color: var(--black);
+}
+
+.rowControlBtnAdd {
+  background: var(--green);
+  color: var(--white);
+  border-color: var(--black);
+  align-self: flex-start;
+}
+
+.editableAttachUrl {
+  font: inherit;
+  font-size: 14px;
+  background: var(--white);
+  border: 1px dashed var(--grey);
+  border-radius: 4px;
+  padding: 2px 6px;
+  width: 180px;
+}

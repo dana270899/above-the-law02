@@ -1,0 +1,111 @@
+/* CaseNode editor modal — full-size CaseWindow opens here. */
+
+.editBtn {
+  display: inline-block;
+  margin-top: 4px;
+  background: #185fa5;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.editBtn:hover { background: #0f4d8d; }
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  overflow: auto;
+}
+
+.modal {
+  position: relative;
+  background: transparent;
+}
+
+.closeBtn {
+  position: absolute;
+  top: -36px;
+  right: 0;
+  background: #fff;
+  color: #000;
+  border: 2px solid #000;
+  border-radius: 4px;
+  padding: 4px 12px;
+  font-size: 14px;
+  cursor: pointer;
+  z-index: 1;
+}
+
+/* ─── OperationNode: per-toggle sound picker ─────────────── */
+.soundPicker {
+  margin-top: 16px;
+  padding: 12px 16px;
+  background: #fff;
+  border: 2px solid #000;
+  border-radius: 6px;
+  font-family: sans-serif;
+}
+
+.soundPickerTitle {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: #171717;
+}
+
+.soundRow {
+  display: grid;
+  grid-template-columns: 1fr 220px 32px;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.soundRow:last-child {
+  margin-bottom: 0;
+}
+
+.soundLabel {
+  font-size: 13px;
+  color: #171717;
+}
+
+.soundSelect {
+  font: inherit;
+  font-size: 12px;
+  padding: 3px 6px;
+  border: 1px solid #888;
+  border-radius: 3px;
+  background: #fff;
+  color: #171717;
+}
+
+.soundPlayBtn {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #185fa5;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.soundPlayBtn:hover { background: #0f4d8d; }
+
+.soundPlayBtn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}

@@ -1,0 +1,152 @@
+/* ═══════════════════════════════════════════════
+   PUNCHING DUMMY (CLICK) — layered layout
+
+   Wrapped in a fake desktop window (.window +
+   .upperBar) with a custom glove cursor that
+   applies to everything inside. The .screen below
+   the upper bar holds the coupon background, the
+   toy canvas, and the two hotspots, same way the
+   drag variant does.
+════════════════════════════════════════════════ */
+
+/* Outer window: 90% of the available width, centered horizontally,
+   borders + title bar matching the other in-game windows. Custom
+   cursor applies to every child (hotspots use `cursor: inherit`
+   so the glove shows through their default pointer rule). */
+.window {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 100%;
+  background: var(--white);
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  /* TODO — tune the hotspot offset (the two numbers after the URL) so
+     the punch lands on the click point. SVG is 181×236; browser will
+     cap the cursor at ~128px and scale accordingly. */
+  cursor: url('/images/win-screens/PunchingDummy/PunchingDummy_glove_cursor.svg') 32 32, auto;
+}
+
+/* Same shape + tokens as the Cases window upper bar — title text on
+   the left, three chrome buttons (expand/minimize/close) on the right.
+   Buttons are visual chrome here (no close/minimize behavior); wire
+   handlers in if you need them. */
+.upperBar {
+  width: 100%;
+  background: var(--white);
+  border-bottom: 2px solid var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow: clip;
+  flex-shrink: 0;
+}
+
+.upperBarTitle {
+  padding: 0 16px;
+  font-size: 22px;
+  line-height: 28px;
+  color: var(--grey);
+  white-space: nowrap;
+}
+
+.upperBarBtns {
+  display: flex;
+  align-items: center;
+}
+
+.chromeBtn {
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--black);
+  margin-right: -2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: clip;
+  cursor: pointer;
+  padding: 7px;
+  background: var(--white);
+}
+
+.chromeBtn:last-child { margin-right: 0; }
+.chromeBtn img { display: block; width: 100%; height: 100%; }
+
+.chromeExpand   { background: var(--green);  padding: 6px 7px; }
+.chromeMinimize { background: var(--yellow); padding: 8px; }
+.chromeClose    { background: var(--red);    padding: 8px; }
+
+.screen {
+  position: relative;
+  width: 100%;
+  background: var(--white);
+  overflow: hidden;
+}
+
+.scene {
+  display: block;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+}
+
+.toyWrapper {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+  transform-origin: 50% 100%;
+}
+
+.toyImage {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+}
+
+.toyDebug {
+  outline: 2px dashed rgba(0, 150, 255, 0.7);
+}
+
+.toyWrapperReturning {
+  animation: settle var(--toy-settle-duration, 700ms) ease-out forwards;
+}
+
+@keyframes settle {
+  0%   { transform: rotate(var(--toy-tilt, 0deg)); }
+  35%  { transform: rotate(calc(var(--toy-tilt, 0deg) * -0.32)); }
+  62%  { transform: rotate(calc(var(--toy-tilt, 0deg) *  0.12)); }
+  82%  { transform: rotate(calc(var(--toy-tilt, 0deg) * -0.04)); }
+  100% { transform: rotate(0deg); }
+}
+
+.hotspot {
+  position: absolute;
+  background: transparent;
+  border: none;
+  outline: none;
+  /* Inherit the glove cursor set on .window — otherwise the default
+     pointer would override it on the only places the player actually
+     clicks. */
+  cursor: inherit;
+}
+
+/* Debug outlines — left and right tinted differently so it's obvious
+   which half of the toy fires which direction while tuning. */
+.hotspotDebugLeft {
+  background: rgba(255, 100, 100, 0.2);
+  outline: 2px dashed rgba(200, 50, 50, 0.8);
+}
+
+.hotspotDebugRight {
+  background: rgba(100, 100, 255, 0.2);
+  outline: 2px dashed rgba(50, 50, 200, 0.8);
+}

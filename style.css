@@ -1,0 +1,374 @@
+/* ═══════════════════════════════════════════════
+   FONTS
+════════════════════════════════════════════════ */
+@font-face {
+  font-family: 'ArbelHagilda';
+  src: url('assets/fonts/ArbelHagilda-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* ═══════════════════════════════════════════════
+   DESIGN TOKENS  (all values come from Figma)
+════════════════════════════════════════════════ */
+:root {
+  --black:            #171717;
+  --white:            #fffdfd;
+  --light-yellow-100: #fffdf3;
+  --light-yellow-200: #fff0ac;
+  --light-blue-200:   #e1f5ff;
+  --green:            #00a168;
+  --pink:             #ffa4a4;
+}
+
+/* ═══════════════════════════════════════════════
+   RESET
+════════════════════════════════════════════════ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ═══════════════════════════════════════════════
+   BODY + GAME CANVAS
+   The game is always 1920×1080px.
+   JS (game.js → scaleGame) scales it to fit
+   whatever screen the player is on.
+════════════════════════════════════════════════ */
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: #000; /* black letterbox outside game area */
+}
+
+#game {
+  position: absolute;
+  width: 1920px;
+  height: 1080px;
+  transform-origin: top left;
+  background: var(--light-yellow-100);
+}
+
+/* ═══════════════════════════════════════════════
+   SCREEN  (full-canvas layer, one per game state)
+════════════════════════════════════════════════ */
+.screen {
+  position: absolute;
+  inset: 0; /* fills the full 1920×1080 canvas */
+}
+
+/* ═══════════════════════════════════════════════
+   TOP & BOTTOM BARS
+════════════════════════════════════════════════ */
+.bar {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 118px;
+  background: var(--light-blue-200);
+}
+
+.bar-top {
+  top: 0;
+  border-bottom: 2px solid var(--black);
+}
+
+.bar-bottom {
+  bottom: 0;
+  border-top: 2px solid var(--black);
+}
+
+/* ═══════════════════════════════════════════════
+   WELCOME TEXT
+   Figma: top 221px, horizontally centered,
+   width 298px, ArbelHagilda 64px, color #fff0ac
+════════════════════════════════════════════════ */
+.welcome-text {
+  position: absolute;
+  top: 221px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 298px;
+  text-align: center;
+  font-family: 'ArbelHagilda', sans-serif;
+  font-size: 64px;
+  font-weight: 400;
+  line-height: 64px;
+  color: var(--light-yellow-200);
+  white-space: nowrap;
+}
+
+/* ═══════════════════════════════════════════════
+   LOGIN CENTER GROUP
+   Figma: absolutely centered (left/top 50% + translate),
+   width 772px, gap 48px between the 3 main items
+════════════════════════════════════════════════ */
+.login-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 772px;
+  display: flex;
+  align-items: center;
+  gap: 48px;
+}
+
+/* ═══════════════════════════════════════════════
+   POLICE BADGE
+   Figma: 192.324 × 243.16px, two layered SVGs
+════════════════════════════════════════════════ */
+.badge {
+  position: relative;
+  width: 192.324px;
+  height: 243.16px;
+  flex-shrink: 0;
+}
+
+.badge-shield {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.badge-inner {
+  position: absolute;
+  left: 32px;
+  top: 66.32px;
+  width: 128.008px;
+  height: 128.008px;
+}
+
+/* ═══════════════════════════════════════════════
+   VERTICAL DIVIDER
+   Figma: the original is a horizontal SVG line
+   rotated 90°; we use a simple CSS pseudo-element.
+   Height 227px, centered line.
+════════════════════════════════════════════════ */
+.divider {
+  flex: 1 0 0;
+  min-width: 1px;
+  height: 227px;
+  position: relative;
+}
+
+.divider::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  height: 100%;
+  border-left: 2px solid var(--black);
+}
+
+/* ═══════════════════════════════════════════════
+   LOGIN GROUP  (player avatar + form, side by side)
+   Figma: flex row, gap 30px, items aligned to bottom
+════════════════════════════════════════════════ */
+.login-group {
+  display: flex;
+  align-items: flex-end;
+  gap: 30px;
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════════════
+   PLAYER AVATAR BOX
+   Figma: 140×140px, #e1f5ff bg, 2px black border,
+   overflow hidden, contents absolutely positioned
+════════════════════════════════════════════════ */
+.player-avatar {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  background: var(--light-blue-200);
+  border: 2px solid var(--black);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+/* All player parts are absolute within the 140×140 box */
+
+.player-arm-right {
+  position: absolute;
+  width: 15.026px;
+  height: 31.149px;
+  left: 102.72px;
+  top: 59.81px;
+}
+
+/* Left arm uses scaleX(-1) mirror, same as Figma's scaleY(-1) rotate(180deg) */
+.player-arm-left {
+  position: absolute;
+  width: 15.026px;
+  height: 31.149px;
+  left: 23px;
+  top: 59.81px;
+  transform: scaleX(-1);
+}
+
+/* Body background: pure CSS — pink pill shape */
+.player-body-bg {
+  position: absolute;
+  width: 76px;
+  height: 115px;
+  left: 30px;
+  top: 10px;
+  background: var(--pink);
+  border: 1px solid var(--black);
+  /* Figma: rounded-tl-40 rounded-tr-40 rounded-bl-80 rounded-br-80 */
+  border-radius: 40px 40px 80px 80px;
+}
+
+/* SVG texture/details layered over the body */
+.player-body-mask {
+  position: absolute;
+  width: 76px;
+  height: 115px;
+  left: 30px;
+  top: 10px;
+}
+
+/* Eyebrows */
+.player-eyebrow-right {
+  position: absolute;
+  width: 20px;
+  height: 5px;
+  left: 76px;
+  top: 50px;
+}
+
+.player-eyebrow-left {
+  position: absolute;
+  width: 20px;
+  height: 5px;
+  left: 44px;
+  top: 50px;
+  transform: scaleX(-1);
+}
+
+/* Eyes */
+.player-eye-right {
+  position: absolute;
+  width: 12.572px;
+  height: 6.248px;
+  left: 80.05px;
+  top: 56.32px;
+}
+
+.player-eye-left {
+  position: absolute;
+  width: 12.572px;
+  height: 6.248px;
+  left: 48.55px;
+  top: 56.32px;
+}
+
+/* Nose */
+.player-nose {
+  position: absolute;
+  width: 10.5px;
+  height: 26.5px;
+  left: 61.5px;
+  top: 52.5px;
+}
+
+/* Cheek/detail marks */
+.player-detail-1 {
+  position: absolute;
+  width: 13.5px;
+  height: 2.675px;
+  left: 77.5px;
+  top: 52.32px;
+}
+
+.player-detail-2 {
+  position: absolute;
+  width: 13.5px;
+  height: 2.675px;
+  left: 46px;
+  top: 52.32px;
+  transform: scaleX(-1);
+}
+
+/* Border overlay: same position as body-bg but different border-radius */
+/* Figma: rounded-tl-35 rounded-tr-35 rounded-bl-80 rounded-br-80 */
+.player-border-overlay {
+  position: absolute;
+  width: 76px;
+  height: 115px;
+  left: 30px;
+  top: 10px;
+  border: 1px solid var(--black);
+  border-radius: 35px 35px 80px 80px;
+}
+
+/* ═══════════════════════════════════════════════
+   LOGIN FIELDS  (name + password row)
+   Figma: 298px wide, 140px tall (matches player),
+   column layout, space-between
+════════════════════════════════════════════════ */
+.login-fields {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 298px;
+  height: 140px;
+  flex-shrink: 0;
+}
+
+/* Player name label */
+.player-name {
+  font-family: 'ArbelHagilda', sans-serif;
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 30px;
+  color: var(--black);
+}
+
+/* Row: password input + submit button */
+.password-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Password input */
+.password-input {
+  width: 240px;
+  height: 48px;
+  background: var(--white);
+  border: 2px solid var(--black);
+  padding: 0 16px;
+  font-size: 18px;
+  letter-spacing: 0.15em;
+  outline: none;
+  flex-shrink: 0;
+}
+
+/* Submit button (green square with arrow) */
+.login-btn {
+  width: 48px;
+  height: 48px;
+  background: var(--green);
+  border: 2px solid var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.login-btn img {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.login-btn:hover {
+  filter: brightness(1.1);
+}

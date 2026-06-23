@@ -1,0 +1,360 @@
+/* ============================================================
+   OPERATION WINDOW
+   Pixel-perfect implementation of the Figma "Operation Window"
+   symbol (node 315:14495), 1054×734. Mirrors the chrome /
+   footer conventions used by CaseWindow + FootageWindow.
+   ============================================================ */
+
+.window {
+  width: 1054px;
+  max-width: calc(100vw - 32px);
+  max-height: calc(100vh - 61px - 24px);
+  background: var(--white);
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  overflow: clip;
+  font-family: var(--font-main);
+  color: var(--black);
+}
+
+.draggable { position: absolute; }
+.draggable .upperBar { cursor: move; user-select: none; }
+
+.windowMinimized {
+  height: auto;
+  max-height: none;
+  min-height: 0;
+}
+
+/* ─── Window chrome (title bar) ─────────────────────── */
+.upperBar {
+  width: 100%;
+  background: var(--white);
+  border-bottom: 2px solid var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow: clip;
+  flex-shrink: 0;
+}
+
+.upperBarTitle {
+  padding: 0 16px;
+  font-size: 22px;
+  line-height: 28px;
+  color: var(--grey);
+  white-space: nowrap;
+}
+
+.upperBarBtns {
+  display: flex;
+  align-items: center;
+}
+
+.chromeBtn {
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--black);
+  margin-right: -2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: clip;
+  cursor: pointer;
+  padding: 7px;
+  background: var(--white);
+}
+
+.chromeBtn:last-child { margin-right: 0; }
+.chromeBtn img { display: block; width: 100%; height: 100%; }
+
+.chromeExpand   { background: var(--green); padding: 6px 7px; }
+.chromeMinimize { background: var(--yellow); padding: 8px; }
+.chromeClose    { background: var(--red);    padding: 8px; }
+
+/* ─── Body: toggles + gauge ─────────────────────────── */
+.body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  overflow: clip;
+  width: 100%;
+}
+
+.bodyInner {
+  display: flex;
+  gap: 40px;
+  align-items: stretch;
+  width: 974px;
+  max-width: 100%;
+}
+
+/* ─── Toggles grid (3 cols × 2 rows) ────────────────── */
+.togglesGrid {
+  display: grid;
+  grid-template-columns: repeat(3, max-content);
+  grid-auto-rows: max-content;
+  gap: 32px;
+  align-self: flex-start;
+  flex-shrink: 0;
+}
+
+.toggleCell {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-start;
+  /* Top-align the cell within its grid row so the toggle pill
+     sits at the row's top edge regardless of how many lines
+     the label below wraps to. */
+  align-self: start;
+}
+
+/* Outer "pill" — grey background, 4px bottom-right reveal
+   creating the 3D-recessed look from the Figma. */
+.toggle {
+  background: var(--grey);
+  border: 2px solid var(--black);
+  border-radius: 12px;
+  padding: 0 4px 4px 0;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+
+/* Inner card — 192px tall, 8px padding all sides, stacks
+   the two slots (text + illustration). Beige when Off,
+   green when On (per Figma node 493:12184). */
+.toggleCard {
+  background: #cec9be;
+  border: 2px solid var(--black);
+  border-radius: 8px;
+  height: 192px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.toggleCardOn {
+  background: var(--green);
+}
+
+.toggleTextSlot {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.offText {
+  font-size: 22px;
+  line-height: 28px;
+  color: var(--black);
+  text-align: center;
+}
+
+/* Recessed illustration mount.
+   This is the "shadow" frame behind the illustration — an 8px
+   bottom-right reveal that creates the 3D recess effect from
+   the Figma. The outer's colour switches with state:
+   grey in Off, light-blue-300 in On (per Figma 493:12184).
+   `isolation: isolate` establishes a stacking context so the
+   inner's mix-blend-mode applies against THIS mount as its
+   backdrop, not against whatever's behind the toggle card. */
+.illustrationMount {
+  background: var(--grey);
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  padding: 0 8px 8px 0;
+  display: flex;
+  isolation: isolate;
+}
+
+.illustrationMountActive {
+  background: var(--light-blue-300);
+}
+
+/* The illustration SVG already paints its own yellow tile
+   background and black border — we don't add a second one
+   here. The wrapper just sets size + clip and carries the
+   blend mode for the Off variant. */
+.illustrationInner {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: clip;
+  border-radius: 4px;
+  /* mix-blend-luminosity matches the Figma's Off variant — it
+     desaturates the illustration against the grey mount. */
+  mix-blend-mode: luminosity;
+}
+
+/* On state: drop the desaturation so the illustration shows
+   its true colours. */
+.illustrationInnerActive {
+  mix-blend-mode: normal;
+}
+
+/* The composed illustration SVG fills the 80x80 tile. */
+.illustrationImg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.toggleLabel {
+  font-size: 18px;
+  line-height: 18px;
+  color: var(--black);
+  text-align: center;
+  /* The widest label ("Minister of national security") wraps
+     to 3 lines; the box width matches the toggle width above. */
+  width: 100px;
+  white-space: normal;
+}
+
+/* ─── Gauge box (right side) ─────────────────────────── */
+/* Self-stretches to the toggles' height, then everything
+   inside is absolute-positioned at the exact Figma coords. */
+.gaugeBox {
+  background: var(--light-blue-100);
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  flex: 1 0 0;
+  min-width: 0;
+  align-self: stretch;
+  position: relative;
+  overflow: clip;
+  /* Minimum height so the gauge fits even when the toggles
+     don't stretch as tall as the Figma intended. */
+  min-height: 480px;
+}
+
+.gaugeArc {
+  position: absolute;
+  left: 17.95px;
+  top: 131.03px;
+  width: 510.992px;
+  height: 241.642px;
+  display: block;
+}
+
+/* Zone labels — absolute-positioned to land on each tick. */
+.gaugeLabel {
+  position: absolute;
+  font-family: var(--font-main);
+  font-size: 16px;
+  line-height: 18px;
+  color: var(--black);
+  white-space: nowrap;
+  text-align: center;
+}
+
+.gaugeLabel p {
+  margin: 0;
+  line-height: 18px;
+}
+
+.gaugeLabelLeft   { text-align: left; }
+.gaugeLabelRight  { text-align: right; transform: translateX(-100%); }
+.gaugeLabelCenter { text-align: center; transform: translateX(-50%); }
+
+/* Needle anchor — pinned at the bottom-centre of the arc
+   image so the needle's base sits at the arc's pivot. The
+   needle itself rotates around its own base (50% 100%) so
+   every state visibly sweeps around this single point. */
+.gaugeNeedleAnchor {
+  position: absolute;
+  /* Arc image is 510.992 wide at left:17.95 → centre is at
+     17.95 + 255.496 = 273.446. Anchor x = arc centre. */
+  left: 273.446px;
+  /* Arc image is 241.642 tall at top:131.03 → bottom edge is
+     at 131.03 + 241.642 = 372.672. Anchor y = arc bottom. */
+  top: 372.672px;
+  width: 0;
+  height: 0;
+}
+
+.gaugeNeedle {
+  /* Needle SVG ships as 23×113 with the rounded base at the
+     bottom. We position it so its bottom-centre sits exactly
+     on the anchor point (i.e. the arc's pivot), then rotate
+     around that same point. */
+  position: absolute;
+  left: -11.5px;
+  bottom: 0;
+  width: 23px;
+  height: 113px;
+  display: block;
+  transform-origin: 50% 100%;
+  transition: transform 350ms ease;
+}
+
+/* ─── Footer: caption + CTA ──────────────────────────── */
+.footer {
+  background: var(--white);
+  border-top: 2px solid var(--black);
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.footerText {
+  font-size: 22px;
+  line-height: 28px;
+  color: var(--grey);
+  white-space: nowrap;
+}
+
+.ctas {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.cta {
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  padding: 12px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-main);
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 26px;
+  color: var(--white);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.ctaArrest {
+  background: var(--red);
+  transition: background-color 200ms ease;
+}
+
+/* Disabled state — used until every toggle is on. Same shape
+   as ctaArrest so the button doesn't reflow when it enables;
+   only the colour + cursor change. */
+.ctaDisabled {
+  background: var(--grey);
+  cursor: not-allowed;
+  transition: background-color 200ms ease;
+}

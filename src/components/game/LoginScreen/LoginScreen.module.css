@@ -1,0 +1,160 @@
+/* ═══════════════════════════════════════════════
+   LOGIN SCREEN — pixel-perfect from Figma
+   Designed inside the 1920×1080 game canvas;
+   the canvas is scaled to fit by useGameScale.
+════════════════════════════════════════════════ */
+
+.screen {
+  position: absolute;
+  inset: 0;
+  background: var(--light-yellow-100);
+}
+
+/* ─── Top & bottom bars ────────────────────────── */
+.bar {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 118px;
+  background: var(--light-blue-200);
+}
+.barTop    { top: 0;    border-bottom: 2px solid var(--black); }
+.barBottom { bottom: 0; border-top:    2px solid var(--black); }
+
+/* ─── "Welcome" heading ─────────────────────────── */
+.welcome {
+  position: absolute;
+  top: 221px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 298px;
+  text-align: center;
+  font-family: var(--font-main);
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 64px;
+  color: var(--light-yellow-200);
+  -webkit-text-stroke: 4px var(--black);
+  paint-order: stroke fill;
+  white-space: nowrap;
+}
+
+/* ─── Center group (badge / divider / form) ────── */
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 772px;
+  display: flex;
+  align-items: center;
+  gap: 48px;
+}
+
+/* ─── Police badge ──────────────────────────────── */
+.badge {
+  position: relative;
+  width: 192.324px;
+  height: 243.16px;
+  flex-shrink: 0;
+}
+.badgeLogo {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* ─── Vertical divider line ─────────────────────── */
+.divider {
+  flex: 1 0 0;
+  min-width: 1px;
+  height: 227px;
+  position: relative;
+}
+.divider::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  height: 100%;
+  border-left: 2px solid var(--black);
+}
+
+/* ─── Login group (player + form, side by side) ── */
+.loginGroup {
+  display: flex;
+  align-items: flex-end;
+  gap: 30px;
+  flex-shrink: 0;
+}
+
+/* ─── Player avatar (140×140 box) ───────────────── */
+.avatar {
+  position: relative;
+  width: 140px;
+  height: 140px;
+  flex-shrink: 0;
+}
+.player {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* ─── Login fields (name + password row) ────────── */
+.fields {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 298px;
+  height: 140px;
+  flex-shrink: 0;
+}
+.name {
+  font-family: var(--font-main);
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 30px;
+  color: var(--black);
+}
+.row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.input {
+  width: 240px;
+  height: 48px;
+  background: var(--white);
+  border: 2px solid var(--black);
+  padding: 0 16px;
+  font-size: 18px;
+  letter-spacing: 0.15em;
+  outline: none;
+  flex-shrink: 0;
+  font-family: var(--font-main);
+}
+.loginBtn {
+  width: 48px;
+  height: 48px;
+  background: var(--green);
+  border: 2px solid var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.loginBtn img {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+.loginBtn:hover:not(:disabled) {
+  filter: brightness(1.1);
+}
+.loginBtn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}

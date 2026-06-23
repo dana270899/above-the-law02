@@ -1,0 +1,296 @@
+/* ═══════════════════════════════════════════════
+   BOSS MESSAGE — pixel-perfect from Figma
+   Three variants: voice | text | link
+   Figma frame: 564×220 (voice/text), 564×252 (link)
+════════════════════════════════════════════════ */
+
+/* ─── Outer wrapper: grey "shadow" behind the card ── */
+.wrapper {
+  display: inline-flex;
+  align-items: center;
+  background: var(--grey);
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  padding: 0 8px 8px 0; /* offset that creates the drop-shadow look */
+  overflow: hidden;
+}
+
+/* ─── Inner card ───────────────────────────────── */
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 556px;
+  background: var(--white);
+  /* The wrapper already paints a 2px black border on the top + left
+     of the visible card. Drawing the card's full border on top of
+     that would double the line to 4px (the "thicker stroke" effect).
+     Only paint the right + bottom borders here — they sit against
+     the grey shadow strip, where the wrapper has no inner border to
+     overlap with. */
+  border-right: 2px solid var(--black);
+  border-bottom: 2px solid var(--black);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+/* ─── Top "Chat" bar ───────────────────────────── */
+.headerBar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+  background: var(--white);
+  /* Top + side borders would stack with the wrapper's border and
+     double up. We only need the bottom edge — it's the separator
+     between the header and the message body. */
+  border-bottom: 2px solid var(--black);
+  overflow: hidden;
+}
+.headerLabel {
+  padding: 0 16px;
+  font-family: var(--font-main);
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 28px;
+  color: var(--grey);
+  white-space: nowrap;
+}
+
+/* ─── Body row (avatar + content + timestamp) ──── */
+.body {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  width: 100%;
+  padding: 16px;
+}
+/* Link variant trims bottom padding (its button has its own footer) */
+.bodyLink {
+  padding: 16px 16px 8px 16px;
+}
+
+/* ─── Boss avatar (120×120) ────────────────────── */
+.avatar {
+  position: relative;
+  flex-shrink: 0;
+  width: 120px;
+  height: 120px;
+  background: var(--light-blue-200);
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  overflow: hidden;
+}
+/* Boss face parts — absolute positions match Figma node 291:12200 */
+.hair     { position: absolute; width: 90.103px; height: 32.069px; left: 15px;     top: 52.81px; }
+.head {
+  position: absolute;
+  width: 70.5px; height: 87.6px;
+  left: 25px;    top: 23.41px;
+  background: var(--pink);
+  border: 1px solid var(--black);
+  border-radius: 18px 18px 27px 27px;
+}
+.nose     { position: absolute; width: 18.264px; height: 22.785px; left: 51.81px;  top: 60.61px; }
+.glasses  { position: absolute; width: 74.544px; height: 50.454px; left: 23.74px;  top: 9px; }
+.noseline { position: absolute; width: 8.1px;    height: 0.9px;    left: 57px;     top: 63.01px; transform: rotate(180deg); }
+.mustache { position: absolute; width: 34.799px; height: 2.21px;   left: 44.1px;   top: 66.85px; }
+.stache2  { position: absolute; width: 33.971px; height: 3.59px;   left: 44.38px;  top: 63.26px; }
+.eyebrowR {
+  position: absolute;
+  width: 15px; height: 2.1px;
+  left: 67.2px; top: 57.01px;
+  background: var(--grey);
+  border: 1px solid var(--black);
+  border-radius: 12px;
+}
+.eyebrowL {
+  position: absolute;
+  width: 15px; height: 2.1px;
+  left: 39px; top: 57.01px;
+  background: var(--grey);
+  border: 1px solid var(--black);
+  border-radius: 12px;
+}
+.lipsFill {
+  position: absolute;
+  width: 39.6px; height: 10.5px;
+  left: 40.8px; top: 87.01px;
+  background: var(--red);
+  border: 1px solid var(--black);
+  border-radius: 12px 12px 30px 30px;
+}
+.lipsMouth   { position: absolute; width: 39.6px;  height: 10.5px;   left: 40.8px;  top: 87.01px; }
+.lipsBorder {
+  position: absolute;
+  width: 39.6px; height: 10.5px;
+  left: 40.8px; top: 87.01px;
+  border: 1px solid var(--black);
+  border-radius: 12px 12px 30px 30px;
+}
+.eyeOuterR {
+  position: absolute;
+  width: 18.494px; height: 14.066px;
+  left: 64.31px;   top: 59.28px;
+  border: 1px solid var(--black);
+  border-radius: 25.2px 25.2px 28.2px 28.2px;
+}
+.eyeOuterL {
+  position: absolute;
+  width: 18.494px; height: 14.066px;
+  left: 39.3px;    top: 59.28px;
+  border: 1px solid var(--black);
+  border-radius: 25.2px 25.2px 28.2px 28.2px;
+}
+.cheekL { position: absolute; width: 6.15px; height: 3.3px; left: 43.05px; top: 81.91px; }
+.cheekR { position: absolute; width: 6.15px; height: 3.3px; left: 71.7px;  top: 81.91px; transform: scaleY(-1) rotate(180deg); }
+
+/* ─── Content column (Boss name + body) ────────── */
+.content {
+  display: flex;
+  flex: 1 0 0;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  min-width: 0;
+  padding-top: 8px;
+}
+/* Voice + text: column has a fixed 140px height — Figma forces this
+   so the card is the same size whether the body is a single line of
+   text or a voice player. */
+.contentVoice,
+.contentText {
+  height: 140px;
+}
+/* Link variant: column stretches to match the avatar (120px) so the
+   body row stays compact; the green CTA lives in its own footer
+   underneath. Matches Figma's `self-stretch` on this column. */
+.contentLink {
+  align-self: stretch;
+}
+
+.senderName {
+  font-family: var(--font-main);
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 30px;
+  color: var(--black);
+  white-space: nowrap;
+}
+
+.bodyText {
+  width: 100%;
+  font-family: var(--font-main);
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 28px;
+  color: var(--black);
+  word-break: break-word;
+}
+
+/* ─── Voice player (mic + progress bar) ────────── */
+.voice {
+  position: relative;
+  width: 323px;
+  height: 65px;
+  flex-shrink: 0;
+}
+.voiceTrack {
+  position: absolute;
+  left: 29px;  top: 33px;
+  width: 294px; height: 5px;
+  background: var(--grey);
+  border: 2px solid var(--black);
+  border-radius: 60px;
+}
+.voiceMicBtn {
+  position: absolute;
+  left: 0; top: 0;
+  width: 64px; height: 64px;
+  background: var(--light-blue-300);
+  border: 2px solid var(--black);
+  border-radius: 100px;
+}
+.voiceMicIcon {
+  position: absolute;
+  left: 6px; top: 8px;
+  width: 48px; height: 48px;
+}
+.voicePlayhead {
+  position: absolute;
+  /* `left` is animated below — keep this as the starting frame so
+     the playhead has a valid position before the animation kicks in. */
+  left: 70px;
+  top: 25px;
+  width: 5px; height: 21px;
+  background: var(--yellow);
+  border: 2px solid var(--black);
+  border-radius: 60px;
+  /* Drive the playhead across the grey track in sync with the audio
+     clip. `--voice-duration` is set inline from the message's
+     `voiceDuration` (defaults to 5s if the editor didn't set one). */
+  animation: voicePlayheadProgress var(--voice-duration, 5s) linear forwards;
+}
+
+@keyframes voicePlayheadProgress {
+  /* Start right after the mic button (mic ends at x=64, +6px breathing room). */
+  from { left: 70px; }
+  /* End at the right edge of the 294px-wide track that starts at x=29,
+     minus the playhead's own 5px width so it lands cleanly on the line. */
+  to   { left: 318px; }
+}
+
+/* ─── Voice subtitle (optional caption under the player) ── */
+.subtitle {
+  width: 100%;
+  margin-top: 8px;
+  font-family: var(--font-main);
+  font-size: 18px;
+  line-height: 24px;
+  color: var(--black);
+  word-break: break-word;
+}
+
+/* ─── Timestamp ("now") ────────────────────────── */
+.timestamp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding-top: 4px;
+  font-family: var(--font-main);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 28px;
+  color: var(--grey);
+  white-space: nowrap;
+}
+
+/* ─── Link variant: footer with CTA button ─────── */
+.footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  width: 100%;
+  padding: 0 24px 16px 24px;
+}
+.cta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 32px;
+  background: var(--green);
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  font-family: var(--font-main);
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 28px;
+  color: var(--white);
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.cta:hover {
+  filter: brightness(1.05);
+}

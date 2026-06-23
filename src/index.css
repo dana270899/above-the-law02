@@ -1,0 +1,45 @@
+/* ─── FONTS ──────────────────────────────────────── */
+@font-face {
+  font-family: 'ArbelHagilda';
+  src: url('/fonts/ArbelHagilda-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'ArbelHagilda';
+  src: url('/fonts/ArbelHagilda-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+/* ─── DESIGN TOKENS (from Figma) ─────────────────── */
+:root {
+  --black:            #171717;
+  --white:            #fffdfd;
+  --light-yellow-100: #fffdf3;
+  --light-yellow-200: #fff0ac;
+  --light-blue-100:   #f6fcff;
+  --light-blue-200:   #e1f5ff;
+  --light-blue-300:   #b3e6fe;
+  --grey:             #8e8a7f;
+  --yellow:           #ffe732;
+  --green:            #00a168;
+  --red:              #f43f38;
+  --pink:             #ffa4a4;
+  --font-main:        'ArbelHagilda', sans-serif;
+}
+
+/* ─── RESET ──────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #000; /* black "letterbox" outside the 1920×1080 game area */
+  font-family: var(--font-main);
+}

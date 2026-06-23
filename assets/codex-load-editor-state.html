@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Load editor state</title>
+  </head>
+  <body>
+    <script>
+      async function loadEditorState() {
+        const response = await fetch('/assets/editor-state-2026-06-24.json', { cache: 'no-store' })
+        if (!response.ok) throw new Error(`Could not load editor state: ${response.status}`)
+
+        const text = await response.text()
+        const graph = JSON.parse(text)
+        if (!Array.isArray(graph.nodes) || !Array.isArray(graph.edges)) {
+          throw new Error('Editor state must include nodes and edges arrays')
+        }
+
+        localStorage.setItem('game-editor-state-v1', text)
+        window.location.replace('/editor')
+      }
+
+      loadEditorState().catch((error) => {
+        document.body.textContent = error instanceof Error ? error.message : String(error)
+      })
+    </script>
+  </body>
+</html>

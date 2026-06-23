@@ -1,0 +1,165 @@
+.wrap {
+  flex: 1;
+  height: 100%;
+  overflow-y: auto;
+  background: #f5f5f5;
+  padding: 24px;
+  font-family: sans-serif;
+}
+
+.section {
+  margin-bottom: 40px;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.sectionTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: #222;
+  margin: 0;
+}
+
+.sectionMeta {
+  font-size: 12px;
+  color: #777;
+}
+
+.desktopFrame {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #fffdf3;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.desktopFrame iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+.messageGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.messageCard {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 20px;
+}
+
+.messageLabel {
+  font-size: 13px;
+  font-weight: 600;
+  color: #555;
+  margin: 0 0 12px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.messageStage {
+  display: flex;
+  justify-content: flex-start;
+  overflow-x: auto;
+}
+
+.sectionNote {
+  font-size: 13px;
+  color: #555;
+  margin: 0 0 12px 0;
+  line-height: 1.45;
+}
+
+/* Case Window is 1105×898 native. Stage allows horizontal scroll if the
+   editor panel is narrower than that. Vertical scroll comes from the
+   window's own inner content. */
+.caseStage {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 20px;
+  display: flex;
+  justify-content: flex-start;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+/* Subtitle preview stage. Subtitles use position: absolute pinned to
+   the bottom, so we need a positioned parent of game-like proportions
+   (16:9) with a dark fill behind the white text. */
+.subtitleStage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: linear-gradient(135deg, #2a3d52 0%, #1a2533 100%);
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.winImageEditor {
+  margin-bottom: 12px;
+  padding: 12px 14px;
+  background: #fafafa;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+}
+
+.winImageStatus {
+  margin: 0 0 10px 0;
+  font-size: 13px;
+  color: #444;
+  line-height: 1.45;
+}
+
+.winImageStatus code {
+  font-size: 12px;
+  background: #f0f0f0;
+  padding: 1px 5px;
+  border-radius: 3px;
+}
+
+.winImageRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.winImageFile {
+  font-size: 12px;
+  font-family: sans-serif;
+  color: #333;
+}
+
+.winImageReset {
+  padding: 5px 12px;
+  background: #fffbe6;
+  border: 1px solid #b58900;
+  border-radius: 4px;
+  color: #8a6500;
+  font-size: 12px;
+  font-family: sans-serif;
+  cursor: pointer;
+}
+
+.winImageReset:hover {
+  background: #fff5b8;
+}
+
+.winImageError {
+  margin: 8px 0 0 0;
+  font-size: 12px;
+  color: #b00020;
+}

@@ -1,0 +1,259 @@
+@font-face {
+  font-family: 'ArbelHagilda';
+  src: url('/fonts/ArbelHagilda-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ============================================================
+   Responsive layout
+   ------------------------------------------------------------
+   The desktop fills the viewport. All elements use real edge-
+   anchored positioning at their native pixel sizes, so:
+     - the sidebar stays 54px from the left edge of any screen
+     - the taskbar always spans the full width at the bottom
+     - the logo stays centered in the viewport
+     - icons, labels, and the start button keep their original
+       sizes regardless of resolution
+   ============================================================ */
+
+.viewport,
+.desktop {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #fffdf3;
+  overflow: hidden;
+  font-family: 'ArbelHagilda', sans-serif;
+}
+
+/* While a tutorial spotlight is active, neutralize the cream tint so
+   the background showing through the target SVG's transparent pixels
+   matches the grayscale of the rest of the desktop. #fffdf3 desaturated
+   is essentially this off-white. */
+.desktop[data-tutorial-active] {
+  background: #fefefd;
+}
+
+/* Icon-size token
+   ----------------
+   The Figma reference uses 120px icons on a 1920-wide canvas (6.25%).
+   We keep that ratio with clamp() so icons look proportional on any
+   desktop monitor without exceeding their authored size.
+     - small screens (<= 1280w): 80px floor
+     - native: 120px ceiling (the Figma design size)
+   The label, gap, and sidebar width track the same ratio. */
+.desktop {
+  --icon-size: clamp(80px, 6.25vw, 120px);
+  --icon-scale: calc(var(--icon-size) / 120px);
+  --label-size: clamp(16px, 1.25vw, 24px);
+  --sidebar-width: clamp(140px, 10.4vw, 200px);
+  --sidebar-gap: clamp(28px, 2.08vw, 40px);
+}
+
+/* Sidebar — anchored to top-left, 54px from edges.
+   Two-column layout: left column holds Rulebook/Cases/Operation/Trash,
+   right column holds Game. The row gap is half the standard sidebar
+   gap so the Game column sits closer to the others. */
+.sidebar {
+  position: absolute;
+  left: 54px;
+  top: 58px;
+  display: flex;
+  flex-direction: row;
+  gap: calc(var(--sidebar-gap) / 2);
+  align-items: flex-start;
+}
+
+.sidebarColumn {
+  width: var(--sidebar-width);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sidebar-gap);
+  align-items: flex-start;
+}
+
+/* Right column (Game) — sized to its content (not the full sidebar
+   width) so the Game icon sits flush at the start of its column,
+   removing the centering padding that would otherwise widen the gap. */
+.sidebarColumnRight {
+  width: auto;
+  margin-left: -5px;
+}
+
+.appIcon {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: calc(20px * var(--icon-scale));
+  overflow: hidden;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+
+.appIcon:focus-visible {
+  outline: 2px solid #171717;
+  outline-offset: 2px;
+}
+
+/* First icon (Rulebook) uses a tighter gap in the Figma source */
+.appIconFirst {
+  gap: calc(16px * var(--icon-scale));
+}
+
+/* Top row — Game and Rulebook side by side */
+.topRow {
+  display: flex;
+  flex-direction: row;
+  gap: var(--sidebar-gap);
+  align-items: flex-start;
+}
+
+.topRow .appIcon {
+  width: auto;
+}
+
+.iconBox {
+  position: relative;
+  width: var(--icon-size);
+  height: var(--icon-size);
+  flex-shrink: 0;
+}
+
+.appLabel {
+  font-family: 'ArbelHagilda', sans-serif;
+  font-size: var(--label-size);
+  line-height: var(--label-size);
+  color: #000;
+  text-align: center;
+  font-weight: 400;
+  width: 100%;
+  word-break: break-word;
+}
+
+/* Illustration container
+   --------------------------
+   Internal sub-elements use absolute pixel positions matching the
+   120x120 Figma source. We keep the layout at 120x120 and scale the
+   whole illustration to fit the responsive --icon-size token. */
+.illu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 120px;
+  height: 120px;
+  overflow: hidden;
+  transform-origin: top left;
+  transform: scale(var(--icon-scale));
+}
+
+.illu img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Vertical flip wrapper (Rulebook cover layers) */
+.flipY {
+  position: absolute;
+  transform: scaleY(-1);
+}
+
+.flipY img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Center logo — vertically centered in the available area above the taskbar */
+.logo {
+  position: absolute;
+  left: 50%;
+  /* (100vh - 61px taskbar) / 2 → midpoint of the usable area */
+  top: calc((100vh - 61px) / 2);
+  width: 498.81px;
+  height: 630.658px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.logo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Taskbar — full-width, anchored bottom */
+.taskbar {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 61px;
+  background: #fff;
+  border-top: 2px solid #000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 32px;
+  overflow: hidden;
+}
+
+.startButton {
+  background: #e1f5ff;
+  border: none;
+  border-right: 2px solid #000;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+  width: 240px;
+  flex-shrink: 0;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+
+.startButton:focus-visible {
+  outline: 2px solid #171717;
+  outline-offset: -4px;
+}
+
+.startText {
+  font-family: 'ArbelHagilda', sans-serif;
+  font-size: 40px;
+  line-height: normal;
+  color: #000;
+  text-align: center;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+.timeText {
+  font-family: 'ArbelHagilda', sans-serif;
+  font-size: 24px;
+  color: #000;
+  white-space: nowrap;
+}
+
+/* Scenario-specific overlay layer (sits above desktop bg, below taskbar) */
+.overlay {
+  position: absolute;
+  inset: 0 0 61px 0;
+  pointer-events: none;
+}
+
+.overlay > * {
+  pointer-events: auto;
+}

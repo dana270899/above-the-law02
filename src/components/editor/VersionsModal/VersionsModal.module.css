@@ -1,0 +1,153 @@
+/* Versions modal — list saved snapshots of the editor graph. */
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.modal {
+  width: min(720px, 100%);
+  max-height: calc(100vh - 48px);
+  background: #fff;
+  border: 2px solid #000;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: sans-serif;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 2px solid #000;
+  background: #f6f6f6;
+}
+
+.title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: #111;
+}
+
+.closeBtn {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border: 1px solid #888;
+  border-radius: 4px;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.empty {
+  margin: 24px 16px;
+  color: #555;
+  font-size: 13px;
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 16px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.row:last-child { border-bottom: none; }
+
+.rowMain {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #111;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.autoTag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 400;
+  background: #eef3ff;
+  color: #2a59b8;
+  border: 1px solid #c7d4ee;
+  border-radius: 999px;
+  padding: 0 6px;
+  line-height: 16px;
+}
+
+.meta {
+  font-size: 11px;
+  color: #666;
+}
+
+.renameInput {
+  font: inherit;
+  font-size: 13px;
+  padding: 2px 6px;
+  border: 1px solid #888;
+  border-radius: 3px;
+  min-width: 220px;
+}
+
+.actions {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.btn,
+.btnPrimary,
+.btnDanger {
+  font: inherit;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid #999;
+  background: #fff;
+  color: #222;
+}
+
+.btnPrimary {
+  background: #185fa5;
+  border-color: #185fa5;
+  color: #fff;
+}
+.btnPrimary:hover { background: #0f4d8d; }
+
+.btnDanger {
+  background: #fff;
+  border-color: #b03333;
+  color: #b03333;
+}
+.btnDanger:hover { background: #fff0f0; }

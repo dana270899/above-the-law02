@@ -1,0 +1,86 @@
+/* ═══════════════════════════════════════════════
+   PUNCHING DUMMY — layered layout
+
+   Same outer pattern as the InteractiveWinScreen
+   base — background fills width keeping ratio,
+   wrapper is the positioning context. The toy
+   sprite (canvas in idle, img while animating) and
+   the push hotspot are absolutely positioned in %
+   of the wrapper so they scale with the background.
+════════════════════════════════════════════════ */
+
+.screen {
+  position: relative;
+  width: 100%;
+  background: var(--white);
+  overflow: hidden;
+}
+
+.scene {
+  display: block;
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Wrapper owns positioning + rotation. Hinge at the base so rotation
+   reads as "tumbler tilting", not "sprite spinning in place". The
+   wrapper persists across canvas→forward-gif→reverse-gif swaps so the
+   wobble keyframe doesn't restart when the inner content changes. */
+.toyWrapper {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+  transform-origin: 50% 100%;
+}
+
+/* The inner image (canvas or img) fills the wrapper. */
+.toyImage {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+}
+
+.toyDebug {
+  outline: 2px dashed rgba(0, 150, 255, 0.7);
+}
+
+/* Wobble-back keyframe — runs after the player releases. Uses CSS
+   variables set inline by the component:
+     --toy-tilt              the angle at release time
+     --toy-settle-duration   the total animation length (scaled by
+                             release strength on the JS side)
+   The keyframe interpolates a damped oscillation: overshoots to
+   the opposite side at ~-32%, comes back to ~+12%, then settles. */
+.toyWrapperReturning {
+  animation: settle var(--toy-settle-duration, 700ms) ease-out forwards;
+}
+
+@keyframes settle {
+  0%   { transform: rotate(var(--toy-tilt, 0deg)); }
+  35%  { transform: rotate(calc(var(--toy-tilt, 0deg) * -0.32)); }
+  62%  { transform: rotate(calc(var(--toy-tilt, 0deg) *  0.12)); }
+  82%  { transform: rotate(calc(var(--toy-tilt, 0deg) * -0.04)); }
+  100% { transform: rotate(0deg); }
+}
+
+.hotspot {
+  position: absolute;
+  background: transparent;
+  border: none;
+  outline: none;
+  cursor: grab;
+}
+
+.hotspot:active {
+  cursor: grabbing;
+}
+
+.hotspotDebug {
+  background: rgba(255, 200, 0, 0.25);
+  outline: 2px dashed rgba(255, 150, 0, 0.9);
+}

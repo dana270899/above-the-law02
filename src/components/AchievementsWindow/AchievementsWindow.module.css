@@ -1,0 +1,118 @@
+/* ───────────────────────────────────────────────
+   Ranks window — Figma frame 538:21055.
+   Light-blue card, 24px padding, 24px gap,
+   2px black border, 4px corner radius.
+   ─────────────────────────────────────────────── */
+
+.window {
+  background: var(--light-blue-200);
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  font-family: var(--font-main);
+  color: var(--black);
+  position: relative;
+  width: max-content;
+}
+
+.draggable {
+  cursor: default;
+}
+
+/* Close button — top-right. Not in the Figma frame; kept so the
+   window can be dismissed on the desktop. */
+.closeBtn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  width: 22px;
+  height: 22px;
+  font-size: 16px;
+  line-height: 1;
+  background: var(--white);
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: inherit;
+  color: var(--black);
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.closeBtn:hover {
+  background: var(--pink);
+}
+
+/* Badge column: shield + chevron stack. Figma container is
+   92.526×312.022; the shield (92.526×115.775) sits at the top,
+   and 6 chevrons (70.694×28.988) fill the rest, centered. */
+.badgeStack {
+  width: 92.526px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.shield {
+  width: 92.526px;
+  height: 115.775px;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Chevron stack: 6 markers, ~2.5px between each (matches the
+   31.54px y-stride / 28.988px chevron height in Figma).
+   9.5px top spacing puts the first chevron at y=125.31. */
+.chevrons {
+  margin-top: 9.5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.55px;
+}
+
+.chevron {
+  width: 70.694px;
+  height: 28.988px;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* H5 — 24px / 28px line-height, ArbelHagilda. */
+.title {
+  font-family: var(--font-main);
+  font-size: 24px;
+  line-height: 28px;
+  color: var(--black);
+  font-weight: 400;
+  margin: 0;
+  white-space: nowrap;
+  word-break: break-word;
+}
+
+/* Per-chevron flicker — fires when a single rank is earned (the
+   chevron's outcome transitions to 'win'). The whole-bar entry
+   animation is implemented in JS via the empty↔full state machine
+   in AchievementsWindow.tsx, not in CSS.
+   Wrapped in `prefers-reduced-motion: no-preference` so users
+   with reduced-motion settings see the final state instantly. */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes chevronFlicker {
+    0%   { opacity: 0.2; filter: brightness(0.6); }
+    20%  { opacity: 1;   filter: brightness(1.6); }
+    40%  { opacity: 0.3; filter: brightness(0.7); }
+    60%  { opacity: 1;   filter: brightness(1.5); }
+    80%  { opacity: 0.4; filter: brightness(0.8); }
+    100% { opacity: 1;   filter: brightness(1);   }
+  }
+  .chevronFlicker {
+    animation: chevronFlicker 600ms steps(6, end);
+  }
+}

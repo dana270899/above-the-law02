@@ -1,0 +1,131 @@
+/* The fixed 1920×1080 game canvas.
+   useGameScale applies a transform that scales/centers it in the viewport. */
+.canvas {
+  position: absolute;
+  width: 1920px;
+  height: 1080px;
+  transform-origin: top left;
+  background: var(--light-yellow-100);
+  overflow: hidden;
+}
+
+/* Centers the CaseWindow / OperationWindow within the Desktop
+   overlay slot. The wrapper itself is click-through (pointer-events
+   none) so the empty space around the centered window doesn't
+   swallow clicks meant for the desktop icons underneath. The
+   draggable window inside re-enables pointer events on itself so
+   it still catches its own clicks. */
+.caseLayer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  pointer-events: none;
+}
+.caseLayer > * {
+  pointer-events: auto;
+}
+
+/* Achievements panel — bottom-right, directly above the taskbar clock.
+   z-index: 0 keeps it underneath every other draggable window. */
+.achievementsLayer {
+  position: absolute;
+  bottom: 40px;
+  right: 32px;
+  z-index: 0;
+}
+
+/* ─── Game-flow message overlay ───────────────────
+   Sits above the desktop + case window. The wrapper
+   itself is click-through so the desktop stays
+   interactive; only the BossMessage card receives
+   pointer events.
+*/
+.messageOverlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+.messageSlot {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  pointer-events: auto;
+}
+/* Draggable: card shows a grab cursor; switches to grabbing while held.
+   Inner buttons override with their own cursors (default pointer). */
+.messageSlotDraggable {
+  cursor: grab;
+  user-select: none;
+}
+.messageSlotDraggable:active {
+  cursor: grabbing;
+}
+/* Text-only messages have no inherent button — the whole card is clickable. */
+.messageSlotClickable {
+  cursor: pointer;
+}
+.messageSlotClickable:hover {
+  filter: brightness(1.04);
+}
+.messageSlotClickable:focus-visible {
+  outline: 3px solid var(--yellow);
+  outline-offset: 4px;
+}
+
+/* ─── Full-screen win stop ─────────────────────────
+   The walker pauses on a `win` result. This screen
+   escapes the fixed 1920×1080 game canvas and fills
+   the actual viewport — image scales to viewport
+   width keeping its ratio, decision bar takes the
+   remaining viewport height. */
+.winStop {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--white);
+  overflow: hidden;
+  /* Click-anywhere-to-advance — make the whole screen feel pressable. */
+  cursor: pointer;
+}
+.winStop:focus-visible {
+  outline: 3px solid var(--yellow);
+  outline-offset: -3px;
+}
+.winScreen {
+  flex: 0 0 auto;
+}
+.winBar {
+  flex: 1 1 auto;
+  background: var(--white);
+  border-top: 2px solid var(--black);
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.winBarText {
+  font-family: var(--font-main);
+  font-size: 22px;
+  line-height: 28px;
+  color: var(--grey);
+  white-space: nowrap;
+}
+.winNext {
+  background: var(--green);
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  padding: 12px 32px;
+  font-family: var(--font-main);
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 26px;
+  color: var(--white);
+  cursor: pointer;
+  white-space: nowrap;
+}

@@ -1,0 +1,176 @@
+/* KIPPAH CUTTING WORKSHOP — windowed click variant. */
+
+.window {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 100%;
+  background: var(--white);
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.upperBar {
+  width: 100%;
+  background: var(--white);
+  border-bottom: 2px solid var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow: clip;
+  flex-shrink: 0;
+}
+
+.upperBarTitle {
+  padding: 0 16px;
+  font-size: 22px;
+  line-height: 28px;
+  color: var(--grey);
+  white-space: nowrap;
+}
+
+.upperBarBtns {
+  display: flex;
+  align-items: center;
+}
+
+.chromeBtn {
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--black);
+  margin-right: -2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: clip;
+  cursor: pointer;
+  padding: 7px;
+  background: var(--white);
+}
+
+.chromeBtn:last-child { margin-right: 0; }
+.chromeBtn img { display: block; width: 100%; height: 100%; }
+
+.chromeExpand   { background: var(--green);  padding: 6px 7px; }
+.chromeMinimize { background: var(--yellow); padding: 8px; }
+.chromeClose    { background: var(--red);    padding: 8px; }
+
+.screen {
+  position: relative;
+  width: 100%;
+  background: var(--white);
+  overflow: hidden;
+  cursor: none;
+  outline: none;
+}
+
+.scene {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
+}
+
+.cuttingPreview {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.fabricPiece,
+.hand,
+.cursor {
+  position: absolute;
+  display: block;
+  user-select: none;
+  pointer-events: none;
+}
+
+.fabricPiece {
+  height: auto;
+}
+
+.pieceLeft01 {
+  left: 34px;
+  bottom: 172px;
+  width: 141px;
+  transform: rotate(-13deg);
+}
+
+.pieceLeft02 {
+  left: 100px;
+  bottom: 90px;
+  width: 141px;
+  transform: rotate(12deg);
+}
+
+.pieceLeft03 {
+  left: 162px;
+  bottom: 36px;
+  width: 141px;
+  transform: rotate(-15deg);
+}
+
+.pieceRight01 {
+  right: -16px;
+  bottom: 158px;
+  width: 175px;
+  transform: rotate(-6deg);
+}
+
+.pieceRight02 {
+  right: 118px;
+  bottom: 54px;
+  width: 175px;
+  transform: rotate(10deg);
+}
+
+.handButton {
+  position: absolute;
+  left: 50%;
+  bottom: -2px;
+  width: 507px;
+  height: 510px;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: none;
+  pointer-events: auto;
+  transform: translateX(-50%);
+  outline: 0 !important;
+  box-shadow: none;
+}
+
+.handButton:focus,
+.handButton:focus-visible {
+  outline: 0 !important;
+  box-shadow: none;
+}
+
+.hand {
+  position: static;
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 3px 0 rgba(23, 23, 23, 0.18));
+}
+
+.cursor {
+  z-index: 5;
+  width: 9.4%;
+  min-width: 78px;
+  max-width: 132px;
+  transform: translate(-52%, -24%);
+  filter: drop-shadow(0 3px 0 rgba(23, 23, 23, 0.2));
+}
+
+.debug .cuttingPreview {
+  outline: 2px dashed rgba(244, 63, 56, 0.75);
+}
