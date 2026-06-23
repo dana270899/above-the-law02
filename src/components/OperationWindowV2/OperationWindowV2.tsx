@@ -6,6 +6,7 @@ import {
   type MouseEvent as ReactMouseEvent,
 } from 'react'
 import { OPERATION_SOUND_NONE } from '@/lib/operationSounds'
+import { assetUrl } from '@/lib/paths'
 import styles from './OperationWindowV2.module.css'
 
 /* ============================================================
@@ -29,8 +30,8 @@ import styles from './OperationWindowV2.module.css'
    API.
    ============================================================ */
 
-const CASE_ICONS = '/images/case-window'
-const ASSETS = '/images/operation-window'
+const CASE_ICONS = assetUrl('/images/case-window')
+const ASSETS = assetUrl('/images/operation-window')
 
 export const ITEM_KEYS = ['boss', 'forces', 'dogs', 'press', 'blindfold'] as const
 export type OperationItemKey = (typeof ITEM_KEYS)[number]
@@ -65,16 +66,16 @@ const ITEM_MAX: Record<OperationItemKey, number> = {
 /** Click sound per item — same mapping as v1 so users get a
  *  familiar audio cue when changing a quantity. */
 const ITEM_CLICK_SOUNDS: Record<OperationItemKey, string> = {
-  boss:      '/sounds/Light Switch 01.wav',
-  forces:    '/sounds/Light Switch 02.wav',
-  dogs:      '/sounds/Light Switch 03.wav',
-  press:     '/sounds/Light Switch 01.wav',
-  blindfold: '/sounds/Light Switch 02.wav',
+  boss:      assetUrl('/sounds/Light Switch 01.wav'),
+  forces:    assetUrl('/sounds/Light Switch 02.wav'),
+  dogs:      assetUrl('/sounds/Light Switch 03.wav'),
+  press:     assetUrl('/sounds/Light Switch 01.wav'),
+  blindfold: assetUrl('/sounds/Light Switch 02.wav'),
 }
 
 function playClickSound(url: string) {
   try {
-    const a = new Audio(url)
+    const a = new Audio(assetUrl(url))
     a.play().catch(() => { /* autoplay blocked — ignore */ })
   } catch {
     /* ignore */

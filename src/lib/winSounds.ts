@@ -1,3 +1,5 @@
+import { assetUrl } from './paths'
+
 /**
  * Registry of available win-screen sounds. The editor's Result node
  * lets the author pick one of these (or upload a custom audio file)
@@ -19,12 +21,12 @@ export const WIN_SOUNDS: WinSoundOption[] = [
   {
     id: 'notification',
     label: 'Notification chime',
-    src: '/sounds/notification.mp3',
+    src: assetUrl('/sounds/notification.mp3'),
   },
   {
     id: 'hashem-itbarach',
     label: 'Hashem Itbarach',
-    src: '/sounds/Hashem Itbarach.mp3',
+    src: assetUrl('/sounds/Hashem Itbarach.mp3'),
   },
 ]
 

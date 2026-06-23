@@ -6,10 +6,11 @@ import {
   type MouseEvent,
   type PointerEvent,
 } from 'react'
+import { assetUrl } from '@/lib/paths'
 import { useWinScreenBackground } from './useWinScreenBackground'
 import styles from './KippahCuttingWorkshop.module.css'
 
-const ASSET_ROOT = '/images/win-screens/KippahCutting'
+const ASSET_ROOT = assetUrl('/images/win-screens/KippahCutting')
 const CURSOR_OPEN = `${ASSET_ROOT}/Cursor_Scissors01.svg`
 const CURSOR_CLOSED = `${ASSET_ROOT}/Cursor_Scissors02.svg`
 
@@ -150,21 +151,21 @@ export function KippahCuttingWorkshop({
             className={`${styles.chromeBtn} ${styles.chromeExpand}`}
             aria-label="Expand"
           >
-            <img src="/images/case-window/expand.svg" alt="" />
+            <img src={assetUrl('/images/case-window/expand.svg')} alt="" />
           </button>
           <button
             type="button"
             className={`${styles.chromeBtn} ${styles.chromeMinimize}`}
             aria-label="Minimize"
           >
-            <img src="/images/case-window/minimize.svg" alt="" />
+            <img src={assetUrl('/images/case-window/minimize.svg')} alt="" />
           </button>
           <button
             type="button"
             className={`${styles.chromeBtn} ${styles.chromeClose}`}
             aria-label="Close"
           >
-            <img src="/images/case-window/close.svg" alt="" />
+            <img src={assetUrl('/images/case-window/close.svg')} alt="" />
           </button>
         </div>
       </div>

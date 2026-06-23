@@ -1,5 +1,6 @@
 import type { GameFlowNode, GameFlowEdge } from '@/types/editor'
 import { DEFAULT_CASE_DATA } from '@/components/CaseWindow'
+import { assetUrl } from './paths'
 
 /**
  * TUTORIAL FLOW PRESET
@@ -223,7 +224,7 @@ export function buildTutorialNodes(): GameFlowNode[] {
       data: {
         nodeType: 'message',
         messageType: 'voice',
-        content: '/sounds/notification.mp3',
+        content: assetUrl('/sounds/notification.mp3'),
         subtitle: 'I give you another chance',
         buttonLabel: '',
         buttonLinkType: 'edge',

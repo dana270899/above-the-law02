@@ -17,7 +17,7 @@
    `crosshair` is a graceful fallback until the user adds the asset. */
 .windowRunning {
   composes: window;
-  cursor: url('/images/whack/hammer.png') 8 8, crosshair;
+  cursor: crosshair;
 }
 
 /* ─── Title bar ──────────────────────────────────── */

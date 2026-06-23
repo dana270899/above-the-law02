@@ -1,6 +1,7 @@
 import { Handle, Position } from '@xyflow/react'
 import type { NodeProps } from '@xyflow/react'
 import type { LoginFlowNode } from '@/types/editor'
+import { appPath } from '@/lib/paths'
 
 export function LoginNode({ data }: NodeProps<LoginFlowNode>) {
   return (
@@ -20,7 +21,7 @@ export function LoginNode({ data }: NodeProps<LoginFlowNode>) {
       <div style={{ fontSize: 11, color: '#888', marginBottom: 8 }}>Login Screen</div>
 
       <a
-        href="/game"
+        href={appPath('/game')}
         target="_blank"
         rel="noreferrer"
         style={{ fontSize: 11, color: '#c8a800', textDecoration: 'underline' }}

@@ -8,6 +8,7 @@ import {
   DEFAULT_CASE_DATA,
   type CaseWindowData,
 } from '@/components/CaseWindow'
+import { appPath } from '@/lib/paths'
 import styles from './CaseNode.module.css'
 
 export function CaseNode({ id, data }: NodeProps<CaseFlowNode>) {
@@ -136,7 +137,7 @@ export function CaseNode({ id, data }: NodeProps<CaseFlowNode>) {
 
       <div style={{ marginTop: 6 }}>
         <a
-          href={`/game?startCase=${encodeURIComponent(data.caseId)}`}
+          href={appPath(`/game?startCase=${encodeURIComponent(data.caseId)}`)}
           target="_blank"
           rel="noreferrer"
           style={{ fontSize: 11, color: '#185fa5', textDecoration: 'underline' }}

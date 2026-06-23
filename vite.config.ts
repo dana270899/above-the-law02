@@ -159,6 +159,7 @@ function fileBackedEditorDataPlugin() {
 }
 
 export default defineConfig({
+  base: '/above-the-law02/',
   plugins: [react(), fileBackedEditorDataPlugin()],
   publicDir: 'assets',
   resolve: {

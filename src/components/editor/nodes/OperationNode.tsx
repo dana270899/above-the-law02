@@ -16,6 +16,7 @@ import {
   OPERATION_SOUNDS,
   OPERATION_SOUND_NONE,
 } from '@/lib/operationSounds'
+import { appPath, assetUrl } from '@/lib/paths'
 import styles from './CaseNode.module.css'
 
 /**
@@ -88,7 +89,7 @@ export function OperationNode({ id, data }: NodeProps<OperationFlowNode>) {
   function previewSound(src: string) {
     if (!src || src === OPERATION_SOUND_NONE) return
     try {
-      const a = new Audio(src)
+      const a = new Audio(assetUrl(src))
       a.play().catch(() => { /* autoplay blocked — ignore */ })
     } catch { /* ignore */ }
   }
@@ -135,7 +136,7 @@ export function OperationNode({ id, data }: NodeProps<OperationFlowNode>) {
 
       <div style={{ marginTop: 6 }}>
         <a
-          href={`/game?startOperation=${encodeURIComponent(data.operationId)}`}
+          href={appPath(`/game?startOperation=${encodeURIComponent(data.operationId)}`)}
           target="_blank"
           rel="noreferrer"
           style={{ fontSize: 11, color: '#993c1d', textDecoration: 'underline' }}

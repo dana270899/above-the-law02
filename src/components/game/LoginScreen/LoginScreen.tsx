@@ -1,4 +1,5 @@
 import { useState, type KeyboardEvent } from 'react'
+import { assetUrl } from '@/lib/paths'
 import styles from './LoginScreen.module.css'
 
 /**
@@ -40,7 +41,7 @@ export function LoginScreen({ onLogin }: LoginScreenProps = {}) {
 
         {/* Police badge */}
         <div className={styles.badge}>
-          <img src="/images/Logo.svg" className={styles.badgeLogo} alt="" />
+          <img src={assetUrl('/images/Logo.svg')} className={styles.badgeLogo} alt="" />
         </div>
 
         {/* Vertical divider */}
@@ -51,7 +52,7 @@ export function LoginScreen({ onLogin }: LoginScreenProps = {}) {
 
           {/* Player character */}
           <div className={styles.avatar}>
-            <img src="/images/Player.svg" className={styles.player} alt="" />
+            <img src={assetUrl('/images/Player.svg')} className={styles.player} alt="" />
           </div>
 
           {/* Name label + password row */}
@@ -74,7 +75,7 @@ export function LoginScreen({ onLogin }: LoginScreenProps = {}) {
                 aria-label="Login"
                 disabled={!value.trim()}
               >
-                <img src="/images/arrow-forward.svg" alt="" />
+                <img src={assetUrl('/images/arrow-forward.svg')} alt="" />
               </button>
             </div>
           </div>

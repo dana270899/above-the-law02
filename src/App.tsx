@@ -6,6 +6,7 @@ import { DesktopPage } from '@/pages/DesktopPage'
 import { LoginPage } from '@/pages/LoginPage'
 import { WinScreenComponent } from '@/components/game/WinScreen'
 import { useGameScale } from '@/hooks/useGameScale'
+import { routerBasename } from '@/lib/paths'
 
 /** Standalone /win/* routes — scale the 1920×1080 canvas to fit the
  *  viewport, same as the live game. Used by the editor Components
@@ -30,7 +31,7 @@ function WinScreenStage({ children }: { children: ReactNode }) {
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={routerBasename}>
       <Routes>
         <Route path="/" element={<DesktopPage />} />
         <Route path="/login" element={<LoginPage />} />

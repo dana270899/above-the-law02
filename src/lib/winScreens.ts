@@ -1,4 +1,5 @@
 import type { WinVariant } from './winScreenImage'
+import { assetUrl } from './paths'
 
 /**
  * Registry of available win-screen images. The editor's Result node
@@ -25,27 +26,27 @@ export const WIN_SCREENS: WinScreenOption[] = [
   {
     id: 'graffiti',
     label: 'Graffiti',
-    src: '/images/win-screens/Win03.svg',
+    src: assetUrl('/images/win-screens/Win03.svg'),
   },
   {
     id: 'punching-dummy',
     label: 'Punching Dummy',
-    src: '/images/win-screens/PunchingDummy/PunchingDummy_bg.png',
+    src: assetUrl('/images/win-screens/PunchingDummy/PunchingDummy_bg.png'),
   },
   {
     id: 'punching-dummy-click',
     label: 'Punching Dummy (Click)',
-    src: '/images/win-screens/PunchingDummy/PunchingDummy_bg.png',
+    src: assetUrl('/images/win-screens/PunchingDummy/PunchingDummy_bg.png'),
   },
   {
     id: 'kippah-cutting',
     label: 'Kippah Cutting',
-    src: '/images/win-screens/WinScreen_KippahCutting.svg',
+    src: assetUrl('/images/win-screens/WinScreen_KippahCutting.svg'),
   },
   {
     id: 'kippah-cutting-workshop',
     label: 'Kippah Cutting Workshop',
-    src: '/images/win-screens/WinScreen_KippahCutting.png',
+    src: assetUrl('/images/win-screens/WinScreen_KippahCutting.png'),
   },
 ]
 

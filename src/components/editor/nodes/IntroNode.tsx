@@ -1,6 +1,7 @@
 import { Handle, Position } from '@xyflow/react'
 import type { NodeProps } from '@xyflow/react'
 import type { IntroFlowNode } from '@/types/editor'
+import { appPath } from '@/lib/paths'
 
 export function IntroNode({ data }: NodeProps<IntroFlowNode>) {
   return (
@@ -13,7 +14,7 @@ export function IntroNode({ data }: NodeProps<IntroFlowNode>) {
       </div>
       <div style={{ fontSize: 11, color: '#666' }}>Opening messages</div>
       <a
-        href="/"
+        href={appPath('/')}
         style={{ display: 'block', marginTop: 8, fontSize: 11, color: '#534ab7', textDecoration: 'underline' }}
       >
         ▶ Play from start

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
+import { assetUrl } from '@/lib/paths'
 import { useWinScreenBackground } from './useWinScreenBackground'
 import styles from './PunchingDummyClick.module.css'
 
@@ -32,12 +33,12 @@ import styles from './PunchingDummyClick.module.css'
    canvas is redrawn on every tilt/phase change.
 ════════════════════════════════════════════════ */
 
-const TOY_FORWARD_SRC = '/images/win-screens/PunchingDummy/PunchingDummy_dummy_forward.gif'
-const TOY_REVERSE_SRC = '/images/win-screens/PunchingDummy/PunchingDummy_dummy_reverse.gif'
+const TOY_FORWARD_SRC = assetUrl('/images/win-screens/PunchingDummy/PunchingDummy_dummy_forward.gif')
+const TOY_REVERSE_SRC = assetUrl('/images/win-screens/PunchingDummy/PunchingDummy_dummy_reverse.gif')
 
 // Path to a punch-click sound. Leave `undefined` to skip; set to a
 // public path and `startPress` will fire it on every hotspot click.
-const CLICK_SOUND_SRC: string | undefined = '/sounds/Punch.mp3'
+const CLICK_SOUND_SRC: string | undefined = assetUrl('/sounds/Punch.mp3')
 
 // Toy footprint — kept identical to PunchingDummy so both variants line
 // up on the same coupon art.
@@ -328,21 +329,21 @@ export function PunchingDummyClick({
             className={`${styles.chromeBtn} ${styles.chromeExpand}`}
             aria-label="Expand"
           >
-            <img src="/images/case-window/expand.svg" alt="" />
+            <img src={assetUrl('/images/case-window/expand.svg')} alt="" />
           </button>
           <button
             type="button"
             className={`${styles.chromeBtn} ${styles.chromeMinimize}`}
             aria-label="Minimize"
           >
-            <img src="/images/case-window/minimize.svg" alt="" />
+            <img src={assetUrl('/images/case-window/minimize.svg')} alt="" />
           </button>
           <button
             type="button"
             className={`${styles.chromeBtn} ${styles.chromeClose}`}
             aria-label="Close"
           >
-            <img src="/images/case-window/close.svg" alt="" />
+            <img src={assetUrl('/images/case-window/close.svg')} alt="" />
           </button>
         </div>
       </div>

@@ -29,7 +29,7 @@
   /* TODO — tune the hotspot offset (the two numbers after the URL) so
      the punch lands on the click point. SVG is 181×236; browser will
      cap the cursor at ~128px and scale accordingly. */
-  cursor: url('/images/win-screens/PunchingDummy/PunchingDummy_glove_cursor.svg') 32 32, auto;
+  cursor: url('../../../../assets/images/win-screens/PunchingDummy/PunchingDummy_glove_cursor.svg') 32 32, auto;
 }
 
 /* Same shape + tokens as the Cases window upper bar — title text on

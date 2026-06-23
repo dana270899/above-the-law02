@@ -27,6 +27,7 @@ import {
   type WinImageEventDetail,
   type WinVariant,
 } from '@/lib/winScreenImage'
+import { appPath, assetUrl } from '@/lib/paths'
 import styles from './ComponentsTab.module.css'
 
 export function ComponentsTab() {
@@ -86,7 +87,7 @@ export function ComponentsTab() {
           <span className={styles.sectionMeta}>src/components/game/LoginScreen</span>
         </header>
         <div className={styles.desktopFrame}>
-          <iframe src="/login" title="Login Screen preview" />
+          <iframe src={appPath('/login')} title="Login Screen preview" />
         </div>
       </section>
 
@@ -100,21 +101,21 @@ export function ComponentsTab() {
             <p className={styles.messageLabel}>Graffiti</p>
             <WinScreenImageEditor
               variant="graffiti"
-              defaultPath="/images/win-screens/Win03.svg"
+              defaultPath={assetUrl('/images/win-screens/Win03.svg')}
             />
             <div className={styles.desktopFrame}>
-              <iframe src="/win/graffiti" title="Graffiti win screen preview" />
+              <iframe src={appPath('/win/graffiti')} title="Graffiti win screen preview" />
             </div>
           </div>
           <div className={styles.messageCard}>
             <p className={styles.messageLabel}>Punching Dummy</p>
             <WinScreenImageEditor
               variant="punching-dummy"
-              defaultPath="/images/win-screens/PunchingDummy/PunchingDummy_bg.png"
+              defaultPath={assetUrl('/images/win-screens/PunchingDummy/PunchingDummy_bg.png')}
             />
             <div className={styles.desktopFrame}>
               <iframe
-                src="/win/punching-dummy"
+                src={appPath('/win/punching-dummy')}
                 title="Punching Dummy win screen preview"
               />
             </div>
@@ -123,11 +124,11 @@ export function ComponentsTab() {
             <p className={styles.messageLabel}>Punching Dummy (Click)</p>
             <WinScreenImageEditor
               variant="punching-dummy-click"
-              defaultPath="/images/win-screens/PunchingDummy/PunchingDummy_bg.png"
+              defaultPath={assetUrl('/images/win-screens/PunchingDummy/PunchingDummy_bg.png')}
             />
             <div className={styles.desktopFrame}>
               <iframe
-                src="/win/punching-dummy-click"
+                src={appPath('/win/punching-dummy-click')}
                 title="Punching Dummy (Click) win screen preview"
               />
             </div>
@@ -136,11 +137,11 @@ export function ComponentsTab() {
             <p className={styles.messageLabel}>Kippah Cutting</p>
             <WinScreenImageEditor
               variant="kippah-cutting"
-              defaultPath="/images/win-screens/WinScreen_KippahCutting.svg"
+              defaultPath={assetUrl('/images/win-screens/WinScreen_KippahCutting.svg')}
             />
             <div className={styles.desktopFrame}>
               <iframe
-                src="/win/kippah-cutting"
+                src={appPath('/win/kippah-cutting')}
                 title="Kippah Cutting win screen preview"
               />
             </div>
@@ -149,11 +150,11 @@ export function ComponentsTab() {
             <p className={styles.messageLabel}>Kippah Cutting Workshop</p>
             <WinScreenImageEditor
               variant="kippah-cutting-workshop"
-              defaultPath="/images/win-screens/WinScreen_KippahCutting.png"
+              defaultPath={assetUrl('/images/win-screens/WinScreen_KippahCutting.png')}
             />
             <div className={styles.desktopFrame}>
               <iframe
-                src="/win/kippah-cutting-workshop"
+                src={appPath('/win/kippah-cutting-workshop')}
                 title="Kippah Cutting Workshop win screen preview"
               />
             </div>
@@ -167,7 +168,7 @@ export function ComponentsTab() {
           <span className={styles.sectionMeta}>src/components/Desktop</span>
         </header>
         <div className={styles.desktopFrame}>
-          <iframe src="/" title="Desktop preview" />
+          <iframe src={appPath('/')} title="Desktop preview" />
         </div>
       </section>
 

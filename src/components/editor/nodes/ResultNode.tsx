@@ -10,6 +10,7 @@ import {
   makeAudioBlobId,
   makeImageBlobId,
 } from '@/lib/audioBlobStore'
+import { appPath } from '@/lib/paths'
 
 const CUSTOM_OPTION_VALUE = '__custom__'
 
@@ -340,7 +341,7 @@ export function ResultNode({ id, data }: NodeProps<ResultFlowNode>) {
       )}
 
       <a
-        href={`/?startCase=${data.caseId}`}
+        href={appPath(`/?startCase=${data.caseId}`)}
         target="_blank"
         rel="noreferrer"
         style={{ fontSize: 11, color: isWin ? '#0f6e56' : '#a32d2d', textDecoration: 'underline' }}

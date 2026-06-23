@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react'
+import { assetUrl } from '@/lib/paths'
 import { useWinScreenBackground } from './useWinScreenBackground'
 import styles from './PunchingDummy.module.css'
 
@@ -33,8 +34,8 @@ import styles from './PunchingDummy.module.css'
    speed reflect the rotation speed naturally.
 ════════════════════════════════════════════════ */
 
-const TOY_FORWARD_SRC = '/images/win-screens/PunchingDummy/PunchingDummy_dummy_forward.gif'
-const TOY_REVERSE_SRC = '/images/win-screens/PunchingDummy/PunchingDummy_dummy_reverse.gif'
+const TOY_FORWARD_SRC = assetUrl('/images/win-screens/PunchingDummy/PunchingDummy_dummy_forward.gif')
+const TOY_REVERSE_SRC = assetUrl('/images/win-screens/PunchingDummy/PunchingDummy_dummy_reverse.gif')
 
 // Toy footprint on top of the background, as % of the wrapper, with
 // an absolute horizontal nudge applied on top (so the toy sits flush

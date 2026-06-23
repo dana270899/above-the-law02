@@ -1,7 +1,8 @@
 import { useEffect, useState, type ReactNode } from 'react'
+import { assetUrl } from '@/lib/paths'
 import styles from './Desktop.module.css'
 
-const A = '/images/desktop'
+const A = assetUrl('/images/desktop')
 
 /* ============================================================
    Desktop — base screen used in every scenario.
@@ -158,7 +159,7 @@ export function Desktop({
 
       {/* Center logo — stays centered in the viewport */}
       <div className={styles.logo}>
-        <img src="/images/Logo.svg" alt="Above the Law" />
+        <img src={assetUrl('/images/Logo.svg')} alt="Above the Law" />
       </div>
 
       {/* Scenario-specific overlay content */}

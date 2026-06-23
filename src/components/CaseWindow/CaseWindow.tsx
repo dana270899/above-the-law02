@@ -15,6 +15,7 @@ import {
   DEFAULT_INDECENT_EXPOSURE_DATA,
   type FootageVariant,
 } from '@/components/FootageWindow'
+import { assetUrl } from '@/lib/paths'
 import { WebcamFilter } from './WebcamFilter'
 import styles from './CaseWindow.module.css'
 
@@ -34,7 +35,7 @@ import styles from './CaseWindow.module.css'
    the menu everywhere the window is rendered.
    ============================================================ */
 
-const A = '/images/case-window'
+const A = assetUrl('/images/case-window')
 
 /* --- Static left-side menu config (edit here to update all usages) ---
    Used as a fallback when the parent does not pass a `tabs` prop

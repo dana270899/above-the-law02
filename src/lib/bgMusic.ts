@@ -1,3 +1,5 @@
+import { assetUrl } from './paths'
+
 /**
  * Registry of background-music tracks available to the bgMusic editor
  * node. The author either picks one of these or uploads a custom audio
@@ -18,7 +20,7 @@ export const BG_MUSIC: BgMusicOption[] = [
   {
     id: 'falafel',
     label: 'Falafel Pixel Pursuit',
-    src: '/sounds/Falafel Pixel Pursuit.wav',
+    src: assetUrl('/sounds/Falafel Pixel Pursuit.wav'),
   },
 ]
 

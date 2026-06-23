@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { assetUrl } from '@/lib/paths'
 import styles from './WhackAMole.module.css'
 
 /* ============================================================
@@ -21,9 +22,9 @@ const MOLE_VISIBLE_MS = 900       // how long a mole stays up before escaping
 const GAP_BETWEEN_MOLES_MS = 400  // pause between one mole hiding and the next appearing
 
 const MOLE_IMAGES = [
-  '/images/whack/mole-1.png',
-  '/images/whack/mole-2.png',
-  '/images/whack/mole-3.png',
+  assetUrl('/images/whack/mole-1.png'),
+  assetUrl('/images/whack/mole-2.png'),
+  assetUrl('/images/whack/mole-3.png'),
 ]
 
 export type WhackAMoleProps = {

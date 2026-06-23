@@ -1,3 +1,4 @@
+import { assetUrl } from '@/lib/paths'
 import styles from './BossMessage.module.css'
 
 /* ═══════════════════════════════════════════════
@@ -75,7 +76,7 @@ export function BossMessage(props: BossMessageProps) {
                     aria-label="Play voice message"
                     onClick={(props as VoiceProps).onPlay}
                   >
-                    <img src="/images/boss/mic.svg" alt="" className={styles.voiceMicIcon} />
+                    <img src={assetUrl('/images/boss/mic.svg')} alt="" className={styles.voiceMicIcon} />
                   </button>
                   {/* Yellow playhead — CSS animates `left` from start of
                       track to end over `--voice-duration` seconds. The
@@ -128,22 +129,22 @@ export function BossMessage(props: BossMessageProps) {
 function BossAvatar() {
   return (
     <div className={styles.avatar}>
-      <img src="/images/boss/boss-hair.svg"     alt="" className={styles.hair} />
+      <img src={assetUrl('/images/boss/boss-hair.svg')}     alt="" className={styles.hair} />
       <div className={styles.head} />
-      <img src="/images/boss/boss-nose.svg"     alt="" className={styles.nose} />
-      <img src="/images/boss/boss-glasses.svg"  alt="" className={styles.glasses} />
-      <img src="/images/boss/boss-noseline.svg" alt="" className={styles.noseline} />
-      <img src="/images/boss/boss-mustache.svg" alt="" className={styles.mustache} />
-      <img src="/images/boss/boss-stache2.svg"  alt="" className={styles.stache2} />
+      <img src={assetUrl('/images/boss/boss-nose.svg')}     alt="" className={styles.nose} />
+      <img src={assetUrl('/images/boss/boss-glasses.svg')}  alt="" className={styles.glasses} />
+      <img src={assetUrl('/images/boss/boss-noseline.svg')} alt="" className={styles.noseline} />
+      <img src={assetUrl('/images/boss/boss-mustache.svg')} alt="" className={styles.mustache} />
+      <img src={assetUrl('/images/boss/boss-stache2.svg')}  alt="" className={styles.stache2} />
       <div className={styles.eyebrowR} />
       <div className={styles.eyebrowL} />
       <div className={styles.lipsFill} />
-      <img src="/images/boss/boss-mouth.svg"    alt="" className={styles.lipsMouth} />
+      <img src={assetUrl('/images/boss/boss-mouth.svg')}    alt="" className={styles.lipsMouth} />
       <div className={styles.lipsBorder} />
       <div className={styles.eyeOuterR} />
       <div className={styles.eyeOuterL} />
-      <img src="/images/boss/boss-cheekL.svg"   alt="" className={styles.cheekL} />
-      <img src="/images/boss/boss-cheekR.svg"   alt="" className={styles.cheekR} />
+      <img src={assetUrl('/images/boss/boss-cheekL.svg')}   alt="" className={styles.cheekL} />
+      <img src={assetUrl('/images/boss/boss-cheekR.svg')}   alt="" className={styles.cheekR} />
     </div>
   )
 }

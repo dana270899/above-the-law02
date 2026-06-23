@@ -5,6 +5,7 @@ import {
   type CSSProperties,
   type MouseEvent as ReactMouseEvent,
 } from 'react'
+import { assetUrl } from '@/lib/paths'
 import styles from './OperationWindow.module.css'
 
 /* ============================================================
@@ -33,8 +34,8 @@ import styles from './OperationWindow.module.css'
    provided by the designer — they slot into `.illustrationInner`.
    ============================================================ */
 
-const CASE_ICONS = '/images/case-window'
-const ASSETS = '/images/operation-window'
+const CASE_ICONS = assetUrl('/images/case-window')
+const ASSETS = assetUrl('/images/operation-window')
 
 /** All five toggle slots — order matches the 3-col × 2-row Figma grid. */
 const TOGGLE_KEYS = ['boss', 'forces', 'dogs', 'press', 'blindfold'] as const
@@ -65,11 +66,11 @@ const TOGGLE_ILLUSTRATIONS: Record<ToggleKey, string> = {
  * play the same clip.
  */
 const TOGGLE_CLICK_SOUNDS: Record<ToggleKey, string> = {
-  boss:      '/sounds/Light Switch 01.wav',
-  forces:    '/sounds/Light Switch 02.wav',
-  dogs:      '/sounds/Light Switch 03.wav',
-  press:     '/sounds/Light Switch 01.wav',
-  blindfold: '/sounds/Light Switch 02.wav',
+  boss:      assetUrl('/sounds/Light Switch 01.wav'),
+  forces:    assetUrl('/sounds/Light Switch 02.wav'),
+  dogs:      assetUrl('/sounds/Light Switch 03.wav'),
+  press:     assetUrl('/sounds/Light Switch 01.wav'),
+  blindfold: assetUrl('/sounds/Light Switch 02.wav'),
 }
 
 /**
@@ -80,7 +81,7 @@ const TOGGLE_CLICK_SOUNDS: Record<ToggleKey, string> = {
  */
 function playClickSound(url: string) {
   try {
-    const a = new Audio(url)
+    const a = new Audio(assetUrl(url))
     a.play().catch(() => { /* autoplay blocked — ignore */ })
   } catch {
     /* ignore */

@@ -5,6 +5,7 @@ import {
   type CSSProperties,
   type MouseEvent as ReactMouseEvent,
 } from 'react'
+import { assetUrl } from '@/lib/paths'
 import styles from './AchievementsWindow.module.css'
 
 /* Module-level flag: the whole-bar entry flicker plays only on the
@@ -23,7 +24,7 @@ let hasFlickeredInThisSession = false
    the "Win" badge variant (Figma 588:16620).
    ============================================================ */
 
-const A = '/images/achievements'
+const A = assetUrl('/images/achievements')
 const RANK_COUNT = 6
 
 export type CaseOutcome = 'win' | 'lose' | null

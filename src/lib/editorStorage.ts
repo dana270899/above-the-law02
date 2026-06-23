@@ -1,4 +1,5 @@
 import type { GameFlowNode, GameFlowEdge } from '@/types/editor'
+import { assetUrl } from './paths'
 
 /**
  * SHARED EDITOR STORAGE
@@ -6,7 +7,7 @@ import type { GameFlowNode, GameFlowEdge } from '@/types/editor'
  * so the editor (writer) and the game (reader) never drift apart.
  */
 const API_GRAPH_URL = '/api/editor-state'
-const STATIC_GRAPH_URL = '/assets/editor-state-current.json'
+const STATIC_GRAPH_URL = assetUrl('/editor-state-current.json')
 
 export type SavedGraph = { nodes: GameFlowNode[]; edges: GameFlowEdge[] }
 

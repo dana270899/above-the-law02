@@ -6,6 +6,7 @@ import {
   type MouseEvent as ReactMouseEvent,
 } from 'react'
 import { pushBgMusicDuck, popBgMusicDuck } from '@/lib/bgMusic'
+import { assetUrl } from '@/lib/paths'
 import styles from './FootageWindow.module.css'
 
 /* ============================================================
@@ -27,8 +28,8 @@ import styles from './FootageWindow.module.css'
    SVGs, so this component does not draw any per-scene DOM.
    ============================================================ */
 
-const CASE_ICONS = '/images/case-window'
-const FOOTAGE_ASSETS = '/images/footage-window'
+const CASE_ICONS = assetUrl('/images/case-window')
+const FOOTAGE_ASSETS = assetUrl('/images/footage-window')
 
 export type FootageVariant =
   | 'graffiti'

@@ -48,6 +48,7 @@ import { getWinSound } from '@/lib/winSounds'
 import { loadAudioBlob } from '@/lib/audioBlobStore'
 import { BgMusicPlayer } from '@/components/game/BgMusicPlayer/BgMusicPlayer'
 import type { BgMusicFlowNode } from '@/types/editor'
+import { assetUrl } from '@/lib/paths'
 import styles from './GamePage.module.css'
 
 /**
@@ -237,7 +238,7 @@ export function GamePage() {
   const messageNodeId = messageNode?.id ?? null
   useEffect(() => {
     if (!messageNodeId) return
-    const audio = new Audio('/sounds/notification.mp3')
+    const audio = new Audio(assetUrl('/sounds/notification.mp3'))
     audio.play().catch(() => { /* autoplay blocked — ignore */ })
   }, [messageNodeId])
 
@@ -246,7 +247,7 @@ export function GamePage() {
   const triggerHeadId = triggerQueue[0] ?? null
   useEffect(() => {
     if (!triggerHeadId) return
-    const audio = new Audio('/sounds/notification.mp3')
+    const audio = new Audio(assetUrl('/sounds/notification.mp3'))
     audio.play().catch(() => { /* autoplay blocked — ignore */ })
   }, [triggerHeadId])
 
@@ -847,7 +848,7 @@ function WinScreenStop({
       }
       if (!url) {
         const option = getWinSound(soundId)
-        url = soundSrc ?? option?.src ?? null
+        url = soundSrc ? assetUrl(soundSrc) : option?.src ?? null
       }
       if (!url || cancelled) return
       audio = new Audio(url)
@@ -995,7 +996,7 @@ function BossMessageSlot({
       return () => { if (timer != null) window.clearTimeout(timer) }
     }
 
-    const audio = new Audio(src)
+    const audio = new Audio(assetUrl(src))
     audioRef.current = audio
     audio.addEventListener('ended', finish)
     audio.addEventListener('error', scheduleFallback)
