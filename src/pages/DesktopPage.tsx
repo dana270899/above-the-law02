@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Desktop } from '@/components/Desktop'
+import { useNavigate } from 'react-router-dom'
+import { Desktop, type TaskbarApp } from '@/components/Desktop'
 import {
   CaseWindow,
   DEFAULT_CASE_DATA,
@@ -31,6 +32,7 @@ import styles from './DesktopPage.module.css'
  * desktop. Without either param it just shows the bare desktop.
  */
 export function DesktopPage() {
+  const navigate = useNavigate()
   const [graph, setGraph] = useState<SavedGraph | null>(null)
 
   useEffect(() => {
@@ -87,8 +89,26 @@ export function DesktopPage() {
     () => DEFAULT_OPERATION_V2_DATA.counters,
   )
 
+  const taskbarApps = useMemo<TaskbarApp[]>(() => {
+    const apps: TaskbarApp[] = []
+    if (startCase && !closed) {
+      apps.push({ id: 'cases', label: 'Cases' })
+    }
+    if (startOperation && !operationClosed) {
+      apps.push({ id: 'operation', label: 'Operation' })
+    }
+    if (whackOpen) {
+      apps.push({ id: 'whack', label: 'Game' })
+    }
+    return apps
+  }, [closed, operationClosed, startCase, startOperation, whackOpen])
+
   return (
-    <Desktop onWhackClick={() => setWhackOpen(true)}>
+    <Desktop
+      onStartClick={() => navigate('/game')}
+      onWhackClick={() => setWhackOpen(true)}
+      taskbarApps={taskbarApps}
+    >
       <div className={styles.achievementsLayer}>
         <AchievementsWindow />
       </div>

@@ -10,6 +10,8 @@ export { WinScreenComponent } from './WinScreenComponent'
 export type { WinScreenComponentProps } from './WinScreenComponent'
 export { InteractiveWinScreen } from './InteractiveWinScreen'
 export { KippahCuttingWorkshop } from './KippahCuttingWorkshop'
+export { BdsmParty } from './BdsmParty'
+export type { BdsmPartyProps } from './BdsmParty'
 export type {
   InteractiveWinScreenProps,
   InteractionConfig,

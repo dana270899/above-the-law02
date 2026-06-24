@@ -1,0 +1,163 @@
+.screen {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #fbfafa;
+  overflow: hidden;
+  user-select: none;
+}
+
+.stage {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(54%, 560px);
+  aspect-ratio: 1042 / 628;
+  transform: translate(-50%, -42%);
+}
+
+.envelopeShadow {
+  position: absolute;
+  inset: 4% -1% -2%;
+  background: rgba(30, 30, 30, 0.05);
+  filter: blur(10px);
+  transform: translateY(6%);
+  z-index: 0;
+}
+
+.backFlap,
+.openFlap,
+.envelopeBody,
+.closedFlap,
+.invitation {
+  position: absolute;
+  display: block;
+  user-select: none;
+}
+
+.backFlap {
+  display: none;
+  left: 0;
+  top: -45%;
+  width: 100%;
+  height: auto;
+  transform: rotate(180deg) scaleY(0.95);
+  transform-origin: 50% 100%;
+  opacity: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.openFlap {
+  left: 13%;
+  top: -36%;
+  width: 74%;
+  height: 44%;
+  background: #790202;
+  clip-path: polygon(18% 0, 82% 0, 100% 100%, 0 100%);
+  opacity: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.envelopeBody {
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.closedFlapButton {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 75.16%;
+  z-index: 6;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  outline: none;
+}
+
+.closedFlapButton:focus,
+.closedFlapButton:focus-visible {
+  outline: none;
+}
+
+.closedFlap {
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: auto;
+  transform-origin: 50% 0%;
+  transition:
+    opacity 160ms ease,
+    transform 360ms cubic-bezier(0.2, 0.82, 0.18, 1);
+  pointer-events: none;
+}
+
+.invitation {
+  left: 50%;
+  top: -3%;
+  width: 88.87%;
+  height: auto;
+  z-index: 3;
+  cursor: grab;
+  opacity: 0;
+  transform:
+    translate(-50%, 0)
+    translate(var(--invitation-x, 0), calc(-42% + var(--invitation-y, 0)))
+    rotate(0deg);
+  transition:
+    opacity 180ms ease,
+    transform 170ms ease,
+    z-index 0ms linear 120ms;
+  touch-action: none;
+  pointer-events: none;
+}
+
+.screenOpen .backFlap {
+  opacity: 1;
+}
+
+.screenOpen .openFlap {
+  opacity: 1;
+}
+
+.screenOpen .closedFlapButton {
+  pointer-events: none;
+}
+
+.screenOpen .closedFlap {
+  opacity: 0;
+  transform: rotateX(78deg) translateY(-10%);
+}
+
+.screenOpen .invitation {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.screenPulledOut .invitation {
+  z-index: 7;
+  transform:
+    translate(-50%, 0)
+    translate(var(--invitation-x, 0), calc(-42% + var(--invitation-y, 0)))
+    rotate(-16deg);
+  transition:
+    opacity 180ms ease,
+    transform 80ms linear;
+}
+
+.screenDragging .invitation {
+  cursor: grabbing;
+  transition: none;
+}
+
+.debug .stage {
+  outline: 2px dashed rgba(255, 150, 0, 0.85);
+}

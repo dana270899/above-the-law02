@@ -54,16 +54,22 @@ export function useWinScreenBackground({
     let url: string | null = null
     loadAudioBlob(blobId)
       .then((blob) => {
-        if (cancelled || !blob) return
+        if (cancelled) return
+        if (!blob) {
+          setSrc(srcOverride ?? loadWinScreenImage(variant) ?? defaultSrc)
+          return
+        }
         url = URL.createObjectURL(blob)
         setSrc(url)
       })
-      .catch(() => { /* fall back to the registry path below */ })
+      .catch(() => {
+        if (!cancelled) setSrc(srcOverride ?? loadWinScreenImage(variant) ?? defaultSrc)
+      })
     return () => {
       cancelled = true
       if (url) URL.revokeObjectURL(url)
     }
-  }, [blobId])
+  }, [variant, defaultSrc, srcOverride, blobId])
 
   // Same-tab custom event + cross-document `storage` event keep the
   // background in sync with editor uploads. An explicit src/blobId

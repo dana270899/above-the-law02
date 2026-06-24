@@ -1,13 +1,17 @@
 /* ═══════════════════════════════════════════════
-   LOGIN SCREEN — pixel-perfect from Figma
-   Designed inside the 1920×1080 game canvas;
-   the canvas is scaled to fit by useGameScale.
+   LOGIN SCREEN
+   Desktop keeps the Figma composition; smaller screens tighten
+   spacing and stack instead of shrinking the whole canvas.
 ════════════════════════════════════════════════ */
 
 .screen {
-  position: absolute;
+  position: relative;
   inset: 0;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
   background: var(--light-yellow-100);
+  overflow: hidden;
 }
 
 /* ─── Top & bottom bars ────────────────────────── */
@@ -16,7 +20,18 @@
   left: 0;
   width: 100%;
   height: 118px;
-  background: var(--light-blue-200);
+  background-color: var(--light-blue-200);
+  overflow: hidden;
+}
+.bar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('../../../../assets/images/vintage-comic-style-dots-texture.jpg');
+  background-size: 348px 348px;
+  background-repeat: repeat;
+  opacity: 0.1;
+  pointer-events: none;
 }
 .barTop    { top: 0;    border-bottom: 2px solid var(--black); }
 .barBottom { bottom: 0; border-top:    2px solid var(--black); }
@@ -24,7 +39,7 @@
 /* ─── "Welcome" heading ─────────────────────────── */
 .welcome {
   position: absolute;
-  top: 221px;
+  top: clamp(142px, 22vh, 221px);
   left: 50%;
   transform: translateX(-50%);
   width: 298px;
@@ -32,7 +47,7 @@
   font-family: var(--font-main);
   font-size: 64px;
   font-weight: 700;
-  line-height: 64px;
+  line-height: 1;
   color: var(--light-yellow-200);
   -webkit-text-stroke: 4px var(--black);
   paint-order: stroke fill;
@@ -42,10 +57,10 @@
 /* ─── Center group (badge / divider / form) ────── */
 .center {
   position: absolute;
-  top: 50%;
+  top: clamp(376px, 54vh, 540px);
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 772px;
+  width: min(772px, calc(100vw - 64px));
   display: flex;
   align-items: center;
   gap: 48px;
@@ -76,8 +91,11 @@
   position: absolute;
   left: 50%;
   top: 0;
+  width: 2px;
   height: 100%;
-  border-left: 2px solid var(--black);
+  background: var(--black);
+  border-radius: 4px;
+  transform: translateX(-50%);
 }
 
 /* ─── Login group (player + form, side by side) ── */
@@ -93,12 +111,15 @@
   position: relative;
   width: 140px;
   height: 140px;
+  border-radius: 4px;
   flex-shrink: 0;
+  overflow: hidden;
 }
 .player {
   display: block;
   width: 100%;
   height: 100%;
+  border-radius: 4px;
 }
 
 /* ─── Login fields (name + password row) ────────── */
@@ -127,6 +148,7 @@
   height: 48px;
   background: var(--white);
   border: 2px solid var(--black);
+  border-radius: 4px;
   padding: 0 16px;
   font-size: 18px;
   letter-spacing: 0.15em;
@@ -139,6 +161,7 @@
   height: 48px;
   background: var(--green);
   border: 2px solid var(--black);
+  border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -157,4 +180,155 @@
 .loginBtn:disabled {
   opacity: 0.35;
   cursor: not-allowed;
+}
+
+@media (min-height: 880px) {
+  .welcome {
+    top: 221px;
+  }
+
+  .center {
+    top: 50%;
+  }
+}
+
+@media (max-width: 900px) {
+  .screen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 130px 24px 112px;
+  }
+
+  .welcome {
+    top: 126px;
+  }
+
+  .center {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    width: min(100%, 440px);
+    flex-direction: column;
+    justify-content: center;
+    gap: 18px;
+  }
+
+  .badge {
+    width: 192.324px;
+    height: 243.16px;
+  }
+
+  .divider {
+    width: min(240px, 58vw);
+    height: 1px;
+    min-width: 0;
+    flex: 0 0 1px;
+  }
+
+  .divider::after {
+    left: 0;
+    top: 50%;
+    width: 100%;
+    height: 2px;
+    transform: translateY(-50%);
+  }
+
+  .loginGroup {
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  .avatar {
+    width: 140px;
+    height: 140px;
+  }
+
+  .fields {
+    width: 298px;
+    height: auto;
+    justify-content: flex-start;
+    gap: 22px;
+  }
+
+  .row {
+    width: 100%;
+  }
+
+  .input {
+    width: 100%;
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+}
+
+@media (max-width: 520px) {
+  .bar {
+    height: 72px;
+  }
+
+  .screen {
+    padding: 94px 20px 82px;
+  }
+
+  .welcome {
+    top: 82px;
+    font-size: 64px;
+  }
+
+  .center {
+    gap: 12px;
+  }
+
+  .badge {
+    width: 192.324px;
+    height: 243.16px;
+  }
+
+  .loginGroup {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .fields {
+    width: min(298px, 100%);
+    align-items: center;
+    gap: 10px;
+  }
+
+  .name {
+    font-size: 32px;
+    line-height: 1;
+    text-align: center;
+  }
+
+  .row {
+    gap: 8px;
+  }
+
+  .input { width: 240px; }
+}
+
+@media (max-height: 640px) and (max-width: 900px) {
+  .bar {
+    height: 50px;
+  }
+
+  .screen {
+    padding-top: 118px;
+    padding-bottom: 20px;
+  }
+
+  .welcome {
+    top: 58px;
+    font-size: 52px;
+  }
+
+  .center {
+    gap: 6px;
+  }
 }

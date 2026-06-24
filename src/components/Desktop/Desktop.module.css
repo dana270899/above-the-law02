@@ -204,7 +204,7 @@
   border-top: 2px solid #000;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding-right: 32px;
   overflow: hidden;
 }
@@ -238,6 +238,49 @@
   text-align: center;
   letter-spacing: 4px;
   text-transform: uppercase;
+}
+
+.taskbarApps {
+  height: 100%;
+  min-width: 0;
+  flex: 1 1 auto;
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.taskbarApp {
+  width: 80px;
+  height: 61px;
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0 5px;
+  background: #fffdf3;
+  border: 2px solid #171717;
+  border-left: 0;
+  border-top: 0;
+  border-radius: 0;
+  box-shadow: none;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.taskbarApp:focus-visible {
+  outline: 2px solid #171717;
+  outline-offset: -5px;
+}
+
+.taskbarIcon {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  flex: 0 0 auto;
+  --icon-size: 50px;
+  --icon-scale: calc(var(--icon-size) / 120px);
 }
 
 .timeText {

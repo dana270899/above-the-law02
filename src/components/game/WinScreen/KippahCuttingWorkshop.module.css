@@ -4,9 +4,20 @@
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  width: 90%;
-  max-width: 100%;
+  --design-width: 1440px;
+  --chrome-height: 42px;
+  --footer-height: 88px;
+  --screen-height: calc(var(--design-width) * 9 / 16);
+  --design-height: calc(var(--chrome-height) + var(--screen-height) + var(--footer-height) + 4px);
+  --fit-scale: min(
+    1,
+    calc((100vw - 64px) / var(--design-width)),
+    calc((100vh - 64px) / var(--design-height))
+  );
+  transform: translate(-50%, -50%) scale(var(--fit-scale));
+  transform-origin: center;
+  width: var(--design-width);
+  height: auto;
   background: var(--white);
   border: 2px solid var(--black);
   border-radius: 4px;
@@ -17,7 +28,8 @@
 
 .upperBar {
   width: 100%;
-  background: var(--white);
+  height: var(--chrome-height);
+  background: var(--yellow);
   border-bottom: 2px solid var(--black);
   display: flex;
   align-items: center;
@@ -28,6 +40,8 @@
 
 .upperBarTitle {
   padding: 0 16px;
+  font-family: var(--font-main);
+  font-weight: 400;
   font-size: 22px;
   line-height: 28px;
   color: var(--grey);
@@ -36,14 +50,15 @@
 
 .upperBarBtns {
   display: flex;
-  align-items: center;
+  align-items: stretch;
+  align-self: stretch;
 }
 
 .chromeBtn {
   width: 40px;
-  height: 40px;
-  border: 2px solid var(--black);
-  margin-right: -2px;
+  height: auto;
+  border: 0;
+  border-left: 2px solid var(--black);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -53,28 +68,28 @@
   background: var(--white);
 }
 
-.chromeBtn:last-child { margin-right: 0; }
 .chromeBtn img { display: block; width: 100%; height: 100%; }
 
-.chromeExpand   { background: var(--green);  padding: 6px 7px; }
-.chromeMinimize { background: var(--yellow); padding: 8px; }
 .chromeClose    { background: var(--red);    padding: 8px; }
 
 .screen {
   position: relative;
   width: 100%;
+  aspect-ratio: 16 / 9;
+  height: var(--screen-height);
   background: var(--white);
   overflow: hidden;
   cursor: none;
   outline: none;
+  flex: 0 0 auto;
 }
 
 .scene {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
   aspect-ratio: 16 / 9;
-  object-fit: cover;
+  object-fit: contain;
   pointer-events: none;
   user-select: none;
 }
@@ -82,11 +97,13 @@
 .cuttingPreview {
   position: absolute;
   inset: 0;
+  z-index: 3;
   pointer-events: none;
 }
 
 .fabricPiece,
 .hand,
+.cursorTrail,
 .cursor {
   position: absolute;
   display: block;
@@ -96,49 +113,60 @@
 
 .fabricPiece {
   height: auto;
+  --piece-x: 0%;
+  --piece-y: 0%;
+  --piece-rotation: var(--piece-base-rotation);
+  transform: translate(var(--piece-x), var(--piece-y)) rotate(var(--piece-rotation));
 }
 
 .pieceLeft01 {
-  left: 34px;
-  bottom: 172px;
-  width: 141px;
-  transform: rotate(-13deg);
+  left: 2.74%;
+  bottom: 24.66%;
+  width: 6.82%;
+  --piece-base-rotation: -13deg;
 }
 
 .pieceLeft02 {
-  left: 100px;
-  bottom: 90px;
-  width: 141px;
-  transform: rotate(12deg);
+  left: 8.06%;
+  bottom: 12.9%;
+  width: 6.82%;
+  --piece-base-rotation: 12deg;
 }
 
 .pieceLeft03 {
-  left: 162px;
-  bottom: 36px;
-  width: 141px;
-  transform: rotate(-15deg);
+  left: 13.06%;
+  bottom: 5.16%;
+  width: 6.82%;
+  --piece-base-rotation: -15deg;
 }
 
 .pieceRight01 {
-  right: -16px;
-  bottom: 158px;
-  width: 175px;
-  transform: rotate(-6deg);
+  right: -1.29%;
+  bottom: 22.65%;
+  width: 8.47%;
+  --piece-base-rotation: -6deg;
 }
 
 .pieceRight02 {
-  right: 118px;
-  bottom: 54px;
-  width: 175px;
-  transform: rotate(10deg);
+  right: 9.52%;
+  bottom: 7.74%;
+  width: 8.47%;
+  --piece-base-rotation: 10deg;
+}
+
+.pieceRight03 {
+  right: 1.61%;
+  bottom: 2.58%;
+  width: 8.47%;
+  --piece-base-rotation: -9deg;
 }
 
 .handButton {
   position: absolute;
   left: 50%;
-  bottom: -2px;
-  width: 507px;
-  height: 510px;
+  bottom: -0.29%;
+  width: 24.53%;
+  aspect-ratio: 507 / 510;
   border: 0;
   padding: 0;
   background: transparent;
@@ -163,12 +191,98 @@
 }
 
 .cursor {
-  z-index: 5;
-  width: 9.4%;
-  min-width: 78px;
-  max-width: 132px;
-  transform: translate(-52%, -24%);
-  filter: drop-shadow(0 3px 0 rgba(23, 23, 23, 0.2));
+  z-index: 8;
+  width: 23.23%;
+  transform: translate(-47%, -55%);
+}
+
+.cursorTrail {
+  z-index: 7;
+  width: 25.5%;
+  transform: translate(14%, -2%);
+}
+
+.footerBar {
+  width: 100%;
+  height: var(--footer-height);
+  background: var(--white);
+  border-top: 2px solid var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 14px 24px;
+  overflow: visible;
+  flex-shrink: 0;
+}
+
+.footerText {
+  font-family: var(--font-main);
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 28px;
+  color: var(--grey);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.footerCta {
+  background: var(--green);
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  color: var(--white);
+  cursor: pointer;
+  font-family: var(--font-main);
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.35;
+  min-height: 54px;
+  padding: 8px 32px 10px;
+  white-space: nowrap;
+  transition: filter 120ms ease;
+  overflow: visible;
+}
+
+.footerCta:hover {
+  filter: brightness(1.05);
+}
+
+@media (max-width: 700px), (max-height: 640px) {
+  .window {
+    --chrome-height: 36px;
+    --footer-height: 72px;
+    --fit-scale: min(
+      1,
+      calc((100vw - 32px) / var(--design-width)),
+      calc((100vh - 32px) / var(--design-height))
+    );
+  }
+
+  .upperBarTitle {
+    font-size: 18px;
+    line-height: 24px;
+  }
+
+  .chromeBtn {
+    width: 34px;
+    height: auto;
+  }
+
+  .footerBar {
+    padding: 10px 16px;
+  }
+
+  .footerText {
+    font-size: 18px;
+    line-height: 24px;
+  }
+
+  .footerCta {
+    font-size: 18px;
+    line-height: 1.35;
+    min-height: 44px;
+    padding: 6px 18px 8px;
+  }
 }
 
 .debug .cuttingPreview {

@@ -1,10 +1,10 @@
-import { useState, type KeyboardEvent } from 'react'
+import { useState, type FormEvent } from 'react'
 import { assetUrl } from '@/lib/paths'
 import styles from './LoginScreen.module.css'
 
 /**
  * LOGIN SCREEN
- * Pixel-perfect implementation of the Figma "Login Screen" frame.
+ * Responsive implementation of the Figma "Login Screen" frame.
  * Accepts ANY non-empty input. Button is disabled until the player types something.
  *
  * `onLogin` is invoked with the trimmed name when the form is submitted.
@@ -17,14 +17,11 @@ export interface LoginScreenProps {
 export function LoginScreen({ onLogin }: LoginScreenProps = {}) {
   const [value, setValue] = useState('')
 
-  function handleLogin() {
+  function handleLogin(e?: FormEvent) {
+    e?.preventDefault()
     const name = value.trim()
     if (!name) return                     // block empty submissions
     onLogin?.(name)
-  }
-
-  function onKey(e: KeyboardEvent) {
-    if (e.key === 'Enter') handleLogin()
   }
 
   return (
@@ -58,26 +55,25 @@ export function LoginScreen({ onLogin }: LoginScreenProps = {}) {
           {/* Name label + password row */}
           <div className={styles.fields}>
             <p className={styles.name}>Aviel Levy</p>
-            <div className={styles.row}>
+            <form className={styles.row} onSubmit={handleLogin}>
               <input
                 type="password"
                 className={styles.input}
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
-                onKeyDown={onKey}
                 autoFocus
                 autoComplete="off"
                 spellCheck={false}
               />
               <button
+                type="submit"
                 className={styles.loginBtn}
-                onClick={handleLogin}
                 aria-label="Login"
                 disabled={!value.trim()}
               >
                 <img src={assetUrl('/images/arrow-forward.svg')} alt="" />
               </button>
-            </div>
+            </form>
           </div>
 
         </div>

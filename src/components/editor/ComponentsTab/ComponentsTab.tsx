@@ -148,14 +148,31 @@ export function ComponentsTab() {
           </div>
           <div className={styles.messageCard}>
             <p className={styles.messageLabel}>Kippah Cutting Workshop</p>
-            <WinScreenImageEditor
-              variant="kippah-cutting-workshop"
-              defaultPath={assetUrl('/images/win-screens/WinScreen_KippahCutting.png')}
-            />
+            <div className={styles.winImageEditor}>
+              <p className={styles.winImageStatus}>
+                Interactive component using bundled video{' '}
+                <code>{assetUrl('/images/win-screens/KippahCutting/KippahCutting.mp4')}</code>,
+                cursor SVGs, cutting hand SVGs, side pieces, and scissors
+                sound.
+              </p>
+            </div>
             <div className={styles.desktopFrame}>
               <iframe
                 src={appPath('/win/kippah-cutting-workshop')}
                 title="Kippah Cutting Workshop win screen preview"
+              />
+            </div>
+          </div>
+          <div className={styles.messageCard}>
+            <p className={styles.messageLabel}>BDSM Party</p>
+            <WinScreenImageEditor
+              variant="bdsm-party"
+              defaultPath={assetUrl('/images/win-screens/BdsmParty/Envelope.svg')}
+            />
+            <div className={styles.desktopFrame}>
+              <iframe
+                src={appPath('/win/bdsm-party')}
+                title="BDSM Party win screen preview"
               />
             </div>
           </div>

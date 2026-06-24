@@ -18,8 +18,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 90%;
-  max-width: 100%;
+  width: 1244px;
   background: var(--white);
   border: 2px solid var(--black);
   border-radius: 4px;
@@ -38,7 +37,8 @@
    handlers in if you need them. */
 .upperBar {
   width: 100%;
-  background: var(--white);
+  height: 42px;
+  background: var(--yellow);
   border-bottom: 2px solid var(--black);
   display: flex;
   align-items: center;
@@ -49,6 +49,8 @@
 
 .upperBarTitle {
   padding: 0 16px;
+  font-family: var(--font-main);
+  font-weight: 400;
   font-size: 22px;
   line-height: 28px;
   color: var(--grey);
@@ -57,14 +59,15 @@
 
 .upperBarBtns {
   display: flex;
-  align-items: center;
+  align-items: stretch;
+  align-self: stretch;
 }
 
 .chromeBtn {
   width: 40px;
-  height: 40px;
-  border: 2px solid var(--black);
-  margin-right: -2px;
+  height: auto;
+  border: 0;
+  border-left: 2px solid var(--black);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -74,24 +77,26 @@
   background: var(--white);
 }
 
-.chromeBtn:last-child { margin-right: 0; }
 .chromeBtn img { display: block; width: 100%; height: 100%; }
 
-.chromeExpand   { background: var(--green);  padding: 6px 7px; }
-.chromeMinimize { background: var(--yellow); padding: 8px; }
 .chromeClose    { background: var(--red);    padding: 8px; }
 
 .screen {
   position: relative;
   width: 100%;
+  height: 697.5px;
+  aspect-ratio: 16 / 9;
   background: var(--white);
   overflow: hidden;
+  flex: 0 1 auto;
 }
 
 .scene {
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
   pointer-events: none;
   user-select: none;
 }
@@ -149,4 +154,77 @@
 .hotspotDebugRight {
   background: rgba(100, 100, 255, 0.2);
   outline: 2px dashed rgba(50, 50, 200, 0.8);
+}
+
+.footerBar {
+  width: 100%;
+  background: var(--white);
+  border-top: 2px solid var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 24px;
+  overflow: clip;
+  flex-shrink: 0;
+}
+
+.footerText {
+  font-family: var(--font-main);
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 28px;
+  color: var(--grey);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.footerCta {
+  background: var(--green);
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  color: var(--white);
+  cursor: pointer;
+  font-family: var(--font-main);
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 26px;
+  padding: 12px 32px;
+  white-space: nowrap;
+  transition: filter 120ms ease;
+}
+
+.footerCta:hover {
+  filter: brightness(1.05);
+}
+
+@media (max-width: 700px), (max-height: 640px) {
+  .window {
+    width: min(760px, calc(100vw - 32px));
+  }
+
+  .upperBarTitle {
+    font-size: 18px;
+    line-height: 24px;
+  }
+
+  .chromeBtn {
+    width: 34px;
+    height: auto;
+  }
+
+  .footerBar {
+    padding: 16px;
+  }
+
+  .footerText {
+    font-size: 18px;
+    line-height: 24px;
+  }
+
+  .footerCta {
+    font-size: 18px;
+    line-height: 22px;
+    padding: 8px 18px;
+  }
 }

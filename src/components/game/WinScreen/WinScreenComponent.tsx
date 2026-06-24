@@ -4,6 +4,7 @@ import { PunchingDummy } from './PunchingDummy'
 import { PunchingDummyClick } from './PunchingDummyClick'
 import { KippahCutting } from './KippahCutting'
 import { KippahCuttingWorkshop } from './KippahCuttingWorkshop'
+import { BdsmParty } from './BdsmParty'
 import styles from './WinScreenComponent.module.css'
 
 /* ═══════════════════════════════════════════════
@@ -45,6 +46,9 @@ export function WinScreenComponent({
       break
     case 'kippah-cutting-workshop':
       inner = <KippahCuttingWorkshop {...rest} />
+      break
+    case 'bdsm-party':
+      inner = <BdsmParty {...rest} />
       break
     case 'graffiti':
     default:

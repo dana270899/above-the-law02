@@ -326,20 +326,6 @@ export function PunchingDummyClick({
         <div className={styles.upperBarBtns}>
           <button
             type="button"
-            className={`${styles.chromeBtn} ${styles.chromeExpand}`}
-            aria-label="Expand"
-          >
-            <img src={assetUrl('/images/case-window/expand.svg')} alt="" />
-          </button>
-          <button
-            type="button"
-            className={`${styles.chromeBtn} ${styles.chromeMinimize}`}
-            aria-label="Minimize"
-          >
-            <img src={assetUrl('/images/case-window/minimize.svg')} alt="" />
-          </button>
-          <button
-            type="button"
             className={`${styles.chromeBtn} ${styles.chromeClose}`}
             aria-label="Close"
           >
@@ -409,6 +395,16 @@ export function PunchingDummyClick({
             }
           }}
         />
+      </div>
+      <div className={styles.footerBar}>
+        <p className={styles.footerText}>Winning is so good</p>
+        <button
+          type="button"
+          className={styles.footerCta}
+          onClick={onComplete}
+        >
+          Love this job, next case!
+        </button>
       </div>
     </div>
   )

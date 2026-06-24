@@ -9,6 +9,16 @@
   overflow: hidden;
 }
 
+.loginCanvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: var(--light-yellow-100);
+  overflow: hidden;
+}
+
 /* Centers the CaseWindow / OperationWindow within the Desktop
    overlay slot. The wrapper itself is click-through (pointer-events
    none) so the empty space around the centered window doesn't
@@ -75,57 +85,42 @@
   outline-offset: 4px;
 }
 
-/* ─── Full-screen win stop ─────────────────────────
-   The walker pauses on a `win` result. This screen
-   escapes the fixed 1920×1080 game canvas and fills
-   the actual viewport — image scales to viewport
-   width keeping its ratio, decision bar takes the
-   remaining viewport height. */
+/* ─── Windowed win stop ─────────────────────────
+   The walker pauses on a `win` result while the desktop remains
+   visible behind a centered, interactive win window. */
 .winStop {
-  position: fixed;
+  position: absolute;
   inset: 0;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background: var(--white);
+  display: grid;
+  place-items: center;
+  background: transparent;
   overflow: hidden;
-  /* Click-anywhere-to-advance — make the whole screen feel pressable. */
-  cursor: pointer;
-}
-.winStop:focus-visible {
-  outline: 3px solid var(--yellow);
-  outline-offset: -3px;
+  padding: clamp(24px, 4vw, 76px);
 }
 .winScreen {
-  flex: 0 0 auto;
+  max-width: min(1440px, calc(100vw - 96px));
+  max-height: min(912px, calc(100vh - 120px));
 }
 .winBar {
-  flex: 1 1 auto;
-  background: var(--white);
-  border-top: 2px solid var(--black);
-  padding: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  position: absolute;
+  right: clamp(32px, 5vw, 96px);
+  bottom: clamp(24px, 4vw, 52px);
+  pointer-events: none;
 }
 .winBarText {
-  font-family: var(--font-main);
-  font-size: 22px;
-  line-height: 28px;
-  color: var(--grey);
-  white-space: nowrap;
+  display: none;
 }
 .winNext {
   background: var(--green);
   border: 2px solid var(--black);
   border-radius: 4px;
-  padding: 12px 32px;
+  padding: 10px 28px;
   font-family: var(--font-main);
   font-weight: 500;
-  font-size: 24px;
-  line-height: 26px;
+  font-size: 22px;
+  line-height: 24px;
   color: var(--white);
   cursor: pointer;
+  pointer-events: auto;
   white-space: nowrap;
 }

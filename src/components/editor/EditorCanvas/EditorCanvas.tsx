@@ -33,6 +33,7 @@ import { MessageNode }   from '@/components/editor/nodes/MessageNode'
 import { TriggerNode }   from '@/components/editor/nodes/TriggerNode'
 import { BgMusicNode }   from '@/components/editor/nodes/BgMusicNode'
 import { DEFAULT_BG_MUSIC_ID, DEFAULT_BG_MUSIC_VOLUME } from '@/lib/bgMusic'
+import { DEFAULT_WIN_SCREEN_ID } from '@/lib/winScreens'
 import styles from './EditorCanvas.module.css'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -410,6 +411,7 @@ export function EditorCanvas() {
           resultType: 'win',
           caseId: '',
           label: `Win ${existing + 1}`,
+          winImage: DEFAULT_WIN_SCREEN_ID,
         },
       } as GameFlowNode,
     ])

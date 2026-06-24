@@ -341,7 +341,7 @@ export function ResultNode({ id, data }: NodeProps<ResultFlowNode>) {
       )}
 
       <a
-        href={appPath(`/?startCase=${data.caseId}`)}
+        href={appPath(`/game?startCase=${encodeURIComponent(data.caseId)}`)}
         target="_blank"
         rel="noreferrer"
         style={{ fontSize: 11, color: isWin ? '#0f6e56' : '#a32d2d', textDecoration: 'underline' }}

@@ -29,6 +29,23 @@ function WinScreenStage({ children }: { children: ReactNode }) {
   )
 }
 
+function ResponsiveWinScreenStage({ children }: { children: ReactNode }) {
+  return (
+    <div
+      style={{
+        position: 'fixed',
+        inset: 0,
+        width: '100vw',
+        height: '100vh',
+        overflow: 'hidden',
+        background: 'var(--white)',
+      }}
+    >
+      {children}
+    </div>
+  )
+}
+
 export default function App() {
   return (
     <BrowserRouter basename={routerBasename}>
@@ -58,7 +75,11 @@ export default function App() {
         />
         <Route
           path="/win/kippah-cutting-workshop"
-          element={<WinScreenStage><WinScreenComponent variant="kippah-cutting-workshop" /></WinScreenStage>}
+          element={<ResponsiveWinScreenStage><WinScreenComponent variant="kippah-cutting-workshop" /></ResponsiveWinScreenStage>}
+        />
+        <Route
+          path="/win/bdsm-party"
+          element={<WinScreenStage><WinScreenComponent variant="bdsm-party" /></WinScreenStage>}
         />
       </Routes>
     </BrowserRouter>

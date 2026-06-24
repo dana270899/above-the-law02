@@ -20,6 +20,7 @@ export type WinVariant =
   | 'punching-dummy-click'
   | 'kippah-cutting'
   | 'kippah-cutting-workshop'
+  | 'bdsm-party'
 
 /** Stable list of every supported variant — used by the editor. */
 export const WIN_VARIANTS: readonly WinVariant[] = [
@@ -28,6 +29,7 @@ export const WIN_VARIANTS: readonly WinVariant[] = [
   'punching-dummy-click',
   'kippah-cutting',
   'kippah-cutting-workshop',
+  'bdsm-party',
 ]
 
 /** Same-tab change notification. detail.variant tells you which one. */

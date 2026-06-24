@@ -48,6 +48,11 @@ export const WIN_SCREENS: WinScreenOption[] = [
     label: 'Kippah Cutting Workshop',
     src: assetUrl('/images/win-screens/WinScreen_KippahCutting.png'),
   },
+  {
+    id: 'bdsm-party',
+    label: 'BDSM Party',
+    src: assetUrl('/images/win-screens/BdsmParty/Envelope.svg'),
+  },
 ]
 
 export const DEFAULT_WIN_SCREEN_ID: WinVariant = WIN_SCREENS[0].id

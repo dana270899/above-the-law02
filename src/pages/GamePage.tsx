@@ -7,7 +7,7 @@ import {
   type CSSProperties,
   type MouseEvent as ReactMouseEvent,
 } from 'react'
-import { Desktop } from '@/components/Desktop'
+import { Desktop, type TaskbarApp } from '@/components/Desktop'
 import {
   CaseWindow,
   DEFAULT_CASE_DATA,
@@ -496,19 +496,6 @@ export function GamePage() {
     />
   ) : null
 
-  // While the flow sits on a login node, render the LoginScreen as a
-  // full-screen step. Submitting follows the node's outgoing edge.
-  if (currentNode?.type === 'login') {
-    return (
-      <>
-        <div ref={scaleRef} className={styles.canvas}>
-          <LoginScreen onLogin={() => advance()} />
-        </div>
-        {bgMusic}
-      </>
-    )
-  }
-
   // Decision handlers — driven by the open case window, not the
   // walker's current node. The walker may be parked on a tutorial
   // message upstream of the case; in that case Arrest/Release jumps
@@ -597,12 +584,32 @@ export function GamePage() {
     (c) => caseResults.get(c.caseId) ?? null,
   )
   const achievementsTotal = Math.max(cases.length, 8)
+  const taskbarApps = useMemo<TaskbarApp[]>(() => {
+    const apps: TaskbarApp[] = []
+    if (caseWindowOpen && activeCaseData) {
+      apps.push({ id: 'cases', label: 'Cases', onClick: () => setCaseWindowOpen(true) })
+    }
+    if (operationWindowOpen) {
+      apps.push({ id: 'operation', label: 'Operation', onClick: () => setOperationWindowOpen(true) })
+    }
+    return apps
+  }, [activeCaseData, caseWindowOpen, operationWindowOpen])
 
-  // Walker is on a win-result — render the responsive win screen
-  // OUTSIDE the fixed 1920×1080 canvas so the image can fill the
-  // actual viewport width (keeping ratio) and the decision bar can
-  // take whatever vertical space is left. Plays a chime on mount;
-  // Next advances the walker along the result's outgoing edge.
+  // While the flow sits on a login node, render the LoginScreen as a
+  // full-screen step. Submitting follows the node's outgoing edge.
+  if (currentNode?.type === 'login') {
+    return (
+      <>
+        <div className={styles.loginCanvas}>
+          <LoginScreen onLogin={() => advance()} />
+        </div>
+        {bgMusic}
+      </>
+    )
+  }
+
+  // Walker is on a win-result — keep the desktop visible behind the
+  // centered win window, then let Next advance along the result edge.
   if (
     currentNode?.type === 'result' &&
     (currentNode as ResultFlowNode).data.resultType === 'win'
@@ -616,15 +623,24 @@ export function GamePage() {
     const winSoundCustomId = resultData.winSoundCustomId
     return (
       <>
-        <WinScreenStop
-          variant={winImage}
-          src={winImageCustom}
-          imageBlobId={winImageCustomId}
-          soundId={winSound}
-          soundSrc={winSoundCustom}
-          soundBlobId={winSoundCustomId}
-          onNext={() => advance()}
-        />
+        <Desktop
+          onCasesClick={openCaseWindow}
+          onOperationClick={() => {
+            if (operationUnlocked) setOperationWindowOpen(true)
+            else setOperationLockedScreenOpen(true)
+          }}
+          onStartClick={() => setVolumeControlVisible((v) => !v)}
+        >
+          <WinScreenStop
+            variant={winImage}
+            src={winImageCustom}
+            imageBlobId={winImageCustomId}
+            soundId={winSound}
+            soundSrc={winSoundCustom}
+            soundBlobId={winSoundCustomId}
+            onNext={() => advance()}
+          />
+        </Desktop>
         {bgMusic}
       </>
     )
@@ -639,6 +655,7 @@ export function GamePage() {
         else setOperationLockedScreenOpen(true)
       }}
       onStartClick={() => setVolumeControlVisible((v) => !v)}
+      taskbarApps={taskbarApps}
       tutorialOverlay={(() => {
         // Same precedence as the BossMessage stacking below: a
         // trigger-queue tutorial message wins over the walker's
@@ -865,36 +882,25 @@ function WinScreenStop({
       if (blobUrl) URL.revokeObjectURL(blobUrl)
     }
   }, [soundId, soundSrc, soundBlobId])
-  // Click-anywhere-to-advance: the player can either click the Next
-  // button or click anywhere on the win screen to move on. The button
-  // still works on its own because we let its click bubble up.
-  function handleAdvance(e: React.MouseEvent<HTMLDivElement> | React.KeyboardEvent<HTMLDivElement>) {
-    if ('key' in e && e.key !== 'Enter' && e.key !== ' ') return
-    e.preventDefault()
-    onNext()
-  }
+  const hasBuiltInCta = variant === 'kippah-cutting-workshop'
 
   return (
-    <div
-      className={styles.winStop}
-      role="button"
-      tabIndex={0}
-      onClick={handleAdvance}
-      onKeyDown={handleAdvance}
-      aria-label="Continue to the next screen"
-    >
+    <div className={styles.winStop}>
       <WinScreenComponent
         className={styles.winScreen}
         variant={variant}
         src={src}
         blobId={imageBlobId}
+        onComplete={hasBuiltInCta ? onNext : undefined}
       />
-      <div className={styles.winBar}>
-        <p className={styles.winBarText}>Good job!</p>
-        <button type="button" className={styles.winNext} onClick={onNext}>
-          Next
-        </button>
-      </div>
+      {!hasBuiltInCta && (
+        <div className={styles.winBar}>
+          <p className={styles.winBarText}>Good job!</p>
+          <button type="button" className={styles.winNext} onClick={onNext}>
+            Next
+          </button>
+        </div>
+      )}
     </div>
   )
 }

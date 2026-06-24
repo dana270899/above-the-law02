@@ -4,6 +4,14 @@ import styles from './Desktop.module.css'
 
 const A = assetUrl('/images/desktop')
 
+export type DesktopAppId = 'rulebook' | 'cases' | 'operation' | 'trash' | 'whack'
+
+export type TaskbarApp = {
+  id: DesktopAppId
+  label: string
+  onClick?: () => void
+}
+
 /* ============================================================
    Desktop — base screen used in every scenario.
    Edit this file and every screen that renders <Desktop /> updates.
@@ -29,6 +37,8 @@ export type DesktopProps = {
   operationLocked?: boolean
   onTrashClick?: () => void
   onWhackClick?: () => void
+  /** Apps with open windows, shown in the lower taskbar. */
+  taskbarApps?: TaskbarApp[]
   /** Full-canvas overlay rendered after the taskbar, so its
    *  `backdrop-filter` can desaturate every desktop element (icons,
    *  windows, taskbar) while content inside `children` painted at a
@@ -82,6 +92,21 @@ function WhackIllustration() {
   )
 }
 
+function AppIllustration({ id }: { id: DesktopAppId }) {
+  switch (id) {
+    case 'rulebook':
+      return <RulebookIllustration />
+    case 'cases':
+      return <CasesIllustration />
+    case 'operation':
+      return <OperationsIllustration />
+    case 'trash':
+      return <TrashIllustration />
+    case 'whack':
+      return <WhackIllustration />
+  }
+}
+
 function useCurrentTime() {
   const [time, setTime] = useState(() => formatTime(new Date()))
   useEffect(() => {
@@ -107,6 +132,7 @@ export function Desktop({
   operationLocked = false,
   onTrashClick,
   onWhackClick,
+  taskbarApps = [],
   tutorialOverlay,
 }: DesktopProps) {
   const liveTime = useCurrentTime()
@@ -170,6 +196,22 @@ export function Desktop({
         <button type="button" data-spot="taskbar.start" className={styles.startButton} onClick={onStartClick}>
           <span className={styles.startText}>Start</span>
         </button>
+        <div className={styles.taskbarApps} aria-label="Open apps">
+          {taskbarApps.map((app) => (
+            <button
+              key={app.id}
+              type="button"
+              className={styles.taskbarApp}
+              onClick={app.onClick}
+              aria-label={`${app.label} is open`}
+              title={app.label}
+            >
+              <span className={styles.taskbarIcon}>
+                <AppIllustration id={app.id} />
+              </span>
+            </button>
+          ))}
+        </div>
         <span className={styles.timeText}>{displayedTime}</span>
       </div>
 
