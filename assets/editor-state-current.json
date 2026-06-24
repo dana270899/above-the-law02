@@ -126,7 +126,7 @@
         "width": 325,
         "height": 159
       },
-      "selected": true,
+      "selected": false,
       "dragging": false
     },
     {
@@ -955,7 +955,9 @@
             }
           ],
           "arrestLabel": "Arrest",
-          "releaseLabel": "Release"
+          "releaseLabel": "Release",
+          "sexColor": "red",
+          "nationalityColor": "red"
         }
       },
       "measured": {
