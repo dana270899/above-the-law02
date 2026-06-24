@@ -51,11 +51,11 @@ export interface InteractiveWinScreenProps {
    *  while the variant is still being authored. */
   mediaSrc?: string
   /** Defaults to `'image'`. Pass `'video'` for a `<video>` element with
-   *  autoplay; `onComplete` then fires on the `ended` event. GIFs have
-   *  no end event, so the parent stays in charge of advancing. */
+   *  autoplay. Media completion does not advance the graph; exiting is
+   *  owned by the win window controls. */
   mediaKind?: MediaKind
-  /** Fires when the reaction media finishes playing, or on the next
-   *  tick after the interaction if no media is configured. */
+  /** Kept for compatibility with windowed variants; not fired by the
+   *  hotspot/media interaction itself. */
   onComplete?: () => void
   /** Outline the hotspot — useful while tuning coordinates. Off in prod. */
   debug?: boolean
@@ -75,7 +75,6 @@ export function InteractiveWinScreen({
   interaction,
   mediaSrc,
   mediaKind = 'image',
-  onComplete,
   debug = false,
   className,
   src: srcOverride,
@@ -88,7 +87,8 @@ export function InteractiveWinScreen({
   })
 
   // Phase machine: 'idle' shows the hotspot; 'reacting' shows the
-  // media overlay (or fires onComplete immediately when there's none).
+  // media overlay. Advancing the graph is owned by the window buttons,
+  // never by the mini-interaction itself.
   const [phase, setPhase] = useState<'idle' | 'reacting'>('idle')
   const dragRef = useRef<{ x: number; y: number } | null>(null)
   const completedRef = useRef(false)
@@ -96,21 +96,11 @@ export function InteractiveWinScreen({
   function triggerReaction() {
     if (phase !== 'idle') return
     setPhase('reacting')
-    if (!mediaSrc) {
-      // Nothing to play — fire onComplete on the next tick so the parent
-      // can react to the interaction without a re-entrant render.
-      queueMicrotask(() => {
-        if (completedRef.current) return
-        completedRef.current = true
-        onComplete?.()
-      })
-    }
   }
 
   function handleMediaEnd() {
     if (completedRef.current) return
     completedRef.current = true
-    onComplete?.()
   }
 
   function onHotspotClick(e: React.MouseEvent) {

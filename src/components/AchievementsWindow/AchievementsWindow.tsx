@@ -26,6 +26,7 @@ let hasFlickeredInThisSession = false
 
 const A = assetUrl('/images/achievements')
 const RANK_COUNT = 6
+const ENTRY_FLICKER_INTERVAL_MS = 300
 
 export type CaseOutcome = 'win' | 'lose' | null
 
@@ -79,9 +80,9 @@ export function AchievementsWindow({
 
   /* Phase machine — drives the empty↔full visual swap that plays as the
      bar appears. `null` means "settled, render the actual results". The
-     bar starts on `empty` (so the first paint matches the empty state),
-     then alternates every 150ms. By default it settles after 6 ticks
-     (~900ms). When `loopEntryFlicker` is true, it keeps cycling
+   bar starts on `empty` (so the first paint matches the empty state),
+     then alternates every 300ms. By default it settles after 6 ticks
+     (~1800ms). When `loopEntryFlicker` is true, it keeps cycling
      indefinitely and only settles once the prop flips back to false. */
   const [entryFlickerPhase, setEntryFlickerPhase] = useState<
     'empty' | 'full' | null
@@ -105,7 +106,7 @@ export function AchievementsWindow({
         return
       }
       setEntryFlickerPhase(step % 2 === 0 ? 'empty' : 'full')
-    }, 150)
+    }, ENTRY_FLICKER_INTERVAL_MS)
     return () => window.clearInterval(id)
   }, [playEntryFlicker])
 

@@ -49,6 +49,54 @@
   min-height: 0;
 }
 
+/* Element-based tutorial highlights. These intentionally filter the
+   actual window sections instead of using a fixed overlay, so the same
+   parts remain colored/grey while the case body scrolls. */
+.window[data-case-highlight='case.identity'] .upperBar,
+.window[data-case-highlight='case.identity'] .tabs,
+.window[data-case-highlight='case.identity'] .panel,
+.window[data-case-highlight='case.identity'] .scrollColumn,
+.window[data-case-highlight='case.identity'] .footer {
+  filter: grayscale(1);
+}
+
+.window[data-case-highlight='case.records'] .upperBar,
+.window[data-case-highlight='case.records'] .tabs,
+.window[data-case-highlight='case.records'] .caseHeader,
+.window[data-case-highlight='case.records'] .identity,
+.window[data-case-highlight='case.records'] .scrollColumn,
+.window[data-case-highlight='case.records'] .footer {
+  filter: grayscale(1);
+}
+
+.window[data-case-highlight='case.suspicion.attachment'] .upperBar,
+.window[data-case-highlight='case.suspicion.attachment'] .tabs,
+.window[data-case-highlight='case.suspicion.attachment'] .caseHeader,
+.window[data-case-highlight='case.suspicion.attachment'] .identity,
+.window[data-case-highlight='case.suspicion.attachment'] .panelTitle,
+.window[data-case-highlight='case.suspicion.attachment'] .recordTableHeader,
+.window[data-case-highlight='case.suspicion.attachment'] .susTableHeader,
+.window[data-case-highlight='case.suspicion.attachment'] .recordExpandBtn,
+.window[data-case-highlight='case.suspicion.attachment'] .recordSubject,
+.window[data-case-highlight='case.suspicion.attachment'] .chip,
+.window[data-case-highlight='case.suspicion.attachment'] .recordDate,
+.window[data-case-highlight='case.suspicion.attachment'] .scrollColumn,
+.window[data-case-highlight='case.suspicion.attachment'] .footer {
+  filter: grayscale(1);
+}
+
+.window[data-case-highlight='case.suspicion.attachment'] .panel {
+  background: #eeeeee;
+}
+
+.window[data-case-highlight='case.suspicion.attachment'] .recordRow {
+  background: #f3f3f3;
+}
+
+.window[data-case-highlight='case.suspicion.attachment'] [data-spot='case.suspicion.attachment'] {
+  filter: none;
+}
+
 /* ─── Window upper bar (title + window chrome) ──────── */
 .upperBar {
   width: 100%;
@@ -586,6 +634,11 @@
   font-weight: 700;
   color: var(--black);
   white-space: nowrap;
+}
+
+.recordTableHeader .recordHeader:last-child {
+  justify-self: end;
+  text-align: right;
 }
 
 .recordHeaderSpacer {

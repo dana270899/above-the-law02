@@ -126,7 +126,7 @@
         "width": 325,
         "height": 159
       },
-      "selected": false,
+      "selected": true,
       "dragging": false
     },
     {
@@ -159,9 +159,10 @@
           "criminalRecord": [
             {
               "id": "c1780220751115",
-              "text": "Domestic violence against his wife",
+              "text": "Domestic violence",
               "date": "10/09/2025",
-              "status": "Convicted"
+              "status": "Convicted",
+              "details": "Convicted of domestic violence against his wife"
             }
           ],
           "suspicions": [
@@ -240,8 +241,8 @@
       "id": "tut-msg-learn",
       "type": "message",
       "position": {
-        "x": 1092.2852655141464,
-        "y": -2764.96140355212
+        "x": 1073.655491481039,
+        "y": -2783.1157268935813
       },
       "data": {
         "nodeType": "message",
@@ -329,7 +330,7 @@
         "locationX": 20,
         "locationY": 20,
         "isTutorial": true,
-        "spotlightTargetId": "case.header"
+        "spotlightTargetId": "case.identity"
       },
       "measured": {
         "width": 290,
@@ -355,7 +356,7 @@
         "locationX": 20,
         "locationY": 40,
         "isTutorial": true,
-        "spotlightTargetId": "case.criminalRecord"
+        "spotlightTargetId": "case.records"
       },
       "measured": {
         "width": 290,
@@ -541,8 +542,8 @@
         "winSound": "hashem-itbarach"
       },
       "measured": {
-        "width": 231,
-        "height": 196
+        "width": 245,
+        "height": 324
       },
       "selected": false,
       "dragging": false
@@ -766,11 +767,13 @@
         "caseId": "",
         "label": "Win 2",
         "winSound": "hashem-itbarach",
-        "winImage": "kippah-cutting-workshop"
+        "winImage": "kippah-cutting-workshop",
+        "winFooterText": "Winning is so fun",
+        "winCtaLabel": "I was born to be a cop!"
       },
       "measured": {
-        "width": 231,
-        "height": 196
+        "width": 245,
+        "height": 324
       },
       "selected": false,
       "dragging": false
@@ -803,21 +806,23 @@
       "id": "result-win-1780988357022",
       "type": "result",
       "position": {
-        "x": -1451.5004729094758,
-        "y": 509.61437483754446
+        "x": -1575.471774939078,
+        "y": 322.0680461260951
       },
       "data": {
         "nodeType": "result",
         "resultType": "win",
         "caseId": "",
         "label": "Win 3",
-        "winImage": "kippah-cutting-workshop",
-        "winSoundCustomLabel": "Hashem Itbarach.mp3",
-        "winSoundCustomId": "snd-mq6pj05g-ugagci"
+        "winImage": "graffiti",
+        "winTitle": "News",
+        "winFooterText": "Congratulations, you're making headlines",
+        "winCtaLabel": "My mom's gonna be so proud!",
+        "winSound": "hashem-itbarach"
       },
       "measured": {
-        "width": 231,
-        "height": 217
+        "width": 245,
+        "height": 324
       },
       "selected": false,
       "dragging": false
@@ -929,19 +934,19 @@
           "statusLabel": "Open",
           "statusColor": "green",
           "photoUrl": "",
-          "fullName": "Adam Mahmud",
-          "idNo": "12345678",
-          "dob": "10/12/1988",
-          "sex": "Male",
-          "nationality": "Electan",
-          "religion": "Jewish",
-          "religionColor": "green",
+          "fullName": "Israel Israeli",
+          "idNo": "21345668",
+          "dob": "10/12/2000",
+          "sex": "Anarchist",
+          "nationality": "Traitor",
+          "religion": "Leftie",
+          "religionColor": "red",
           "address": "Ya'akov Fichman St 18, Holon",
           "criminalRecord": [],
           "suspicions": [
             {
               "id": "s1",
-              "subject": "Palestinian flag graffiti",
+              "subject": "Terror-Related Activity",
               "status": "Urgent",
               "statusColor": "red",
               "date": "08/02/2026",
@@ -1116,13 +1121,13 @@
       "id": "message-28",
       "type": "message",
       "position": {
-        "x": -339.44777794205174,
-        "y": -326.8779969921525
+        "x": -351.44777794205174,
+        "y": -350.8779969921525
       },
       "data": {
         "nodeType": "message",
         "messageType": "link",
-        "content": "I thought you understood! These lesbian journalists are going to eat us alive",
+        "content": "I thought you understood! Those lesbian journalists are going to eat us alive",
         "buttonLabel": "Sorry",
         "buttonLinkType": "edge",
         "buttonUrl": "",
@@ -1170,12 +1175,85 @@
       "data": {
         "nodeType": "message",
         "messageType": "link",
-        "content": "Good job! Now these lesbian journalists won't bother us",
+        "content": "Good job! Now those lesbian journalists won't bother us",
         "buttonLabel": "Thanks",
         "buttonLinkType": "edge",
         "buttonUrl": "",
         "locationX": 50,
         "locationY": 50
+      },
+      "measured": {
+        "width": 290,
+        "height": 506
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "result-win-1782311964781",
+      "type": "result",
+      "position": {
+        "x": -1642.120518856404,
+        "y": 1831.1244421068461
+      },
+      "data": {
+        "nodeType": "result",
+        "resultType": "win",
+        "caseId": "",
+        "label": "Win 4",
+        "winImage": "bdsm-party",
+        "winTitle": "Win",
+        "winFooterText": "Winning is so good",
+        "winCtaLabel": "Love this job, next case!",
+        "winSound": "hashem-itbarach"
+      },
+      "measured": {
+        "width": 245,
+        "height": 324
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "message-32",
+      "type": "message",
+      "position": {
+        "x": -1586.0080866574724,
+        "y": 710.470032612302
+      },
+      "data": {
+        "nodeType": "message",
+        "messageType": "link",
+        "content": "you didn't think I'd forget to take care of you, did you?",
+        "buttonLabel": "Continue",
+        "buttonLinkType": "edge",
+        "buttonUrl": "",
+        "locationX": 20,
+        "locationY": 30
+      },
+      "measured": {
+        "width": 290,
+        "height": 506
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "message-33",
+      "type": "message",
+      "position": {
+        "x": -1588.4179685368852,
+        "y": 1232.8453157072295
+      },
+      "data": {
+        "nodeType": "message",
+        "messageType": "link",
+        "content": " You're invited to a special party ^.^",
+        "buttonLabel": "Continue",
+        "buttonLinkType": "edge",
+        "buttonUrl": "",
+        "locationX": 40,
+        "locationY": 60
       },
       "measured": {
         "width": 290,
@@ -1369,11 +1447,6 @@
       "id": "xy-edge__message-24-message-25"
     },
     {
-      "source": "result-win-1780988357022",
-      "target": "case-1781506742927",
-      "id": "xy-edge__result-win-1780988357022-case-1781506742927"
-    },
-    {
       "source": "tut-msg-anotherchance",
       "target": "message-27",
       "id": "xy-edge__tut-msg-anotherchance-message-27"
@@ -1410,11 +1483,6 @@
       "id": "xy-edge__message-31-message-14"
     },
     {
-      "id": "tut-e-trig-arrest-msg",
-      "source": "tut-trig-arrest-retry",
-      "target": "tut-msg-anotherchance"
-    },
-    {
       "id": "tut-e-goodjob-result",
       "source": "tut-msg-goodjob",
       "target": "tut-result-891-win"
@@ -1428,6 +1496,26 @@
       "source": "login",
       "target": "tut-msg-welcome",
       "id": "xy-edge__login-tut-msg-welcome"
+    },
+    {
+      "source": "message-32",
+      "target": "message-33",
+      "id": "xy-edge__message-32-message-33"
+    },
+    {
+      "source": "message-33",
+      "target": "result-win-1782311964781",
+      "id": "xy-edge__message-33-result-win-1782311964781"
+    },
+    {
+      "source": "result-win-1780988357022",
+      "target": "message-32",
+      "id": "xy-edge__result-win-1780988357022-message-32"
+    },
+    {
+      "source": "result-win-1782311964781",
+      "target": "case-1781506742927",
+      "id": "xy-edge__result-win-1782311964781-case-1781506742927"
     }
   ]
 }

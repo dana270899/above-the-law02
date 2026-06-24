@@ -1,10 +1,11 @@
 /**
  * SPOTLIGHT TARGETS
  *
- * Registry of every UI element a tutorial message can highlight. The
- * editor's MessageNode reads this list to populate its "Highlight"
- * dropdown; the runtime reads the chosen id and matches it against a
- * `data-spot="<id>"` attribute on the actual rendered DOM node.
+ * Registry of every UI element or grouped area a tutorial message can
+ * highlight. The editor's MessageNode reads this list to populate its
+ * "Highlight" dropdown. Most targets match a `data-spot="<id>"`
+ * attribute; grouped Case window targets are applied by CaseWindow
+ * itself so scrolling keeps the same elements in color.
  *
  * Adding a new target is two steps:
  *   1. Append an entry to SPOTLIGHT_TARGETS below.
@@ -39,16 +40,9 @@ export const SPOTLIGHT_TARGETS: readonly SpotlightTarget[] = [
   { id: 'taskbar.start',           label: 'Start button (taskbar)', group: 'Desktop' },
 
   // Case window sections
-  { id: 'case.tabs',               label: 'Case tabs (left menu)',  group: 'Case window' },
-  { id: 'case.tab.active',         label: 'Active case tab',        group: 'Case window' },
-  { id: 'case.photo',              label: 'Case photo',             group: 'Case window' },
-  { id: 'case.header',             label: 'Case header (id + status)', group: 'Case window' },
-  { id: 'case.suspicions',         label: 'Suspicions section',     group: 'Case window' },
-  { id: 'case.suspicion.row',      label: 'Suspicion row',          group: 'Case window' },
+  { id: 'case.identity',           label: 'Case photo + text header + ID text', group: 'Case window' },
+  { id: 'case.records',            label: 'Suspicions section + criminal record section', group: 'Case window' },
   { id: 'case.suspicion.attachment', label: 'Suspicion attachment file', group: 'Case window' },
-  { id: 'case.criminalRecord',     label: 'Criminal record section', group: 'Case window' },
-  { id: 'case.arrest',             label: 'Arrest button',          group: 'Case window' },
-  { id: 'case.release',            label: 'Release button',         group: 'Case window' },
 
   // Rank / Achievements window
   { id: 'rank.window',             label: 'Rank window (whole)',    group: 'Rank window' },

@@ -16,6 +16,9 @@ const CURSOR_CLOSED = `${ASSET_ROOT}/Cursor02_Scissors02.svg`
 const CURSOR_TRAIL = `${ASSET_ROOT}/trail.svg`
 const BACKGROUND_VIDEO = `${ASSET_ROOT}/KippahCutting.mp4`
 const SCISSORS_SOUND_SRC = assetUrl('/sounds/Scissors.mp3')
+const DEFAULT_WIN_TITLE = 'Win'
+const DEFAULT_WIN_FOOTER_TEXT = 'Winning is so good'
+const DEFAULT_WIN_CTA_LABEL = 'Love this job, next case!'
 
 const HANDS = [
   `${ASSET_ROOT}/Kippah_hand01.svg`,
@@ -118,6 +121,9 @@ export interface KippahCuttingWorkshopProps {
   src?: string
   blobId?: string
   onComplete?: () => void
+  winTitle?: string
+  winFooterText?: string
+  winCtaLabel?: string
   debug?: boolean
 }
 
@@ -126,6 +132,9 @@ export function KippahCuttingWorkshop({
   src: srcOverride,
   blobId,
   onComplete,
+  winTitle = DEFAULT_WIN_TITLE,
+  winFooterText = DEFAULT_WIN_FOOTER_TEXT,
+  winCtaLabel = DEFAULT_WIN_CTA_LABEL,
   debug = false,
 }: KippahCuttingWorkshopProps = {}) {
   const { src: bgSrc, label, handleError } = useWinScreenBackground({
@@ -197,13 +206,16 @@ export function KippahCuttingWorkshop({
       data-node="win-kippah-cutting-workshop"
     >
       <div className={styles.upperBar}>
-        <span className={styles.upperBarTitle}>Win</span>
+        <span className={styles.upperBarTitle}>{winTitle}</span>
         <div className={styles.upperBarBtns}>
           <button
             type="button"
             className={`${styles.chromeBtn} ${styles.chromeClose}`}
             aria-label="Close"
-            onClick={onComplete}
+            onClick={(e) => {
+              e.stopPropagation()
+              onComplete?.()
+            }}
           >
             <img src={assetUrl('/images/case-window/close.svg')} alt="" />
           </button>
@@ -290,13 +302,16 @@ export function KippahCuttingWorkshop({
         />
       </div>
       <div className={styles.footerBar}>
-        <p className={styles.footerText}>Winning is so good</p>
+        <p className={styles.footerText}>{winFooterText}</p>
         <button
           type="button"
           className={styles.footerCta}
-          onClick={onComplete}
+          onClick={(e) => {
+            e.stopPropagation()
+            onComplete?.()
+          }}
         >
-          Love this job, next case!
+          {winCtaLabel}
         </button>
       </div>
     </div>

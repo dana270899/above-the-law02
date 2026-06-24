@@ -241,7 +241,6 @@ export function PunchingDummy({
         setLiveTilt(0)
         releaseAngleRef.current = 0
         setPhase('idle')
-        onComplete?.()
       }, settleDurationMs)
       return () => window.clearTimeout(t)
     }
@@ -270,12 +269,11 @@ export function PunchingDummy({
         setLiveTilt(0)
         releaseAngleRef.current = 0
         setPhase('idle')
-        onComplete?.()
       }
     }
     rafId = requestAnimationFrame(tick)
     return () => cancelAnimationFrame(rafId)
-  }, [phase, reverseFrames, settleDurationMs, onComplete])
+  }, [phase, reverseFrames, settleDurationMs])
 
   // Toy positioning lives on the outer wrapper. Pivot is bottom-center
   // (50% 100%) so the toy hinges at its base like a real tumbler.

@@ -50,7 +50,7 @@ export function getBgMusic(id: string | undefined): BgMusicOption {
  * ─────────────────────────────────────────────────────────────── */
 
 /** Multiplier applied while at least one duck source is active. */
-export const DUCK_FACTOR = 0.8
+export const DUCK_FACTOR = 0.4
 
 let duckCount = 0
 type DuckListener = (factor: number) => void

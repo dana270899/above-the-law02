@@ -30,6 +30,26 @@ import {
 import { appPath, assetUrl } from '@/lib/paths'
 import styles from './ComponentsTab.module.css'
 
+const CASE_HIGHLIGHT_PREVIEW_DATA = {
+  ...DEFAULT_CASE_DATA,
+  criminalRecord: [
+    {
+      id: 'c1',
+      text: 'Unauthorized assembly',
+      status: 'Convicted',
+      statusColor: 'red' as const,
+      date: '22/08/2020',
+      details: 'Prior case note used to preview the criminal record highlight.',
+    },
+  ],
+  suspicions: [
+    {
+      ...DEFAULT_CASE_DATA.suspicions[0],
+      fileFootageVariant: 'graffiti' as const,
+    },
+  ],
+}
+
 export function ComponentsTab() {
   // Local state for the Operation Window preview, so clicking
   // a toggle in the components-tab preview actually flips it.
@@ -98,6 +118,36 @@ export function ComponentsTab() {
         </header>
         <div className={styles.messageGrid}>
           <div className={styles.messageCard}>
+            <p className={styles.messageLabel}>Kippah Cutting Workshop</p>
+            <div className={styles.winImageEditor}>
+              <p className={styles.winImageStatus}>
+                Interactive component using bundled video{' '}
+                <code>{assetUrl('/images/win-screens/KippahCutting/KippahCutting.mp4')}</code>,
+                cursor SVGs, cutting hand SVGs, side pieces, and scissors
+                sound.
+              </p>
+            </div>
+            <div className={styles.desktopFrame}>
+              <iframe
+                src={appPath('/win/kippah-cutting-workshop')}
+                title="Kippah Cutting Workshop win screen preview"
+              />
+            </div>
+          </div>
+          <div className={styles.messageCard}>
+            <p className={styles.messageLabel}>BDSM Party</p>
+            <WinScreenImageEditor
+              variant="bdsm-party"
+              defaultPath={assetUrl('/images/win-screens/BdsmParty/Envelope.svg')}
+            />
+            <div className={styles.desktopFrame}>
+              <iframe
+                src={appPath('/win/bdsm-party')}
+                title="BDSM Party win screen preview"
+              />
+            </div>
+          </div>
+          <div className={styles.messageCard}>
             <p className={styles.messageLabel}>Graffiti</p>
             <WinScreenImageEditor
               variant="graffiti"
@@ -146,36 +196,6 @@ export function ComponentsTab() {
               />
             </div>
           </div>
-          <div className={styles.messageCard}>
-            <p className={styles.messageLabel}>Kippah Cutting Workshop</p>
-            <div className={styles.winImageEditor}>
-              <p className={styles.winImageStatus}>
-                Interactive component using bundled video{' '}
-                <code>{assetUrl('/images/win-screens/KippahCutting/KippahCutting.mp4')}</code>,
-                cursor SVGs, cutting hand SVGs, side pieces, and scissors
-                sound.
-              </p>
-            </div>
-            <div className={styles.desktopFrame}>
-              <iframe
-                src={appPath('/win/kippah-cutting-workshop')}
-                title="Kippah Cutting Workshop win screen preview"
-              />
-            </div>
-          </div>
-          <div className={styles.messageCard}>
-            <p className={styles.messageLabel}>BDSM Party</p>
-            <WinScreenImageEditor
-              variant="bdsm-party"
-              defaultPath={assetUrl('/images/win-screens/BdsmParty/Envelope.svg')}
-            />
-            <div className={styles.desktopFrame}>
-              <iframe
-                src={appPath('/win/bdsm-party')}
-                title="BDSM Party win screen preview"
-              />
-            </div>
-          </div>
         </div>
       </section>
 
@@ -201,6 +221,20 @@ export function ComponentsTab() {
         </p>
         <div className={styles.caseStage}>
           <CaseWindow data={DEFAULT_CASE_DATA} />
+        </div>
+        <div className={styles.highlightPreviewGrid}>
+          <CaseHighlightPreview
+            title="Case photo + text header + ID text"
+            variant="identity"
+          />
+          <CaseHighlightPreview
+            title="Suspicions + criminal record sections"
+            variant="records"
+          />
+          <CaseHighlightPreview
+            title="Suspicion attachment file"
+            variant="attachment"
+          />
         </div>
       </section>
 
@@ -466,6 +500,23 @@ export function ComponentsTab() {
           </div>
         </div>
       </section>
+    </div>
+  )
+}
+
+function CaseHighlightPreview({
+  title,
+  variant,
+}: {
+  title: string
+  variant: 'identity' | 'records' | 'attachment'
+}) {
+  return (
+    <div className={styles.highlightPreviewCard}>
+      <p className={styles.messageLabel}>{title}</p>
+      <div className={`${styles.caseStage} ${styles.highlightPreview}`} data-highlight-preview={variant}>
+        <CaseWindow data={CASE_HIGHLIGHT_PREVIEW_DATA} />
+      </div>
     </div>
   )
 }

@@ -13,6 +13,9 @@ import {
 import { appPath } from '@/lib/paths'
 
 const CUSTOM_OPTION_VALUE = '__custom__'
+const DEFAULT_WIN_TITLE = 'Win'
+const DEFAULT_WIN_FOOTER_TEXT = 'Winning is so good'
+const DEFAULT_WIN_CTA_LABEL = 'Love this job, next case!'
 
 export function ResultNode({ id, data }: NodeProps<ResultFlowNode>) {
   const { updateNodeData } = useReactFlow()
@@ -163,6 +166,13 @@ export function ResultNode({ id, data }: NodeProps<ResultFlowNode>) {
     })
   }
 
+  function updateWinText(
+    key: 'winTitle' | 'winFooterText' | 'winCtaLabel',
+    value: string,
+  ) {
+    updateNodeData(id, { [key]: value })
+  }
+
   return (
     <div style={{
       background: isWin ? '#e1f5e8' : '#fceaea',
@@ -255,6 +265,89 @@ export function ResultNode({ id, data }: NodeProps<ResultFlowNode>) {
               📎 {customImageLabel}
             </div>
           )}
+        </div>
+      )}
+
+      {/* Window text — optional per-node overrides. We only write the
+          changed text key, so existing image/sound/custom upload data
+          stays untouched. */}
+      {isWin && (
+        <div className="nodrag" style={{ marginBottom: 8 }}>
+          <label
+            style={{
+              display: 'block',
+              fontSize: 11,
+              color: '#0f6e56',
+              marginBottom: 6,
+            }}
+          >
+            Upper bar text:
+            <input
+              className="nodrag"
+              value={data.winTitle ?? DEFAULT_WIN_TITLE}
+              onChange={(e) => updateWinText('winTitle', e.target.value)}
+              style={{
+                width: '100%',
+                font: 'inherit',
+                padding: '3px 5px',
+                marginTop: 2,
+                border: '1px solid #b6dcc6',
+                borderRadius: 3,
+                background: '#fff',
+                color: '#0f6e56',
+              }}
+            />
+          </label>
+          <label
+            style={{
+              display: 'block',
+              fontSize: 11,
+              color: '#0f6e56',
+              marginBottom: 6,
+            }}
+          >
+            Lower bar text:
+            <input
+              className="nodrag"
+              value={data.winFooterText ?? DEFAULT_WIN_FOOTER_TEXT}
+              onChange={(e) => updateWinText('winFooterText', e.target.value)}
+              style={{
+                width: '100%',
+                font: 'inherit',
+                padding: '3px 5px',
+                marginTop: 2,
+                border: '1px solid #b6dcc6',
+                borderRadius: 3,
+                background: '#fff',
+                color: '#0f6e56',
+              }}
+            />
+          </label>
+          <label
+            style={{
+              display: 'block',
+              fontSize: 11,
+              color: '#0f6e56',
+              marginBottom: 4,
+            }}
+          >
+            Button text:
+            <input
+              className="nodrag"
+              value={data.winCtaLabel ?? DEFAULT_WIN_CTA_LABEL}
+              onChange={(e) => updateWinText('winCtaLabel', e.target.value)}
+              style={{
+                width: '100%',
+                font: 'inherit',
+                padding: '3px 5px',
+                marginTop: 2,
+                border: '1px solid #b6dcc6',
+                borderRadius: 3,
+                background: '#fff',
+                color: '#0f6e56',
+              }}
+            />
+          </label>
         </div>
       )}
 

@@ -1,17 +1,98 @@
+.window {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  --design-width: 1440px;
+  --chrome-height: 42px;
+  --footer-height: 88px;
+  --screen-height: calc(var(--design-width) * 9 / 16);
+  --design-height: calc(var(--chrome-height) + var(--screen-height) + var(--footer-height) + 4px);
+  --fit-scale: min(
+    1,
+    calc((100vw - 64px) / var(--design-width)),
+    calc((100vh - 64px) / var(--design-height))
+  );
+  transform: translate(-50%, -50%) scale(var(--fit-scale));
+  transform-origin: center;
+  width: var(--design-width);
+  height: auto;
+  background: var(--white);
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  user-select: none;
+}
+
+.upperBar {
+  width: 100%;
+  height: var(--chrome-height);
+  background: var(--yellow);
+  border-bottom: 2px solid var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow: clip;
+  flex-shrink: 0;
+}
+
+.upperBarTitle {
+  padding: 0 16px;
+  font-family: var(--font-main);
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 28px;
+  color: var(--grey);
+  white-space: nowrap;
+}
+
+.upperBarBtns {
+  display: flex;
+  align-items: stretch;
+  align-self: stretch;
+}
+
+.chromeBtn {
+  width: 40px;
+  height: auto;
+  border: 0;
+  border-left: 2px solid var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: clip;
+  cursor: pointer;
+  padding: 7px;
+  background: var(--white);
+}
+
+.chromeBtn img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.chromeClose {
+  background: var(--red);
+  padding: 8px;
+}
+
 .screen {
   position: relative;
   width: 100%;
+  height: var(--screen-height);
   aspect-ratio: 16 / 9;
   background: #fbfafa;
   overflow: hidden;
-  user-select: none;
+  flex: 0 0 auto;
 }
 
 .stage {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: min(54%, 560px);
+  width: min(54%, 760px);
   aspect-ratio: 1042 / 628;
   transform: translate(-50%, -42%);
 }
@@ -160,4 +241,86 @@
 
 .debug .stage {
   outline: 2px dashed rgba(255, 150, 0, 0.85);
+}
+
+.footerBar {
+  width: 100%;
+  height: var(--footer-height);
+  background: var(--white);
+  border-top: 2px solid var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 14px 24px;
+  overflow: visible;
+  flex-shrink: 0;
+}
+
+.footerText {
+  font-family: var(--font-main);
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 28px;
+  color: var(--grey);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.footerCta {
+  background: var(--green);
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  color: var(--white);
+  cursor: pointer;
+  font-family: var(--font-main);
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.35;
+  min-height: 54px;
+  padding: 8px 32px 10px;
+  white-space: nowrap;
+  transition: filter 120ms ease;
+  overflow: visible;
+}
+
+.footerCta:hover {
+  filter: brightness(1.05);
+}
+
+@media (max-width: 700px), (max-height: 640px) {
+  .window {
+    --chrome-height: 36px;
+    --footer-height: 72px;
+    --fit-scale: min(
+      1,
+      calc((100vw - 32px) / var(--design-width)),
+      calc((100vh - 32px) / var(--design-height))
+    );
+  }
+
+  .upperBarTitle {
+    font-size: 18px;
+    line-height: 24px;
+  }
+
+  .chromeBtn {
+    width: 34px;
+    height: auto;
+  }
+
+  .footerBar {
+    padding: 10px 16px;
+  }
+
+  .footerText {
+    font-size: 18px;
+    line-height: 24px;
+  }
+
+  .footerCta {
+    font-size: 18px;
+    min-height: 44px;
+    padding: 6px 18px 8px;
+  }
 }

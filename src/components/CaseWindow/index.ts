@@ -7,4 +7,5 @@ export type {
   StatusColor,
   CaseTab,
   CaseDecision,
+  CaseWindowHighlightTarget,
 } from './CaseWindow'

@@ -35,6 +35,9 @@ import styles from './PunchingDummyClick.module.css'
 
 const TOY_FORWARD_SRC = assetUrl('/images/win-screens/PunchingDummy/PunchingDummy_dummy_forward.gif')
 const TOY_REVERSE_SRC = assetUrl('/images/win-screens/PunchingDummy/PunchingDummy_dummy_reverse.gif')
+const DEFAULT_WIN_TITLE = 'Win'
+const DEFAULT_WIN_FOOTER_TEXT = 'Winning is so good'
+const DEFAULT_WIN_CTA_LABEL = 'Love this job, next case!'
 
 // Path to a punch-click sound. Leave `undefined` to skip; set to a
 // public path and `startPress` will fire it on every hotspot click.
@@ -88,6 +91,9 @@ export interface PunchingDummyClickProps {
   /** Fires when a wobble-back finishes. The win stop's Next button is
    *  independent of this; advancing is still up to the player. */
   onComplete?: () => void
+  winTitle?: string
+  winFooterText?: string
+  winCtaLabel?: string
   /** Outline the toy + hotspots while tuning coordinates. */
   debug?: boolean
 }
@@ -99,6 +105,9 @@ export function PunchingDummyClick({
   src: srcOverride,
   blobId,
   onComplete,
+  winTitle = DEFAULT_WIN_TITLE,
+  winFooterText = DEFAULT_WIN_FOOTER_TEXT,
+  winCtaLabel = DEFAULT_WIN_CTA_LABEL,
   debug = false,
 }: PunchingDummyClickProps = {}) {
   const { src: bgSrc, label, handleError } = useWinScreenBackground({
@@ -250,7 +259,6 @@ export function PunchingDummyClick({
         setLiveTilt(0)
         releaseAngleRef.current = 0
         setPhase('idle')
-        onComplete?.()
       }, settleDurationMs)
       return () => window.clearTimeout(t)
     }
@@ -276,12 +284,11 @@ export function PunchingDummyClick({
         setLiveTilt(0)
         releaseAngleRef.current = 0
         setPhase('idle')
-        onComplete?.()
       }
     }
     rafId = requestAnimationFrame(tick)
     return () => cancelAnimationFrame(rafId)
-  }, [phase, reverseFrames, settleDurationMs, onComplete])
+  }, [phase, reverseFrames, settleDurationMs])
 
   // Outer wrapper holds positioning + rotation; pivot at the base so
   // rotation reads as a tilt, not a spin.
@@ -322,12 +329,16 @@ export function PunchingDummyClick({
       data-node="win-punching-dummy-click"
     >
       <div className={styles.upperBar}>
-        <span className={styles.upperBarTitle}>Win</span>
+        <span className={styles.upperBarTitle}>{winTitle}</span>
         <div className={styles.upperBarBtns}>
           <button
             type="button"
             className={`${styles.chromeBtn} ${styles.chromeClose}`}
             aria-label="Close"
+            onClick={(e) => {
+              e.stopPropagation()
+              onComplete?.()
+            }}
           >
             <img src={assetUrl('/images/case-window/close.svg')} alt="" />
           </button>
@@ -397,13 +408,16 @@ export function PunchingDummyClick({
         />
       </div>
       <div className={styles.footerBar}>
-        <p className={styles.footerText}>Winning is so good</p>
+        <p className={styles.footerText}>{winFooterText}</p>
         <button
           type="button"
           className={styles.footerCta}
-          onClick={onComplete}
+          onClick={(e) => {
+            e.stopPropagation()
+            onComplete?.()
+          }}
         >
-          Love this job, next case!
+          {winCtaLabel}
         </button>
       </div>
     </div>

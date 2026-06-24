@@ -412,6 +412,9 @@ export function EditorCanvas() {
           caseId: '',
           label: `Win ${existing + 1}`,
           winImage: DEFAULT_WIN_SCREEN_ID,
+          winTitle: 'Win',
+          winFooterText: 'Winning is so good',
+          winCtaLabel: 'Love this job, next case!',
         },
       } as GameFlowNode,
     ])

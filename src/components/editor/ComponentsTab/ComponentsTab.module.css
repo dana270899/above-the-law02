@@ -95,6 +95,73 @@
   overflow-y: hidden;
 }
 
+.highlightPreviewGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.highlightPreviewCard {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 20px;
+}
+
+.highlightPreview {
+  position: relative;
+}
+
+.highlightPreview :global([data-spot]),
+.highlightPreview :global([data-highlight-part]) {
+  transition: filter 160ms ease;
+}
+
+.highlightPreview[data-highlight-preview='identity'] :global([class*='upperBar']),
+.highlightPreview[data-highlight-preview='identity'] :global([data-spot='case.tabs']),
+.highlightPreview[data-highlight-preview='identity'] :global([class*='panel']),
+.highlightPreview[data-highlight-preview='identity'] :global([class*='scrollColumn']),
+.highlightPreview[data-highlight-preview='identity'] :global([class*='footer']) {
+  filter: grayscale(1);
+}
+
+.highlightPreview[data-highlight-preview='records'] :global([class*='upperBar']),
+.highlightPreview[data-highlight-preview='records'] :global([data-spot='case.tabs']),
+.highlightPreview[data-highlight-preview='records'] :global([data-spot='case.header']),
+.highlightPreview[data-highlight-preview='records'] :global([class*='identity']),
+.highlightPreview[data-highlight-preview='records'] :global([class*='scrollColumn']),
+.highlightPreview[data-highlight-preview='records'] :global([class*='footer']) {
+  filter: grayscale(1);
+}
+
+.highlightPreview[data-highlight-preview='attachment'] :global([class*='upperBar']),
+.highlightPreview[data-highlight-preview='attachment'] :global([data-spot='case.tabs']),
+.highlightPreview[data-highlight-preview='attachment'] :global([data-spot='case.header']),
+.highlightPreview[data-highlight-preview='attachment'] :global([class*='identity']),
+.highlightPreview[data-highlight-preview='attachment'] :global([data-spot='case.criminalRecord']),
+.highlightPreview[data-highlight-preview='attachment'] :global([class*='susTableHeader']),
+.highlightPreview[data-highlight-preview='attachment'] :global([class*='recordExpandBtn']),
+.highlightPreview[data-highlight-preview='attachment'] :global([class*='recordSubject']),
+.highlightPreview[data-highlight-preview='attachment'] :global([class*='chip']),
+.highlightPreview[data-highlight-preview='attachment'] :global([class*='recordDate']),
+.highlightPreview[data-highlight-preview='attachment'] :global([class*='scrollColumn']),
+.highlightPreview[data-highlight-preview='attachment'] :global([class*='footer']) {
+  filter: grayscale(1);
+}
+
+.highlightPreview[data-highlight-preview='attachment'] :global([class*='panel']) {
+  background: #eeeeee;
+}
+
+.highlightPreview[data-highlight-preview='attachment'] :global([class*='recordRow']) {
+  background: #f3f3f3;
+}
+
+.highlightPreview[data-highlight-preview='attachment'] :global([data-spot='case.suspicion.attachment']) {
+  filter: none;
+}
+
 /* Subtitle preview stage. Subtitles use position: absolute pinned to
    the bottom, so we need a positioned parent of game-like proportions
    (16:9) with a dark fill behind the white text. */

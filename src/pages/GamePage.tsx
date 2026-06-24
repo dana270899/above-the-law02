@@ -14,6 +14,7 @@ import {
   type CaseTab,
   type CaseDecision,
   type CaseWindowData,
+  type CaseWindowHighlightTarget,
 } from '@/components/CaseWindow'
 import {
   OperationWindowV2,
@@ -50,6 +51,14 @@ import { BgMusicPlayer } from '@/components/game/BgMusicPlayer/BgMusicPlayer'
 import type { BgMusicFlowNode } from '@/types/editor'
 import { assetUrl } from '@/lib/paths'
 import styles from './GamePage.module.css'
+
+function isCaseWindowHighlightTarget(
+  targetId: string | undefined,
+): targetId is CaseWindowHighlightTarget {
+  return targetId === 'case.identity'
+    || targetId === 'case.records'
+    || targetId === 'case.suspicion.attachment'
+}
 
 /**
  * GAME PAGE
@@ -621,6 +630,9 @@ export function GamePage() {
     const winSound = resultData.winSound
     const winSoundCustom = resultData.winSoundCustom
     const winSoundCustomId = resultData.winSoundCustomId
+    const winTitle = resultData.winTitle
+    const winFooterText = resultData.winFooterText
+    const winCtaLabel = resultData.winCtaLabel
     return (
       <>
         <Desktop
@@ -638,6 +650,9 @@ export function GamePage() {
             soundId={winSound}
             soundSrc={winSoundCustom}
             soundBlobId={winSoundCustomId}
+            winTitle={winTitle}
+            winFooterText={winFooterText}
+            winCtaLabel={winCtaLabel}
             onNext={() => advance()}
           />
         </Desktop>
@@ -645,6 +660,16 @@ export function GamePage() {
       </>
     )
   }
+
+  // Same precedence as the BossMessage stacking below: a trigger-queue
+  // tutorial message wins over the walker's current message.
+  const activeTutorialMsg =
+    (triggerHead?.data.isTutorial ? triggerHead : null)
+    ?? (messageNode?.data.isTutorial ? messageNode : null)
+  const activeTutorialTargetId = activeTutorialMsg?.data.spotlightTargetId
+  const caseWindowHighlightTarget = isCaseWindowHighlightTarget(activeTutorialTargetId)
+    ? activeTutorialTargetId
+    : undefined
 
   return (
     <>
@@ -657,17 +682,11 @@ export function GamePage() {
       onStartClick={() => setVolumeControlVisible((v) => !v)}
       taskbarApps={taskbarApps}
       tutorialOverlay={(() => {
-        // Same precedence as the BossMessage stacking below: a
-        // trigger-queue tutorial message wins over the walker's
-        // current message.
-        const activeTutorialMsg =
-          (triggerHead?.data.isTutorial ? triggerHead : null)
-          ?? (messageNode?.data.isTutorial ? messageNode : null)
-        if (!activeTutorialMsg) return null
+        if (!activeTutorialMsg || caseWindowHighlightTarget) return null
         return (
           <TutorialSpotlight
             key={activeTutorialMsg.id}
-            targetId={activeTutorialMsg.data.spotlightTargetId}
+            targetId={activeTutorialTargetId}
           />
         )
       })()}
@@ -685,6 +704,7 @@ export function GamePage() {
             onClose={() => setCaseWindowOpen(false)}
             onRowTrigger={onRowTrigger}
             useCamera={!!activeCaseNode?.data.useCamera}
+            highlightTargetId={caseWindowHighlightTarget}
           />
         </div>
       )}
@@ -813,11 +833,9 @@ export function GamePage() {
   )
 }
 
-/** Full-screen win stop: image fills the viewport width keeping its
- *  aspect ratio, and a decision bar fills the remaining height with
- *  a Next button on the right. The `variant` selects which image to
- *  render (set per result node in the editor). Plays the notification
- *  chime on mount. */
+/** Windowed win stop. The `variant` selects which screen to render
+ *  (set per result node in the editor). Plays the notification chime
+ *  on mount, then lets the win screen's own controls advance the flow. */
 function WinScreenStop({
   onNext,
   variant,
@@ -826,6 +844,9 @@ function WinScreenStop({
   soundId,
   soundSrc,
   soundBlobId,
+  winTitle,
+  winFooterText,
+  winCtaLabel,
 }: {
   onNext: () => void
   variant?: WinVariant
@@ -840,6 +861,9 @@ function WinScreenStop({
   /** IndexedDB blob id for a per-node uploaded audio file — wins over
    *  both `soundSrc` and `soundId`. */
   soundBlobId?: string
+  winTitle?: string
+  winFooterText?: string
+  winCtaLabel?: string
 }) {
   useEffect(() => {
     // Priority: IndexedDB blob → legacy data URL → registry → "None".
@@ -882,8 +906,6 @@ function WinScreenStop({
       if (blobUrl) URL.revokeObjectURL(blobUrl)
     }
   }, [soundId, soundSrc, soundBlobId])
-  const hasBuiltInCta = variant === 'kippah-cutting-workshop'
-
   return (
     <div className={styles.winStop}>
       <WinScreenComponent
@@ -891,16 +913,11 @@ function WinScreenStop({
         variant={variant}
         src={src}
         blobId={imageBlobId}
-        onComplete={hasBuiltInCta ? onNext : undefined}
+        onComplete={onNext}
+        winTitle={winTitle}
+        winFooterText={winFooterText}
+        winCtaLabel={winCtaLabel}
       />
-      {!hasBuiltInCta && (
-        <div className={styles.winBar}>
-          <p className={styles.winBarText}>Good job!</p>
-          <button type="button" className={styles.winNext} onClick={onNext}>
-            Next
-          </button>
-        </div>
-      )}
     </div>
   )
 }

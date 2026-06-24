@@ -12,6 +12,9 @@ const ASSET_ROOT = assetUrl('/images/win-screens/BdsmParty')
 const ENVELOPE_BODY_SRC = `${ASSET_ROOT}/Envelope.svg`
 const ENVELOPE_FLAP_SRC = `${ASSET_ROOT}/Envelope open.svg`
 const INVITATION_SRC = `${ASSET_ROOT}/Invitation.svg`
+const DEFAULT_WIN_TITLE = 'Win'
+const DEFAULT_WIN_FOOTER_TEXT = 'Winning is so good'
+const DEFAULT_WIN_CTA_LABEL = 'Love this job, next case!'
 
 type InvitationPosition = {
   x: number
@@ -31,11 +34,18 @@ export interface BdsmPartyProps {
   src?: string
   blobId?: string
   onComplete?: () => void
+  winTitle?: string
+  winFooterText?: string
+  winCtaLabel?: string
   debug?: boolean
 }
 
 export function BdsmParty({
   className,
+  onComplete,
+  winTitle = DEFAULT_WIN_TITLE,
+  winFooterText = DEFAULT_WIN_FOOTER_TEXT,
+  winCtaLabel = DEFAULT_WIN_CTA_LABEL,
   debug = false,
 }: BdsmPartyProps = {}) {
   const [isOpen, setIsOpen] = useState(false)
@@ -106,7 +116,7 @@ export function BdsmParty({
   return (
     <div
       className={[
-        styles.screen,
+        styles.window,
         className,
         isOpen ? styles.screenOpen : '',
         pulledOut ? styles.screenPulledOut : '',
@@ -115,41 +125,72 @@ export function BdsmParty({
       ].filter(Boolean).join(' ')}
       data-node="win-bdsm-party"
     >
-      <div className={styles.stage}>
-        <div className={styles.envelopeShadow} />
-        <img
-          className={styles.backFlap}
-          src={ENVELOPE_FLAP_SRC}
-          alt=""
-          draggable={false}
-        />
-        <div className={styles.openFlap} />
-        <img
-          className={styles.invitation}
-          src={INVITATION_SRC}
-          alt="Invitation"
-          draggable={false}
-          style={invitationStyle}
-          onPointerDown={startInvitationDrag}
-        />
-        <img
-          className={styles.envelopeBody}
-          src={ENVELOPE_BODY_SRC}
-          alt=""
-          draggable={false}
-        />
-        <button
-          type="button"
-          className={styles.closedFlapButton}
-          aria-label={isOpen ? 'Envelope is open' : 'Open envelope'}
-          onPointerDown={openEnvelope}
-        >
+      <div className={styles.upperBar}>
+        <span className={styles.upperBarTitle}>{winTitle}</span>
+        <div className={styles.upperBarBtns}>
+          <button
+            type="button"
+            className={`${styles.chromeBtn} ${styles.chromeClose}`}
+            aria-label="Close"
+            onClick={(e) => {
+              e.stopPropagation()
+              onComplete?.()
+            }}
+          >
+            <img src={assetUrl('/images/case-window/close.svg')} alt="" />
+          </button>
+        </div>
+      </div>
+      <div className={styles.screen}>
+        <div className={styles.stage}>
+          <div className={styles.envelopeShadow} />
           <img
-            className={styles.closedFlap}
+            className={styles.backFlap}
             src={ENVELOPE_FLAP_SRC}
             alt=""
             draggable={false}
           />
+          <div className={styles.openFlap} />
+          <img
+            className={styles.invitation}
+            src={INVITATION_SRC}
+            alt="Invitation"
+            draggable={false}
+            style={invitationStyle}
+            onPointerDown={startInvitationDrag}
+          />
+          <img
+            className={styles.envelopeBody}
+            src={ENVELOPE_BODY_SRC}
+            alt=""
+            draggable={false}
+          />
+          <button
+            type="button"
+            className={styles.closedFlapButton}
+            aria-label={isOpen ? 'Envelope is open' : 'Open envelope'}
+            onPointerDown={openEnvelope}
+          >
+            <img
+              className={styles.closedFlap}
+              src={ENVELOPE_FLAP_SRC}
+              alt=""
+              draggable={false}
+            />
+          </button>
+        </div>
+      </div>
+      <div className={styles.footerBar}>
+        <p className={styles.footerText}>{winFooterText}</p>
+        <button
+          type="button"
+          className={styles.footerCta}
+          onClick={(e) => {
+            e.stopPropagation()
+            onComplete?.()
+          }}
+        >
+          {winCtaLabel}
         </button>
       </div>
     </div>

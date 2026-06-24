@@ -66,6 +66,10 @@ export type StatusColor = 'green' | 'red' | 'yellow' | 'grey'
 /** Which decision the player has made on the currently displayed case.
  *  `null` / undefined → "Make a decision" view (Arrest + Release buttons). */
 export type CaseDecision = 'arrested' | 'released'
+export type CaseWindowHighlightTarget =
+  | 'case.identity'
+  | 'case.records'
+  | 'case.suspicion.attachment'
 
 export type CriminalRecordRow = {
   id: string
@@ -87,6 +91,8 @@ export type CaseHeaderChip = {
   label: string
   color: StatusColor
 }
+
+type DetailValueColor = 'black' | 'red' | 'green'
 
 export type SuspicionRow = {
   id: string
@@ -112,9 +118,11 @@ export type CaseWindowData = {
   idNo: string
   dob: string
   sex: string
+  sexColor?: DetailValueColor
   nationality: string
+  nationalityColor?: DetailValueColor
   religion: string
-  religionColor: 'black' | 'red' | 'green'
+  religionColor: DetailValueColor
   address: string
   criminalRecord: CriminalRecordRow[]
   /** Shown inside the Criminal Record card when the list is empty.
@@ -142,7 +150,9 @@ export const DEFAULT_CASE_DATA: CaseWindowData = {
   idNo: '12345678',
   dob: '10/12/1988',
   sex: 'Male',
+  sexColor: 'black',
   nationality: 'Electan',
+  nationalityColor: 'black',
   religion: 'Muslim',
   religionColor: 'red',
   address: 'Khatser 5, Lod',
@@ -210,6 +220,8 @@ type CaseWindowProps = {
    * builder can still pick a fallback image.
    */
   useCamera?: boolean
+  /** Element-based tutorial highlight inside the case window. */
+  highlightTargetId?: CaseWindowHighlightTarget
 }
 
 export function CaseWindow({
@@ -227,6 +239,7 @@ export function CaseWindow({
   onTabSelect,
   onRowTrigger,
   useCamera = false,
+  highlightTargetId,
 }: CaseWindowProps) {
   const tabList: CaseTab[] = tabs ?? DEFAULT_CASE_TABS
   const photoInputId = useId()
@@ -471,6 +484,12 @@ export function CaseWindow({
 
   const chipClass = chipClassFor(data.statusColor)
   const activeTabId = stripHash(data.caseId)
+  const showCameraArrestCtas = useCamera && !editable && !decision
+  const detailColorClass = (color?: DetailValueColor) => (
+    color === 'red'   ? styles.detailValueRed   :
+    color === 'green' ? styles.detailValueGreen :
+    undefined
+  )
 
   // Position style: when not draggable, no inline positioning. When draggable
   // and pos is null, center via translate. Otherwise, absolute pixel coords.
@@ -490,6 +509,7 @@ export function CaseWindow({
         minimized ? styles.windowMinimized : '',
         className,
       ].filter(Boolean).join(' ')}
+      data-case-highlight={highlightTargetId}
       style={positionStyle}
     >
       {/* Window head: upper bar + body row. In Figma this whole block
@@ -678,7 +698,7 @@ export function CaseWindow({
                       )}
 
                       {/* Details */}
-                      <div className={styles.details}>
+                      <div className={styles.details} data-highlight-part="case.identity-text">
                         {editable ? (
                           <input
                             className={`${styles.editableInputInline} ${styles.editableName} ${styles.fullName}`}
@@ -692,29 +712,43 @@ export function CaseWindow({
                         <div className={styles.detailsGrid}>
                           <DetailRow label="ID No."     editable={editable} value={data.idNo}        onChange={(v) => set('idNo', v)} />
                           <DetailRow label="DOB"        editable={editable} value={data.dob}         onChange={(v) => set('dob', v)} />
-                          <DetailRow label="Sex"        editable={editable} value={data.sex}         onChange={(v) => set('sex', v)} />
-                          <DetailRow label="Nationality" editable={editable} value={data.nationality} onChange={(v) => set('nationality', v)} />
+                          <DetailRow
+                            label="Sex"
+                            editable={editable}
+                            value={data.sex}
+                            valueClassName={detailColorClass(data.sexColor)}
+                            onChange={(v) => set('sex', v)}
+                            extra={editable && useCamera && (
+                              <DetailColorSelect
+                                value={data.sexColor ?? 'black'}
+                                onChange={(color) => set('sexColor', color)}
+                              />
+                            )}
+                          />
+                          <DetailRow
+                            label="Nationality"
+                            editable={editable}
+                            value={data.nationality}
+                            valueClassName={detailColorClass(data.nationalityColor)}
+                            onChange={(v) => set('nationality', v)}
+                            extra={editable && useCamera && (
+                              <DetailColorSelect
+                                value={data.nationalityColor ?? 'black'}
+                                onChange={(color) => set('nationalityColor', color)}
+                              />
+                            )}
+                          />
                           <DetailRow
                             label="Religion"
                             editable={editable}
                             value={data.religion}
-                            valueClassName={
-                              data.religionColor === 'red'   ? styles.detailValueRed   :
-                              data.religionColor === 'green' ? styles.detailValueGreen :
-                              undefined
-                            }
+                            valueClassName={detailColorClass(data.religionColor)}
                             onChange={(v) => set('religion', v)}
                             extra={editable && (
-                              <select
-                                className={styles.editableSelect}
+                              <DetailColorSelect
                                 value={data.religionColor}
-                                onChange={(e) => set('religionColor', e.target.value as 'black' | 'red' | 'green')}
-                                style={{ marginLeft: 8 }}
-                              >
-                                <option value="black">black</option>
-                                <option value="red">red</option>
-                                <option value="green">green</option>
-                              </select>
+                                onChange={(color) => set('religionColor', color)}
+                              />
                             )}
                           />
                           <DetailRow label="Address"    editable={editable} value={data.address}     onChange={(v) => set('address', v)} />
@@ -883,10 +917,15 @@ export function CaseWindow({
             ) : (
               <>
                 <button type="button" data-spot="case.arrest" className={`${styles.cta} ${styles.ctaArrest}`} onClick={onArrest}>
-                  {data.arrestLabel}
+                  {showCameraArrestCtas ? 'Arrest' : data.arrestLabel}
                 </button>
-                <button type="button" data-spot="case.release" className={`${styles.cta} ${styles.ctaRelease}`} onClick={onRelease}>
-                  {data.releaseLabel}
+                <button
+                  type="button"
+                  data-spot="case.release"
+                  className={`${styles.cta} ${showCameraArrestCtas ? styles.ctaArrest : styles.ctaRelease}`}
+                  onClick={onRelease}
+                >
+                  {showCameraArrestCtas ? 'Arrest' : data.releaseLabel}
                 </button>
               </>
             )}
@@ -1004,6 +1043,24 @@ type DetailRowProps = {
   onChange: (v: string) => void
   valueClassName?: string
   extra?: React.ReactNode
+}
+
+function DetailColorSelect({ value, onChange }: {
+  value: DetailValueColor
+  onChange: (value: DetailValueColor) => void
+}) {
+  return (
+    <select
+      className={styles.editableSelect}
+      value={value}
+      onChange={(e) => onChange(e.target.value as DetailValueColor)}
+      style={{ marginLeft: 8 }}
+    >
+      <option value="black">black</option>
+      <option value="red">red</option>
+      <option value="green">green</option>
+    </select>
+  )
 }
 
 function DetailRow({ label, value, editable, onChange, valueClassName, extra }: DetailRowProps) {

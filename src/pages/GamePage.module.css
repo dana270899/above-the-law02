@@ -101,26 +101,10 @@
   max-width: min(1440px, calc(100vw - 96px));
   max-height: min(912px, calc(100vh - 120px));
 }
-.winBar {
-  position: absolute;
-  right: clamp(32px, 5vw, 96px);
-  bottom: clamp(24px, 4vw, 52px);
-  pointer-events: none;
+.winScreen[data-node^='win-'] {
+  max-width: none;
+  max-height: none;
 }
-.winBarText {
-  display: none;
-}
-.winNext {
-  background: var(--green);
-  border: 2px solid var(--black);
-  border-radius: 4px;
-  padding: 10px 28px;
-  font-family: var(--font-main);
-  font-weight: 500;
-  font-size: 22px;
-  line-height: 24px;
-  color: var(--white);
-  cursor: pointer;
-  pointer-events: auto;
-  white-space: nowrap;
+.winStop > div:nth-child(n + 2) {
+  display: none !important;
 }

@@ -66,6 +66,12 @@ export interface ResultNodeData {
    *  `winSoundCustom` (data URL) and `winSound` (registry id). The
    *  blob is fetched and converted to an object URL at render time. */
   winSoundCustomId?: string
+  /** Optional per-node text overrides for windowed win screens.
+   *  Missing values fall back to the built-in copy so older saves keep
+   *  rendering exactly as before. */
+  winTitle?: string
+  winFooterText?: string
+  winCtaLabel?: string
   [key: string]: unknown
 }
 export interface PrizeNodeData  { nodeType: 'prize'; prizeId: string; emoji: string; title: string; [key: string]: unknown }

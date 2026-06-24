@@ -1,4 +1,5 @@
 import {
+  useCallback,
   useEffect,
   useRef,
   useState,
@@ -95,6 +96,8 @@ export function FootageWindow({
   className,
 }: FootageWindowProps) {
   const [minimized, setMinimized] = useState(false)
+  const videoRef = useRef<HTMLVideoElement | null>(null)
+  const isDuckingRef = useRef(false)
 
   // Drag position. `null` = centered (initial). After first drag, becomes {x,y}.
   const [pos, setPos] = useState<{ x: number; y: number } | null>(null)
@@ -161,6 +164,65 @@ export function FootageWindow({
     : pos == null
     ? { position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }
     : { position: 'absolute', left: pos.x, top: pos.y, transform: 'none' }
+  const isVideoVariant = VIDEO_VARIANTS.has(variant)
+  const soundEnabled = isVideoVariant && draggable
+
+  const releaseAudioDuck = useCallback(() => {
+    if (!isDuckingRef.current) return
+    isDuckingRef.current = false
+    popBgMusicDuck()
+  }, [])
+
+  const applyAudioDuck = useCallback(() => {
+    if (!soundEnabled || isDuckingRef.current) return
+    isDuckingRef.current = true
+    pushBgMusicDuck()
+  }, [soundEnabled])
+
+  const playVideo = useCallback(() => {
+    const video = videoRef.current
+    if (!video || !isVideoVariant || minimized) return
+    video.muted = !soundEnabled
+    video.volume = soundEnabled ? 1 : 0
+    video.play().catch(() => {
+      /* Some browsers still require an extra user gesture for audible media. */
+    })
+  }, [isVideoVariant, minimized, soundEnabled])
+
+  useEffect(() => {
+    if (!isVideoVariant) {
+      releaseAudioDuck()
+      return
+    }
+
+    const video = videoRef.current
+    if (!video) return
+
+    if (minimized) {
+      video.pause()
+      releaseAudioDuck()
+      return
+    }
+
+    applyAudioDuck()
+    playVideo()
+
+    function retryPlay() {
+      playVideo()
+    }
+
+    window.addEventListener('pointerdown', retryPlay, { once: true })
+    window.addEventListener('keydown', retryPlay, { once: true })
+    return () => {
+      window.removeEventListener('pointerdown', retryPlay)
+      window.removeEventListener('keydown', retryPlay)
+      releaseAudioDuck()
+    }
+  }, [applyAudioDuck, isVideoVariant, minimized, playVideo, releaseAudioDuck])
+
+  function handleVideoStopped() {
+    releaseAudioDuck()
+  }
 
   return (
     <div
@@ -205,16 +267,20 @@ export function FootageWindow({
       </div>
 
       {/* Sketch — the CCTV footage scene. One 842×474 SVG per static
-          variant, or a looping muted `<video>` for live-footage variants. */}
+          variant, or a looping `<video>` for live-footage variants. */}
       <div className={styles.sketch}>
-        {VIDEO_VARIANTS.has(variant) ? (
+        {isVideoVariant ? (
           <video
+            ref={videoRef}
             className={styles.sketchImg}
             src={VARIANT_SRC[variant]}
             autoPlay
             loop
-            muted
+            muted={!soundEnabled}
             playsInline
+            onCanPlay={playVideo}
+            onPause={handleVideoStopped}
+            onEnded={handleVideoStopped}
           />
         ) : (
           <img className={styles.sketchImg} src={VARIANT_SRC[variant]} alt="" />
