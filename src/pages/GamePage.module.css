@@ -9,16 +9,6 @@
   overflow: hidden;
 }
 
-.loginCanvas {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  min-height: 100vh;
-  min-height: 100dvh;
-  background: var(--light-yellow-100);
-  overflow: hidden;
-}
-
 /* Centers the CaseWindow / OperationWindow within the Desktop
    overlay slot. The wrapper itself is click-through (pointer-events
    none) so the empty space around the centered window doesn't
@@ -95,11 +85,11 @@
   place-items: center;
   background: transparent;
   overflow: hidden;
-  padding: clamp(24px, 4vw, 76px);
+  padding: 76px;
 }
 .winScreen {
-  max-width: min(1440px, calc(100vw - 96px));
-  max-height: min(912px, calc(100vh - 120px));
+  max-width: 1440px;
+  max-height: 912px;
 }
 .winScreen[data-node^='win-'] {
   max-width: none;

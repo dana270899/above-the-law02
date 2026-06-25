@@ -118,6 +118,19 @@ export function ComponentsTab() {
         </header>
         <div className={styles.messageGrid}>
           <div className={styles.messageCard}>
+            <p className={styles.messageLabel}>BDSM Party</p>
+            <WinScreenImageEditor
+              variant="bdsm-party"
+              defaultPath={assetUrl('/images/win-screens/BdsmParty/bg.svg')}
+            />
+            <div className={styles.desktopFrame}>
+              <iframe
+                src={appPath('/win/bdsm-party')}
+                title="BDSM Party win screen preview"
+              />
+            </div>
+          </div>
+          <div className={styles.messageCard}>
             <p className={styles.messageLabel}>Kippah Cutting Workshop</p>
             <div className={styles.winImageEditor}>
               <p className={styles.winImageStatus}>
@@ -131,19 +144,6 @@ export function ComponentsTab() {
               <iframe
                 src={appPath('/win/kippah-cutting-workshop')}
                 title="Kippah Cutting Workshop win screen preview"
-              />
-            </div>
-          </div>
-          <div className={styles.messageCard}>
-            <p className={styles.messageLabel}>BDSM Party</p>
-            <WinScreenImageEditor
-              variant="bdsm-party"
-              defaultPath={assetUrl('/images/win-screens/BdsmParty/Envelope.svg')}
-            />
-            <div className={styles.desktopFrame}>
-              <iframe
-                src={appPath('/win/bdsm-party')}
-                title="BDSM Party win screen preview"
               />
             </div>
           </div>

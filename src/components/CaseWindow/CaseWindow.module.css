@@ -12,13 +12,11 @@
      overflow that, so we widen to 1140px to fit the file column in
      the suspicion row without clipping. */
   width: 1140px;
-  /* Native size from Figma: 898px tall. Caps to viewport so the
-     window always fits inside the screen. The Desktop's overlay slot
-     has `inset: 0 0 61px 0` (excludes the 61px taskbar), so we
-     subtract that plus a small margin. The head flexes within. */
+  /* Native size from Figma: 898px tall. The surrounding 1920×1080
+     stage scales as one unit, so avoid viewport-based double scaling. */
   height: 898px;
-  max-width: calc(100vw - 32px);
-  max-height: calc(100vh - 61px - 24px);
+  max-width: 1888px;
+  max-height: 995px;
   background: var(--white);
   border: 2px solid var(--black);
   border-radius: 4px;

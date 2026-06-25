@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { LoginScreen } from '@/components/game/LoginScreen/LoginScreen'
+import { useGameScale } from '@/hooks/useGameScale'
 import styles from './LoginPage.module.css'
 
 /**
@@ -14,9 +15,10 @@ import styles from './LoginPage.module.css'
  */
 export function LoginPage() {
   const navigate = useNavigate()
+  const scaleRef = useGameScale()
 
   return (
-    <div className={styles.canvas}>
+    <div ref={scaleRef} className={styles.canvas} data-scaled-stage>
       <LoginScreen onLogin={() => navigate('/game')} />
     </div>
   )

@@ -16,7 +16,7 @@
   overflow: clip;
   font-family: var(--font-main);
   color: var(--black);
-  max-width: calc(100vw - 32px);
+  max-width: 1888px;
 }
 
 /* Draggable variant: window is absolute-positioned + title bar is a drag handle. */

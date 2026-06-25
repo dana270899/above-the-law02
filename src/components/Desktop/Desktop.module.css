@@ -7,23 +7,18 @@
 }
 
 /* ============================================================
-   Responsive layout
+   Fixed design canvas
    ------------------------------------------------------------
-   The desktop fills the viewport. All elements use real edge-
-   anchored positioning at their native pixel sizes, so:
-     - the sidebar stays 54px from the left edge of any screen
-     - the taskbar always spans the full width at the bottom
-     - the logo stays centered in the viewport
-     - icons, labels, and the start button keep their original
-       sizes regardless of resolution
+   The desktop is authored at 1920×1080. Page-level scaled stages
+   shrink or enlarge the whole canvas to fit the actual viewport.
    ============================================================ */
 
 .viewport,
 .desktop {
-  position: fixed;
+  position: absolute;
   inset: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 1920px;
+  height: 1080px;
   background: #fffdf3;
   overflow: hidden;
   font-family: 'ArbelHagilda', sans-serif;
@@ -37,20 +32,12 @@
   background: #fefefd;
 }
 
-/* Icon-size token
-   ----------------
-   The Figma reference uses 120px icons on a 1920-wide canvas (6.25%).
-   We keep that ratio with clamp() so icons look proportional on any
-   desktop monitor without exceeding their authored size.
-     - small screens (<= 1280w): 80px floor
-     - native: 120px ceiling (the Figma design size)
-   The label, gap, and sidebar width track the same ratio. */
 .desktop {
-  --icon-size: clamp(80px, 6.25vw, 120px);
+  --icon-size: 120px;
   --icon-scale: calc(var(--icon-size) / 120px);
-  --label-size: clamp(16px, 1.25vw, 24px);
-  --sidebar-width: clamp(140px, 10.4vw, 200px);
-  --sidebar-gap: clamp(28px, 2.08vw, 40px);
+  --label-size: 24px;
+  --sidebar-width: 200px;
+  --sidebar-gap: 40px;
 }
 
 /* Sidebar — anchored to top-left, 54px from edges.
@@ -177,8 +164,8 @@
 .logo {
   position: absolute;
   left: 50%;
-  /* (100vh - 61px taskbar) / 2 → midpoint of the usable area */
-  top: calc((100vh - 61px) / 2);
+  /* (1080px - 61px taskbar) / 2 → midpoint of the usable area */
+  top: calc((1080px - 61px) / 2);
   width: 498.81px;
   height: 630.658px;
   transform: translate(-50%, -50%);

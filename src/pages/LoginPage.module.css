@@ -1,11 +1,10 @@
-/* The login screen fills the actual viewport so it can reflow on small screens.
-   The rest of the game still uses the fixed 1920×1080 scaled canvas. */
+/* Fixed 1920×1080 login stage.
+   useGameScale applies the viewport fit transform. */
 .canvas {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  min-height: 100vh;
-  min-height: 100dvh;
+  position: absolute;
+  width: 1920px;
+  height: 1080px;
+  transform-origin: top left;
   background: var(--light-yellow-100);
   overflow: hidden;
 }

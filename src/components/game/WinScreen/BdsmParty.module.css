@@ -83,18 +83,29 @@
   width: 100%;
   height: var(--screen-height);
   aspect-ratio: 16 / 9;
-  background: #fbfafa;
+  background: #fffdfd;
   overflow: hidden;
   flex: 0 0 auto;
+}
+
+.windowBg {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
 }
 
 .stage {
   position: absolute;
   left: 50%;
   top: 50%;
-  width: min(54%, 760px);
+  width: min(54%, 780px);
   aspect-ratio: 1042 / 628;
-  transform: translate(-50%, -42%);
+  transform: translate(-50%, -50%);
 }
 
 .envelopeShadow {
@@ -107,38 +118,39 @@
 }
 
 .backFlap,
-.openFlap,
+.envelopeBg,
 .envelopeBody,
 .closedFlap,
-.invitation {
+.invitation,
+.stamp {
   position: absolute;
   display: block;
   user-select: none;
 }
 
-.backFlap {
-  display: none;
+.envelopeBg {
   left: 0;
-  top: -45%;
+  top: 0;
   width: 100%;
-  height: auto;
-  transform: rotate(180deg) scaleY(0.95);
-  transform-origin: 50% 100%;
-  opacity: 0;
+  height: 100%;
   z-index: 1;
   pointer-events: none;
 }
 
-.openFlap {
-  left: 13%;
-  top: -36%;
-  width: 74%;
-  height: 44%;
-  background: #790202;
-  clip-path: polygon(18% 0, 82% 0, 100% 100%, 0 100%);
+.backFlap {
+  left: 0;
+  top: -124.15%;
+  width: 100%;
+  height: 63.54%;
+  object-fit: fill;
+  transform: rotate(180deg) scaleY(0.96);
+  transform-origin: 50% 100%;
   opacity: 0;
   z-index: 2;
   pointer-events: none;
+  transition:
+    opacity 120ms ease,
+    transform 520ms cubic-bezier(0.18, 0.76, 0.18, 1);
 }
 
 .envelopeBody {
@@ -148,6 +160,18 @@
   height: 100%;
   z-index: 4;
   pointer-events: none;
+}
+
+.stamp {
+  left: 40.4%;
+  top: 40.45%;
+  width: 19.29%;
+  height: auto;
+  z-index: 8;
+  pointer-events: none;
+  transition:
+    opacity 160ms ease,
+    transform 420ms cubic-bezier(0.2, 0.82, 0.18, 1);
 }
 
 .closedFlapButton {
@@ -176,14 +200,14 @@
   height: auto;
   transform-origin: 50% 0%;
   transition:
-    opacity 160ms ease,
-    transform 360ms cubic-bezier(0.2, 0.82, 0.18, 1);
+    opacity 80ms ease;
   pointer-events: none;
+  z-index: 5;
 }
 
 .invitation {
   left: 50%;
-  top: -3%;
+  top: -25.32%;
   width: 88.87%;
   height: auto;
   z-index: 3;
@@ -191,11 +215,12 @@
   opacity: 0;
   transform:
     translate(-50%, 0)
-    translate(var(--invitation-x, 0), calc(-42% + var(--invitation-y, 0)))
-    rotate(0deg);
+    translate(var(--invitation-x, 0), var(--invitation-y, 0))
+    translateY(8%)
+    rotate(-7.99deg);
   transition:
-    opacity 180ms ease,
-    transform 170ms ease,
+    opacity 220ms ease 180ms,
+    transform 420ms cubic-bezier(0.2, 0.82, 0.18, 1) 120ms,
     z-index 0ms linear 120ms;
   touch-action: none;
   pointer-events: none;
@@ -203,10 +228,7 @@
 
 .screenOpen .backFlap {
   opacity: 1;
-}
-
-.screenOpen .openFlap {
-  opacity: 1;
+  transform: rotate(180deg) scaleY(1);
 }
 
 .screenOpen .closedFlapButton {
@@ -215,20 +237,23 @@
 
 .screenOpen .closedFlap {
   opacity: 0;
-  transform: rotateX(78deg) translateY(-10%);
 }
 
 .screenOpen .invitation {
   opacity: 1;
+  transform:
+    translate(-50%, 0)
+    translate(var(--invitation-x, 0), var(--invitation-y, 0))
+    rotate(-7.99deg);
   pointer-events: auto;
 }
 
 .screenPulledOut .invitation {
-  z-index: 7;
+  z-index: 10;
   transform:
     translate(-50%, 0)
-    translate(var(--invitation-x, 0), calc(-42% + var(--invitation-y, 0)))
-    rotate(-16deg);
+    translate(var(--invitation-x, 0), var(--invitation-y, 0))
+    rotate(-7.99deg);
   transition:
     opacity 180ms ease,
     transform 80ms linear;

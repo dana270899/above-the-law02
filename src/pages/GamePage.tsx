@@ -609,7 +609,7 @@ export function GamePage() {
   if (currentNode?.type === 'login') {
     return (
       <>
-        <div className={styles.loginCanvas}>
+        <div ref={scaleRef} className={styles.canvas} data-scaled-stage>
           <LoginScreen onLogin={() => advance()} />
         </div>
         {bgMusic}
@@ -635,27 +635,29 @@ export function GamePage() {
     const winCtaLabel = resultData.winCtaLabel
     return (
       <>
-        <Desktop
-          onCasesClick={openCaseWindow}
-          onOperationClick={() => {
-            if (operationUnlocked) setOperationWindowOpen(true)
-            else setOperationLockedScreenOpen(true)
-          }}
-          onStartClick={() => setVolumeControlVisible((v) => !v)}
-        >
-          <WinScreenStop
-            variant={winImage}
-            src={winImageCustom}
-            imageBlobId={winImageCustomId}
-            soundId={winSound}
-            soundSrc={winSoundCustom}
-            soundBlobId={winSoundCustomId}
-            winTitle={winTitle}
-            winFooterText={winFooterText}
-            winCtaLabel={winCtaLabel}
-            onNext={() => advance()}
-          />
-        </Desktop>
+        <div ref={scaleRef} className={styles.canvas} data-scaled-stage>
+          <Desktop
+            onCasesClick={openCaseWindow}
+            onOperationClick={() => {
+              if (operationUnlocked) setOperationWindowOpen(true)
+              else setOperationLockedScreenOpen(true)
+            }}
+            onStartClick={() => setVolumeControlVisible((v) => !v)}
+          >
+            <WinScreenStop
+              variant={winImage}
+              src={winImageCustom}
+              imageBlobId={winImageCustomId}
+              soundId={winSound}
+              soundSrc={winSoundCustom}
+              soundBlobId={winSoundCustomId}
+              winTitle={winTitle}
+              winFooterText={winFooterText}
+              winCtaLabel={winCtaLabel}
+              onNext={() => advance()}
+            />
+          </Desktop>
+        </div>
         {bgMusic}
       </>
     )
@@ -673,6 +675,7 @@ export function GamePage() {
 
   return (
     <>
+    <div ref={scaleRef} className={styles.canvas} data-scaled-stage>
     <Desktop
       onCasesClick={openCaseWindow}
       onOperationClick={() => {
@@ -828,6 +831,7 @@ export function GamePage() {
         )
       })()}
     </Desktop>
+    </div>
     {bgMusic}
     </>
   )

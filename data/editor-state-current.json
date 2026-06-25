@@ -126,7 +126,7 @@
         "width": 325,
         "height": 159
       },
-      "selected": false,
+      "selected": true,
       "dragging": false
     },
     {
@@ -207,7 +207,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 506
+        "height": 499
       },
       "selected": false,
       "dragging": false
@@ -232,7 +232,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 506
+        "height": 499
       },
       "selected": false,
       "dragging": false
@@ -257,7 +257,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 506
+        "height": 499
       },
       "selected": false,
       "dragging": false
@@ -283,7 +283,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 597
+        "height": 590
       },
       "selected": false,
       "dragging": false
@@ -308,7 +308,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 554
+        "height": 547
       },
       "selected": false,
       "dragging": false
@@ -334,7 +334,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 597
+        "height": 590
       },
       "selected": false,
       "dragging": false
@@ -360,7 +360,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 597
+        "height": 590
       },
       "selected": false,
       "dragging": false
@@ -380,7 +380,7 @@
       },
       "measured": {
         "width": 220,
-        "height": 174
+        "height": 168
       },
       "selected": false,
       "dragging": false
@@ -406,7 +406,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 597
+        "height": 590
       },
       "selected": false,
       "dragging": false
@@ -426,7 +426,7 @@
       },
       "measured": {
         "width": 220,
-        "height": 174
+        "height": 168
       },
       "selected": false,
       "dragging": false
@@ -452,7 +452,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 506
+        "height": 499
       },
       "selected": false,
       "dragging": false
@@ -471,7 +471,7 @@
       },
       "measured": {
         "width": 230,
-        "height": 156
+        "height": 151
       },
       "selected": false,
       "dragging": false
@@ -497,7 +497,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 554
+        "height": 547
       },
       "selected": false,
       "dragging": false
@@ -521,7 +521,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 506
+        "height": 499
       },
       "selected": false,
       "dragging": false
@@ -542,8 +542,8 @@
         "winSound": "hashem-itbarach"
       },
       "measured": {
-        "width": 245,
-        "height": 324
+        "width": 235,
+        "height": 315
       },
       "selected": false,
       "dragging": false
@@ -568,7 +568,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 554
+        "height": 547
       },
       "selected": false,
       "dragging": false
@@ -588,7 +588,7 @@
       },
       "measured": {
         "width": 220,
-        "height": 174
+        "height": 168
       },
       "selected": false,
       "dragging": false
@@ -612,7 +612,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 506
+        "height": 499
       },
       "selected": false,
       "dragging": false
@@ -637,7 +637,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 554
+        "height": 547
       },
       "selected": false,
       "dragging": false
@@ -675,7 +675,7 @@
       },
       "measured": {
         "width": 307,
-        "height": 129
+        "height": 130
       },
       "selected": false,
       "dragging": false
@@ -699,7 +699,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 506
+        "height": 499
       },
       "selected": false,
       "dragging": false
@@ -725,7 +725,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 554
+        "height": 547
       },
       "selected": false,
       "dragging": false
@@ -749,7 +749,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 506
+        "height": 499
       },
       "selected": false,
       "dragging": false
@@ -772,8 +772,8 @@
         "winCtaLabel": "I was born to be a cop!"
       },
       "measured": {
-        "width": 245,
-        "height": 324
+        "width": 235,
+        "height": 315
       },
       "selected": false,
       "dragging": false
@@ -797,7 +797,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 506
+        "height": 499
       },
       "selected": false,
       "dragging": false
@@ -821,8 +821,8 @@
         "winSound": "hashem-itbarach"
       },
       "measured": {
-        "width": 245,
-        "height": 324
+        "width": 235,
+        "height": 315
       },
       "selected": false,
       "dragging": false
@@ -842,7 +842,7 @@
       },
       "measured": {
         "width": 220,
-        "height": 174
+        "height": 168
       },
       "selected": false,
       "dragging": false
@@ -866,7 +866,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 506
+        "height": 499
       },
       "selected": false,
       "dragging": false
@@ -890,7 +890,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 506
+        "height": 499
       },
       "selected": false,
       "dragging": false
@@ -909,7 +909,7 @@
       },
       "measured": {
         "width": 317,
-        "height": 140
+        "height": 135
       },
       "selected": false,
       "dragging": false
@@ -962,7 +962,7 @@
       },
       "measured": {
         "width": 325,
-        "height": 188
+        "height": 185
       },
       "selected": false,
       "dragging": false
@@ -986,7 +986,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 506
+        "height": 499
       },
       "selected": false,
       "dragging": false
@@ -1012,7 +1012,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 597
+        "height": 590
       },
       "selected": false,
       "dragging": false
@@ -1038,7 +1038,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 597
+        "height": 590
       },
       "selected": false,
       "dragging": false
@@ -1064,7 +1064,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 597
+        "height": 590
       },
       "selected": false,
       "dragging": false
@@ -1090,7 +1090,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 597
+        "height": 590
       },
       "selected": false,
       "dragging": false
@@ -1114,7 +1114,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 506
+        "height": 499
       },
       "selected": false,
       "dragging": false
@@ -1138,7 +1138,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 506
+        "height": 499
       },
       "selected": false,
       "dragging": false
@@ -1162,7 +1162,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 506
+        "height": 499
       },
       "selected": false,
       "dragging": false
@@ -1186,7 +1186,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 506
+        "height": 499
       },
       "selected": false,
       "dragging": false
@@ -1205,13 +1205,13 @@
         "label": "Win 4",
         "winImage": "bdsm-party",
         "winTitle": "Win",
-        "winFooterText": "Winning is so good",
-        "winCtaLabel": "Love this job, next case!",
+        "winFooterText": "Sometimes dreams come true",
+        "winCtaLabel": "I love cakes and knots!",
         "winSound": "hashem-itbarach"
       },
       "measured": {
-        "width": 245,
-        "height": 324
+        "width": 235,
+        "height": 315
       },
       "selected": false,
       "dragging": false
@@ -1235,7 +1235,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 506
+        "height": 499
       },
       "selected": false,
       "dragging": false
@@ -1259,7 +1259,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 506
+        "height": 499
       },
       "selected": false,
       "dragging": false

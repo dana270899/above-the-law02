@@ -1,3 +1,14 @@
+/* Fixed 1920×1080 desktop stage.
+   useGameScale applies the viewport fit transform. */
+.canvas {
+  position: absolute;
+  width: 1920px;
+  height: 1080px;
+  transform-origin: top left;
+  background: var(--light-yellow-100);
+  overflow: hidden;
+}
+
 /* Centers the CaseWindow within the Desktop overlay slot —
    same pattern as GamePage.module.css. */
 .caseLayer {

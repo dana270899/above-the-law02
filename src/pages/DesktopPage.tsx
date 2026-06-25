@@ -14,6 +14,7 @@ import {
 } from '@/components/OperationWindowV2'
 import { WhackAMole } from '@/components/WhackAMole'
 import { AchievementsWindow } from '@/components/AchievementsWindow'
+import { useGameScale } from '@/hooks/useGameScale'
 import { loadGraph } from '@/lib/editorStorage'
 import type { SavedGraph } from '@/lib/editorStorage'
 import type { CaseFlowNode, OperationFlowNode } from '@/types/editor'
@@ -33,6 +34,7 @@ import styles from './DesktopPage.module.css'
  */
 export function DesktopPage() {
   const navigate = useNavigate()
+  const scaleRef = useGameScale()
   const [graph, setGraph] = useState<SavedGraph | null>(null)
 
   useEffect(() => {
@@ -104,46 +106,48 @@ export function DesktopPage() {
   }, [closed, operationClosed, startCase, startOperation, whackOpen])
 
   return (
-    <Desktop
-      onStartClick={() => navigate('/game')}
-      onWhackClick={() => setWhackOpen(true)}
-      taskbarApps={taskbarApps}
-    >
-      <div className={styles.achievementsLayer}>
-        <AchievementsWindow />
-      </div>
-      {startCase && !closed && (
-        <div className={styles.caseLayer}>
-          <CaseWindow
-            data={startCase}
-            draggable
-            decision={decision}
-            onArrest={() => setDecision('arrested')}
-            onRelease={() => setDecision('released')}
-            onClose={() => setClosed(true)}
-          />
+    <div ref={scaleRef} className={styles.canvas} data-scaled-stage>
+      <Desktop
+        onStartClick={() => navigate('/game')}
+        onWhackClick={() => setWhackOpen(true)}
+        taskbarApps={taskbarApps}
+      >
+        <div className={styles.achievementsLayer}>
+          <AchievementsWindow />
         </div>
-      )}
-      {startOperation && !operationClosed && (
-        <div className={styles.caseLayer}>
-          <OperationWindowV2
-            data={{ ...startOperation, counters: opCounters }}
-            draggable
-            onChangeCounter={(key, value) => setOpCounters((c) => ({ ...c, [key]: value }))}
-            onClose={() => setOperationClosed(true)}
-            onStartOperation={() => {
-              // Preview-mode: just acknowledge — the real
-              // game-flow advance lives in GamePage.
-              window.alert('Operation started! (Preview only — run via /game to advance the flow.)')
-            }}
-          />
-        </div>
-      )}
-      {whackOpen && (
-        <div className={styles.caseLayer}>
-          <WhackAMole onClose={() => setWhackOpen(false)} />
-        </div>
-      )}
-    </Desktop>
+        {startCase && !closed && (
+          <div className={styles.caseLayer}>
+            <CaseWindow
+              data={startCase}
+              draggable
+              decision={decision}
+              onArrest={() => setDecision('arrested')}
+              onRelease={() => setDecision('released')}
+              onClose={() => setClosed(true)}
+            />
+          </div>
+        )}
+        {startOperation && !operationClosed && (
+          <div className={styles.caseLayer}>
+            <OperationWindowV2
+              data={{ ...startOperation, counters: opCounters }}
+              draggable
+              onChangeCounter={(key, value) => setOpCounters((c) => ({ ...c, [key]: value }))}
+              onClose={() => setOperationClosed(true)}
+              onStartOperation={() => {
+                // Preview-mode: just acknowledge — the real
+                // game-flow advance lives in GamePage.
+                window.alert('Operation started! (Preview only — run via /game to advance the flow.)')
+              }}
+            />
+          </div>
+        )}
+        {whackOpen && (
+          <div className={styles.caseLayer}>
+            <WhackAMole onClose={() => setWhackOpen(false)} />
+          </div>
+        )}
+      </Desktop>
+    </div>
   )
 }

@@ -332,3 +332,95 @@
     gap: 6px;
   }
 }
+
+/* Scaled-stage mode
+   ------------------------------------------------------------
+   Keep the Figma composition fixed at 1920×1080 and let the page
+   wrapper scale the entire screen. The responsive reflow rules above
+   are intentionally left in place so this can be rolled back by
+   removing this block. */
+.screen {
+  width: 1920px;
+  height: 1080px;
+  min-height: 0;
+  display: block;
+  padding: 0;
+}
+
+.bar {
+  height: 118px;
+}
+
+.welcome {
+  top: 221px;
+  font-size: 64px;
+}
+
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 772px;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 48px;
+}
+
+.badge {
+  width: 192.324px;
+  height: 243.16px;
+}
+
+.divider {
+  flex: 1 0 0;
+  width: auto;
+  min-width: 1px;
+  height: 227px;
+}
+
+.divider::after {
+  left: 50%;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  transform: translateX(-50%);
+}
+
+.loginGroup {
+  width: auto;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-start;
+  gap: 30px;
+}
+
+.avatar {
+  width: 140px;
+  height: 140px;
+}
+
+.fields {
+  width: 298px;
+  height: 140px;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 0;
+}
+
+.name {
+  font-size: 32px;
+  line-height: 30px;
+  text-align: left;
+}
+
+.row {
+  width: auto;
+  gap: 10px;
+}
+
+.input {
+  width: 240px;
+  min-width: 0;
+  flex: 0 0 auto;
+}
