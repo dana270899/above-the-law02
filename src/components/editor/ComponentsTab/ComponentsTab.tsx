@@ -131,6 +131,19 @@ export function ComponentsTab() {
             </div>
           </div>
           <div className={styles.messageCard}>
+            <p className={styles.messageLabel}>Pizza</p>
+            <WinScreenImageEditor
+              variant="pizza"
+              defaultPath={assetUrl('/images/win-screens/Pizza/bg.svg')}
+            />
+            <div className={styles.desktopFrame}>
+              <iframe
+                src={appPath('/win/pizza')}
+                title="Pizza win screen preview"
+              />
+            </div>
+          </div>
+          <div className={styles.messageCard}>
             <p className={styles.messageLabel}>Kippah Cutting Workshop</p>
             <div className={styles.winImageEditor}>
               <p className={styles.winImageStatus}>

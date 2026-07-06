@@ -1,0 +1,285 @@
+.window {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  --design-width: 1440px;
+  --chrome-height: 42px;
+  --footer-height: 88px;
+  --screen-height: calc(var(--design-width) * 9 / 16);
+  --design-height: calc(var(--chrome-height) + var(--screen-height) + var(--footer-height) + 4px);
+  --fit-scale: min(
+    1,
+    calc((100vw - 64px) / var(--design-width)),
+    calc((100vh - 64px) / var(--design-height))
+  );
+  transform: translate(-50%, -50%) scale(var(--fit-scale));
+  transform-origin: center;
+  width: var(--design-width);
+  height: auto;
+  background: var(--white);
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  user-select: none;
+}
+
+.upperBar {
+  width: 100%;
+  height: var(--chrome-height);
+  background: var(--yellow);
+  border-bottom: 2px solid var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow: clip;
+  flex-shrink: 0;
+}
+
+.upperBarTitle {
+  padding: 0 16px;
+  font-family: var(--font-main);
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 28px;
+  color: var(--grey);
+  white-space: nowrap;
+}
+
+.upperBarBtns {
+  display: flex;
+  align-items: stretch;
+  align-self: stretch;
+}
+
+.chromeBtn {
+  width: 40px;
+  height: auto;
+  border: 0;
+  border-left: 2px solid var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: clip;
+  cursor: pointer;
+  padding: 7px;
+  background: var(--white);
+}
+
+.chromeBtn img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.chromeClose {
+  background: var(--red);
+  padding: 8px;
+}
+
+.screen {
+  position: relative;
+  width: 100%;
+  height: var(--screen-height);
+  aspect-ratio: 16 / 9;
+  background: #e1f5ff;
+  overflow: hidden;
+  flex: 0 0 auto;
+}
+
+.windowBg {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
+}
+
+.hud {
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  z-index: 8;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.hudItem {
+  min-width: 72px;
+  height: 44px;
+  padding: 5px 12px 7px 8px;
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--grey);
+  font-family: var(--font-main);
+  font-size: 22px;
+  line-height: 1;
+}
+
+.hudItem img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.fallingItem,
+.police {
+  position: absolute;
+  display: block;
+  height: auto;
+  user-select: none;
+}
+
+.fallingItem {
+  left: 0;
+  top: 0;
+  width: var(--item-size);
+  z-index: 3;
+  pointer-events: none;
+  transform:
+    translate(var(--item-x), var(--item-y))
+    rotate(var(--item-rotation));
+  transform-origin: center;
+}
+
+.fallingPizza {
+  filter: drop-shadow(0 5px 0 rgba(23, 23, 23, 0.12));
+}
+
+.fallingFight {
+  filter: drop-shadow(0 5px 0 rgba(244, 63, 56, 0.12));
+}
+
+.police {
+  left: 0;
+  top: 443px;
+  width: 658px;
+  z-index: 5;
+  cursor: grab;
+  touch-action: none;
+  pointer-events: auto;
+  transform: translateX(var(--car-x));
+  transition: filter 120ms ease;
+}
+
+.police:active {
+  cursor: grabbing;
+}
+
+.policeCollect {
+  filter:
+    drop-shadow(0 0 0 var(--green))
+    brightness(1.08);
+}
+
+.policeHit {
+  animation: car-hit 180ms linear;
+  filter:
+    drop-shadow(0 0 0 var(--red))
+    brightness(0.98);
+}
+
+@keyframes car-hit {
+  0% { transform: translateX(var(--car-x)); }
+  25% { transform: translateX(calc(var(--car-x) - 10px)); }
+  50% { transform: translateX(calc(var(--car-x) + 10px)); }
+  75% { transform: translateX(calc(var(--car-x) - 5px)); }
+  100% { transform: translateX(var(--car-x)); }
+}
+
+.debug .fallingItem,
+.debug .police {
+  outline: 2px dashed rgba(255, 150, 0, 0.85);
+}
+
+.footerBar {
+  width: 100%;
+  height: var(--footer-height);
+  background: var(--white);
+  border-top: 2px solid var(--black);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 14px 24px;
+  overflow: visible;
+  flex-shrink: 0;
+}
+
+.footerText {
+  font-family: var(--font-main);
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 28px;
+  color: var(--grey);
+  text-align: center;
+  white-space: nowrap;
+}
+
+.footerCta {
+  background: var(--green);
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  color: var(--white);
+  cursor: pointer;
+  font-family: var(--font-main);
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 1.35;
+  min-height: 54px;
+  padding: 8px 32px 10px;
+  white-space: nowrap;
+  transition: filter 120ms ease;
+  overflow: visible;
+}
+
+.footerCta:hover {
+  filter: brightness(1.05);
+}
+
+@media (max-width: 700px), (max-height: 640px) {
+  .window {
+    --chrome-height: 36px;
+    --footer-height: 72px;
+    --fit-scale: min(
+      1,
+      calc((100vw - 32px) / var(--design-width)),
+      calc((100vh - 32px) / var(--design-height))
+    );
+  }
+
+  .upperBarTitle {
+    font-size: 18px;
+    line-height: 24px;
+  }
+
+  .chromeBtn {
+    width: 34px;
+    height: auto;
+  }
+
+  .footerBar {
+    padding: 10px 16px;
+  }
+
+  .footerText {
+    font-size: 18px;
+    line-height: 24px;
+  }
+
+  .footerCta {
+    font-size: 18px;
+    min-height: 44px;
+    padding: 6px 18px 8px;
+  }
+}

@@ -12,6 +12,8 @@ export { InteractiveWinScreen } from './InteractiveWinScreen'
 export { KippahCuttingWorkshop } from './KippahCuttingWorkshop'
 export { BdsmParty } from './BdsmParty'
 export type { BdsmPartyProps } from './BdsmParty'
+export { Pizza } from './Pizza'
+export type { PizzaProps } from './Pizza'
 export type {
   InteractiveWinScreenProps,
   InteractionConfig,

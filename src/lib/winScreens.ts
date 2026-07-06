@@ -53,6 +53,11 @@ export const WIN_SCREENS: WinScreenOption[] = [
     label: 'BDSM Party',
     src: assetUrl('/images/win-screens/BdsmParty/Envelope.svg'),
   },
+  {
+    id: 'pizza',
+    label: 'Pizza',
+    src: assetUrl('/images/win-screens/Pizza/bg.svg'),
+  },
 ]
 
 export const DEFAULT_WIN_SCREEN_ID: WinVariant = WIN_SCREENS[0].id

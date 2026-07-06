@@ -6,6 +6,7 @@ import { PunchingDummyClick } from './PunchingDummyClick'
 import { KippahCutting } from './KippahCutting'
 import { KippahCuttingWorkshop } from './KippahCuttingWorkshop'
 import { BdsmParty } from './BdsmParty'
+import { Pizza } from './Pizza'
 import styles from './WinScreenComponent.module.css'
 
 /* ═══════════════════════════════════════════════
@@ -40,6 +41,7 @@ const WINDOWED_VARIANTS: ReadonlySet<WinVariant> = new Set([
   'punching-dummy-click',
   'kippah-cutting-workshop',
   'bdsm-party',
+  'pizza',
 ])
 
 export function WinScreenComponent({
@@ -80,6 +82,9 @@ export function WinScreenComponent({
       break
     case 'bdsm-party':
       inner = <BdsmParty {...passThroughProps} />
+      break
+    case 'pizza':
+      inner = <Pizza {...passThroughProps} />
       break
     case 'graffiti':
     default:

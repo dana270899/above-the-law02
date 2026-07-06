@@ -21,6 +21,7 @@ export type WinVariant =
   | 'kippah-cutting'
   | 'kippah-cutting-workshop'
   | 'bdsm-party'
+  | 'pizza'
 
 /** Stable list of every supported variant — used by the editor. */
 export const WIN_VARIANTS: readonly WinVariant[] = [
@@ -30,6 +31,7 @@ export const WIN_VARIANTS: readonly WinVariant[] = [
   'kippah-cutting',
   'kippah-cutting-workshop',
   'bdsm-party',
+  'pizza',
 ]
 
 /** Same-tab change notification. detail.variant tells you which one. */
