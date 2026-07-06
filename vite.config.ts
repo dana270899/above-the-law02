@@ -165,6 +165,10 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
+      'zustand/shallow': path.resolve(
+        __dirname,
+        './node_modules/@xyflow/react/node_modules/zustand/shallow.js',
+      ),
     },
   },
 })

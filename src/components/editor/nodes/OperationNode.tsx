@@ -73,6 +73,13 @@ export function OperationNode({ id, data }: NodeProps<OperationFlowNode>) {
     updateNodeData(id, { window: { ...current, ...persistablePatch } })
   }
 
+  function setWindowText(
+    field: 'title' | 'headerText' | 'ctaLabel',
+    next: string,
+  ) {
+    updateWindow({ [field]: next } as Partial<OperationWindowV2Data>)
+  }
+
   /** Pick / change the click sound for one item. Empty string
    *  means "use the default"; the `OPERATION_SOUND_NONE` sentinel
    *  means "play nothing". */
@@ -160,6 +167,37 @@ export function OperationNode({ id, data }: NodeProps<OperationFlowNode>) {
                 item at zero. Copy edits (title, header text, CTA
                 label, per-item sounds) still persist via
                 updateWindow(). */}
+            <div className={styles.operationTextEditor}>
+              <p className={styles.soundPickerTitle}>Window text</p>
+              <label className={styles.textField}>
+                <span>Title bar</span>
+                <input
+                  type="text"
+                  className="nodrag"
+                  value={(data.window ?? DEFAULT_OPERATION_V2_DATA).title}
+                  onChange={(e) => setWindowText('title', e.target.value)}
+                />
+              </label>
+              <label className={styles.textField}>
+                <span>Header text</span>
+                <input
+                  type="text"
+                  className="nodrag"
+                  value={(data.window ?? DEFAULT_OPERATION_V2_DATA).headerText}
+                  onChange={(e) => setWindowText('headerText', e.target.value)}
+                />
+              </label>
+              <label className={styles.textField}>
+                <span>Button text</span>
+                <input
+                  type="text"
+                  className="nodrag"
+                  value={(data.window ?? DEFAULT_OPERATION_V2_DATA).ctaLabel}
+                  onChange={(e) => setWindowText('ctaLabel', e.target.value)}
+                />
+              </label>
+            </div>
+
             <OperationWindowV2
               data={{
                 ...(data.window ?? DEFAULT_OPERATION_V2_DATA),

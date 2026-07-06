@@ -45,6 +45,44 @@
   z-index: 1;
 }
 
+/* ─── OperationNode: editable operation window copy ───────── */
+.operationTextEditor {
+  margin-bottom: 16px;
+  padding: 12px 16px;
+  background: #fff;
+  border: 2px solid #000;
+  border-radius: 6px;
+  font-family: sans-serif;
+}
+
+.textField {
+  display: grid;
+  grid-template-columns: 120px 280px;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: #171717;
+}
+
+.textField:last-child {
+  margin-bottom: 0;
+}
+
+.textField span {
+  font-weight: 700;
+}
+
+.textField input {
+  font: inherit;
+  font-size: 12px;
+  padding: 4px 6px;
+  border: 1px solid #888;
+  border-radius: 3px;
+  background: #fff;
+  color: #171717;
+}
+
 /* ─── OperationNode: per-toggle sound picker ─────────────── */
 .soundPicker {
   margin-top: 16px;

@@ -126,7 +126,7 @@
         "width": 325,
         "height": 159
       },
-      "selected": true,
+      "selected": false,
       "dragging": false
     },
     {
@@ -918,8 +918,8 @@
       "id": "case-1781506742927",
       "type": "case",
       "position": {
-        "x": -2701.6351209350278,
-        "y": -1340.647157353169
+        "x": -4383.635120935028,
+        "y": -1516.647157353169
       },
       "data": {
         "nodeType": "case",
@@ -971,8 +971,8 @@
       "id": "message-21",
       "type": "message",
       "position": {
-        "x": -2253.992137218077,
-        "y": -1364.1301061012975
+        "x": -3989.992137218077,
+        "y": -1284.1301061012975
       },
       "data": {
         "nodeType": "message",
@@ -1263,6 +1263,223 @@
       },
       "selected": false,
       "dragging": false
+    },
+    {
+      "id": "case-1783174291135",
+      "type": "case",
+      "position": {
+        "x": -2940.3259106002724,
+        "y": -1172.2242105671749
+      },
+      "data": {
+        "nodeType": "case",
+        "caseId": "895",
+        "title": "Case 5",
+        "order": 5,
+        "hasOperation": false,
+        "window": {
+          "caseId": "895",
+          "createdAt": "22:34 PM",
+          "statusLabel": "Open",
+          "statusColor": "green",
+          "photoUrl": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjY0IiBoZWlnaHQ9IjI2NCIgdmlld0JveD0iMCAwIDI2NCAyNjQiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIGNsaXAtcGF0aD0idXJsKCNjbGlwMF80NTBfMTEwOTgpIj4KPHJlY3Qgd2lkdGg9IjI2NCIgaGVpZ2h0PSIyNjQiIHJ4PSIzLjQ3MzY4IiBmaWxsPSIjRTFGNUZGIi8+CjxyZWN0IHg9IjYwIiB5PSIxNiIgd2lkdGg9IjE0OCIgaGVpZ2h0PSIyMzQiIHJ4PSI3NCIgZmlsbD0iIzE3MTcxNyIgc3Ryb2tlPSIjMTcxNzE3IiBzdHJva2Utd2lkdGg9IjIiLz4KPHBhdGggZD0iTTgxLjAyOTMgOTYuNzMwOEM4Mi42Njk4IDk2LjAxMDYgODQuNzc2MSA5Ni4zNzg1IDg2Ljk0ODQgOTcuODgyQzg5LjEwNTIgOTkuMzc0NiA5MS4xNzk3IDEwMS45MDMgOTIuNTk5MyAxMDUuMTM2Qzk0LjAxOSAxMDguMzcgOTQuNDc2NyAxMTEuNjA5IDk0LjExNiAxMTQuMjA3QzkzLjc1MjYgMTE2LjgyNCA5Mi41OTggMTE4LjYyMyA5MC45NTc1IDExOS4zNDRDODkuMzE3IDEyMC4wNjQgODcuMjEwNyAxMTkuNjk2IDg1LjAzODMgMTE4LjE5MkM4Mi44ODE1IDExNi43IDgwLjgwNjcgMTE0LjE3MSA3OS4zODcgMTEwLjkzN0M3Ny45Njc1IDEwNy43MDQgNzcuNTEgMTA0LjQ2NiA3Ny44NzA4IDEwMS44NjhDNzguMjM0MiA5OS4yNTA4IDc5LjM4ODcgOTcuNDUxMSA4MS4wMjkzIDk2LjczMDhaIiBmaWxsPSIjRjhDQkNCIiBzdHJva2U9IiMxNzE3MTciIHN0cm9rZS13aWR0aD0iMiIvPgo8cGF0aCBkPSJNMTg4LjI5MyA5Ni43MzA4QzE4Ni42NTIgOTYuMDEwNiAxODQuNTQ2IDk2LjM3ODUgMTgyLjM3NCA5Ny44ODJDMTgwLjIxNyA5OS4zNzQ2IDE3OC4xNDMgMTAxLjkwMyAxNzYuNzIzIDEwNS4xMzZDMTc1LjMwMyAxMDguMzcgMTc0Ljg0NiAxMTEuNjA5IDE3NS4yMDYgMTE0LjIwN0MxNzUuNTcgMTE2LjgyNCAxNzYuNzI0IDExOC42MjMgMTc4LjM2NSAxMTkuMzQ0QzE4MC4wMDUgMTIwLjA2NCAxODIuMTEyIDExOS42OTYgMTg0LjI4NCAxMTguMTkyQzE4Ni40NDEgMTE2LjcgMTg4LjUxNiAxMTQuMTcxIDE4OS45MzUgMTEwLjkzN0MxOTEuMzU1IDEwNy43MDQgMTkxLjgxMiAxMDQuNDY2IDE5MS40NTEgMTAxLjg2OEMxOTEuMDg4IDk5LjI1MDggMTg5LjkzNCA5Ny40NTExIDE4OC4yOTMgOTYuNzMwOFoiIGZpbGw9IiNGOENCQ0IiIHN0cm9rZT0iIzE3MTcxNyIgc3Ryb2tlLXdpZHRoPSIyIi8+CjxyZWN0IHg9IjExMy45MzkiIHk9IjE1MC4wMzIiIHdpZHRoPSI0MiIgaGVpZ2h0PSIzNCIgZmlsbD0iI0Y4Q0JDQiIgc3Ryb2tlPSIjMTcxNzE3IiBzdHJva2Utd2lkdGg9IjIiLz4KPHBhdGggZD0iTTEwNi40MzkgNTUuMDMxN0gxNjMuNDM5QzE3My45MzMgNTUuMDMxNyAxODIuNDM5IDYzLjUzODMgMTgyLjQzOSA3NC4wMzE3VjExMi41MzJDMTgyLjQzOSAxMzguNzY1IDE2MS4xNzMgMTYwLjAzMiAxMzQuOTM5IDE2MC4wMzJDMTA4LjcwNiAxNjAuMDMyIDg3LjQzOTUgMTM4Ljc2NSA4Ny40Mzk1IDExMi41MzJWNzQuMDMxN0M4Ny40Mzk1IDYzLjUzODMgOTUuOTQ2IDU1LjAzMTcgMTA2LjQzOSA1NS4wMzE3WiIgZmlsbD0iI0Y4Q0JDQiIgc3Ryb2tlPSIjMTcxNzE3IiBzdHJva2Utd2lkdGg9IjIiLz4KPHBhdGggZD0iTTEyMy4yNCA5MEMxMTguNTUzIDg4LjgwODcgMTA4LjM5IDg2LjkwMjUgMTA1LjI0IDg4LjgwODciIHN0cm9rZT0iIzE3MTcxNyIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPHBhdGggZD0iTTE0Mi4yNCA5MEMxNDYuOTI4IDg4LjgwODcgMTU3LjA5IDg2LjkwMjUgMTYwLjI0IDg4LjgwODciIHN0cm9rZT0iIzE3MTcxNyIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPHBhdGggZD0iTTEzMS4wNzkgMTA1QzEyOS45OTIgMTA3Ljg4OSAxMjguMTQ0IDExNC4xMyAxMjkuNDQ5IDExNS45NzlDMTMwLjc1MyAxMTcuODI4IDEzNS42OTMgMTE2Ljc0OSAxMzggMTE1Ljk3OSIgc3Ryb2tlPSIjMTcxNzE3IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPgo8bWFzayBpZD0icGF0aC0xMC1pbnNpZGUtMV80NTBfMTEwOTgiIGZpbGw9IndoaXRlIj4KPHBhdGggZD0iTTE2NS44NzUgMTY1QzE5NC41NDkgMTY1IDIxOS4yMTggMTg1LjI1NiAyMjQuMzg2IDIxMy40NkMyMzMuMTc3IDI2MS40MzMgMjQ0LjgxOCAzMjkuNTkyIDI0Mi42MDMgMzQyLjg2NkMyNDAuNzkxIDM1My43MjUgMjM3LjkwNSAzNjIuMjQ0IDIzNS41NTEgMzY3LjkyNEMyMzMuNDE1IDM3My4wNzcgMjI4LjI0OSAzNzYgMjIyLjY3IDM3Nkg0My4zNDY5QzM5LjQzOCAzNzYgMzUuNzUxOCAzNzQuNDIxIDM0LjA1NyAzNzAuODk4QzMxLjgyNDcgMzY2LjI1OCAyOC44MTg3IDM1Ny43NzkgMjYuMzI5NiAzNDIuODY2QzIzLjQyODcgMzI1LjQ4NiAzNS4xMDUgMjU5LjE0NCA0NC4xMDY5IDIxMi41OTlDNDkuNDg1OCAxODQuNzg3IDczLjk2MDUgMTY1IDEwMi4yODggMTY1SDE2NS44NzVaIi8+CjwvbWFzaz4KPHBhdGggZD0iTTE2NS44NzUgMTY1QzE5NC41NDkgMTY1IDIxOS4yMTggMTg1LjI1NiAyMjQuMzg2IDIxMy40NkMyMzMuMTc3IDI2MS40MzMgMjQ0LjgxOCAzMjkuNTkyIDI0Mi42MDMgMzQyLjg2NkMyNDAuNzkxIDM1My43MjUgMjM3LjkwNSAzNjIuMjQ0IDIzNS41NTEgMzY3LjkyNEMyMzMuNDE1IDM3My4wNzcgMjI4LjI0OSAzNzYgMjIyLjY3IDM3Nkg0My4zNDY5QzM5LjQzOCAzNzYgMzUuNzUxOCAzNzQuNDIxIDM0LjA1NyAzNzAuODk4QzMxLjgyNDcgMzY2LjI1OCAyOC44MTg3IDM1Ny43NzkgMjYuMzI5NiAzNDIuODY2QzIzLjQyODcgMzI1LjQ4NiAzNS4xMDUgMjU5LjE0NCA0NC4xMDY5IDIxMi41OTlDNDkuNDg1OCAxODQuNzg3IDczLjk2MDUgMTY1IDEwMi4yODggMTY1SDE2NS44NzVaIiBmaWxsPSIjRkZBNEE0Ii8+CjxwYXRoIGQ9Ik0xNjUuODc1IDE2NUwxNjUuODc2IDE2M0gxNjUuODc1VjE2NVpNMjI0LjM4NiAyMTMuNDZMMjI2LjM1MyAyMTMuMDk5VjIxMy4wOTlMMjI0LjM4NiAyMTMuNDZaTTI0Mi42MDMgMzQyLjg2NkwyNDQuNTc2IDM0My4xOTVWMzQzLjE5NUwyNDIuNjAzIDM0Mi44NjZaTTI2LjMyOTYgMzQyLjg2NkwyNC4zNTY5IDM0My4xOTVIMjQuMzU2OUwyNi4zMjk2IDM0Mi44NjZaTTQ0LjEwNjkgMjEyLjU5OUw0Mi4xNDMzIDIxMi4yMTlMNDIuMTQzMyAyMTIuMjE5TDQ0LjEwNjkgMjEyLjU5OVpNMTAyLjI4OCAxNjVWMTYzSDEwMi4yODhMMTAyLjI4OCAxNjVaTTM0LjA1NyAzNzAuODk4TDM1Ljg1OTMgMzcwLjAzMVYzNzAuMDMxTDM0LjA1NyAzNzAuODk4Wk0yMzUuNTUxIDM2Ny45MjRMMjMzLjcwNCAzNjcuMTU4TDIzNS41NTEgMzY3LjkyNFpNMTY1Ljg3NSAxNjVWMTY3QzE5My41OTkgMTY3IDIxNy40MjggMTg2LjU4MSAyMjIuNDE5IDIxMy44MkwyMjQuMzg2IDIxMy40NkwyMjYuMzUzIDIxMy4wOTlDMjIxLjAwOSAxODMuOTMxIDE5NS41IDE2MyAxNjUuODc2IDE2M0wxNjUuODc1IDE2NVpNMjI0LjM4NiAyMTMuNDZMMjIyLjQxOSAyMTMuODJDMjI2LjgxMyAyMzcuOCAyMzEuOTE3IDI2Ni44MDkgMjM1LjY0NCAyOTEuNDc0QzIzNy41MDggMzAzLjgwOSAyMzkuMDI1IDMxNS4wMzYgMjM5LjkzOCAzMjMuOTk1QzI0MC44NjEgMzMzLjA2MSAyNDEuMTMyIDMzOS41MzIgMjQwLjYzIDM0Mi41MzdMMjQyLjYwMyAzNDIuODY2TDI0NC41NzYgMzQzLjE5NUMyNDUuMTgyIDMzOS41NjQgMjQ0LjgyOCAzMzIuNTM3IDI0My45MTcgMzIzLjU5QzI0Mi45OTUgMzE0LjUzNyAyNDEuNDY4IDMwMy4yMzcgMjM5LjU5OSAyOTAuODc2QzIzNS44NjIgMjY2LjE1IDIzMC43NSAyMzcuMDkzIDIyNi4zNTMgMjEzLjA5OUwyMjQuMzg2IDIxMy40NlpNMjQyLjYwMyAzNDIuODY2TDI0MC42MyAzNDIuNTM3QzIzOC44NDcgMzUzLjIyNCAyMzYuMDA5IDM2MS41OTcgMjMzLjcwNCAzNjcuMTU4TDIzNS41NTEgMzY3LjkyNEwyMzcuMzk5IDM2OC42OUMyMzkuODAyIDM2Mi44OTIgMjQyLjczNSAzNTQuMjI2IDI0NC41NzYgMzQzLjE5NUwyNDIuNjAzIDM0Mi44NjZaTTIyMi42NyAzNzZWMzc0SDQzLjM0NjlWMzc2VjM3OEgyMjIuNjdWMzc2Wk0zNC4wNTcgMzcwLjg5OEwzNS44NTkzIDM3MC4wMzFDMzMuNzMxNiAzNjUuNjA5IDMwLjc3MDIgMzU3LjMyMyAyOC4zMDIzIDM0Mi41MzdMMjYuMzI5NiAzNDIuODY2TDI0LjM1NjkgMzQzLjE5NUMyNi44NjcxIDM1OC4yMzUgMjkuOTE3OCAzNjYuOTA4IDMyLjI1NDggMzcxLjc2NUwzNC4wNTcgMzcwLjg5OFpNMjYuMzI5NiAzNDIuODY2TDI4LjMwMjMgMzQyLjUzN0MyNy42MjQxIDMzOC40NzMgMjcuNzgxNSAzMzEuMzAzIDI4LjYwOTkgMzIxLjkwMUMyOS40MzIyIDMxMi41NjcgMzAuODk0NiAzMDEuMjM1IDMyLjczMjYgMjg4Ljk2NkMzNi40MDgxIDI2NC40MzEgNDEuNTcxNSAyMzYuMjQxIDQ2LjA3MDYgMjEyLjk3OEw0NC4xMDY5IDIxMi41OTlMNDIuMTQzMyAyMTIuMjE5QzM3LjY0MDQgMjM1LjUwMiAzMi40NjQ3IDI2My43NTYgMjguNzc2OCAyODguMzczQzI2LjkzMzEgMzAwLjY4IDI1LjQ1NzcgMzEyLjEwMSAyNC42MjUzIDMyMS41NDlDMjMuNzk5IDMzMC45MjggMjMuNTg0NyAzMzguNTY5IDI0LjM1NjkgMzQzLjE5NUwyNi4zMjk2IDM0Mi44NjZaTTQ0LjEwNjkgMjEyLjU5OUw0Ni4wNzA2IDIxMi45NzhDNTEuMjYzNyAxODYuMTI3IDc0Ljg5ODIgMTY3IDEwMi4yODggMTY3TDEwMi4yODggMTY1TDEwMi4yODggMTYzQzczLjAyMjkgMTYzIDQ3LjcwOCAxODMuNDQ2IDQyLjE0MzMgMjEyLjIxOUw0NC4xMDY5IDIxMi41OTlaTTEwMi4yODggMTY1VjE2N0gxNjUuODc1VjE2NVYxNjNIMTAyLjI4OFYxNjVaTTQzLjM0NjkgMzc2VjM3NEMzOS45MTg1IDM3NCAzNy4xMTE5IDM3Mi42MzUgMzUuODU5MyAzNzAuMDMxTDM0LjA1NyAzNzAuODk4TDMyLjI1NDggMzcxLjc2NUMzNC4zOTE2IDM3Ni4yMDcgMzguOTU3NCAzNzggNDMuMzQ2OSAzNzhWMzc2Wk0yMzUuNTUxIDM2Ny45MjRMMjMzLjcwNCAzNjcuMTU4QzIzMS45MjcgMzcxLjQ0NSAyMjcuNTc3IDM3NCAyMjIuNjcgMzc0VjM3NlYzNzhDMjI4LjkyIDM3OCAyMzQuOTA0IDM3NC43MSAyMzcuMzk5IDM2OC42OUwyMzUuNTUxIDM2Ny45MjRaIiBmaWxsPSIjMTcxNzE3IiBtYXNrPSJ1cmwoI3BhdGgtMTAtaW5zaWRlLTFfNDUwXzExMDk4KSIvPgo8cGF0aCBkPSJNNjguNDU0NiAyMjMuMDMyQzYyLjEwOTEgMjY5LjE4MSA1NC40MzMxIDMzMS4xNTcgNTYuNDM3NSAzNDcuODc0QzU4LjAwODMgMzYwLjk3NSA1OS44NjU1IDM2OS4xMTQgNjEuMzgxNSAzNzQuMDQ4QzYyLjc5NDcgMzc4LjY0OCA2Ny4xMDI3IDM4MS4wMzIgNzEuOTE0NiAzODEuMDMySDE5My41ODVDMTk5LjkzOSAzODEuMDMyIDIwNS42NTUgMzc3LjI0NCAyMDcuMzczIDM3MS4xMjdDMjA4Ljk1MiAzNjUuNTA3IDIxMC43NDUgMzU3LjYzNSAyMTEuOTE1IDM0Ny44NzRDMjEzLjQ1NyAzMzUuMDE1IDIwNS42NjMgMjcwLjY4MiAxOTkuNDMxIDIyMy4wMzIiIHN0cm9rZT0iIzE3MTcxNyIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz4KPHBhdGggZD0iTTExMy4yNCA5NS42NDI2QzExNS42NDcgOTUuNjQyNiAxMTcuNzk1IDk2LjEzMTggMTE5LjMxNiA5Ni44OTI2QzEyMC44NzcgOTcuNjcyNyAxMjEuNTk4IDk4LjYzMiAxMjEuNTk4IDk5LjVDMTIxLjU5OCAxMDAuMzY4IDEyMC44NzcgMTAxLjMyNyAxMTkuMzE2IDEwMi4xMDdDMTE3Ljc5NSAxMDIuODY4IDExNS42NDcgMTAzLjM1NyAxMTMuMjQgMTAzLjM1N0MxMTAuODMzIDEwMy4zNTcgMTA4LjY4NiAxMDIuODY4IDEwNy4xNjQgMTAyLjEwN0MxMDUuNjA0IDEwMS4zMjcgMTA0Ljg4MyAxMDAuMzY4IDEwNC44ODMgOTkuNUMxMDQuODgzIDk4LjYzMiAxMDUuNjA0IDk3LjY3MjcgMTA3LjE2NCA5Ni44OTI2QzEwOC42ODYgOTYuMTMxOCAxMTAuODMzIDk1LjY0MjYgMTEzLjI0IDk1LjY0MjZaIiBmaWxsPSIjRkZGREZEIiBzdHJva2U9IiMxNzE3MTciIHN0cm9rZS13aWR0aD0iMS4yODU3MSIvPgo8Y2lyY2xlIGN4PSIxMTMuMjQiIGN5PSI5OS41IiByPSIzLjg1NzE0IiBmaWxsPSIjMTcxNzE3IiBzdHJva2U9IiMxNzE3MTciIHN0cm9rZS13aWR0aD0iMS4yODU3MSIvPgo8cGF0aCBkPSJNMTUxLjI0IDk1LjY0MjZDMTUzLjY0NyA5NS42NDI2IDE1NS43OTUgOTYuMTMxOCAxNTcuMzE2IDk2Ljg5MjZDMTU4Ljg3NyA5Ny42NzI3IDE1OS41OTggOTguNjMyIDE1OS41OTggOTkuNUMxNTkuNTk4IDEwMC4zNjggMTU4Ljg3NyAxMDEuMzI3IDE1Ny4zMTYgMTAyLjEwN0MxNTUuNzk1IDEwMi44NjggMTUzLjY0NyAxMDMuMzU3IDE1MS4yNCAxMDMuMzU3QzE0OC44MzMgMTAzLjM1NyAxNDYuNjg2IDEwMi44NjggMTQ1LjE2NCAxMDIuMTA3QzE0My42MDQgMTAxLjMyNyAxNDIuODgzIDEwMC4zNjggMTQyLjg4MyA5OS41QzE0Mi44ODMgOTguNjMyIDE0My42MDQgOTcuNjcyNyAxNDUuMTY0IDk2Ljg5MjZDMTQ2LjY4NiA5Ni4xMzE4IDE0OC44MzMgOTUuNjQyNiAxNTEuMjQgOTUuNjQyNloiIGZpbGw9IiNGRkZERkQiIHN0cm9rZT0iIzE3MTcxNyIgc3Ryb2tlLXdpZHRoPSIxLjI4NTcxIi8+CjxjaXJjbGUgY3g9IjE1MS4yNCIgY3k9Ijk5LjUiIHI9IjMuODU3MTQiIGZpbGw9IiMxNzE3MTciIHN0cm9rZT0iIzE3MTcxNyIgc3Ryb2tlLXdpZHRoPSIxLjI4NTcxIi8+CjxwYXRoIGQ9Ik0xMzIuMjQgMTQxQzEyNy45NjggMTQxIDEyNC4xMyAxNDAuMzY3IDEyMS45MzYgMTM5LjkxNkMxMjAuMzE0IDEzOS41ODMgMTE5LjI0IDEzOC4xNDYgMTE5LjI0IDEzNi41NTJDMTE5LjI0IDEzNC41OSAxMjAuODMxIDEzMyAxMjIuNzkyIDEzM0wxNDEuNjg4IDEzM0MxNDMuNjUgMTMzIDE0NS4yNCAxMzQuNTkgMTQ1LjI0IDEzNi41NTJDMTQ1LjI0IDEzOC4xNDYgMTQ0LjE2NiAxMzkuNTgzIDE0Mi41NDUgMTM5LjkxNkMxNDAuMzUxIDE0MC4zNjcgMTM2LjUxMiAxNDEgMTMyLjI0IDE0MVoiIGZpbGw9IiNGRkZERkQiIHN0cm9rZT0iIzE3MTcxNyIgc3Ryb2tlLXdpZHRoPSIyIi8+CjwvZz4KPGRlZnM+CjxjbGlwUGF0aCBpZD0iY2xpcDBfNDUwXzExMDk4Ij4KPHJlY3Qgd2lkdGg9IjI2NCIgaGVpZ2h0PSIyNjQiIHJ4PSIzLjQ3MzY4IiBmaWxsPSJ3aGl0ZSIvPgo8L2NsaXBQYXRoPgo8L2RlZnM+Cjwvc3ZnPgo=",
+          "fullName": "Adam Mahmud",
+          "idNo": "12345678",
+          "dob": "10/12/1988",
+          "sex": "Female",
+          "sexColor": "black",
+          "nationality": "Israeli",
+          "nationalityColor": "black",
+          "religion": "Jewish",
+          "religionColor": "green",
+          "address": "Trumpeldor 40, Petah Tikva",
+          "criminalRecord": [],
+          "criminalRecordEmptyText": "No criminal record yet.",
+          "extraChips": [],
+          "suspicions": [
+            {
+              "id": "s1",
+              "subject": "Vandalism",
+              "status": "low",
+              "statusColor": "yellow",
+              "date": "08/02/2026",
+              "fileUrl": "",
+              "details": "A group of teenagers is suspected of vandalizing public property."
+            }
+          ],
+          "arrestLabel": "Arrest",
+          "releaseLabel": "Release"
+        }
+      },
+      "measured": {
+        "width": 325,
+        "height": 159
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "message-34",
+      "type": "message",
+      "position": {
+        "x": -2863.8695237782317,
+        "y": -1883.5218557739443
+      },
+      "data": {
+        "nodeType": "message",
+        "messageType": "link",
+        "content": "new case! finish it quickly so we can go to lunch",
+        "buttonLabel": "Continue",
+        "buttonLinkType": "edge",
+        "buttonUrl": "",
+        "locationX": 80,
+        "locationY": 20
+      },
+      "measured": {
+        "width": 290,
+        "height": 499
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "trigger-1783175960515",
+      "type": "trigger",
+      "position": {
+        "x": -2455.6526868556202,
+        "y": -1109.97778502751
+      },
+      "data": {
+        "nodeType": "trigger",
+        "triggerType": "expandRow",
+        "delaySeconds": 0.4
+      },
+      "measured": {
+        "width": 220,
+        "height": 168
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "message-35",
+      "type": "message",
+      "position": {
+        "x": -2478.566054274806,
+        "y": -870.1881542518228
+      },
+      "data": {
+        "nodeType": "message",
+        "messageType": "link",
+        "content": "come on, who wasn't a teenager once?",
+        "buttonLabel": "Ok",
+        "buttonLinkType": "edge",
+        "buttonUrl": "",
+        "locationX": 20,
+        "locationY": 50
+      },
+      "measured": {
+        "width": 290,
+        "height": 499
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "message-36",
+      "type": "message",
+      "position": {
+        "x": -3266.5828730722405,
+        "y": -851.8212510240874
+      },
+      "data": {
+        "nodeType": "message",
+        "messageType": "link",
+        "content": "poor little princes",
+        "buttonLabel": "Continue",
+        "buttonLinkType": "edge",
+        "buttonUrl": "",
+        "locationX": 50,
+        "locationY": 50
+      },
+      "measured": {
+        "width": 290,
+        "height": 499
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "message-37",
+      "type": "message",
+      "position": {
+        "x": -2858.5828730722405,
+        "y": -889.8212510240874
+      },
+      "data": {
+        "nodeType": "message",
+        "messageType": "link",
+        "content": "poor little princes",
+        "buttonLabel": "Continue",
+        "buttonLinkType": "edge",
+        "buttonUrl": "",
+        "locationX": 50,
+        "locationY": 50
+      },
+      "measured": {
+        "width": 290,
+        "height": 499
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "message-38",
+      "type": "message",
+      "position": {
+        "x": -3259.043397039179,
+        "y": -293.9025854328676
+      },
+      "data": {
+        "nodeType": "message",
+        "messageType": "link",
+        "content": "you have no mercy. You ruined their future.",
+        "buttonLabel": "Continue",
+        "buttonLinkType": "edge",
+        "buttonUrl": "",
+        "locationX": 50,
+        "locationY": 50
+      },
+      "measured": {
+        "width": 290,
+        "height": 499
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "message-39",
+      "type": "message",
+      "position": {
+        "x": -2854.852163200258,
+        "y": -326.93740224025777
+      },
+      "data": {
+        "nodeType": "message",
+        "messageType": "link",
+        "content": "I’m glad you thought about their future.",
+        "buttonLabel": "Continue",
+        "buttonLinkType": "edge",
+        "buttonUrl": "",
+        "locationX": 50,
+        "locationY": 50
+      },
+      "measured": {
+        "width": 290,
+        "height": 499
+      },
+      "selected": false,
+      "dragging": false
     }
   ],
   "edges": [
@@ -1515,9 +1732,42 @@
       "id": "xy-edge__result-win-1780988357022-message-32"
     },
     {
-      "source": "result-win-1782311964781",
-      "target": "case-1781506742927",
-      "id": "xy-edge__result-win-1782311964781-case-1781506742927"
+      "source": "message-34",
+      "target": "case-1783174291135",
+      "id": "xy-edge__message-34-case-1783174291135"
+    },
+    {
+      "source": "case-1783174291135",
+      "sourceHandle": "trigger",
+      "target": "trigger-1783175960515",
+      "id": "xy-edge__case-1783174291135trigger-trigger-1783175960515"
+    },
+    {
+      "source": "trigger-1783175960515",
+      "target": "message-35",
+      "id": "xy-edge__trigger-1783175960515-message-35"
+    },
+    {
+      "source": "case-1783174291135",
+      "sourceHandle": "release",
+      "target": "message-37",
+      "id": "xy-edge__case-1783174291135release-message-37"
+    },
+    {
+      "source": "case-1783174291135",
+      "sourceHandle": "arrest",
+      "target": "message-36",
+      "id": "xy-edge__case-1783174291135arrest-message-36"
+    },
+    {
+      "source": "message-36",
+      "target": "message-38",
+      "id": "xy-edge__message-36-message-38"
+    },
+    {
+      "source": "message-37",
+      "target": "message-39",
+      "id": "xy-edge__message-37-message-39"
     }
   ]
 }
