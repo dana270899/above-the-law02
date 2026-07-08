@@ -129,7 +129,7 @@ export function BgMusicNode({ id, data }: NodeProps<BgMusicFlowNode>) {
             style={{
               font: 'inherit', fontSize: 11, padding: '2px 8px',
               border: '1px solid #c7d2fe', borderRadius: 3,
-              background: '#fff', color: '#4f46e5', cursor: 'pointer',
+              background: '#fff', color: '#4f46e5', cursor: 'var(--cursor-hover)',
             }}
           >
             ⬆ Upload track
@@ -142,7 +142,7 @@ export function BgMusicNode({ id, data }: NodeProps<BgMusicFlowNode>) {
               style={{
                 font: 'inherit', fontSize: 11, padding: '2px 8px',
                 border: '1px solid #d4b6b6', borderRadius: 3,
-                background: '#fff', color: '#a32d2d', cursor: 'pointer',
+                background: '#fff', color: '#a32d2d', cursor: 'var(--cursor-hover)',
               }}
             >
               ✕ Clear

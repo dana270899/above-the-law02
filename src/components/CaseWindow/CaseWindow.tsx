@@ -15,6 +15,7 @@ import {
   DEFAULT_INDECENT_EXPOSURE_DATA,
   type FootageVariant,
 } from '@/components/FootageWindow'
+import { startDragCursor, stopDragCursor } from '@/lib/dragCursor'
 import { assetUrl } from '@/lib/paths'
 import { WebcamFilter } from './WebcamFilter'
 import styles from './CaseWindow.module.css'
@@ -427,8 +428,9 @@ export function CaseWindow({
 
   function handleMinimize() {
     setMinimized((m) => {
-      onMinimizeChange?.(!m)
-      return !m
+      const next = !m
+      onMinimizeChange?.(next)
+      return onMinimizeChange ? m : next
     })
   }
 
@@ -446,6 +448,7 @@ export function CaseWindow({
       originX: rect.left,
       originY: rect.top,
     }
+    startDragCursor()
     e.preventDefault()
   }
 
@@ -473,12 +476,20 @@ export function CaseWindow({
       }
       void h
     }
-    function onUp() { dragRef.current = null }
+    function onUp() {
+      if (!dragRef.current) return
+      dragRef.current = null
+      stopDragCursor()
+    }
     window.addEventListener('mousemove', onMove)
     window.addEventListener('mouseup', onUp)
     return () => {
       window.removeEventListener('mousemove', onMove)
       window.removeEventListener('mouseup', onUp)
+      if (dragRef.current) {
+        dragRef.current = null
+        stopDragCursor()
+      }
     }
   }, [draggable])
 

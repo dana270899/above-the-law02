@@ -25,7 +25,7 @@
 }
 
 .draggable .upperBar {
-  cursor: move;
+  cursor: var(--cursor-hover-drag);
   user-select: none;
 }
 
@@ -70,7 +70,7 @@
   align-items: center;
   justify-content: center;
   overflow: clip;
-  cursor: pointer;
+  cursor: var(--cursor-hover);
   padding: 7px;
   background: var(--white);
 }

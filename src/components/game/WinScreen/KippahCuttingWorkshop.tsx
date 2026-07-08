@@ -225,6 +225,7 @@ export function KippahCuttingWorkshop({
         className={[styles.screen, debug ? styles.debug : '']
           .filter(Boolean)
           .join(' ')}
+        data-win-content
         onPointerEnter={(e) => {
           updateCursor(e)
         }}

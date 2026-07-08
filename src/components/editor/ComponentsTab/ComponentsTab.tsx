@@ -144,6 +144,19 @@ export function ComponentsTab() {
             </div>
           </div>
           <div className={styles.messageCard}>
+            <p className={styles.messageLabel}>Picnic</p>
+            <WinScreenImageEditor
+              variant="picnic"
+              defaultPath={assetUrl('/images/win-screens/Picnic/Bg.svg')}
+            />
+            <div className={styles.desktopFrame}>
+              <iframe
+                src={appPath('/win/picnic')}
+                title="Picnic win screen preview"
+              />
+            </div>
+          </div>
+          <div className={styles.messageCard}>
             <p className={styles.messageLabel}>Kippah Cutting Workshop</p>
             <div className={styles.winImageEditor}>
               <p className={styles.winImageStatus}>
@@ -370,7 +383,7 @@ export function ComponentsTab() {
                   color: '#8a6500',
                   fontSize: 13,
                   fontFamily: 'inherit',
-                  cursor: 'pointer',
+                  cursor: 'var(--cursor-hover)',
                 }}
               >
                 Replay
@@ -400,7 +413,7 @@ export function ComponentsTab() {
                   color: '#2d5a2d',
                   fontSize: 13,
                   fontFamily: 'inherit',
-                  cursor: 'pointer',
+                  cursor: 'var(--cursor-hover)',
                 }}
               >
                 Earn next rank
@@ -416,7 +429,7 @@ export function ComponentsTab() {
                   color: '#444',
                   fontSize: 13,
                   fontFamily: 'inherit',
-                  cursor: 'pointer',
+                  cursor: 'var(--cursor-hover)',
                 }}
               >
                 Reset
@@ -473,7 +486,7 @@ export function ComponentsTab() {
               color: '#8a6500',
               fontSize: 13,
               fontFamily: 'inherit',
-              cursor: 'pointer',
+              cursor: 'var(--cursor-hover)',
             }}
           >
             Replay

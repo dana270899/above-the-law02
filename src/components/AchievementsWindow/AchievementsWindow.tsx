@@ -5,6 +5,7 @@ import {
   type CSSProperties,
   type MouseEvent as ReactMouseEvent,
 } from 'react'
+import { startDragCursor, stopDragCursor } from '@/lib/dragCursor'
 import { assetUrl } from '@/lib/paths'
 import styles from './AchievementsWindow.module.css'
 
@@ -138,6 +139,7 @@ export function AchievementsWindow({
       originX: rect.left,
       originY: rect.top,
     }
+    startDragCursor()
     e.preventDefault()
   }
 
@@ -156,12 +158,20 @@ export function AchievementsWindow({
       const y = Math.max(0, Math.min(maxY, d.originY + dy))
       setPos({ x, y })
     }
-    function onUp() { dragRef.current = null }
+    function onUp() {
+      if (!dragRef.current) return
+      dragRef.current = null
+      stopDragCursor()
+    }
     window.addEventListener('mousemove', onMove)
     window.addEventListener('mouseup', onUp)
     return () => {
       window.removeEventListener('mousemove', onMove)
       window.removeEventListener('mouseup', onUp)
+      if (dragRef.current) {
+        dragRef.current = null
+        stopDragCursor()
+      }
     }
   }, [draggable])
 

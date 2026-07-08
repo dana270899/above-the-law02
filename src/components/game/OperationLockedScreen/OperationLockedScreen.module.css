@@ -36,7 +36,7 @@
   font-size: 28px;
   line-height: 1;
   color: #171717;
-  cursor: pointer;
+  cursor: var(--cursor-hover);
   padding: 2px 6px;
 }
 .closeBtn:hover {
@@ -72,7 +72,7 @@
   border-radius: 4px;
   padding: 8px 28px;
   font-size: 18px;
-  cursor: pointer;
+  cursor: var(--cursor-hover);
 }
 .okBtn:hover {
   filter: brightness(1.05);

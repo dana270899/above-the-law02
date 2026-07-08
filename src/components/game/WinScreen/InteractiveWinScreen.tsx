@@ -131,12 +131,16 @@ export function InteractiveWinScreen({
         triggerReaction()
       }
     }
-    function onUp() { dragRef.current = null }
+    function onUp() {
+      if (!dragRef.current) return
+      dragRef.current = null
+    }
     window.addEventListener('mousemove', onMove)
     window.addEventListener('mouseup', onUp)
     return () => {
       window.removeEventListener('mousemove', onMove)
       window.removeEventListener('mouseup', onUp)
+      dragRef.current = null
     }
   }, [interaction.kind, interaction.dragThreshold])
 
@@ -169,6 +173,7 @@ export function InteractiveWinScreen({
           style={hotspotStyle}
           role="button"
           tabIndex={0}
+          {...(interaction.kind === 'drag' ? { 'data-native-drag-cursor': true } : {})}
           aria-label={`Interact with the ${label} win screen`}
           onClick={onHotspotClick}
           onMouseDown={onHotspotMouseDown}

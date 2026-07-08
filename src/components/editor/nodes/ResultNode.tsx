@@ -226,7 +226,7 @@ export function ResultNode({ id, data }: NodeProps<ResultFlowNode>) {
               style={{
                 font: 'inherit', fontSize: 11, padding: '2px 8px',
                 border: '1px solid #b6dcc6', borderRadius: 3,
-                background: '#fff', color: '#0f6e56', cursor: 'pointer',
+                background: '#fff', color: '#0f6e56', cursor: 'var(--cursor-hover)',
               }}
             >
               ⬆ Upload new image
@@ -239,7 +239,7 @@ export function ResultNode({ id, data }: NodeProps<ResultFlowNode>) {
                 style={{
                   font: 'inherit', fontSize: 11, padding: '2px 8px',
                   border: '1px solid #d4b6b6', borderRadius: 3,
-                  background: '#fff', color: '#a32d2d', cursor: 'pointer',
+                  background: '#fff', color: '#a32d2d', cursor: 'var(--cursor-hover)',
                 }}
               >
                 ✕ Clear
@@ -391,7 +391,7 @@ export function ResultNode({ id, data }: NodeProps<ResultFlowNode>) {
               style={{
                 font: 'inherit', fontSize: 11, padding: '2px 8px',
                 border: '1px solid #b6dcc6', borderRadius: 3,
-                background: '#fff', color: '#0f6e56', cursor: 'pointer',
+                background: '#fff', color: '#0f6e56', cursor: 'var(--cursor-hover)',
               }}
             >
               ⬆ Upload new sound
@@ -404,7 +404,7 @@ export function ResultNode({ id, data }: NodeProps<ResultFlowNode>) {
                 style={{
                   font: 'inherit', fontSize: 11, padding: '2px 8px',
                   border: '1px solid #d4b6b6', borderRadius: 3,
-                  background: '#fff', color: '#a32d2d', cursor: 'pointer',
+                  background: '#fff', color: '#a32d2d', cursor: 'var(--cursor-hover)',
                 }}
               >
                 ✕ Clear

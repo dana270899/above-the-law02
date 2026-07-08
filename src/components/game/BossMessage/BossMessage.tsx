@@ -51,7 +51,7 @@ export function BossMessage(props: BossMessageProps) {
       <div className={styles.card}>
 
         {/* "Chat" header bar */}
-        <div className={styles.headerBar}>
+        <div className={styles.headerBar} data-message-drag-handle>
           <span className={styles.headerLabel}>Chat</span>
         </div>
 

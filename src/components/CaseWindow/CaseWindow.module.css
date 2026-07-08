@@ -36,7 +36,7 @@
 }
 
 .draggable .upperBar {
-  cursor: move;
+  cursor: var(--cursor-hover-drag);
   user-select: none;
 }
 
@@ -130,7 +130,7 @@
   align-items: center;
   justify-content: center;
   overflow: clip;
-  cursor: pointer;
+  cursor: var(--cursor-hover);
   padding: 7px;
   background: var(--white);
 }
@@ -209,7 +209,7 @@
   border-top: none;
   font: inherit;
   text-align: left;
-  cursor: pointer;
+  cursor: var(--cursor-hover);
 }
 
 .tabActive {
@@ -221,7 +221,7 @@
 /* Locked tab — previous case isn't completed yet. Dim and non-clickable. */
 .tabLocked {
   opacity: 0.4;
-  cursor: not-allowed;
+  cursor: var(--cursor-unavailable);
   pointer-events: none;
 }
 
@@ -391,7 +391,7 @@
   padding: 6px 7px;
   border: none;
   border-bottom: 2px solid var(--black);
-  cursor: pointer;
+  cursor: var(--cursor-hover);
 }
 
 .scrollBtnBottom {
@@ -412,7 +412,7 @@
   flex: 1 0 0;
   background: var(--light-yellow-100);
   position: relative;
-  cursor: pointer;
+  cursor: var(--cursor-hover);
 }
 
 /* Draggable thumb on the scroll track. Position + height are set inline
@@ -427,11 +427,11 @@
   background: var(--light-yellow-100);
   border-top: 2px solid var(--black);
   border-bottom: 2px solid var(--black);
-  cursor: grab;
+  cursor: var(--cursor-hover-drag);
 }
 
 .scrollThumb:active {
-  cursor: grabbing;
+  cursor: var(--cursor-drag);
 }
 
 /* ─── Identity row: photo + details ─────────────────── */
@@ -473,7 +473,7 @@
 /* Editable photo: input is invisible but covers the photo box */
 .photoEditWrap {
   position: relative;
-  cursor: pointer;
+  cursor: var(--cursor-hover);
 }
 
 .photoEditOverlay {
@@ -495,7 +495,7 @@
   position: absolute;
   inset: 0;
   opacity: 0;
-  cursor: pointer;
+  cursor: var(--cursor-hover);
 }
 
 /* Details column */
@@ -694,7 +694,7 @@
   background: transparent;
   border: none;
   padding: 0;
-  cursor: pointer;
+  cursor: var(--cursor-hover);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -727,7 +727,7 @@
   font-size: 22px;
   line-height: 28px;
   color: var(--black);
-  cursor: pointer;
+  cursor: var(--cursor-hover);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -792,7 +792,7 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  cursor: pointer;
+  cursor: var(--cursor-hover);
   text-decoration: none;
   color: inherit;
 }
@@ -801,7 +801,7 @@
 
 .attachBtnDisabled {
   opacity: 0.4;
-  cursor: not-allowed;
+  cursor: var(--cursor-unavailable);
 }
 
 /* When the user clicks a suspicion row's attachment, the chosen Footage
@@ -861,7 +861,7 @@
   font-size: 24px;
   line-height: 26px;
   color: var(--white);
-  cursor: pointer;
+  cursor: var(--cursor-hover);
   white-space: nowrap;
 }
 
@@ -947,7 +947,7 @@
   background: var(--white);
   border-radius: 4px;
   padding: 2px 8px;
-  cursor: pointer;
+  cursor: var(--cursor-hover);
 }
 
 .rowControlBtnRemove {

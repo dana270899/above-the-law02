@@ -98,7 +98,7 @@
   justify-content: center;
   background: var(--red);
   color: var(--black);
-  cursor: pointer;
+  cursor: var(--cursor-hover);
   font: inherit;
   font-size: 44px;
   line-height: 1;
@@ -263,7 +263,7 @@
   border-radius: 4px;
   background: var(--green);
   color: var(--white);
-  cursor: pointer;
+  cursor: var(--cursor-hover);
   font: inherit;
   font-size: 44px;
   line-height: 44px;

@@ -344,7 +344,7 @@ export function PunchingDummyClick({
           </button>
         </div>
       </div>
-      <div className={styles.screen}>
+      <div className={styles.screen} data-win-content>
         <img
           className={styles.scene}
           src={bgSrc}
@@ -379,6 +379,7 @@ export function PunchingDummyClick({
           style={leftHotspotStyle}
           role="button"
           tabIndex={0}
+          data-win-inherit-cursor
           aria-label="Hit the toy from the left (it tilts right)"
           onClick={onLeftHotspot}
           onKeyDown={(e) => {
@@ -396,6 +397,7 @@ export function PunchingDummyClick({
           style={rightHotspotStyle}
           role="button"
           tabIndex={0}
+          data-win-inherit-cursor
           aria-label="Hit the toy from the right (it tilts left)"
           onClick={onRightHotspot}
           onKeyDown={(e) => {

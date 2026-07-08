@@ -81,7 +81,7 @@
   background: transparent;
   border: none;
   padding: 0;
-  cursor: pointer;
+  cursor: var(--cursor-hover);
   font: inherit;
   color: inherit;
 }
@@ -207,7 +207,7 @@
   padding: 0 10px;
   width: 240px;
   flex-shrink: 0;
-  cursor: pointer;
+  cursor: var(--cursor-hover);
   font: inherit;
   color: inherit;
 }
@@ -252,7 +252,7 @@
   border-top: 0;
   border-radius: 0;
   box-shadow: none;
-  cursor: pointer;
+  cursor: var(--cursor-hover);
   overflow: hidden;
 }
 

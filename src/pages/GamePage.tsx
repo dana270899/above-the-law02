@@ -26,6 +26,7 @@ import {
 import { BossMessage } from '@/components/game/BossMessage/BossMessage'
 import { LoginScreen } from '@/components/game/LoginScreen/LoginScreen'
 import { Subtitles } from '@/components/game/Subtitles'
+import { startDragCursor, stopDragCursor } from '@/lib/dragCursor'
 import { TutorialSpotlight } from '@/components/game/TutorialSpotlight'
 import { OperationLockedScreen } from '@/components/game/OperationLockedScreen'
 import { AchievementsWindow, type CaseOutcome } from '@/components/AchievementsWindow'
@@ -59,6 +60,9 @@ function isCaseWindowHighlightTarget(
     || targetId === 'case.records'
     || targetId === 'case.suspicion.attachment'
 }
+
+const WINDOW_MOTION_MS = 180
+type WindowMotion = 'idle' | 'minimizing' | 'restoring'
 
 /**
  * GAME PAGE
@@ -143,6 +147,9 @@ export function GamePage() {
     () => !!startParams.startOperationId,
   )
   const [operationWindowOpen, setOperationWindowOpen] = useState(false)
+  const [operationWindowMinimized, setOperationWindowMinimized] = useState(false)
+  const [operationWindowMotion, setOperationWindowMotion] = useState<WindowMotion>('idle')
+  const operationWindowMotionTimeoutRef = useRef<number | null>(null)
   // Locked-screen modal: shown when the player clicks the Operation
   // icon before it's been unlocked by the boss flow.
   const [operationLockedScreenOpen, setOperationLockedScreenOpen] =
@@ -150,6 +157,9 @@ export function GamePage() {
 
   const { currentNode, advance, goTo, cases, completedCaseIds, caseResults, nodes, edges } = flow
   const [achievementsOpen, setAchievementsOpen] = useState(false)
+  const [caseWindowMinimized, setCaseWindowMinimized] = useState(false)
+  const [caseWindowMotion, setCaseWindowMotion] = useState<WindowMotion>('idle')
+  const caseWindowMotionTimeoutRef = useRef<number | null>(null)
 
   // Look up the single bgMusic settings node from the saved graph (if any).
   // It's a standalone node — no walker edges. The runtime plays its
@@ -187,6 +197,17 @@ export function GamePage() {
       didStartJumpRef.current = true
     }
   }, [nodes, startParams, goTo])
+
+  useEffect(() => {
+    return () => {
+      if (caseWindowMotionTimeoutRef.current != null) {
+        window.clearTimeout(caseWindowMotionTimeoutRef.current)
+      }
+      if (operationWindowMotionTimeoutRef.current != null) {
+        window.clearTimeout(operationWindowMotionTimeoutRef.current)
+      }
+    }
+  }, [])
 
   // Auto-skip everything except the player-facing node types.
   // `result` nodes still stop the walker when they are a 'win' so the
@@ -353,6 +374,64 @@ export function GamePage() {
       setViewCaseId(null) // resolve via priority again
     }
     setCaseWindowOpen(true)
+    setCaseWindowMinimized(false)
+    setCaseWindowMotion('idle')
+  }
+
+  const minimizeCaseWindow = () => {
+    if (caseWindowMotionTimeoutRef.current != null) {
+      window.clearTimeout(caseWindowMotionTimeoutRef.current)
+    }
+    setCaseWindowMotion('minimizing')
+    caseWindowMotionTimeoutRef.current = window.setTimeout(() => {
+      setCaseWindowMinimized(true)
+      setCaseWindowMotion('idle')
+      caseWindowMotionTimeoutRef.current = null
+    }, WINDOW_MOTION_MS)
+  }
+
+  const restoreCaseWindow = () => {
+    if (caseWindowMotionTimeoutRef.current != null) {
+      window.clearTimeout(caseWindowMotionTimeoutRef.current)
+    }
+    setCaseWindowOpen(true)
+    setCaseWindowMinimized(false)
+    setCaseWindowMotion('restoring')
+    caseWindowMotionTimeoutRef.current = window.setTimeout(() => {
+      setCaseWindowMotion('idle')
+      caseWindowMotionTimeoutRef.current = null
+    }, WINDOW_MOTION_MS)
+  }
+
+  const openOperationWindow = () => {
+    setOperationWindowOpen(true)
+    setOperationWindowMinimized(false)
+    setOperationWindowMotion('idle')
+  }
+
+  const minimizeOperationWindow = () => {
+    if (operationWindowMotionTimeoutRef.current != null) {
+      window.clearTimeout(operationWindowMotionTimeoutRef.current)
+    }
+    setOperationWindowMotion('minimizing')
+    operationWindowMotionTimeoutRef.current = window.setTimeout(() => {
+      setOperationWindowMinimized(true)
+      setOperationWindowMotion('idle')
+      operationWindowMotionTimeoutRef.current = null
+    }, WINDOW_MOTION_MS)
+  }
+
+  const restoreOperationWindow = () => {
+    if (operationWindowMotionTimeoutRef.current != null) {
+      window.clearTimeout(operationWindowMotionTimeoutRef.current)
+    }
+    setOperationWindowOpen(true)
+    setOperationWindowMinimized(false)
+    setOperationWindowMotion('restoring')
+    operationWindowMotionTimeoutRef.current = window.setTimeout(() => {
+      setOperationWindowMotion('idle')
+      operationWindowMotionTimeoutRef.current = null
+    }, WINDOW_MOTION_MS)
   }
 
   // Force-unlock a specific case (used by the 'newCase' message button).
@@ -596,10 +675,18 @@ export function GamePage() {
   const taskbarApps = useMemo<TaskbarApp[]>(() => {
     const apps: TaskbarApp[] = []
     if (caseWindowOpen && activeCaseData) {
-      apps.push({ id: 'cases', label: 'Cases', onClick: () => setCaseWindowOpen(true) })
+      apps.push({
+        id: 'cases',
+        label: 'Cases',
+        onClick: restoreCaseWindow,
+      })
     }
     if (operationWindowOpen) {
-      apps.push({ id: 'operation', label: 'Operation', onClick: () => setOperationWindowOpen(true) })
+      apps.push({
+        id: 'operation',
+        label: 'Operation',
+        onClick: restoreOperationWindow,
+      })
     }
     return apps
   }, [activeCaseData, caseWindowOpen, operationWindowOpen])
@@ -639,8 +726,11 @@ export function GamePage() {
           <Desktop
             onCasesClick={openCaseWindow}
             onOperationClick={() => {
-              if (operationUnlocked) setOperationWindowOpen(true)
-              else setOperationLockedScreenOpen(true)
+              if (operationUnlocked) {
+                openOperationWindow()
+              } else {
+                setOperationLockedScreenOpen(true)
+              }
             }}
             onStartClick={() => setVolumeControlVisible((v) => !v)}
           >
@@ -679,8 +769,11 @@ export function GamePage() {
     <Desktop
       onCasesClick={openCaseWindow}
       onOperationClick={() => {
-        if (operationUnlocked) setOperationWindowOpen(true)
-        else setOperationLockedScreenOpen(true)
+        if (operationUnlocked) {
+          openOperationWindow()
+        } else {
+          setOperationLockedScreenOpen(true)
+        }
       }}
       onStartClick={() => setVolumeControlVisible((v) => !v)}
       taskbarApps={taskbarApps}
@@ -694,7 +787,7 @@ export function GamePage() {
         )
       })()}
     >
-      {caseWindowOpen && activeCaseData && (
+      {caseWindowOpen && !caseWindowMinimized && activeCaseData && (
         <div className={styles.caseLayer}>
           <CaseWindow
             data={activeCaseData}
@@ -704,10 +797,25 @@ export function GamePage() {
             onArrest={canDecide ? onArrest : undefined}
             onRelease={canDecide ? onRelease : undefined}
             decision={activeCaseId ? caseDecisions[activeCaseId] ?? null : null}
-            onClose={() => setCaseWindowOpen(false)}
+            onClose={() => {
+              setCaseWindowOpen(false)
+              setCaseWindowMinimized(false)
+              setCaseWindowMotion('idle')
+            }}
+            onMinimizeChange={(minimized) => {
+              if (minimized) minimizeCaseWindow()
+              else restoreCaseWindow()
+            }}
             onRowTrigger={onRowTrigger}
             useCamera={!!activeCaseNode?.data.useCamera}
             highlightTargetId={caseWindowHighlightTarget}
+            className={
+              caseWindowMotion === 'minimizing'
+                ? styles.windowMinimizing
+                : caseWindowMotion === 'restoring'
+                ? styles.windowRestoring
+                : undefined
+            }
           />
         </div>
       )}
@@ -720,12 +828,16 @@ export function GamePage() {
           decorative preview that closes on click. Counters are
           always seeded to zero (DEFAULT_OPERATION_V2_DATA.counters)
           so the player starts fresh every time the window opens. */}
-      {operationWindowOpen && (() => {
+      {operationWindowOpen && !operationWindowMinimized && (() => {
         const opId = operationNode?.data.operationId ?? 'preview'
         const opData: OperationWindowV2Data = operationNode?.data.window
           ?? DEFAULT_OPERATION_V2_DATA
         const counters = operationCounters[opId] ?? DEFAULT_OPERATION_V2_DATA.counters
-        const closeWindow = () => setOperationWindowOpen(false)
+        const closeWindow = () => {
+          setOperationWindowOpen(false)
+          setOperationWindowMinimized(false)
+          setOperationWindowMotion('idle')
+        }
         return (
           <div className={styles.caseLayer}>
             <OperationWindowV2
@@ -737,6 +849,17 @@ export function GamePage() {
                 if (operationNode) advance()
               }}
               onClose={closeWindow}
+              onMinimizeChange={(minimized) => {
+                if (minimized) minimizeOperationWindow()
+                else restoreOperationWindow()
+              }}
+              className={
+                operationWindowMotion === 'minimizing'
+                  ? styles.windowMinimizing
+                  : operationWindowMotion === 'restoring'
+                  ? styles.windowRestoring
+                  : undefined
+              }
             />
           </div>
         )
@@ -972,7 +1095,7 @@ function BossMessageSlot({
   const [pos, setPos] = useState<{ x: number; y: number } | null>(null)
   const slotRef = useRef<HTMLDivElement | null>(null)
   const dragRef = useRef<{
-    startX: number; startY: number; originX: number; originY: number
+    offsetX: number; offsetY: number
   } | null>(null)
   // Set while a drag is in progress so the parent click handler (text-only
   // dismiss) doesn't fire on the mouseup that ends the drag.
@@ -1091,17 +1214,20 @@ function BossMessageSlot({
 
   /* --- Drag ----------------------------------------- */
   function onMouseDown(e: ReactMouseEvent<HTMLDivElement>) {
+    if (!(e.target as HTMLElement).closest('[data-message-drag-handle]')) return
     // Buttons + links keep their own click handlers — don't start a drag.
     if ((e.target as HTMLElement).closest('button, a')) return
     const el = slotRef.current
-    if (!el) return
+    const canvas = el?.parentElement
+    if (!el || !canvas) return
     const rect = el.getBoundingClientRect()
+    const canvasRect = canvas.getBoundingClientRect()
+    const scale = canvasRect.width / canvas.offsetWidth || 1
     dragRef.current = {
-      startX: e.clientX,
-      startY: e.clientY,
-      originX: rect.left,
-      originY: rect.top,
+      offsetX: (e.clientX - rect.left) / scale,
+      offsetY: (e.clientY - rect.top) / scale,
     }
+    startDragCursor()
     // Defer marking "dragged" until the pointer actually moves a few
     // pixels — a stationary mousedown+up should still register as a click.
     justDraggedRef.current = false
@@ -1112,28 +1238,48 @@ function BossMessageSlot({
     function onMove(e: MouseEvent) {
       const d = dragRef.current
       if (!d) return
-      const dx = e.clientX - d.startX
-      const dy = e.clientY - d.startY
+      const el = slotRef.current
+      const canvas = el?.parentElement
+      if (!el || !canvas) return
+      const canvasRect = canvas.getBoundingClientRect()
+      const scale = canvasRect.width / canvas.offsetWidth || 1
+      const nextX = (e.clientX - canvasRect.left) / scale - d.offsetX
+      const nextY = (e.clientY - canvasRect.top) / scale - d.offsetY
       // Tiny-jitter dead-zone — don't start dragging until the user
       // has clearly moved the pointer.
-      if (!justDraggedRef.current && Math.abs(dx) + Math.abs(dy) < 4) return
+      if (!justDraggedRef.current && pos == null) {
+        const rect = el.getBoundingClientRect()
+        const originX = (rect.left - canvasRect.left) / scale
+        const originY = (rect.top - canvasRect.top) / scale
+        if (Math.abs(nextX - originX) + Math.abs(nextY - originY) < 4) return
+      }
       justDraggedRef.current = true
-      const el = slotRef.current
       const w = el?.offsetWidth ?? 0
+      const h = el?.offsetHeight ?? 0
       const margin = 100 // always keep this much of the card on screen
-      const x = Math.max(-w + margin, Math.min(window.innerWidth - margin, d.originX + dx))
-      const y = Math.max(0, Math.min(window.innerHeight - 50, d.originY + dy))
+      const canvasW = canvas.offsetWidth
+      const canvasH = canvas.offsetHeight
+      const x = Math.max(-w + margin, Math.min(canvasW - margin, nextX))
+      const y = Math.max(0, Math.min(canvasH - Math.min(h, 50), nextY))
       setPos({ x, y })
       // Suppress text-selection during drag
       const sel = typeof getSelection !== 'undefined' ? getSelection() : null
       if (sel && !sel.isCollapsed) sel.removeAllRanges()
     }
-    function onUp() { dragRef.current = null }
+    function onUp() {
+      if (!dragRef.current) return
+      dragRef.current = null
+      stopDragCursor()
+    }
     window.addEventListener('mousemove', onMove)
     window.addEventListener('mouseup', onUp)
     return () => {
       window.removeEventListener('mousemove', onMove)
       window.removeEventListener('mouseup', onUp)
+      if (dragRef.current) {
+        dragRef.current = null
+        stopDragCursor()
+      }
     }
   }, [])
 

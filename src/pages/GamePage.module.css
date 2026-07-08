@@ -28,6 +28,45 @@
   pointer-events: auto;
 }
 
+.windowMinimizing {
+  animation: windowMinimizeToTaskbar 180ms cubic-bezier(.2, .75, .2, 1) forwards;
+  transform-origin: bottom center;
+  pointer-events: none;
+}
+
+.windowRestoring {
+  animation: windowRestoreFromTaskbar 180ms cubic-bezier(.2, .75, .2, 1) both;
+  transform-origin: bottom center;
+}
+
+@keyframes windowMinimizeToTaskbar {
+  from {
+    opacity: 1;
+    scale: 1;
+    translate: 0 0;
+  }
+
+  to {
+    opacity: 0;
+    scale: .18;
+    translate: 0 430px;
+  }
+}
+
+@keyframes windowRestoreFromTaskbar {
+  from {
+    opacity: 0;
+    scale: .18;
+    translate: 0 430px;
+  }
+
+  to {
+    opacity: 1;
+    scale: 1;
+    translate: 0 0;
+  }
+}
+
 /* Achievements panel — bottom-right, directly above the taskbar clock.
    z-index: 0 keeps it underneath every other draggable window. */
 .achievementsLayer {
@@ -57,15 +96,11 @@
 /* Draggable: card shows a grab cursor; switches to grabbing while held.
    Inner buttons override with their own cursors (default pointer). */
 .messageSlotDraggable {
-  cursor: grab;
   user-select: none;
-}
-.messageSlotDraggable:active {
-  cursor: grabbing;
 }
 /* Text-only messages have no inherent button — the whole card is clickable. */
 .messageSlotClickable {
-  cursor: pointer;
+  cursor: var(--cursor-hover);
 }
 .messageSlotClickable:hover {
   filter: brightness(1.04);

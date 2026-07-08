@@ -46,6 +46,8 @@
      between the header and the message body. */
   border-bottom: 2px solid var(--black);
   overflow: hidden;
+  cursor: var(--cursor-hover-drag);
+  user-select: none;
 }
 .headerLabel {
   padding: 0 16px;
@@ -287,7 +289,7 @@
   font-weight: 400;
   line-height: 28px;
   color: var(--white);
-  cursor: pointer;
+  cursor: var(--cursor-hover);
   white-space: nowrap;
   overflow: hidden;
 }

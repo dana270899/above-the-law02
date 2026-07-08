@@ -14,6 +14,8 @@ export { BdsmParty } from './BdsmParty'
 export type { BdsmPartyProps } from './BdsmParty'
 export { Pizza } from './Pizza'
 export type { PizzaProps } from './Pizza'
+export { Picnic } from './Picnic'
+export type { PicnicProps } from './Picnic'
 export type {
   InteractiveWinScreenProps,
   InteractionConfig,

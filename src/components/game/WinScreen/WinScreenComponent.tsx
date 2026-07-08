@@ -7,6 +7,7 @@ import { KippahCutting } from './KippahCutting'
 import { KippahCuttingWorkshop } from './KippahCuttingWorkshop'
 import { BdsmParty } from './BdsmParty'
 import { Pizza } from './Pizza'
+import { Picnic } from './Picnic'
 import styles from './WinScreenComponent.module.css'
 
 /* ═══════════════════════════════════════════════
@@ -42,6 +43,7 @@ const WINDOWED_VARIANTS: ReadonlySet<WinVariant> = new Set([
   'kippah-cutting-workshop',
   'bdsm-party',
   'pizza',
+  'picnic',
 ])
 
 export function WinScreenComponent({
@@ -86,6 +88,9 @@ export function WinScreenComponent({
     case 'pizza':
       inner = <Pizza {...passThroughProps} />
       break
+    case 'picnic':
+      inner = <Picnic {...passThroughProps} />
+      break
     case 'graffiti':
     default:
       inner = <Graffiti {...contentProps} />
@@ -111,7 +116,7 @@ export function WinScreenComponent({
           </button>
         </div>
       </div>
-      <div className={styles.screen}>
+      <div className={styles.screen} data-win-content>
         {inner}
       </div>
       <div className={styles.footerBar}>

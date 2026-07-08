@@ -69,7 +69,7 @@ export function LoginScreen({ onLogin }: LoginScreenProps = {}) {
                 type="submit"
                 className={styles.loginBtn}
                 aria-label="Login"
-                disabled={!value.trim()}
+                aria-disabled={!value.trim()}
               >
                 <img src={assetUrl('/images/arrow-forward.svg')} alt="" />
               </button>

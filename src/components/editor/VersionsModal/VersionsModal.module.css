@@ -50,7 +50,7 @@
   border-radius: 4px;
   font-size: 18px;
   line-height: 1;
-  cursor: pointer;
+  cursor: var(--cursor-hover);
 }
 
 .empty {
@@ -132,7 +132,7 @@
   font-size: 12px;
   padding: 4px 10px;
   border-radius: 4px;
-  cursor: pointer;
+  cursor: var(--cursor-hover);
   border: 1px solid #999;
   background: #fff;
   color: #222;

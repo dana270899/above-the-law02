@@ -154,6 +154,7 @@ export function Pizza({
       window.removeEventListener('pointermove', onPointerMove)
       window.removeEventListener('pointerup', onPointerUp)
       window.removeEventListener('pointercancel', onPointerUp)
+      dragRef.current = null
     }
   }, [])
 
@@ -271,7 +272,7 @@ export function Pizza({
           </button>
         </div>
       </div>
-      <div className={styles.screen} ref={screenRef}>
+      <div className={styles.screen} ref={screenRef} data-win-content>
         <img
           className={styles.windowBg}
           src={bgSrc}

@@ -7,6 +7,7 @@ import {
   type MouseEvent as ReactMouseEvent,
 } from 'react'
 import { pushBgMusicDuck, popBgMusicDuck } from '@/lib/bgMusic'
+import { startDragCursor, stopDragCursor } from '@/lib/dragCursor'
 import { assetUrl } from '@/lib/paths'
 import styles from './FootageWindow.module.css'
 
@@ -127,6 +128,7 @@ export function FootageWindow({
       originX: rect.left,
       originY: rect.top,
     }
+    startDragCursor()
     e.preventDefault()
   }
 
@@ -150,12 +152,20 @@ export function FootageWindow({
         if (sel && !sel.isCollapsed) sel.removeAllRanges()
       }
     }
-    function onUp() { dragRef.current = null }
+    function onUp() {
+      if (!dragRef.current) return
+      dragRef.current = null
+      stopDragCursor()
+    }
     window.addEventListener('mousemove', onMove)
     window.addEventListener('mouseup', onUp)
     return () => {
       window.removeEventListener('mousemove', onMove)
       window.removeEventListener('mouseup', onUp)
+      if (dragRef.current) {
+        dragRef.current = null
+        stopDragCursor()
+      }
     }
   }, [draggable])
 

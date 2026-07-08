@@ -68,6 +68,10 @@ export default function App() {
           path="/win/pizza"
           element={<WinScreenStage><WinScreenComponent variant="pizza" /></WinScreenStage>}
         />
+        <Route
+          path="/win/picnic"
+          element={<WinScreenStage><WinScreenComponent variant="picnic" /></WinScreenStage>}
+        />
       </Routes>
     </BrowserRouter>
   )

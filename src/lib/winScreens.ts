@@ -58,6 +58,11 @@ export const WIN_SCREENS: WinScreenOption[] = [
     label: 'Pizza',
     src: assetUrl('/images/win-screens/Pizza/bg.svg'),
   },
+  {
+    id: 'picnic',
+    label: 'Picnic',
+    src: assetUrl('/images/win-screens/Picnic/Bg.svg'),
+  },
 ]
 
 export const DEFAULT_WIN_SCREEN_ID: WinVariant = WIN_SCREENS[0].id

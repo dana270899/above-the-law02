@@ -33,7 +33,7 @@
   color: #555;
   font-size: 13px;
   font-family: sans-serif;
-  cursor: pointer;
+  cursor: var(--cursor-hover);
 }
 
 .tab:hover {

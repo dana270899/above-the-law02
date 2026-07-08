@@ -23,7 +23,7 @@
   color: #8a6500;
   font-size: 12px;
   font-family: sans-serif;
-  cursor: pointer;
+  cursor: var(--cursor-hover);
 }
 
 .addBtn:hover {
@@ -32,7 +32,7 @@
 
 .addBtn:disabled {
   opacity: 0.4;
-  cursor: not-allowed;
+  cursor: var(--cursor-unavailable);
   background: #fffbe6;
 }
 

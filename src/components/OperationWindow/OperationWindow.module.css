@@ -21,7 +21,7 @@
 }
 
 .draggable { position: absolute; }
-.draggable .upperBar { cursor: move; user-select: none; }
+.draggable .upperBar { cursor: var(--cursor-hover-drag); user-select: none; }
 
 .windowMinimized {
   height: auto;
@@ -65,7 +65,7 @@
   align-items: center;
   justify-content: center;
   overflow: clip;
-  cursor: pointer;
+  cursor: var(--cursor-hover);
   padding: 7px;
   background: var(--white);
 }
@@ -126,7 +126,7 @@
   padding: 0 4px 4px 0;
   display: flex;
   align-items: center;
-  cursor: pointer;
+  cursor: var(--cursor-hover);
   font: inherit;
   color: inherit;
 }
@@ -342,7 +342,7 @@
   font-size: 24px;
   line-height: 26px;
   color: var(--white);
-  cursor: pointer;
+  cursor: var(--cursor-hover);
   white-space: nowrap;
 }
 
@@ -356,6 +356,6 @@
    only the colour + cursor change. */
 .ctaDisabled {
   background: var(--grey);
-  cursor: not-allowed;
+  cursor: var(--cursor-unavailable);
   transition: background-color 200ms ease;
 }

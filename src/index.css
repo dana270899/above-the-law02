@@ -27,6 +27,12 @@
   --red:              #f43f38;
   --pink:             #ffa4a4;
   --font-main:        'ArbelHagilda', sans-serif;
+  --cursor-default:   url('../assets/images/Cursor_Default.svg') 0 0, auto;
+  --cursor-hover:     url('../assets/images/Cursor_Hover.svg') 0 0, pointer;
+  --cursor-unavailable: url('../assets/images/Cursor_Unavailable.png') 16 16, not-allowed;
+  --cursor-type:      url('../assets/images/Cursor_Type.svg') 16 16, text;
+  --cursor-hover-drag: url('../assets/images/Cursor_HoverDrag.svg') 16 16, grab;
+  --cursor-drag:      url('../assets/images/Cursor_Drag.svg') 16 16, grabbing;
 }
 
 /* ─── RESET ──────────────────────────────────────── */
@@ -42,4 +48,73 @@ html, body, #root {
   overflow: hidden;
   background: #000; /* black "letterbox" outside the 1920×1080 game area */
   font-family: var(--font-main);
+  cursor: var(--cursor-default);
+}
+
+html[data-drag-cursor='true'],
+html[data-drag-cursor='true'] *:not([data-native-cursors] *) {
+  cursor: var(--cursor-drag) !important;
+}
+
+a[href]:not([data-native-cursors] *),
+button:not(:disabled):not([data-native-cursors] *),
+input:not(:disabled):not([data-native-cursors] *),
+select:not(:disabled):not([data-native-cursors] *),
+textarea:not(:disabled):not([data-native-cursors] *),
+summary:not([data-native-cursors] *),
+[role='button']:not([aria-disabled='true']):not([data-native-cursors] *),
+[tabindex]:not([tabindex='-1']):not([data-native-cursors] *),
+[onclick]:not([data-native-cursors] *) {
+  cursor: var(--cursor-hover) !important;
+}
+
+input:not(:disabled):not([data-native-cursors] *):where(
+  :not([type]),
+  [type='email'],
+  [type='number'],
+  [type='password'],
+  [type='search'],
+  [type='tel'],
+  [type='text'],
+  [type='url']
+),
+textarea:not(:disabled):not([data-native-cursors] *),
+[contenteditable='true']:not([data-native-cursors] *) {
+  cursor: var(--cursor-type) !important;
+}
+
+button:disabled:not([data-native-cursors] *),
+input:disabled:not([data-native-cursors] *),
+select:disabled:not([data-native-cursors] *),
+textarea:disabled:not([data-native-cursors] *),
+[aria-disabled='true']:not([data-native-cursors] *) {
+  cursor: var(--cursor-unavailable) !important;
+}
+
+[data-win-content] [class*='hotspotClick'],
+[data-win-content] [class*='closedFlapButton'] {
+  cursor: pointer !important;
+}
+
+[data-win-content] [class*='hotspotDrag'],
+[data-win-content] [data-native-drag-cursor],
+[data-win-content] [class*='police'],
+[data-win-content] [class*='invitation'] {
+  cursor: grab !important;
+}
+
+[data-win-content] [class*='hotspotDrag']:active,
+[data-win-content] [data-native-drag-cursor]:active,
+[data-win-content] [class*='police']:active,
+[data-win-content] [class*='invitation']:active,
+[data-win-content] [class*='screenDragging'] [class*='invitation'] {
+  cursor: grabbing !important;
+}
+
+[data-win-content] [class*='handButton'] {
+  cursor: none !important;
+}
+
+[data-win-content] [data-win-inherit-cursor] {
+  cursor: inherit !important;
 }

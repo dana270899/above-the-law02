@@ -5,6 +5,7 @@ import {
   type CSSProperties,
   type MouseEvent as ReactMouseEvent,
 } from 'react'
+import { startDragCursor, stopDragCursor } from '@/lib/dragCursor'
 import { OPERATION_SOUND_NONE } from '@/lib/operationSounds'
 import { assetUrl } from '@/lib/paths'
 import styles from './OperationWindowV2.module.css'
@@ -192,8 +193,9 @@ export function OperationWindowV2({
 
   function handleMinimize() {
     setMinimized((m) => {
-      onMinimizeChange?.(!m)
-      return !m
+      const next = !m
+      onMinimizeChange?.(next)
+      return onMinimizeChange ? m : next
     })
   }
 
@@ -254,6 +256,7 @@ export function OperationWindowV2({
       originX: rect.left,
       originY: rect.top,
     }
+    startDragCursor()
     e.preventDefault()
   }
 
@@ -276,12 +279,20 @@ export function OperationWindowV2({
         if (sel && !sel.isCollapsed) sel.removeAllRanges()
       }
     }
-    function onUp() { dragRef.current = null }
+    function onUp() {
+      if (!dragRef.current) return
+      dragRef.current = null
+      stopDragCursor()
+    }
     window.addEventListener('mousemove', onMove)
     window.addEventListener('mouseup', onUp)
     return () => {
       window.removeEventListener('mousemove', onMove)
       window.removeEventListener('mouseup', onUp)
+      if (dragRef.current) {
+        dragRef.current = null
+        stopDragCursor()
+      }
     }
   }, [draggable])
 

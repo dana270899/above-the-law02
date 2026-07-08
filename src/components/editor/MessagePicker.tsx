@@ -77,7 +77,7 @@ export function MessagePicker({
                   onClick={() => remove(sid)}
                   aria-label={`Remove message ${sid}`}
                   style={{
-                    background: 'transparent', border: 'none', cursor: 'pointer',
+                    background: 'transparent', border: 'none', cursor: 'var(--cursor-hover)',
                     color: '#0c447c', font: 'inherit', padding: 0, lineHeight: 1,
                   }}
                 >×</button>
@@ -119,7 +119,7 @@ export function MessagePicker({
             fontSize: 11, padding: '1px 8px',
             background: pickerId ? '#185fa5' : '#9ab',
             color: '#fff', border: 'none', borderRadius: 3,
-            cursor: pickerId ? 'pointer' : 'not-allowed',
+            cursor: pickerId ? 'var(--cursor-hover)' : 'var(--cursor-unavailable)',
           }}
         >+ Add</button>
       </div>

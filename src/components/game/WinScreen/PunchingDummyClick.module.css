@@ -11,8 +11,8 @@
 
 /* Outer window: 90% of the available width, centered horizontally,
    borders + title bar matching the other in-game windows. Custom
-   cursor applies to every child (hotspots use `cursor: inherit`
-   so the glove shows through their default pointer rule). */
+   cursor is applied to the content screen below so the window chrome keeps
+   the normal app cursor behavior. */
 .window {
   position: absolute;
   top: 50%;
@@ -25,10 +25,6 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  /* TODO — tune the hotspot offset (the two numbers after the URL) so
-     the punch lands on the click point. SVG is 181×236; browser will
-     cap the cursor at ~128px and scale accordingly. */
-  cursor: url('../../../../assets/images/win-screens/PunchingDummy/PunchingDummy_glove_cursor.svg') 32 32, auto;
 }
 
 /* Same shape + tokens as the Cases window upper bar — title text on
@@ -89,6 +85,10 @@
   background: var(--white);
   overflow: hidden;
   flex: 0 1 auto;
+  /* TODO — tune the hotspot offset (the two numbers after the URL) so
+     the punch lands on the click point. SVG is 181×236; browser will
+     cap the cursor at ~128px and scale accordingly. */
+  cursor: url('../../../../assets/images/win-screens/PunchingDummy/PunchingDummy_glove_cursor.svg') 32 32, auto;
 }
 
 .scene {

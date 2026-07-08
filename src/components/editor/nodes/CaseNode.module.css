@@ -9,7 +9,7 @@
   border-radius: 4px;
   padding: 4px 10px;
   font-size: 11px;
-  cursor: pointer;
+  cursor: var(--cursor-hover);
 }
 
 .editBtn:hover { background: #0f4d8d; }
@@ -41,7 +41,7 @@
   border-radius: 4px;
   padding: 4px 12px;
   font-size: 14px;
-  cursor: pointer;
+  cursor: var(--cursor-hover);
   z-index: 1;
 }
 
@@ -138,12 +138,12 @@
   border: none;
   border-radius: 4px;
   font-size: 11px;
-  cursor: pointer;
+  cursor: var(--cursor-hover);
 }
 
 .soundPlayBtn:hover { background: #0f4d8d; }
 
 .soundPlayBtn:disabled {
   background: #ccc;
-  cursor: not-allowed;
+  cursor: var(--cursor-unavailable);
 }

@@ -202,6 +202,7 @@ export function PunchingDummy({
     return () => {
       window.removeEventListener('mousemove', onMove)
       window.removeEventListener('mouseup', onUp)
+      dragRef.current = null
     }
   }, [])
 
@@ -337,6 +338,7 @@ export function PunchingDummy({
         style={wrapperPositioning}
         role="button"
         tabIndex={0}
+        data-native-drag-cursor
         aria-label="Push the toy"
         onMouseDown={onHotspotMouseDown}
       />

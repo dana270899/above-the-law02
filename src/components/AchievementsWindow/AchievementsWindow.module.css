@@ -20,7 +20,8 @@
 }
 
 .draggable {
-  cursor: default;
+  cursor: var(--cursor-hover-drag);
+  user-select: none;
 }
 
 /* Close button — top-right. Not in the Figma frame; kept so the
@@ -36,7 +37,7 @@
   background: var(--white);
   border: 2px solid var(--black);
   border-radius: 4px;
-  cursor: pointer;
+  cursor: var(--cursor-hover);
   font-family: inherit;
   color: var(--black);
   padding: 0;

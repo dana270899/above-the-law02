@@ -31,7 +31,7 @@
   font-size: 18px;
   line-height: 1;
   padding: 0 2px;
-  cursor: pointer;
+  cursor: var(--cursor-hover);
 }
 
 .muteBtn:hover {
@@ -41,7 +41,7 @@
 .slider {
   width: 100px;
   accent-color: #fff;
-  cursor: pointer;
+  cursor: var(--cursor-hover);
 }
 
 .pct {
