@@ -201,6 +201,7 @@ export function Desktop({
             <button
               key={app.id}
               type="button"
+              data-taskbar-app={app.id}
               className={styles.taskbarApp}
               onClick={app.onClick}
               aria-label={`${app.label} is open`}

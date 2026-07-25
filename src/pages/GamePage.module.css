@@ -29,14 +29,14 @@
 }
 
 .windowMinimizing {
-  animation: windowMinimizeToTaskbar 180ms cubic-bezier(.2, .75, .2, 1) forwards;
-  transform-origin: bottom center;
+  animation: windowMinimizeToTaskbar 420ms cubic-bezier(.32, 0, .12, 1) forwards;
+  transform-origin: center;
   pointer-events: none;
 }
 
 .windowRestoring {
-  animation: windowRestoreFromTaskbar 180ms cubic-bezier(.2, .75, .2, 1) both;
-  transform-origin: bottom center;
+  animation: windowRestoreFromTaskbar 420ms cubic-bezier(.16, 1, .3, 1) both;
+  transform-origin: center;
 }
 
 @keyframes windowMinimizeToTaskbar {
@@ -47,23 +47,30 @@
   }
 
   to {
-    opacity: 0;
-    scale: .18;
-    translate: 0 430px;
+    opacity: .15;
+    scale: .06;
+    translate: var(--window-taskbar-x, -680px) var(--window-taskbar-y, 500px);
   }
 }
 
 @keyframes windowRestoreFromTaskbar {
   from {
-    opacity: 0;
-    scale: .18;
-    translate: 0 430px;
+    opacity: .15;
+    scale: .06;
+    translate: var(--window-taskbar-x, -680px) var(--window-taskbar-y, 500px);
   }
 
   to {
     opacity: 1;
     scale: 1;
     translate: 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .windowMinimizing,
+  .windowRestoring {
+    animation-duration: 1ms;
   }
 }
 

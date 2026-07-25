@@ -29,7 +29,7 @@
   --font-main:        'ArbelHagilda', sans-serif;
   --cursor-default:   url('../assets/images/Cursor_Default.svg') 0 0, auto;
   --cursor-hover:     url('../assets/images/Cursor_Hover.svg') 0 0, pointer;
-  --cursor-unavailable: url('../assets/images/Cursor_Unavailable.png') 16 16, not-allowed;
+  --cursor-unavailable: url('../assets/images/Cursor_Unavailable.svg') 16 16, not-allowed;
   --cursor-type:      url('../assets/images/Cursor_Type.svg') 16 16, text;
   --cursor-hover-drag: url('../assets/images/Cursor_HoverDrag.svg') 16 16, grab;
   --cursor-drag:      url('../assets/images/Cursor_Drag.svg') 16 16, grabbing;

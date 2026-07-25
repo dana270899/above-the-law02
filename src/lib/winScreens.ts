@@ -63,6 +63,11 @@ export const WIN_SCREENS: WinScreenOption[] = [
     label: 'Picnic',
     src: assetUrl('/images/win-screens/Picnic/Bg.svg'),
   },
+  {
+    id: 'eilat',
+    label: 'Eilat',
+    src: assetUrl('/images/win-screens/Eilat/WinScreen_Eilat-bg.svg'),
+  },
 ]
 
 export const DEFAULT_WIN_SCREEN_ID: WinVariant = WIN_SCREENS[0].id

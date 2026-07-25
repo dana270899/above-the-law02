@@ -72,6 +72,10 @@ export default function App() {
           path="/win/picnic"
           element={<WinScreenStage><WinScreenComponent variant="picnic" /></WinScreenStage>}
         />
+        <Route
+          path="/win/eilat"
+          element={<WinScreenStage><WinScreenComponent variant="eilat" /></WinScreenStage>}
+        />
       </Routes>
     </BrowserRouter>
   )

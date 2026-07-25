@@ -47,6 +47,84 @@
   min-height: 0;
 }
 
+/* CaseWindowV2 — Figma 578:25827 fixed window geometry. Figma strokes
+   render inside the authored dimensions, so structural borders use
+   outlines/inset shadows to avoid shrinking their content boxes. */
+.caseWindowV2 {
+  width: 1152px;
+  height: 898px;
+  border: 0;
+  outline: 2px solid var(--black);
+}
+
+.caseWindowV2.windowMinimized {
+  height: auto;
+}
+
+.caseWindowV2 .windowHead {
+  flex: 0 0 800px;
+  height: 800px;
+}
+
+.caseWindowV2 .upperBar {
+  height: 40px;
+  border-bottom: 0;
+  box-shadow: inset 0 -2px var(--black);
+}
+
+.caseWindowV2 .bodyRow {
+  flex: 0 0 760px;
+  height: 760px;
+}
+
+.caseWindowV2 .caseHeader {
+  height: 88px;
+  border-bottom: 0;
+  box-shadow: inset 0 -2px var(--black);
+}
+
+.caseWindowV2 .contentRow {
+  flex: 0 0 672px;
+  height: 672px;
+}
+
+.caseWindowV2 .panel {
+  border: 0;
+  outline: 2px solid var(--black);
+}
+
+.caseWindowV2 .scrollColumn {
+  width: 40px;
+  height: 672px;
+  border-left: 0;
+  box-shadow: none;
+  position: relative;
+}
+
+.caseWindowV2 .scrollColumn::before {
+  content: '';
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 2px;
+  background: var(--black);
+  pointer-events: none;
+}
+
+.caseWindowV2 .footer {
+  flex: 0 0 98px;
+  height: 98px;
+  border-top: 0;
+  box-shadow: inset 0 2px var(--black);
+}
+
+.caseWindowV2 .cta {
+  border: 0;
+  outline: 2px solid var(--black);
+}
+
 /* Element-based tutorial highlights. These intentionally filter the
    actual window sections instead of using a fixed overlay, so the same
    parts remain colored/grey while the case body scrolls. */
@@ -218,13 +296,6 @@
   color: var(--black);
 }
 
-/* Locked tab — previous case isn't completed yet. Dim and non-clickable. */
-.tabLocked {
-  opacity: 0.4;
-  cursor: var(--cursor-unavailable);
-  pointer-events: none;
-}
-
 .tabId {
   font-size: 24px;
   line-height: 28px;
@@ -237,6 +308,85 @@
   font-size: 18px;
   line-height: 18px;
   text-align: left;
+}
+
+.tabTop {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.tabSolved {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 4px 12px 2px;
+  border: 2px solid var(--black);
+  border-radius: 16px;
+  background: var(--green);
+  color: var(--white);
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
+/* CaseWindowV2 — Figma 170:471 / 170:595 case-menu states. */
+.caseWindowV2 .tabs {
+  width: 215px;
+  border-right: 0;
+  box-shadow: none;
+  position: relative;
+}
+
+.caseWindowV2 .tabs::after {
+  content: '';
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--black);
+  pointer-events: none;
+}
+
+.caseWindowV2 .tab {
+  width: 215px;
+  height: 88px;
+  padding: 16px;
+  gap: 4px;
+  background: var(--light-blue-100);
+  border-bottom-color: var(--grey);
+  color: var(--grey);
+  font-family: var(--font-main);
+  font-weight: 400;
+}
+
+.caseWindowV2 .tabActive {
+  background: var(--light-blue-200);
+  border-bottom-color: var(--grey);
+  color: var(--black);
+}
+
+.caseWindowV2 .tabTop {
+  gap: 8px;
+}
+
+.caseWindowV2 .tabId {
+  width: 105px;
+  flex-shrink: 0;
+  font-size: 22px;
+  line-height: 28px;
+  text-align: center;
+}
+
+.caseWindowV2 .tabTime {
+  font-size: 18px;
+  line-height: 18px;
+  color: var(--grey);
+  white-space: nowrap;
 }
 
 /* fill the remaining vertical space with the tabs' bg color */
@@ -556,6 +706,295 @@
   width: 100%;
 }
 
+/* CaseWindowV2: show the current suspicion before prior criminal records. */
+.caseWindowV2 .panelSection[data-spot='case.suspicions'] {
+  order: 1;
+}
+
+.caseWindowV2 .panelSection[data-spot='case.criminalRecord'] {
+  order: 2;
+}
+
+/* CaseWindowV2 — Figma 767:55761 criminal-record states. */
+.caseWindowV2 [data-spot='case.criminalRecord'] .recordTable {
+  width: 785px;
+  max-width: 100%;
+  padding: 16px 24px 24px;
+  gap: 8px;
+  border: 0;
+  outline: 2px solid var(--black);
+  font-family: var(--font-main);
+  font-weight: 400;
+}
+
+.caseWindowV2 [data-spot='case.criminalRecord']
+  .recordTable:has(.recordRowMain:not(.recordRowMainEditable)) .recordTableHeader {
+  grid-template-columns: 24px 16px 286px 1fr 120px 1fr 120px;
+  column-gap: 0;
+  width: 737px;
+  max-width: 100%;
+}
+
+.caseWindowV2 [data-spot='case.criminalRecord']
+  .recordTable:has(.recordRowMain:not(.recordRowMainEditable))
+  .recordTableHeader .recordHeaderSpacer {
+  grid-column: 1;
+}
+
+.caseWindowV2 [data-spot='case.criminalRecord']
+  .recordTable:has(.recordRowMain:not(.recordRowMainEditable))
+  .recordTableHeader .recordHeader:nth-of-type(1) {
+  grid-column: 3;
+}
+
+.caseWindowV2 [data-spot='case.criminalRecord']
+  .recordTable:has(.recordRowMain:not(.recordRowMainEditable))
+  .recordTableHeader .recordHeader:nth-of-type(2) {
+  grid-column: 7;
+  justify-self: start;
+  text-align: left;
+}
+
+.caseWindowV2 [data-spot='case.criminalRecord']
+  .recordTable:has(.recordRowMain:not(.recordRowMainEditable))
+  .recordTableHeader .recordHeader:nth-of-type(3) {
+  grid-column: 5;
+  grid-row: 1;
+  justify-self: start;
+}
+
+.caseWindowV2 [data-spot='case.criminalRecord']
+  .recordRowMain:not(.recordRowMainEditable) {
+  grid-template-columns: 24px 16px 286px 1fr 120px 1fr 120px;
+  column-gap: 0;
+  width: 705px;
+  max-width: 100%;
+}
+
+.caseWindowV2 [data-spot='case.criminalRecord']
+  .recordRowMain:not(.recordRowMainEditable) .recordExpandBtn {
+  grid-column: 1;
+}
+
+.caseWindowV2 [data-spot='case.criminalRecord']
+  .recordRowMain:not(.recordRowMainEditable) .recordSubject {
+  grid-column: 3;
+  width: 286px;
+}
+
+.caseWindowV2 [data-spot='case.criminalRecord']
+  .recordRowMain:not(.recordRowMainEditable) .recordDate {
+  grid-column: 5;
+  grid-row: 1;
+  width: 120px;
+  justify-self: start;
+}
+
+.caseWindowV2 [data-spot='case.criminalRecord']
+  .recordRowMain:not(.recordRowMainEditable) .chip {
+  grid-column: 7;
+  grid-row: 1;
+  justify-self: start;
+  max-width: 120px;
+}
+
+.caseWindowV2 [data-spot='case.criminalRecord'] .recordRow {
+  width: 737px;
+  max-width: 100%;
+  padding: 24px 16px 16px;
+  border: 0;
+  outline: 2px solid var(--black);
+  background: var(--light-blue-100);
+}
+
+.caseWindowV2 [data-spot='case.criminalRecord'] .recordRow:hover {
+  background: #e8f7ff;
+}
+
+.caseWindowV2 [data-spot='case.criminalRecord'] .recordDetails {
+  width: 665px;
+  max-width: 100%;
+  padding: 16px;
+  margin-left: 0;
+  align-self: flex-end;
+  border: 0;
+  outline: 2px solid var(--black);
+  font-family: var(--font-main);
+  font-weight: 400;
+}
+
+.caseWindowV2 [data-spot='case.criminalRecord'] .susDetailsParagraph strong {
+  font-weight: 700;
+}
+
+.caseWindowV2 [data-spot='case.criminalRecord'] .recordTable:has(.emptyRow) {
+  width: 785px;
+  max-width: 100%;
+  min-height: 60px;
+  padding: 24px 24px 16px;
+  background: var(--white);
+}
+
+.caseWindowV2 [data-spot='case.criminalRecord'] .emptyRow {
+  width: 100%;
+  min-height: 28px;
+  padding: 0;
+  background: transparent;
+}
+
+.caseWindowV2 [data-spot='case.criminalRecord'] .emptyRow p {
+  font-family: var(--font-main);
+  font-weight: 400;
+  text-align: left;
+}
+
+/* CaseWindowV2 — Figma 767:56247 / 761:86662 suspicion table.
+   The editor keeps its denser editable grid so every saved field remains
+   available; these rules apply the new design to the player-facing row. */
+.caseWindowV2 [data-spot='case.suspicions'] .recordTable {
+  width: 785px;
+  max-width: 100%;
+  padding: 16px 24px 24px;
+  gap: 8px;
+  border: 0;
+  outline: 2px solid var(--black);
+  font-family: var(--font-main);
+  font-weight: 400;
+}
+
+.caseWindowV2 [data-spot='case.suspicions'] .susTableHeader:not(.susTableHeaderEditable) {
+  grid-template-columns: 24px 24px 286px 24px 120px 24px 203px;
+  column-gap: 0;
+  padding: 0 16px;
+  width: 737px;
+  max-width: 100%;
+}
+
+.caseWindowV2 [data-spot='case.suspicions'] .recordHeader {
+  font-family: var(--font-main);
+  font-weight: 700;
+}
+
+.caseWindowV2 [data-spot='case.suspicions']
+  .susTableHeader:not(.susTableHeaderEditable) .recordHeaderSpacer {
+  grid-column: 1;
+}
+
+.caseWindowV2 [data-spot='case.suspicions']
+  .susTableHeader:not(.susTableHeaderEditable) .recordHeader:nth-of-type(1) {
+  grid-column: 3;
+}
+
+.caseWindowV2 [data-spot='case.suspicions']
+  .susTableHeader:not(.susTableHeaderEditable) .recordHeader:nth-of-type(2) {
+  display: none;
+}
+
+.caseWindowV2 [data-spot='case.suspicions']
+  .susTableHeader:not(.susTableHeaderEditable) .recordHeader:nth-of-type(3) {
+  grid-column: 5;
+}
+
+.caseWindowV2 [data-spot='case.suspicions']
+  .susTableHeader:not(.susTableHeaderEditable) .recordHeader:nth-of-type(4) {
+  grid-column: 7;
+}
+
+.caseWindowV2 [data-spot='case.suspicions']
+  .susRowMain:not(.susRowMainEditable) {
+  grid-template-columns: 24px 16px 286px 28px 120px 28px 203px;
+  column-gap: 0;
+  width: 705px;
+  max-width: 100%;
+}
+
+.caseWindowV2 [data-spot='case.suspicions']
+  .susRowMain:not(.susRowMainEditable) .chip {
+  display: none;
+}
+
+.caseWindowV2 [data-spot='case.suspicions']
+  .susRowMain:not(.susRowMainEditable) .recordExpandBtn {
+  grid-column: 1;
+}
+
+.caseWindowV2 [data-spot='case.suspicions']
+  .susRowMain:not(.susRowMainEditable) .recordSubject {
+  grid-column: 3;
+  width: 286px;
+}
+
+.caseWindowV2 [data-spot='case.suspicions']
+  .susRowMain:not(.susRowMainEditable) .recordDate {
+  grid-column: 5;
+  width: 120px;
+}
+
+.caseWindowV2 [data-spot='case.suspicions']
+  .susRowMain:not(.susRowMainEditable) .attachBtn {
+  grid-column: 7;
+}
+
+.caseWindowV2 [data-spot='case.suspicions'] .recordRow {
+  background: var(--light-blue-100);
+  padding: 16px;
+  width: 737px;
+  max-width: 100%;
+  border: 0;
+  outline: 2px solid var(--black);
+}
+
+.caseWindowV2 [data-spot='case.suspicions'] .recordRow:hover,
+.caseWindowV2 [data-spot='case.suspicions'] .recordRowOpen:hover {
+  background: #dff4ff;
+}
+
+.caseWindowV2 [data-spot='case.suspicions'] .recordRowOpen {
+  padding: 16px;
+  overflow: clip;
+}
+
+.caseWindowV2 [data-spot='case.suspicions'] .recordDate {
+  justify-self: start;
+}
+
+.caseWindowV2 [data-spot='case.suspicions'] .attachBtn {
+  width: 203px;
+  min-height: 44px;
+  padding: 6px 16px;
+  justify-content: space-between;
+  border-radius: 3px;
+  font-size: 22px;
+  line-height: 28px;
+  white-space: nowrap;
+  font-family: var(--font-main);
+  font-weight: 400;
+}
+
+.caseWindowV2 [data-spot='case.suspicions'] .attachBtn::before {
+  content: 'Open footage';
+}
+
+.caseWindowV2 [data-spot='case.suspicions'] .attachBtnDisabled {
+  opacity: 1;
+}
+
+.caseWindowV2 [data-spot='case.suspicions'] .recordDetails {
+  width: 665px;
+  max-width: 100%;
+  padding: 24px;
+  margin-left: 0;
+  align-self: flex-end;
+  border: 0;
+  outline: 2px solid var(--black);
+  font-family: var(--font-main);
+  font-weight: 400;
+}
+
+.caseWindowV2 [data-spot='case.suspicions'] .susDetailsParagraph strong {
+  font-weight: 700;
+}
+
 .panelTitle {
   font-size: 24px;
   line-height: 28px;
@@ -708,14 +1147,33 @@
 .recordExpandBtn img {
   width: 24px;
   height: 24px;
-  transform: rotate(-90deg);
   display: block;
-  transition: transform .15s;
+  transform-origin: center;
 }
 
-/* Arrow rotates to point down when the row is expanded (▶ → ▼). */
-.recordExpandBtnOpen img {
-  transform: rotate(0deg);
+.arrowOpening {
+  animation: arrow-open .18s ease-out;
+}
+
+.arrowClosing {
+  animation: arrow-close .18s ease-out;
+}
+
+@keyframes arrow-open {
+  from { transform: rotate(-90deg); }
+  to { transform: rotate(0deg); }
+}
+
+@keyframes arrow-close {
+  from { transform: rotate(90deg); }
+  to { transform: rotate(0deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arrowOpening,
+  .arrowClosing {
+    animation: none;
+  }
 }
 
 .recordSubject {

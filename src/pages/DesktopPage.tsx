@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Desktop, type TaskbarApp } from '@/components/Desktop'
 import {
-  CaseWindow,
+  CaseWindowV2 as CaseWindow,
   DEFAULT_CASE_DATA,
   type CaseDecision,
   type CaseWindowData,

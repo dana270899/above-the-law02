@@ -1,6 +1,7 @@
 import {
   useCallback,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState,
@@ -9,7 +10,7 @@ import {
 } from 'react'
 import { Desktop, type TaskbarApp } from '@/components/Desktop'
 import {
-  CaseWindow,
+  CaseWindowV2 as CaseWindow,
   DEFAULT_CASE_DATA,
   type CaseTab,
   type CaseDecision,
@@ -61,8 +62,9 @@ function isCaseWindowHighlightTarget(
     || targetId === 'case.suspicion.attachment'
 }
 
-const WINDOW_MOTION_MS = 180
+const WINDOW_MOTION_MS = 420
 type WindowMotion = 'idle' | 'minimizing' | 'restoring'
+type WindowMotionOrigin = 'desktop' | 'taskbar'
 
 /**
  * GAME PAGE
@@ -115,6 +117,12 @@ export function GamePage() {
   const [caseDecisions, setCaseDecisions] = useState<
     Record<string, CaseDecision>
   >({})
+  // Operation-backed cases are not solved by the decision alone. Keep the
+  // decided case pending until its Operation Window successfully finishes.
+  const [pendingOperationCaseId, setPendingOperationCaseId] = useState<string | null>(null)
+  const [completedOperationCaseIds, setCompletedOperationCaseIds] = useState<Set<string>>(
+    () => new Set(),
+  )
 
   // Side queue of message-node ids fired by a tutorial trigger
   // (Arrest / Release / suspicion row expand / suspicion attachment).
@@ -150,6 +158,9 @@ export function GamePage() {
   const [operationWindowMinimized, setOperationWindowMinimized] = useState(false)
   const [operationWindowMotion, setOperationWindowMotion] = useState<WindowMotion>('idle')
   const operationWindowMotionTimeoutRef = useRef<number | null>(null)
+  const operationWindowLayerRef = useRef<HTMLDivElement | null>(null)
+  const [operationWindowMotionOrigin, setOperationWindowMotionOrigin] =
+    useState<WindowMotionOrigin>('desktop')
   // Locked-screen modal: shown when the player clicks the Operation
   // icon before it's been unlocked by the boss flow.
   const [operationLockedScreenOpen, setOperationLockedScreenOpen] =
@@ -160,6 +171,67 @@ export function GamePage() {
   const [caseWindowMinimized, setCaseWindowMinimized] = useState(false)
   const [caseWindowMotion, setCaseWindowMotion] = useState<WindowMotion>('idle')
   const caseWindowMotionTimeoutRef = useRef<number | null>(null)
+  const caseWindowLayerRef = useRef<HTMLDivElement | null>(null)
+  const [caseWindowMotionOrigin, setCaseWindowMotionOrigin] =
+    useState<WindowMotionOrigin>('desktop')
+
+  // Measure the real taskbar button so the animation follows the correct
+  // icon even when the set/order of open apps changes.
+  useLayoutEffect(() => {
+    const setFlightPath = (
+      layer: HTMLDivElement | null,
+      appId: 'cases' | 'operation',
+      motion: WindowMotion,
+      origin: WindowMotionOrigin,
+    ) => {
+      if (!layer || motion === 'idle') return
+      const targetSelector = origin === 'desktop'
+        ? `[data-spot="icon.${appId === 'cases' ? 'cases' : 'operation'}"]`
+        : `[data-taskbar-app="${appId}"]`
+      const app = document.querySelector<HTMLElement>(targetSelector)
+      const windowElement = layer.firstElementChild as HTMLElement | null
+      const canvas = layer.closest<HTMLElement>('[data-scaled-stage]')
+      if (!app || !windowElement || !canvas) return
+
+      // Animate the full-screen positioning layer, not the draggable window
+      // itself. The window owns a centering `transform`, which otherwise
+      // changes the coordinate system and pulls the flight path toward the
+      // middle of the taskbar.
+      layer.style.animation = 'none'
+      const windowRect = windowElement.getBoundingClientRect()
+      const appRect = app.getBoundingClientRect()
+      const canvasRect = canvas.getBoundingClientRect()
+      const stageScale = canvasRect.width / 1920 || 1
+      layer.style.setProperty(
+        '--window-taskbar-x',
+        `${(appRect.left + appRect.width / 2 - (windowRect.left + windowRect.width / 2)) / stageScale}px`,
+      )
+      layer.style.setProperty(
+        '--window-taskbar-y',
+        `${(appRect.top + appRect.height / 2 - (windowRect.top + windowRect.height / 2)) / stageScale}px`,
+      )
+      void layer.offsetWidth
+      layer.style.animation = ''
+    }
+
+    setFlightPath(
+      caseWindowLayerRef.current,
+      'cases',
+      caseWindowMotion,
+      caseWindowMotionOrigin,
+    )
+    setFlightPath(
+      operationWindowLayerRef.current,
+      'operation',
+      operationWindowMotion,
+      operationWindowMotionOrigin,
+    )
+  }, [
+    caseWindowMotion,
+    caseWindowMotionOrigin,
+    operationWindowMotion,
+    operationWindowMotionOrigin,
+  ])
 
   // Look up the single bgMusic settings node from the saved graph (if any).
   // It's a standalone node — no walker edges. The runtime plays its
@@ -313,13 +385,28 @@ export function GamePage() {
       const prev = i === 0 ? null : cases[i - 1]
       const seqUnlocked = prev == null || completedCaseIds.has(prev.caseId)
       const manuallyUnlocked = manuallyUnlockedCaseIds.has(c.caseId)
+      const caseHasOperation = nodes.some(
+        (node) => node.type === 'case'
+          && (node as CaseFlowNode).data.caseId === c.caseId
+          && !!(node as CaseFlowNode).data.hasOperation,
+      )
       return {
         id: c.caseId,
         time: caseWindowDataFor(c.caseId, nodes)?.createdAt ?? '',
         locked: !seqUnlocked && !manuallyUnlocked,
+        solved: caseHasOperation
+          ? completedOperationCaseIds.has(c.caseId)
+          : !!caseDecisions[c.caseId],
       }
     })
-  }, [cases, completedCaseIds, manuallyUnlockedCaseIds, nodes])
+  }, [
+    cases,
+    caseDecisions,
+    completedCaseIds,
+    completedOperationCaseIds,
+    manuallyUnlockedCaseIds,
+    nodes,
+  ])
 
   // Sticky case id — remembers the last case the walker visited so
   // the Cases window keeps showing it after the walker advances into
@@ -368,6 +455,9 @@ export function GamePage() {
   // first arg — guard against non-string values so a click event never
   // ends up stored as `viewCaseId`.
   const openCaseWindow = (targetCaseId?: string) => {
+    if (caseWindowMotionTimeoutRef.current != null) {
+      window.clearTimeout(caseWindowMotionTimeoutRef.current)
+    }
     if (typeof targetCaseId === 'string' && targetCaseId) {
       setViewCaseId(targetCaseId)
     } else {
@@ -375,13 +465,19 @@ export function GamePage() {
     }
     setCaseWindowOpen(true)
     setCaseWindowMinimized(false)
-    setCaseWindowMotion('idle')
+    setCaseWindowMotionOrigin('desktop')
+    setCaseWindowMotion('restoring')
+    caseWindowMotionTimeoutRef.current = window.setTimeout(() => {
+      setCaseWindowMotion('idle')
+      caseWindowMotionTimeoutRef.current = null
+    }, WINDOW_MOTION_MS)
   }
 
   const minimizeCaseWindow = () => {
     if (caseWindowMotionTimeoutRef.current != null) {
       window.clearTimeout(caseWindowMotionTimeoutRef.current)
     }
+    setCaseWindowMotionOrigin('taskbar')
     setCaseWindowMotion('minimizing')
     caseWindowMotionTimeoutRef.current = window.setTimeout(() => {
       setCaseWindowMinimized(true)
@@ -396,6 +492,7 @@ export function GamePage() {
     }
     setCaseWindowOpen(true)
     setCaseWindowMinimized(false)
+    setCaseWindowMotionOrigin('taskbar')
     setCaseWindowMotion('restoring')
     caseWindowMotionTimeoutRef.current = window.setTimeout(() => {
       setCaseWindowMotion('idle')
@@ -404,15 +501,24 @@ export function GamePage() {
   }
 
   const openOperationWindow = () => {
+    if (operationWindowMotionTimeoutRef.current != null) {
+      window.clearTimeout(operationWindowMotionTimeoutRef.current)
+    }
     setOperationWindowOpen(true)
     setOperationWindowMinimized(false)
-    setOperationWindowMotion('idle')
+    setOperationWindowMotionOrigin('desktop')
+    setOperationWindowMotion('restoring')
+    operationWindowMotionTimeoutRef.current = window.setTimeout(() => {
+      setOperationWindowMotion('idle')
+      operationWindowMotionTimeoutRef.current = null
+    }, WINDOW_MOTION_MS)
   }
 
   const minimizeOperationWindow = () => {
     if (operationWindowMotionTimeoutRef.current != null) {
       window.clearTimeout(operationWindowMotionTimeoutRef.current)
     }
+    setOperationWindowMotionOrigin('taskbar')
     setOperationWindowMotion('minimizing')
     operationWindowMotionTimeoutRef.current = window.setTimeout(() => {
       setOperationWindowMinimized(true)
@@ -427,6 +533,7 @@ export function GamePage() {
     }
     setOperationWindowOpen(true)
     setOperationWindowMinimized(false)
+    setOperationWindowMotionOrigin('taskbar')
     setOperationWindowMotion('restoring')
     operationWindowMotionTimeoutRef.current = window.setTimeout(() => {
       setOperationWindowMotion('idle')
@@ -645,6 +752,7 @@ export function GamePage() {
     // would otherwise flash "Arrested" while the boss scolds the player.
     if (!retry) {
       setCaseDecisions((prev) => ({ ...prev, [caseId]: 'arrested' }))
+      if (activeCaseNode.data.hasOperation) setPendingOperationCaseId(caseId)
     }
     runWithTrigger(findTriggerMessageIds(activeCaseNode.id, 'arrest'), () => {
       if (retry) return
@@ -659,6 +767,7 @@ export function GamePage() {
     const retry = hasRetryTrigger(activeCaseNode.id, 'release')
     if (!retry) {
       setCaseDecisions((prev) => ({ ...prev, [caseId]: 'released' }))
+      if (activeCaseNode.data.hasOperation) setPendingOperationCaseId(caseId)
     }
     runWithTrigger(findTriggerMessageIds(activeCaseNode.id, 'release'), () => {
       if (retry) return
@@ -788,7 +897,17 @@ export function GamePage() {
       })()}
     >
       {caseWindowOpen && !caseWindowMinimized && activeCaseData && (
-        <div className={styles.caseLayer}>
+        <div
+          ref={caseWindowLayerRef}
+          className={[
+            styles.caseLayer,
+            caseWindowMotion === 'minimizing'
+              ? styles.windowMinimizing
+              : caseWindowMotion === 'restoring'
+              ? styles.windowRestoring
+              : '',
+          ].filter(Boolean).join(' ')}
+        >
           <CaseWindow
             data={activeCaseData}
             draggable
@@ -809,13 +928,6 @@ export function GamePage() {
             onRowTrigger={onRowTrigger}
             useCamera={!!activeCaseNode?.data.useCamera}
             highlightTargetId={caseWindowHighlightTarget}
-            className={
-              caseWindowMotion === 'minimizing'
-                ? styles.windowMinimizing
-                : caseWindowMotion === 'restoring'
-                ? styles.windowRestoring
-                : undefined
-            }
           />
         </div>
       )}
@@ -839,12 +951,34 @@ export function GamePage() {
           setOperationWindowMotion('idle')
         }
         return (
-          <div className={styles.caseLayer}>
+          <div
+            ref={operationWindowLayerRef}
+            className={[
+              styles.caseLayer,
+              operationWindowMotion === 'minimizing'
+                ? styles.windowMinimizing
+                : operationWindowMotion === 'restoring'
+                ? styles.windowRestoring
+                : '',
+            ].filter(Boolean).join(' ')}
+          >
             <OperationWindowV2
               draggable
               data={{ ...opData, counters }}
               onChangeCounter={(key, value) => changeOperationCounter(opId, key, value)}
               onStartOperation={() => {
+                const completedCaseId = operationNode?.data.caseId ?? pendingOperationCaseId
+                if (completedCaseId) {
+                  setCompletedOperationCaseIds((prev) => {
+                    if (prev.has(completedCaseId)) return prev
+                    const next = new Set(prev)
+                    next.add(completedCaseId)
+                    return next
+                  })
+                  setPendingOperationCaseId((pending) => (
+                    pending === completedCaseId ? null : pending
+                  ))
+                }
                 closeWindow()
                 if (operationNode) advance()
               }}
@@ -853,13 +987,6 @@ export function GamePage() {
                 if (minimized) minimizeOperationWindow()
                 else restoreOperationWindow()
               }}
-              className={
-                operationWindowMotion === 'minimizing'
-                  ? styles.windowMinimizing
-                  : operationWindowMotion === 'restoring'
-                  ? styles.windowRestoring
-                  : undefined
-              }
             />
           </div>
         )

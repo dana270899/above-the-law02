@@ -8,6 +8,7 @@ import { KippahCuttingWorkshop } from './KippahCuttingWorkshop'
 import { BdsmParty } from './BdsmParty'
 import { Pizza } from './Pizza'
 import { Picnic } from './Picnic'
+import { Eilat } from './Eilat'
 import styles from './WinScreenComponent.module.css'
 
 /* ═══════════════════════════════════════════════
@@ -90,6 +91,9 @@ export function WinScreenComponent({
       break
     case 'picnic':
       inner = <Picnic {...passThroughProps} />
+      break
+    case 'eilat':
+      inner = <Eilat {...contentProps} />
       break
     case 'graffiti':
     default:

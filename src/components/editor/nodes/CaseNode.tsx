@@ -1,10 +1,10 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { Handle, Position, useReactFlow } from '@xyflow/react'
 import type { NodeProps } from '@xyflow/react'
 import type { CaseFlowNode } from '@/types/editor'
 import {
-  CaseWindow,
+  CaseWindowV2 as CaseWindow,
   DEFAULT_CASE_DATA,
   type CaseWindowData,
 } from '@/components/CaseWindow'
@@ -14,6 +14,11 @@ import styles from './CaseNode.module.css'
 export function CaseNode({ id, data }: NodeProps<CaseFlowNode>) {
   const { updateNodeData, setEdges } = useReactFlow()
   const [editing, setEditing] = useState(false)
+  const [orderDraft, setOrderDraft] = useState(String(data.order))
+
+  useEffect(() => {
+    setOrderDraft(String(data.order))
+  }, [data.order])
 
   /** Flip the source handle on every outgoing walker edge from this
    *  case: 'arrest' ↔ 'release'. Useful when the player decision that
@@ -70,6 +75,16 @@ export function CaseNode({ id, data }: NodeProps<CaseFlowNode>) {
     updateNodeData(id, { caseId: trimmed, ...windowPatch })
   }
 
+  function commitOrder() {
+    const nextOrder = Number(orderDraft)
+    if (Number.isInteger(nextOrder) && nextOrder >= 1) {
+      updateNodeData(id, { order: nextOrder })
+      setOrderDraft(String(nextOrder))
+      return
+    }
+    setOrderDraft(String(data.order))
+  }
+
   return (
     <div style={{
       background: '#e6f1fb', border: '2px solid #185fa5', borderRadius: 8,
@@ -91,9 +106,31 @@ export function CaseNode({ id, data }: NodeProps<CaseFlowNode>) {
             font: 'inherit', color: '#0c447c', background: '#fff',
           }}
         />
-        <span style={{ marginLeft: 8, fontWeight: 400, fontSize: 11, color: '#5b7596' }}>
-          (order {data.order})
-        </span>
+        <label style={{ marginLeft: 8, fontWeight: 400, fontSize: 11, color: '#5b7596' }}>
+          order{' '}
+          <input
+            type="number"
+            className="nodrag nowheel"
+            min={1}
+            step={1}
+            value={orderDraft}
+            onChange={(e) => setOrderDraft(e.target.value)}
+            onBlur={commitOrder}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') e.currentTarget.blur()
+              if (e.key === 'Escape') {
+                setOrderDraft(String(data.order))
+                e.currentTarget.blur()
+              }
+            }}
+            aria-label="Case order"
+            style={{
+              width: 42, padding: '1px 3px',
+              border: '1px solid #c2d4e6', borderRadius: 3,
+              font: 'inherit', color: '#0c447c', background: '#fff',
+            }}
+          />
+        </label>
       </div>
       <div style={{ fontSize: 12, color: '#333', marginBottom: 6 }}>{data.title}</div>
 

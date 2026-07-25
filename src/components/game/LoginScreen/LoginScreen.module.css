@@ -179,7 +179,7 @@
 }
 .loginBtn[aria-disabled='true'] {
   opacity: 0.35;
-  cursor: url('../../../../assets/images/Cursor_Unavailable.png') 16 16, not-allowed;
+  cursor: url('../../../../assets/images/Cursor_Unavailable.svg') 16 16, not-allowed;
 }
 
 @media (min-height: 880px) {

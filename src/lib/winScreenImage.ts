@@ -23,6 +23,7 @@ export type WinVariant =
   | 'bdsm-party'
   | 'pizza'
   | 'picnic'
+  | 'eilat'
 
 /** Stable list of every supported variant — used by the editor. */
 export const WIN_VARIANTS: readonly WinVariant[] = [
@@ -34,6 +35,7 @@ export const WIN_VARIANTS: readonly WinVariant[] = [
   'bdsm-party',
   'pizza',
   'picnic',
+  'eilat',
 ]
 
 /** Same-tab change notification. detail.variant tells you which one. */

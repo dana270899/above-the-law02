@@ -16,6 +16,8 @@ export { Pizza } from './Pizza'
 export type { PizzaProps } from './Pizza'
 export { Picnic } from './Picnic'
 export type { PicnicProps } from './Picnic'
+export { Eilat } from './Eilat'
+export type { EilatProps } from './Eilat'
 export type {
   InteractiveWinScreenProps,
   InteractionConfig,

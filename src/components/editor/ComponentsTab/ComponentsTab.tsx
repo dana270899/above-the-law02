@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, type ChangeEvent } from 'react'
 import { BossMessage } from '@/components/game/BossMessage/BossMessage'
 import { Subtitles } from '@/components/game/Subtitles'
-import { CaseWindow, DEFAULT_CASE_DATA } from '@/components/CaseWindow'
+import { CaseWindowV2 as CaseWindow, DEFAULT_CASE_DATA } from '@/components/CaseWindow'
 import {
   FootageWindow,
   DEFAULT_FOOTAGE_DATA,
@@ -29,6 +29,68 @@ import {
 } from '@/lib/winScreenImage'
 import { appPath, assetUrl } from '@/lib/paths'
 import styles from './ComponentsTab.module.css'
+
+const COMPONENT_SECTIONS = [
+  { id: 'login-screen', label: 'Login Screen' },
+  { id: 'win-screen', label: 'Win Screen' },
+  { id: 'desktop', label: 'Desktop' },
+  { id: 'case-window', label: 'Case Window' },
+  { id: 'footage-window', label: 'Footage Window' },
+  { id: 'operation-window', label: 'Operation Window' },
+  { id: 'operation-window-v2', label: 'Operation Window V2' },
+  { id: 'achievements-window', label: 'Achievements Window' },
+  { id: 'subtitles', label: 'Subtitles' },
+  { id: 'boss-message', label: 'Boss Message' },
+] as const
+
+const WIN_SCREEN_OPTIONS = [
+  {
+    variant: 'bdsm-party',
+    label: 'BDSM Party',
+    defaultPath: '/images/win-screens/BdsmParty/bg.svg',
+  },
+  {
+    variant: 'pizza',
+    label: 'Pizza',
+    defaultPath: '/images/win-screens/Pizza/bg.svg',
+  },
+  {
+    variant: 'picnic',
+    label: 'Picnic',
+    defaultPath: '/images/win-screens/Picnic/Bg.svg',
+  },
+  {
+    variant: 'eilat',
+    label: 'Eilat',
+    defaultPath: '/images/win-screens/Eilat/WinScreen_Eilat-bg.svg',
+  },
+  {
+    variant: 'kippah-cutting-workshop',
+    label: 'Kippah Cutting Workshop',
+  },
+  {
+    variant: 'graffiti',
+    label: 'Graffiti',
+    defaultPath: '/images/win-screens/Win03.svg',
+  },
+  {
+    variant: 'punching-dummy',
+    label: 'Punching Dummy',
+    defaultPath: '/images/win-screens/PunchingDummy/PunchingDummy_bg.png',
+  },
+  {
+    variant: 'punching-dummy-click',
+    label: 'Punching Dummy (Click)',
+    defaultPath: '/images/win-screens/PunchingDummy/PunchingDummy_bg.png',
+  },
+  {
+    variant: 'kippah-cutting',
+    label: 'Kippah Cutting',
+    defaultPath: '/images/win-screens/WinScreen_KippahCutting.svg',
+  },
+] as const
+
+type WinScreenOption = (typeof WIN_SCREEN_OPTIONS)[number]
 
 const CASE_HIGHLIGHT_PREVIEW_DATA = {
   ...DEFAULT_CASE_DATA,
@@ -99,9 +161,52 @@ export function ComponentsTab() {
     { at: 4.5, text: '' },
   ]
 
+  function scrollToAnchor(id: string) {
+    const section = document.getElementById(id)
+    section?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    section?.focus({ preventScroll: true })
+    window.history.replaceState(null, '', `#${id}`)
+  }
+
   return (
     <div className={styles.wrap}>
-      <section className={styles.section}>
+      <nav className={styles.anchorNav} aria-label="Components on this page">
+        {COMPONENT_SECTIONS.map(({ id, label }) =>
+          id === 'win-screen' ? (
+            <label key={id} className={styles.anchorSelect}>
+              <span className={styles.visuallyHidden}>Jump to win screen</span>
+              <select
+                defaultValue="win-screen"
+                aria-label="Jump to win screen"
+                onChange={(event) => {
+                  if (event.target.value) scrollToAnchor(event.target.value)
+                }}
+              >
+                <option value="win-screen">Win Screen</option>
+                {WIN_SCREEN_OPTIONS.map(({ variant, label: optionLabel }) => (
+                  <option key={variant} value={`win-screen-${variant}`}>
+                    {optionLabel}
+                  </option>
+                ))}
+              </select>
+            </label>
+          ) : (
+            <a
+              key={id}
+              className={styles.anchorChip}
+              href={`#${id}`}
+              onClick={(event) => {
+                event.preventDefault()
+                scrollToAnchor(id)
+              }}
+            >
+              {label}
+            </a>
+          ),
+        )}
+      </nav>
+
+      <section id="login-screen" className={styles.section} tabIndex={-1}>
         <header className={styles.sectionHeader}>
           <h2 className={styles.sectionTitle}>Login Screen</h2>
           <span className={styles.sectionMeta}>src/components/game/LoginScreen</span>
@@ -111,121 +216,19 @@ export function ComponentsTab() {
         </div>
       </section>
 
-      <section className={styles.section}>
+      <section id="win-screen" className={styles.section} tabIndex={-1}>
         <header className={styles.sectionHeader}>
           <h2 className={styles.sectionTitle}>Win Screen</h2>
           <span className={styles.sectionMeta}>src/components/game/WinScreen</span>
         </header>
         <div className={styles.messageGrid}>
-          <div className={styles.messageCard}>
-            <p className={styles.messageLabel}>BDSM Party</p>
-            <WinScreenImageEditor
-              variant="bdsm-party"
-              defaultPath={assetUrl('/images/win-screens/BdsmParty/bg.svg')}
-            />
-            <div className={styles.desktopFrame}>
-              <iframe
-                src={appPath('/win/bdsm-party')}
-                title="BDSM Party win screen preview"
-              />
-            </div>
-          </div>
-          <div className={styles.messageCard}>
-            <p className={styles.messageLabel}>Pizza</p>
-            <WinScreenImageEditor
-              variant="pizza"
-              defaultPath={assetUrl('/images/win-screens/Pizza/bg.svg')}
-            />
-            <div className={styles.desktopFrame}>
-              <iframe
-                src={appPath('/win/pizza')}
-                title="Pizza win screen preview"
-              />
-            </div>
-          </div>
-          <div className={styles.messageCard}>
-            <p className={styles.messageLabel}>Picnic</p>
-            <WinScreenImageEditor
-              variant="picnic"
-              defaultPath={assetUrl('/images/win-screens/Picnic/Bg.svg')}
-            />
-            <div className={styles.desktopFrame}>
-              <iframe
-                src={appPath('/win/picnic')}
-                title="Picnic win screen preview"
-              />
-            </div>
-          </div>
-          <div className={styles.messageCard}>
-            <p className={styles.messageLabel}>Kippah Cutting Workshop</p>
-            <div className={styles.winImageEditor}>
-              <p className={styles.winImageStatus}>
-                Interactive component using bundled video{' '}
-                <code>{assetUrl('/images/win-screens/KippahCutting/KippahCutting.mp4')}</code>,
-                cursor SVGs, cutting hand SVGs, side pieces, and scissors
-                sound.
-              </p>
-            </div>
-            <div className={styles.desktopFrame}>
-              <iframe
-                src={appPath('/win/kippah-cutting-workshop')}
-                title="Kippah Cutting Workshop win screen preview"
-              />
-            </div>
-          </div>
-          <div className={styles.messageCard}>
-            <p className={styles.messageLabel}>Graffiti</p>
-            <WinScreenImageEditor
-              variant="graffiti"
-              defaultPath={assetUrl('/images/win-screens/Win03.svg')}
-            />
-            <div className={styles.desktopFrame}>
-              <iframe src={appPath('/win/graffiti')} title="Graffiti win screen preview" />
-            </div>
-          </div>
-          <div className={styles.messageCard}>
-            <p className={styles.messageLabel}>Punching Dummy</p>
-            <WinScreenImageEditor
-              variant="punching-dummy"
-              defaultPath={assetUrl('/images/win-screens/PunchingDummy/PunchingDummy_bg.png')}
-            />
-            <div className={styles.desktopFrame}>
-              <iframe
-                src={appPath('/win/punching-dummy')}
-                title="Punching Dummy win screen preview"
-              />
-            </div>
-          </div>
-          <div className={styles.messageCard}>
-            <p className={styles.messageLabel}>Punching Dummy (Click)</p>
-            <WinScreenImageEditor
-              variant="punching-dummy-click"
-              defaultPath={assetUrl('/images/win-screens/PunchingDummy/PunchingDummy_bg.png')}
-            />
-            <div className={styles.desktopFrame}>
-              <iframe
-                src={appPath('/win/punching-dummy-click')}
-                title="Punching Dummy (Click) win screen preview"
-              />
-            </div>
-          </div>
-          <div className={styles.messageCard}>
-            <p className={styles.messageLabel}>Kippah Cutting</p>
-            <WinScreenImageEditor
-              variant="kippah-cutting"
-              defaultPath={assetUrl('/images/win-screens/WinScreen_KippahCutting.svg')}
-            />
-            <div className={styles.desktopFrame}>
-              <iframe
-                src={appPath('/win/kippah-cutting')}
-                title="Kippah Cutting win screen preview"
-              />
-            </div>
-          </div>
+          {WIN_SCREEN_OPTIONS.map((option) => (
+            <WinScreenPreview key={option.variant} option={option} />
+          ))}
         </div>
       </section>
 
-      <section className={styles.section}>
+      <section id="desktop" className={styles.section} tabIndex={-1}>
         <header className={styles.sectionHeader}>
           <h2 className={styles.sectionTitle}>Desktop</h2>
           <span className={styles.sectionMeta}>src/components/Desktop</span>
@@ -235,7 +238,7 @@ export function ComponentsTab() {
         </div>
       </section>
 
-      <section className={styles.section}>
+      <section id="case-window" className={styles.section} tabIndex={-1}>
         <header className={styles.sectionHeader}>
           <h2 className={styles.sectionTitle}>Case Window</h2>
           <span className={styles.sectionMeta}>src/components/CaseWindow</span>
@@ -264,7 +267,7 @@ export function ComponentsTab() {
         </div>
       </section>
 
-      <section className={styles.section}>
+      <section id="footage-window" className={styles.section} tabIndex={-1}>
         <header className={styles.sectionHeader}>
           <h2 className={styles.sectionTitle}>Footage Window</h2>
           <span className={styles.sectionMeta}>src/components/FootageWindow</span>
@@ -307,7 +310,7 @@ export function ComponentsTab() {
         </div>
       </section>
 
-      <section className={styles.section}>
+      <section id="operation-window" className={styles.section} tabIndex={-1}>
         <header className={styles.sectionHeader}>
           <h2 className={styles.sectionTitle}>Operation Window</h2>
           <span className={styles.sectionMeta}>src/components/OperationWindow</span>
@@ -325,7 +328,7 @@ export function ComponentsTab() {
         </div>
       </section>
 
-      <section className={styles.section}>
+      <section id="operation-window-v2" className={styles.section} tabIndex={-1}>
         <header className={styles.sectionHeader}>
           <h2 className={styles.sectionTitle}>Operation Window V2</h2>
           <span className={styles.sectionMeta}>src/components/OperationWindowV2</span>
@@ -344,7 +347,7 @@ export function ComponentsTab() {
         </div>
       </section>
 
-      <section className={styles.section}>
+      <section id="achievements-window" className={styles.section} tabIndex={-1}>
         <header className={styles.sectionHeader}>
           <h2 className={styles.sectionTitle}>Achievements Window</h2>
           <span className={styles.sectionMeta}>src/components/AchievementsWindow</span>
@@ -461,7 +464,7 @@ export function ComponentsTab() {
         </div>
       </section>
 
-      <section className={styles.section}>
+      <section id="subtitles" className={styles.section} tabIndex={-1}>
         <header className={styles.sectionHeader}>
           <h2 className={styles.sectionTitle}>Subtitles</h2>
           <span className={styles.sectionMeta}>src/components/game/Subtitles</span>
@@ -494,7 +497,7 @@ export function ComponentsTab() {
         </div>
       </section>
 
-      <section className={styles.section}>
+      <section id="boss-message" className={styles.section} tabIndex={-1}>
         <header className={styles.sectionHeader}>
           <h2 className={styles.sectionTitle}>Boss Message</h2>
           <span className={styles.sectionMeta}>src/components/game/BossMessage</span>
@@ -526,6 +529,38 @@ export function ComponentsTab() {
           </div>
         </div>
       </section>
+    </div>
+  )
+}
+
+function WinScreenPreview({ option }: { option: WinScreenOption }) {
+  return (
+    <div
+      id={`win-screen-${option.variant}`}
+      className={styles.messageCard}
+      tabIndex={-1}
+    >
+      <p className={styles.messageLabel}>{option.label}</p>
+      {option.variant === 'kippah-cutting-workshop' ? (
+        <div className={styles.winImageEditor}>
+          <p className={styles.winImageStatus}>
+            Interactive component using bundled video{' '}
+            <code>{assetUrl('/images/win-screens/KippahCutting/KippahCutting.mp4')}</code>,
+            cursor SVGs, cutting hand SVGs, side pieces, and scissors sound.
+          </p>
+        </div>
+      ) : (
+        <WinScreenImageEditor
+          variant={option.variant as WinVariant}
+          defaultPath={assetUrl(option.defaultPath)}
+        />
+      )}
+      <div className={styles.desktopFrame}>
+        <iframe
+          src={appPath(`/win/${option.variant}`)}
+          title={`${option.label} win screen preview`}
+        />
+      </div>
     </div>
   )
 }

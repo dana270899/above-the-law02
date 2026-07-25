@@ -58,8 +58,10 @@ export type CaseTab = {
   id: string
   /** Right-side time label on the tab (e.g. "22:34 PM"). */
   time: string
-  /** Locked tabs are dimmed and don't fire onSelect. */
+  /** Kept for saved-data compatibility; the current design has no disabled state. */
   locked?: boolean
+  /** Completed cases display the green Solved chip. */
+  solved?: boolean
 }
 
 export type StatusColor = 'green' | 'red' | 'yellow' | 'grey'
@@ -559,7 +561,7 @@ export function CaseWindow({
               <div className={styles.tabs} data-spot="case.tabs">
                 {tabList.map((tab) => {
                   const isActive = stripHash(tab.id) === activeTabId
-                  const isLocked = !!tab.locked
+                  const isSolved = !!tab.solved
                   return (
                     <button
                       type="button"
@@ -568,16 +570,15 @@ export function CaseWindow({
                       className={[
                         styles.tab,
                         isActive ? styles.tabActive : '',
-                        isLocked ? styles.tabLocked : '',
                       ].filter(Boolean).join(' ')}
-                      disabled={isLocked}
-                      aria-disabled={isLocked}
                       onClick={() => {
-                        if (isLocked) return
                         onTabSelect?.(tab.id)
                       }}
                     >
-                      <span className={styles.tabId}>Case #{stripHash(tab.id)}</span>
+                      <span className={styles.tabTop}>
+                        <span className={styles.tabId}>Case #{stripHash(tab.id)}</span>
+                        {isSolved && <span className={styles.tabSolved}>Solved</span>}
+                      </span>
                       <span className={styles.tabTime}>{tab.time}</span>
                     </button>
                   )
@@ -1125,7 +1126,11 @@ function CriminalRecordRowView({
           onClick={onToggle}
           disabled={!hasDetails && !editable}
         >
-          <img src={`${A}/arrow-down.svg`} alt="" />
+          <img
+            src={`${A}/${expanded ? 'arrow-expanded.svg' : 'arrow.svg'}`}
+            className={expanded ? styles.arrowOpening : styles.arrowClosing}
+            alt=""
+          />
         </button>
 
         {editable ? (
@@ -1253,7 +1258,11 @@ function SuspicionRowView({
           aria-expanded={expanded}
           onClick={fireExpand}
         >
-          <img src={`${A}/arrow-down.svg`} alt="" />
+          <img
+            src={`${A}/${expanded ? 'arrow-expanded.svg' : 'arrow.svg'}`}
+            className={expanded ? styles.arrowOpening : styles.arrowClosing}
+            alt=""
+          />
         </button>
 
         {editable ? (
