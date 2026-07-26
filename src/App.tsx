@@ -8,6 +8,20 @@ import { WinScreenComponent } from '@/components/game/WinScreen'
 import { useGameScale } from '@/hooks/useGameScale'
 import { assetUrl, routerBasename } from '@/lib/paths'
 import { RankingPage } from '@/components/game/RankingPage/RankingPage'
+import type { PlayerProfile, RunScore } from '@/lib/scoring'
+
+const RANKING_START_PROFILE: PlayerProfile = {
+  name: 'Officer',
+  photo: null,
+  photoPreviewUrl: null,
+}
+
+const RANKING_START_RUN: RunScore = {
+  total: 0,
+  target: 0,
+  won: false,
+  cases: [],
+}
 
 /** Standalone /win/* routes — scale the 1920×1080 canvas to fit the
  *  viewport, same as the live game. Used by the editor Components
@@ -34,7 +48,19 @@ export default function App() {
   return (
     <BrowserRouter basename={routerBasename}>
       <Routes>
-        <Route path="/" element={<DesktopPage />} />
+        <Route
+          path="/"
+          element={
+            <WinScreenStage>
+              <RankingPage
+                profile={RANKING_START_PROFILE}
+                run={RANKING_START_RUN}
+                entryMode
+              />
+            </WinScreenStage>
+          }
+        />
+        <Route path="/desktop" element={<DesktopPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/game" element={<GamePage />} />
         <Route path="/editor" element={<EditorPage />} />

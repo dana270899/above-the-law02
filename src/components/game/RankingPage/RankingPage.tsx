@@ -32,7 +32,15 @@ const FAKE_RANKINGS: LeaderboardEntry[] = [
   createdAt: new Date(Date.UTC(2026, 0, 1, 0, index)).toISOString(),
 }))
 
-export function RankingPage({ profile, run }: { profile: PlayerProfile; run: RunScore }) {
+export function RankingPage({
+  profile,
+  run,
+  entryMode = false,
+}: {
+  profile: PlayerProfile
+  run: RunScore
+  entryMode?: boolean
+}) {
   const [entries, setEntries] = useState<LeaderboardEntry[]>(FAKE_RANKINGS)
   const [status, setStatus] = useState<'loading' | 'ready' | 'publishing' | 'published' | 'declined' | 'error'>('loading')
   const [error, setError] = useState('')
@@ -64,12 +72,14 @@ export function RankingPage({ profile, run }: { profile: PlayerProfile; run: Run
       })
   }, [])
 
-  const withCurrentPlayer = status === 'published'
+  const withCurrentPlayer = entryMode || status === 'published'
     ? entries
     : mergeLocalPlayer(entries.filter((entry) => entry.id !== localEntry.id), localEntry)
-  const currentPlayerId = status === 'published'
-    ? entries.find((entry) => entry.isCurrentPlayer)?.id ?? localEntry.id
-    : localEntry.id
+  const currentPlayerId = entryMode
+    ? ''
+    : status === 'published'
+      ? entries.find((entry) => entry.isCurrentPlayer)?.id ?? localEntry.id
+      : localEntry.id
   const { visible: shown } = buildLeaderboardDisplay(withCurrentPlayer, currentPlayerId)
 
   async function publish() {
@@ -165,20 +175,22 @@ export function RankingPage({ profile, run }: { profile: PlayerProfile; run: Run
               className={styles.playAgain}
               onClick={() => window.location.assign(appPath('/game'))}
             >
-              Play again
+              {entryMode ? 'Start game' : 'Play again'}
             </button>
-            <button
-              type="button"
-              className={styles.credits}
-              onClick={() => setDetailsOpen(true)}
-            >
-              Credits
-            </button>
+            {!entryMode && (
+              <button
+                type="button"
+                className={styles.credits}
+                onClick={() => setDetailsOpen(true)}
+              >
+                Credits
+              </button>
+            )}
           </div>
         </section>
       </div>
 
-      {detailsOpen && (
+      {detailsOpen && !entryMode && (
         <div className={styles.modalLayer} role="presentation" onMouseDown={() => setDetailsOpen(false)}>
           <section
             className={styles.modal}
