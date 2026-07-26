@@ -66,7 +66,6 @@ function isCaseWindowHighlightTarget(
 }
 
 const WINDOW_MOTION_MS = 420
-const REQUIRED_RANKING_CASES = 7
 type WindowMotion = 'idle' | 'minimizing' | 'restoring'
 type WindowMotionOrigin = 'desktop' | 'taskbar'
 
@@ -902,18 +901,6 @@ export function GamePage() {
   }
 
   if (currentNode?.type === 'ranking') {
-    if (runScore.cases.length < REQUIRED_RANKING_CASES) {
-      return (
-        <div ref={scaleRef} className={styles.canvas} data-scaled-stage>
-          <main className={styles.cameraPermissionStatus} role="alert">
-            <div>
-              <p>Final ranking is waiting for all seven cases.</p>
-              <p>{runScore.cases.length} of {REQUIRED_RANKING_CASES} cases are resolved.</p>
-            </div>
-          </main>
-        </div>
-      )
-    }
     return <div ref={scaleRef} className={styles.canvas} data-scaled-stage><RankingPage profile={playerProfile} run={runScore} /></div>
   }
 
