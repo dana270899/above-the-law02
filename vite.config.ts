@@ -158,8 +158,10 @@ function fileBackedEditorDataPlugin() {
   }
 }
 
-export default defineConfig({
-  base: '/above-the-law02/',
+export default defineConfig(({ mode }) => ({
+  // GitHub Pages serves this repository from a subdirectory. Vercel serves it
+  // from the domain root, so production builds can select the appropriate base.
+  base: mode === 'github-pages' ? '/above-the-law02/' : '/',
   plugins: [react(), fileBackedEditorDataPlugin()],
   publicDir: 'assets',
   resolve: {
@@ -171,4 +173,4 @@ export default defineConfig({
       ),
     },
   },
-})
+}))
