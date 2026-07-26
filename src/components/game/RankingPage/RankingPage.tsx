@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import type { PlayerProfile, PublicationConsent, RunScore } from '@/lib/scoring'
+import type { PlayerProfile, RunScore } from '@/lib/scoring'
 import {
   buildLeaderboardDisplay,
   fetchLeaderboard,
@@ -11,42 +11,38 @@ import {
 import { appPath, assetUrl } from '@/lib/paths'
 import styles from './RankingPage.module.css'
 
-const FAKE_RANKINGS: LeaderboardEntry[] = [
-  ['fake-1', 'Alex Stone', '/images/login-screen/Man.svg', 300],
-  ['fake-2', 'Maya Bloom', '/images/login-screen/Flower.svg', 290],
-  ['fake-3', 'Noa Green', '/images/login-screen/Gun.svg', 270],
-  ['fake-4', 'Liam North', '/images/login-screen/Man.svg', 260],
-  ['fake-5', 'Ella Rose', '/images/login-screen/Flower.svg', 250],
-  ['fake-6', 'Ben Silver', '/images/login-screen/Gun.svg', 240],
-  ['fake-7', 'Ari Gold', '/images/login-screen/Man.svg', 230],
-  ['fake-8', 'Zoe Lake', '/images/login-screen/Flower.svg', 220],
-  ['fake-9', 'Tom Vale', '/images/login-screen/Gun.svg', 210],
-  ['fake-10', 'Ivy Moon', '/images/login-screen/Man.svg', 200],
-].map(([id, playerName, photoPath, score], index) => ({
-  id: String(id),
-  playerName: String(playerName),
-  photoUrl: assetUrl(String(photoPath)),
-  score: Number(score),
-  won: false,
-  caseBreakdown: [],
-  createdAt: new Date(Date.UTC(2026, 0, 1, 0, index)).toISOString(),
-}))
+const publicationRequests = new Map<string, Promise<LeaderboardEntry>>()
+
+function publicationRequest(key: string, profile: PlayerProfile, run: RunScore) {
+  const existing = publicationRequests.get(key)
+  if (existing) return existing
+  const request = publishLeaderboardEntry({
+    playerName: profile.name,
+    photo: profile.photo,
+    run,
+  }).catch((reason) => {
+    publicationRequests.delete(key)
+    throw reason
+  })
+  publicationRequests.set(key, request)
+  return request
+}
 
 export function RankingPage({
   profile,
   run,
   entryMode = false,
+  publicationKey,
 }: {
   profile: PlayerProfile
   run: RunScore
   entryMode?: boolean
+  publicationKey?: string
 }) {
-  const [entries, setEntries] = useState<LeaderboardEntry[]>(FAKE_RANKINGS)
-  const [status, setStatus] = useState<'loading' | 'ready' | 'publishing' | 'published' | 'declined' | 'error'>('loading')
+  const [entries, setEntries] = useState<LeaderboardEntry[]>([])
+  const [status, setStatus] = useState<'loading' | 'ready' | 'publishing' | 'published' | 'error'>('loading')
   const [error, setError] = useState('')
-  const [consent, setConsent] = useState<PublicationConsent>('pending')
   const [detailsOpen, setDetailsOpen] = useState(false)
-  const publicationStartedRef = useRef(false)
   const rowsRef = useRef<HTMLDivElement | null>(null)
 
   const localEntry = useMemo<LeaderboardEntry>(() => ({
@@ -61,16 +57,40 @@ export function RankingPage({
   }), [profile, run])
 
   useEffect(() => {
-    fetchLeaderboard()
-      .then((next) => {
-        setEntries([...FAKE_RANKINGS, ...next])
-        setStatus('ready')
-      })
-      .catch((reason) => {
+    let active = true
+    async function loadAndPublish() {
+      try {
+        const remoteEntries = await fetchLeaderboard()
+        if (!active) return
+        setEntries(remoteEntries)
+        if (entryMode) {
+          setStatus('ready')
+          return
+        }
+        if (!isLeaderboardConfigured()) {
+          throw new Error('Shared ranking is not configured.')
+        }
+        if (run.cases.length !== 7) {
+          throw new Error(`The run has ${run.cases.length} of 7 case results, so it cannot be saved yet.`)
+        }
+        setStatus('publishing')
+        const key = publicationKey ?? `${profile.name}:${run.total}:${JSON.stringify(run.cases)}`
+        const published = await publicationRequest(key, profile, run)
+        if (!active) return
+        setEntries((current) => [
+          ...current.filter((entry) => entry.id !== published.id),
+          published,
+        ])
+        setStatus('published')
+      } catch (reason) {
+        if (!active) return
         setError(reason instanceof Error ? reason.message : String(reason))
         setStatus('error')
-      })
-  }, [])
+      }
+    }
+    void loadAndPublish()
+    return () => { active = false }
+  }, [entryMode, profile, publicationKey, run])
 
   const withCurrentPlayer = entryMode || status === 'published'
     ? entries
@@ -81,32 +101,6 @@ export function RankingPage({
       ? entries.find((entry) => entry.isCurrentPlayer)?.id ?? localEntry.id
       : localEntry.id
   const { visible: shown } = buildLeaderboardDisplay(withCurrentPlayer, currentPlayerId)
-
-  async function publish() {
-    if (publicationStartedRef.current) return
-    publicationStartedRef.current = true
-    setConsent('approved')
-    setStatus('publishing')
-    setError('')
-    try {
-      const published = await publishLeaderboardEntry({
-        playerName: profile.name,
-        photo: profile.photo,
-        run,
-      })
-      setEntries((current) => [...current, published])
-      setStatus('published')
-    } catch (reason) {
-      publicationStartedRef.current = false
-      setError(reason instanceof Error ? reason.message : String(reason))
-      setStatus('error')
-    }
-  }
-
-  function keepPrivate() {
-    setConsent('declined')
-    setStatus('declined')
-  }
 
   function scrollRows(direction: -1 | 1) {
     rowsRef.current?.scrollBy({ top: direction * 188, behavior: 'smooth' })
@@ -157,6 +151,8 @@ export function RankingPage({
                 </article>
               ))}
               {status === 'loading' && <p className={styles.loading}>Loading ranking…</p>}
+              {status === 'publishing' && <p className={styles.loading}>Saving your result…</p>}
+              {status === 'ready' && shown.length === 0 && <p className={styles.loading}>No saved results yet.</p>}
             </div>
           </div>
         </section>
@@ -183,7 +179,7 @@ export function RankingPage({
                 className={styles.credits}
                 onClick={() => setDetailsOpen(true)}
               >
-                Credits
+                Details
               </button>
             )}
           </div>
@@ -212,20 +208,9 @@ export function RankingPage({
                 </p>
               ))}
             </div>
-            {status !== 'published' && status !== 'declined' && (
-              <>
-                <p>Publish your name, photo, score, and case results to the shared ranking?</p>
-                <div className={styles.modalActions}>
-                  <button type="button" onClick={publish} disabled={status === 'publishing' || !isLeaderboardConfigured()}>
-                    {status === 'publishing' ? 'Publishing…' : 'Allow & publish'}
-                  </button>
-                  <button type="button" onClick={keepPrivate}>Keep private</button>
-                </div>
-              </>
-            )}
             {!isLeaderboardConfigured() && <p className={styles.notice}>Shared ranking is not configured. Your result remains private.</p>}
-            {consent === 'declined' && <p className={styles.notice}>Nothing was uploaded.</p>}
-            {status === 'published' && <p className={styles.notice}>Your score was published.</p>}
+            {status === 'publishing' && <p className={styles.notice}>Saving your result…</p>}
+            {status === 'published' && <p className={styles.notice}>Your result was saved to the shared ranking.</p>}
             {error && <p className={styles.notice}>{error}</p>}
           </section>
         </div>

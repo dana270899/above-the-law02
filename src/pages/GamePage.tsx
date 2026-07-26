@@ -86,6 +86,7 @@ type WindowMotionOrigin = 'desktop' | 'taskbar'
 export function GamePage() {
   const flow = useGameFlow()
   const scaleRef = useGameScale()
+  const publicationKeyRef = useRef(crypto.randomUUID())
   const [playerProfile, setPlayerProfile] = useState<PlayerProfile>({ name: 'Officer', photo: null, photoPreviewUrl: null })
   const [scoreByCase, setScoreByCase] = useState<Record<string, CaseScoreBreakdown>>({})
   const [pointPopup, setPointPopup] = useState<{ id: string; points: number } | null>(null)
@@ -901,7 +902,7 @@ export function GamePage() {
   }
 
   if (currentNode?.type === 'ranking') {
-    return <div ref={scaleRef} className={styles.canvas} data-scaled-stage><RankingPage profile={playerProfile} run={runScore} /></div>
+    return <div ref={scaleRef} className={styles.canvas} data-scaled-stage><RankingPage profile={playerProfile} run={runScore} publicationKey={publicationKeyRef.current} /></div>
   }
 
   // Walker is on a win-result — keep the desktop visible behind the

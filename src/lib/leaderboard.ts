@@ -22,6 +22,11 @@ const url = import.meta.env.VITE_SUPABASE_URL?.replace(/\/$/, '')
 const key = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY ?? import.meta.env.VITE_SUPABASE_ANON_KEY
 const headers = () => ({ apikey: key ?? '', Authorization: `Bearer ${key ?? ''}` })
 
+async function responseError(response: Response, fallback: string) {
+  const body = await response.json().catch(() => null) as { message?: string } | null
+  return new Error(body?.message || fallback)
+}
+
 export function isLeaderboardConfigured() {
   return !!url && !!key
 }
@@ -66,7 +71,7 @@ async function signedPhotoUrl(path: string | null): Promise<string | null> {
 export async function fetchLeaderboard(): Promise<LeaderboardEntry[]> {
   if (!url || !key) return []
   const response = await fetch(`${url}/rest/v1/leaderboard_entries?select=*&order=score.desc,created_at.asc&limit=100`, { headers: headers() })
-  if (!response.ok) throw new Error('Leaderboard is temporarily unavailable.')
+  if (!response.ok) throw await responseError(response, 'Leaderboard is temporarily unavailable.')
   const rows = await response.json() as Array<Record<string, unknown>>
   const mapped = await Promise.all(rows.map(async (row) => ({
     id: String(row.id),
@@ -88,7 +93,7 @@ async function uploadPhoto(photo: Blob): Promise<string> {
     headers: { ...headers(), 'Content-Type': photo.type || 'image/jpeg', 'x-upsert': 'false' },
     body: photo,
   })
-  if (!response.ok) throw new Error('Could not upload the profile photo.')
+  if (!response.ok) throw await responseError(response, 'Could not upload the profile photo.')
   return path
 }
 
@@ -100,7 +105,7 @@ export async function publishLeaderboardEntry(args: { playerName: string; photo?
     headers: { ...headers(), 'Content-Type': 'application/json', Prefer: 'return=representation' },
     body: JSON.stringify({ player_name: args.playerName, photo_path: photoPath, score: args.run.total, winning_target: args.run.target, won: args.run.won, case_breakdown: args.run.cases }),
   })
-  if (!response.ok) throw new Error('Could not publish your score.')
+  if (!response.ok) throw await responseError(response, 'Could not publish your score.')
   const [row] = await response.json() as Array<Record<string, unknown>>
   return {
     id: String(row.id), playerName: String(row.player_name), photoUrl: await signedPhotoUrl(photoPath),
