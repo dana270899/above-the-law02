@@ -39,6 +39,8 @@ export function CaseNode({ id, data }: NodeProps<CaseFlowNode>) {
   if (data.hasOperation) flags.push('⚙️ Operation')
   if (data.isBothWin)    flags.push('🔀 Both win')
   if (data.useCamera)    flags.push('📸 Camera')
+  if (data.isImportant)  flags.push('⭐ Important')
+  if (data.arrestContinuesWithoutDecision) flags.push('↪️ Arrest continues only')
 
   function openEditor() {
     if (!data.window) {
@@ -170,6 +172,28 @@ export function CaseNode({ id, data }: NodeProps<CaseFlowNode>) {
           onChange={(e) => updateNodeData(id, { useCamera: e.target.checked })}
         />
         Use live webcam in photo slot
+      </label>
+
+      <label className="nodrag" style={{ display: 'flex', alignItems: 'center', gap: 4, marginTop: 6, fontSize: 11, color: '#0c447c' }}>
+        <input
+          type="checkbox"
+          checked={!!data.isImportant}
+          onChange={(e) => updateNodeData(id, { isImportant: e.target.checked })}
+        />
+        Important case
+      </label>
+
+      <label
+        className="nodrag"
+        style={{ display: 'flex', alignItems: 'center', gap: 4, marginTop: 6, fontSize: 11, color: '#0c447c' }}
+        title="Follow the Arrest wire without changing the case to Arrested"
+      >
+        <input
+          type="checkbox"
+          checked={!!data.arrestContinuesWithoutDecision}
+          onChange={(e) => updateNodeData(id, { arrestContinuesWithoutDecision: e.target.checked })}
+        />
+        Arrest continues without arresting
       </label>
 
       <div style={{ marginTop: 6 }}>

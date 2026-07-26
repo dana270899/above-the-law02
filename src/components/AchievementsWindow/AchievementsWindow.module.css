@@ -1,22 +1,61 @@
 /* ───────────────────────────────────────────────
-   Ranks window — Figma frame 538:21055.
-   Light-blue card, 24px padding, 24px gap,
+   Achievements window — Figma frame 617:10703.
+   Light-blue card, 24px padding, 16px gap,
    2px black border, 4px corner radius.
    ─────────────────────────────────────────────── */
 
 .window {
+  box-sizing: border-box;
   background: var(--light-blue-200);
   border: 2px solid var(--black);
   border-radius: 4px;
-  padding: 24px;
+  padding: 22px 24px 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 24px;
+  gap: 16px;
   font-family: var(--font-main);
   color: var(--black);
   position: relative;
-  width: max-content;
+  width: 140.526px;
+  height: 412.287px;
+  overflow: visible;
+}
+
+.window::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('../../../assets/images/vintage-comic-style-dots-texture.jpg');
+  background-size: 348px 348px;
+  opacity: 0.1;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  border-radius: 2px;
+}
+
+.pointsPopup {
+  position: absolute;
+  right: calc(100% + 16px);
+  top: 50%;
+  z-index: 2;
+  color: var(--green);
+  font-family: var(--font-main);
+  font-size: 48px;
+  font-weight: 700;
+  line-height: normal;
+  white-space: nowrap;
+  -webkit-text-stroke: 2px var(--black);
+  paint-order: stroke fill;
+  pointer-events: none;
+  animation: pointsPopup 1400ms ease-out both;
+}
+
+@keyframes pointsPopup {
+  0% { opacity: 0; transform: translateY(-25%); }
+  18% { opacity: 1; transform: translateY(-50%); }
+  72% { opacity: 1; transform: translateY(-58%); }
+  100% { opacity: 0; transform: translateY(-78%); }
 }
 
 .draggable {
@@ -44,38 +83,46 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 3;
 }
 .closeBtn:hover {
   background: var(--pink);
 }
 
-/* Badge column: shield + chevron stack. Figma container is
-   92.526×312.022; the shield (92.526×115.775) sits at the top,
-   and 6 chevrons (70.694×28.988) fill the rest, centered. */
+/* Badge column: shield + six flush chevrons. */
 .badgeStack {
+  position: relative;
+  z-index: 1;
   width: 92.526px;
+  height: 290.287px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+.fillLayer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: clip-path 700ms ease-out;
+  pointer-events: none;
+}
+
 .shield {
   width: 92.526px;
-  height: 115.775px;
+  height: 116.358px;
   display: block;
   user-select: none;
   -webkit-user-drag: none;
 }
 
-/* Chevron stack: 6 markers, ~2.5px between each (matches the
-   31.54px y-stride / 28.988px chevron height in Figma).
-   9.5px top spacing puts the first chevron at y=125.31. */
 .chevrons {
-  margin-top: 9.5px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2.55px;
+  gap: 0;
 }
 
 .chevron {
@@ -86,34 +133,44 @@
   -webkit-user-drag: none;
 }
 
-/* H5 — 24px / 28px line-height, ArbelHagilda. */
-.title {
+.filledChevron {
+  transform: rotate(180deg);
+}
+
+/* Two-line score lockup from Figma. */
+.scoreBlock {
+  position: relative;
+  z-index: 1;
+  width: 83px;
+  height: 58px;
+  flex: 0 0 58px;
+  text-align: center;
+}
+
+.scoreLabel {
   font-family: var(--font-main);
-  font-size: 24px;
+  font-size: 22px;
   line-height: 28px;
   color: var(--black);
   font-weight: 400;
   margin: 0;
   white-space: nowrap;
-  word-break: break-word;
 }
 
-/* Per-chevron flicker — fires when a single rank is earned (the
-   chevron's outcome transitions to 'win'). The whole-bar entry
-   animation is implemented in JS via the empty↔full state machine
-   in AchievementsWindow.tsx, not in CSS.
-   Wrapped in `prefers-reduced-motion: no-preference` so users
-   with reduced-motion settings see the final state instantly. */
-@media (prefers-reduced-motion: no-preference) {
-  @keyframes chevronFlicker {
-    0%   { opacity: 0.2; filter: brightness(0.6); }
-    20%  { opacity: 1;   filter: brightness(1.6); }
-    40%  { opacity: 0.3; filter: brightness(0.7); }
-    60%  { opacity: 1;   filter: brightness(1.5); }
-    80%  { opacity: 0.4; filter: brightness(0.8); }
-    100% { opacity: 1;   filter: brightness(1);   }
-  }
-  .chevronFlicker {
-    animation: chevronFlicker 600ms steps(6, end);
+.scoreValue {
+  font-family: var(--font-main);
+  font-size: 32px;
+  line-height: 30px;
+  color: var(--light-yellow-200);
+  font-weight: 700;
+  margin: 0;
+  white-space: nowrap;
+  -webkit-text-stroke: 2px var(--black);
+  paint-order: stroke fill;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fillLayer {
+    transition: none;
   }
 }

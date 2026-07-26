@@ -8,7 +8,7 @@
   background: var(--light-yellow-100);
   overflow: hidden;
 }
-
+.cameraPermissionStatus{position:absolute;inset:0;display:grid;place-items:center;padding:40px;text-align:center;font:24px var(--font-main,Arial,sans-serif)}.cameraPermissionStatus div{max-width:720px}.cameraPermissionStatus button{margin-top:18px;padding:12px 22px;font:inherit;cursor:pointer}
 /* Centers the CaseWindow / OperationWindow within the Desktop
    overlay slot. The wrapper itself is click-through (pointer-events
    none) so the empty space around the centered window doesn't
@@ -81,6 +81,11 @@
   bottom: 40px;
   right: 32px;
   z-index: 0;
+}
+
+.winAchievementsLayer {
+  z-index: 40;
+  pointer-events: none;
 }
 
 /* ─── Game-flow message overlay ───────────────────

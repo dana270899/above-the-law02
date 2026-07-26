@@ -18,8 +18,18 @@ export function messageDataToBossProps(
   data: MessageNodeData,
   onAdvance?: () => void,
   onReplayVoice?: () => void,
+  resolvedPhotoUrl?: string,
 ): BossMessageProps {
+  const photoUrl = resolvedPhotoUrl || data.photoUrl || undefined
   switch (data.messageType) {
+    case 'photo':
+      return {
+        type: 'photo',
+        text: data.content || undefined,
+        photoUrl,
+        buttonLabel: data.buttonLabel || 'Open',
+        onButtonClick: onAdvance,
+      }
     case 'voice':
       // The legacy `data.subtitle` field is intentionally NOT forwarded:
       // subtitles for voice messages now live only in the scheduled
@@ -29,6 +39,7 @@ export function messageDataToBossProps(
         type: 'voice',
         onPlay: onReplayVoice ?? onAdvance,
         duration: data.voiceDuration,
+        photoUrl,
       }
     case 'link':
       return {
@@ -36,9 +47,10 @@ export function messageDataToBossProps(
         text: data.content,
         buttonLabel: data.buttonLabel || 'Open',
         onButtonClick: onAdvance,
+        photoUrl,
       }
     case 'text':
     default:
-      return { type: 'text', text: data.content }
+      return { type: 'text', text: data.content, photoUrl }
   }
 }

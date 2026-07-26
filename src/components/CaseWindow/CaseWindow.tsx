@@ -17,6 +17,7 @@ import {
 } from '@/components/FootageWindow'
 import { startDragCursor, stopDragCursor } from '@/lib/dragCursor'
 import { assetUrl } from '@/lib/paths'
+import { requestCameraStream, stopCameraStream } from '@/lib/camera'
 import { WebcamFilter } from './WebcamFilter'
 import styles from './CaseWindow.module.css'
 
@@ -1009,15 +1010,10 @@ function RawWebcamVisual({ onError }: { onError: () => void }) {
   useEffect(() => {
     let stream: MediaStream | null = null
     let cancelled = false
-    const md = typeof navigator !== 'undefined' ? navigator.mediaDevices : undefined
-    if (!md || typeof md.getUserMedia !== 'function') {
-      onErrorRef.current()
-      return
-    }
-    md.getUserMedia({ video: true, audio: false })
+    requestCameraStream()
       .then((s) => {
         if (cancelled) {
-          s.getTracks().forEach((t) => t.stop())
+          stopCameraStream(s)
           return
         }
         stream = s
@@ -1030,7 +1026,7 @@ function RawWebcamVisual({ onError }: { onError: () => void }) {
       .catch(() => onErrorRef.current())
     return () => {
       cancelled = true
-      if (stream) stream.getTracks().forEach((t) => t.stop())
+      stopCameraStream(stream)
       const v = videoRef.current
       if (v) v.srcObject = null
     }
@@ -1328,6 +1324,8 @@ function SuspicionRowView({
               <option value="graffiti-video">Footage: Graffiti (video)</option>
               <option value="jewish-violence">Footage: Jewish violence</option>
               <option value="indecent-exposure">Footage: Indecent exposure</option>
+              <option value="teens">Footage: Teens</option>
+              <option value="arab-violence">Footage: Arab violence</option>
             </select>
             <input
               className={styles.editableAttachUrl}

@@ -1,0 +1,401 @@
+.page {
+  position: absolute;
+  inset: 0;
+  width: 1920px;
+  height: 1080px;
+  overflow: hidden;
+  background: var(--light-yellow-100);
+  color: var(--black);
+  font-family: var(--font-main);
+}
+
+.page::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('../../../../assets/images/vintage-comic-style-dots-texture.jpg');
+  background-size: 348px 348px;
+  opacity: 0.1;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+.blueBar {
+  position: absolute;
+  left: -1px;
+  width: 1922px;
+  height: 118px;
+  background: var(--light-blue-200);
+  overflow: hidden;
+}
+
+.blueBar::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('../../../../assets/images/vintage-comic-style-dots-texture.jpg');
+  background-size: 348px 348px;
+  opacity: 0.1;
+  mix-blend-mode: multiply;
+}
+
+.blueBarTop {
+  top: 0;
+  border-bottom: 2px solid var(--black);
+}
+
+.blueBarBottom {
+  bottom: 0;
+  border-top: 2px solid var(--black);
+}
+
+.content {
+  position: absolute;
+  left: 227px;
+  top: 173px;
+  width: 1465px;
+  height: 694px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.rankingColumn {
+  width: 746.4px;
+  height: 694px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.title {
+  position: relative;
+  isolation: isolate;
+  height: 64px;
+  margin: 0;
+  color: var(--yellow);
+  font-family: var(--font-main);
+  font-size: 64px;
+  font-weight: 700;
+  line-height: 64px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.title::before {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  color: transparent;
+  -webkit-text-stroke: 4px var(--black);
+  paint-order: stroke fill;
+  pointer-events: none;
+}
+
+.title span {
+  position: relative;
+  z-index: 1;
+}
+
+.board {
+  box-sizing: border-box;
+  width: 746.4px;
+  height: 614px;
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+  overflow: hidden;
+  background: var(--white);
+  border: 2px solid var(--black);
+  border-radius: 4px;
+}
+
+.scrollbar {
+  box-sizing: border-box;
+  width: 40px;
+  height: 100%;
+  flex: 0 0 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: var(--white);
+  border-right: 2px solid var(--black);
+}
+
+.scrollbar button {
+  box-sizing: border-box;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  background: var(--light-yellow-100);
+  border: 0;
+  color: var(--black);
+  cursor: var(--cursor-hover);
+}
+
+.scrollbar button:first-child {
+  border-bottom: 2px solid var(--black);
+}
+
+.scrollbar button:last-child {
+  border-top: 2px solid var(--black);
+}
+
+.scrollbar button span {
+  width: 10px;
+  height: 10px;
+  border-top: 2px solid var(--black);
+  border-left: 2px solid var(--black);
+}
+
+.scrollUp span {
+  transform: translateY(3px) rotate(45deg);
+}
+
+.scrollDown span {
+  transform: translateY(-3px) rotate(225deg);
+}
+
+.scrollTrack {
+  position: relative;
+  width: 100%;
+  flex: 1;
+  background: var(--white);
+}
+
+.scrollThumb {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  height: 320px;
+  transform: translateY(-50%);
+  background: var(--light-yellow-100);
+  border-top: 2px solid var(--black);
+  border-bottom: 2px solid var(--black);
+}
+
+.rows {
+  box-sizing: border-box;
+  width: 616.4px;
+  height: 534px;
+  margin: 38px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.rows::-webkit-scrollbar {
+  display: none;
+}
+
+.row {
+  width: 616.4px;
+  height: 64px;
+  flex: 0 0 64px;
+  display: grid;
+  grid-template-columns: 22px 64px 246.2px 206.2px;
+  align-items: center;
+  gap: 26px;
+}
+
+.rank {
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 64px;
+  text-align: center;
+}
+
+.playerPhoto {
+  box-sizing: border-box;
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: var(--light-blue-300);
+  border: 1.6px solid var(--black);
+  border-radius: 5.333px;
+  font-size: 32px;
+}
+
+.playerPhoto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.playerName,
+.playerScore {
+  box-sizing: border-box;
+  height: 64px;
+  padding: 0 25.6px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: var(--white);
+  border: 1.6px solid var(--black);
+  border-radius: 3.2px;
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 51.2px;
+  white-space: nowrap;
+}
+
+.currentRow .playerName,
+.currentRow .playerScore {
+  background: var(--yellow);
+}
+
+.loading {
+  margin: 0;
+  font-size: 24px;
+}
+
+.illustrationColumn {
+  width: 635px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.illustrationFrame {
+  width: 635px;
+  height: 524px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.illustration {
+  display: block;
+  width: 635px;
+  height: 524px;
+}
+
+.ctas {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.ctas button,
+.modalActions button {
+  box-sizing: border-box;
+  padding: 12px 32px;
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  font-family: var(--font-main);
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 26px;
+  white-space: nowrap;
+  cursor: var(--cursor-hover);
+}
+
+.playAgain {
+  background: var(--green);
+  color: var(--white);
+}
+
+.credits {
+  background: var(--light-yellow-100);
+  color: var(--black);
+}
+
+.modalLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  background: rgb(0 0 0 / 45%);
+}
+
+.modal {
+  position: relative;
+  box-sizing: border-box;
+  width: 620px;
+  max-height: 760px;
+  overflow: auto;
+  padding: 32px;
+  background: var(--white);
+  border: 2px solid var(--black);
+  border-radius: 4px;
+}
+
+.modalClose {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  background: var(--red);
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  font-size: 28px;
+  cursor: var(--cursor-hover);
+}
+
+.modal h2 {
+  margin: 0;
+  font-size: 40px;
+}
+
+.modalScore {
+  margin: 8px 0 20px;
+  color: var(--green);
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.breakdown {
+  display: grid;
+  gap: 6px;
+}
+
+.breakdown p {
+  margin: 0;
+  padding: 8px 10px;
+  display: flex;
+  justify-content: space-between;
+  background: var(--light-blue-200);
+  border: 1px solid var(--black);
+}
+
+.modalActions {
+  display: flex;
+  gap: 12px;
+}
+
+.modalActions button:first-child {
+  background: var(--green);
+  color: var(--white);
+}
+
+.modalActions button:last-child {
+  background: var(--light-yellow-100);
+}
+
+.modalActions button:disabled {
+  opacity: 0.45;
+  cursor: var(--cursor-unavailable);
+}
+
+.notice {
+  padding: 8px 10px;
+  background: var(--light-yellow-200);
+  border: 1px solid var(--black);
+}

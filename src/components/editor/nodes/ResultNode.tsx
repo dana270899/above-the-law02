@@ -181,6 +181,10 @@ export function ResultNode({ id, data }: NodeProps<ResultFlowNode>) {
       fontFamily: 'sans-serif',
     }}>
       <Handle type="target" position={Position.Top} />
+      <label className="nodrag" style={{ display: 'grid', gap: 3, marginBottom: 8, fontSize: 11 }}>
+        Case ID (required for scoring)
+        <input type="text" value={data.caseId} onChange={(event) => updateNodeData(id, { caseId: event.target.value.trim() })} placeholder="e.g. 891" />
+      </label>
       <div style={{ fontWeight: 700, fontSize: 13, color: isWin ? '#0f6e56' : '#a32d2d' }}>
         {isWin ? '✅ Win' : '❌ Lose'}
       </div>

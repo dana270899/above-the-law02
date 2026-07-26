@@ -38,6 +38,9 @@
 .previewBoxLink {
   height: 130px;               /* link variant is taller (has a footer button) */
 }
+.previewBoxPhoto {
+  height: 220px;
+}
 .previewScale {
   transform: scale(0.45);
   transform-origin: top left;
@@ -70,6 +73,28 @@
   flex: 1;
   font-size: 10px;
   color: #666;
+}
+.photoControls {
+  display: flex;
+  gap: 6px;
+  margin-top: 5px;
+}
+.photoControls button {
+  padding: 3px 7px;
+  border: 1px solid #b58900;
+  border-radius: 4px;
+  background: #fff;
+  color: #8a6500;
+  font-size: 10px;
+  cursor: var(--cursor-hover);
+}
+.photoLabel {
+  margin-top: 4px;
+  overflow: hidden;
+  color: #666;
+  font-size: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* ─── Subtitle schedule ─────────────────────── */

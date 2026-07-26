@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { requestCameraStream, stopCameraStream } from '@/lib/camera'
 
 /**
  * WebGL2 chroma-stroke effect over a live webcam feed. Renders into
@@ -132,15 +133,10 @@ export function WebcamFilter({ onError }: { onError: () => void }) {
       rafId = requestAnimationFrame(render)
     }
 
-    const md = typeof navigator !== 'undefined' ? navigator.mediaDevices : undefined
-    if (!md || typeof md.getUserMedia !== 'function') {
-      onErrorRef.current()
-      return
-    }
-    md.getUserMedia({ video: true, audio: false })
+    requestCameraStream()
       .then((s) => {
         if (cancelled) {
-          s.getTracks().forEach((t) => t.stop())
+          stopCameraStream(s)
           return
         }
         stream = s
@@ -155,7 +151,7 @@ export function WebcamFilter({ onError }: { onError: () => void }) {
     return () => {
       cancelled = true
       if (rafId) cancelAnimationFrame(rafId)
-      if (stream) stream.getTracks().forEach((t) => t.stop())
+      stopCameraStream(stream)
       video.pause()
       video.srcObject = null
       gl.deleteProgram(program)

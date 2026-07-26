@@ -15,7 +15,7 @@
         "width": 180,
         "height": 88
       },
-      "selected": false,
+      "selected": true,
       "dragging": false
     },
     {
@@ -73,7 +73,7 @@
       },
       "measured": {
         "width": 325,
-        "height": 159
+        "height": 197
       },
       "selected": false,
       "dragging": false
@@ -120,11 +120,12 @@
           ],
           "arrestLabel": "Arrest",
           "releaseLabel": "Release"
-        }
+        },
+        "isImportant": true
       },
       "measured": {
         "width": 325,
-        "height": 159
+        "height": 226
       },
       "selected": false,
       "dragging": false
@@ -133,8 +134,8 @@
       "id": "case-1780220269508",
       "type": "case",
       "position": {
-        "x": -64.32591910052483,
-        "y": -1250.679793713448
+        "x": -18.32591910052483,
+        "y": -1330.679793713448
       },
       "data": {
         "nodeType": "case",
@@ -179,11 +180,14 @@
           ],
           "arrestLabel": "Arrest",
           "releaseLabel": "Release"
-        }
+        },
+        "isImportant": false,
+        "firstAttemptPoints": 100,
+        "secondAttemptPoints": 50
       },
       "measured": {
         "width": 325,
-        "height": 159
+        "height": 197
       },
       "selected": false,
       "dragging": false
@@ -207,7 +211,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 499
+        "height": 506
       },
       "selected": false,
       "dragging": false
@@ -232,7 +236,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 499
+        "height": 506
       },
       "selected": false,
       "dragging": false
@@ -257,7 +261,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 499
+        "height": 506
       },
       "selected": false,
       "dragging": false
@@ -283,7 +287,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 590
+        "height": 597
       },
       "selected": false,
       "dragging": false
@@ -308,7 +312,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 547
+        "height": 554
       },
       "selected": false,
       "dragging": false
@@ -334,7 +338,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 590
+        "height": 597
       },
       "selected": false,
       "dragging": false
@@ -360,7 +364,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 590
+        "height": 597
       },
       "selected": false,
       "dragging": false
@@ -380,7 +384,7 @@
       },
       "measured": {
         "width": 220,
-        "height": 168
+        "height": 174
       },
       "selected": false,
       "dragging": false
@@ -406,7 +410,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 590
+        "height": 597
       },
       "selected": false,
       "dragging": false
@@ -426,7 +430,7 @@
       },
       "measured": {
         "width": 220,
-        "height": 168
+        "height": 174
       },
       "selected": false,
       "dragging": false
@@ -452,7 +456,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 499
+        "height": 506
       },
       "selected": false,
       "dragging": false
@@ -471,7 +475,7 @@
       },
       "measured": {
         "width": 230,
-        "height": 151
+        "height": 175
       },
       "selected": false,
       "dragging": false
@@ -497,7 +501,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 547
+        "height": 554
       },
       "selected": false,
       "dragging": false
@@ -521,7 +525,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 499
+        "height": 506
       },
       "selected": false,
       "dragging": false
@@ -542,8 +546,8 @@
         "winSound": "hashem-itbarach"
       },
       "measured": {
-        "width": 235,
-        "height": 315
+        "width": 245,
+        "height": 367
       },
       "selected": false,
       "dragging": false
@@ -568,7 +572,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 547
+        "height": 554
       },
       "selected": false,
       "dragging": false
@@ -588,7 +592,7 @@
       },
       "measured": {
         "width": 220,
-        "height": 168
+        "height": 174
       },
       "selected": false,
       "dragging": false
@@ -612,7 +616,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 499
+        "height": 506
       },
       "selected": false,
       "dragging": false
@@ -637,7 +641,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 547
+        "height": 554
       },
       "selected": false,
       "dragging": false
@@ -675,7 +679,7 @@
       },
       "measured": {
         "width": 307,
-        "height": 130
+        "height": 129
       },
       "selected": false,
       "dragging": false
@@ -699,7 +703,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 499
+        "height": 506
       },
       "selected": false,
       "dragging": false
@@ -725,7 +729,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 547
+        "height": 554
       },
       "selected": false,
       "dragging": false
@@ -749,7 +753,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 499
+        "height": 506
       },
       "selected": false,
       "dragging": false
@@ -764,7 +768,7 @@
       "data": {
         "nodeType": "result",
         "resultType": "win",
-        "caseId": "",
+        "caseId": "892",
         "label": "Win 2",
         "winSound": "hashem-itbarach",
         "winImage": "kippah-cutting-workshop",
@@ -772,8 +776,8 @@
         "winCtaLabel": "I was born to be a cop!"
       },
       "measured": {
-        "width": 235,
-        "height": 315
+        "width": 245,
+        "height": 367
       },
       "selected": false,
       "dragging": false
@@ -797,7 +801,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 499
+        "height": 506
       },
       "selected": false,
       "dragging": false
@@ -812,7 +816,7 @@
       "data": {
         "nodeType": "result",
         "resultType": "win",
-        "caseId": "",
+        "caseId": "893",
         "label": "Win 3",
         "winImage": "graffiti",
         "winTitle": "News",
@@ -821,8 +825,8 @@
         "winSound": "hashem-itbarach"
       },
       "measured": {
-        "width": 235,
-        "height": 315
+        "width": 245,
+        "height": 367
       },
       "selected": false,
       "dragging": false
@@ -842,7 +846,7 @@
       },
       "measured": {
         "width": 220,
-        "height": 168
+        "height": 174
       },
       "selected": false,
       "dragging": false
@@ -866,7 +870,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 499
+        "height": 506
       },
       "selected": false,
       "dragging": false
@@ -890,7 +894,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 499
+        "height": 506
       },
       "selected": false,
       "dragging": false
@@ -909,7 +913,7 @@
       },
       "measured": {
         "width": 317,
-        "height": 135
+        "height": 140
       },
       "selected": false,
       "dragging": false
@@ -918,14 +922,14 @@
       "id": "case-1781506742927",
       "type": "case",
       "position": {
-        "x": -5449.635120935028,
-        "y": -1876.647157353169
+        "x": -7058.060596032096,
+        "y": -1869.609345102809
       },
       "data": {
         "nodeType": "case",
         "caseId": "894",
         "title": "Case 4",
-        "order": 4,
+        "order": 7,
         "hasOperation": false,
         "useCamera": true,
         "window": {
@@ -962,7 +966,7 @@
       },
       "measured": {
         "width": 325,
-        "height": 185
+        "height": 226
       },
       "selected": false,
       "dragging": false
@@ -971,8 +975,8 @@
       "id": "message-21",
       "type": "message",
       "position": {
-        "x": -5473.992137218077,
-        "y": -1484.1301061012975
+        "x": -6604.700301501241,
+        "y": -1815.2801939875574
       },
       "data": {
         "nodeType": "message",
@@ -986,7 +990,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 499
+        "height": 506
       },
       "selected": false,
       "dragging": false
@@ -995,8 +999,8 @@
       "id": "message-22",
       "type": "message",
       "position": {
-        "x": 1094.1389143614877,
-        "y": -1528.4328911755626
+        "x": 1118.1389143614877,
+        "y": -1514.4328911755626
       },
       "data": {
         "nodeType": "message",
@@ -1012,7 +1016,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 590
+        "height": 597
       },
       "selected": false,
       "dragging": false
@@ -1038,7 +1042,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 590
+        "height": 597
       },
       "selected": false,
       "dragging": false
@@ -1064,7 +1068,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 590
+        "height": 597
       },
       "selected": false,
       "dragging": false
@@ -1090,7 +1094,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 590
+        "height": 597
       },
       "selected": false,
       "dragging": false
@@ -1114,7 +1118,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 499
+        "height": 506
       },
       "selected": false,
       "dragging": false
@@ -1138,7 +1142,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 499
+        "height": 506
       },
       "selected": false,
       "dragging": false
@@ -1162,7 +1166,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 499
+        "height": 506
       },
       "selected": false,
       "dragging": false
@@ -1186,7 +1190,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 499
+        "height": 506
       },
       "selected": false,
       "dragging": false
@@ -1201,7 +1205,7 @@
       "data": {
         "nodeType": "result",
         "resultType": "win",
-        "caseId": "",
+        "caseId": "894",
         "label": "Win 4",
         "winImage": "bdsm-party",
         "winTitle": "Win",
@@ -1210,8 +1214,8 @@
         "winSound": "hashem-itbarach"
       },
       "measured": {
-        "width": 235,
-        "height": 315
+        "width": 245,
+        "height": 367
       },
       "selected": false,
       "dragging": false
@@ -1235,7 +1239,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 499
+        "height": 506
       },
       "selected": false,
       "dragging": false
@@ -1259,7 +1263,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 499
+        "height": 506
       },
       "selected": false,
       "dragging": false
@@ -1304,7 +1308,8 @@
               "statusColor": "yellow",
               "date": "08/02/2026",
               "fileUrl": "",
-              "details": "A group of teenagers is suspected of vandalizing public property."
+              "details": "A group of teenagers is suspected of vandalizing public property.",
+              "fileFootageVariant": "teens"
             }
           ],
           "arrestLabel": "Arrest",
@@ -1313,7 +1318,7 @@
       },
       "measured": {
         "width": 325,
-        "height": 159
+        "height": 197
       },
       "selected": false,
       "dragging": false
@@ -1322,14 +1327,14 @@
       "id": "message-34",
       "type": "message",
       "position": {
-        "x": -2863.8695237782317,
-        "y": -1883.5218557739443
+        "x": -2929.8695237782317,
+        "y": -1791.5218557739443
       },
       "data": {
         "nodeType": "message",
         "messageType": "link",
         "content": "new case! finish it quickly so we can go to lunch",
-        "buttonLabel": "Continue",
+        "buttonLabel": "Open case",
         "buttonLinkType": "edge",
         "buttonUrl": "",
         "locationX": 80,
@@ -1337,7 +1342,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 499
+        "height": 506
       },
       "selected": false,
       "dragging": false
@@ -1356,7 +1361,7 @@
       },
       "measured": {
         "width": 220,
-        "height": 168
+        "height": 174
       },
       "selected": false,
       "dragging": false
@@ -1380,7 +1385,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 499
+        "height": 506
       },
       "selected": false,
       "dragging": false
@@ -1389,8 +1394,8 @@
       "id": "message-36",
       "type": "message",
       "position": {
-        "x": -3302.444577831317,
-        "y": -433.7111146251816
+        "x": -3264.6022872137273,
+        "y": -344.0846368466804
       },
       "data": {
         "nodeType": "message",
@@ -1404,7 +1409,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 499
+        "height": 506
       },
       "selected": false,
       "dragging": false
@@ -1428,7 +1433,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 499
+        "height": 506
       },
       "selected": false,
       "dragging": false
@@ -1437,8 +1442,8 @@
       "id": "message-38",
       "type": "message",
       "position": {
-        "x": -3337.1834990535813,
-        "y": 164.7663141160673
+        "x": -3220.3230401654846,
+        "y": 287.56883023576233
       },
       "data": {
         "nodeType": "message",
@@ -1452,7 +1457,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 499
+        "height": 506
       },
       "selected": false,
       "dragging": false
@@ -1476,7 +1481,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 499
+        "height": 506
       },
       "selected": false,
       "dragging": false
@@ -1485,8 +1490,8 @@
       "id": "case-1784873163332",
       "type": "case",
       "position": {
-        "x": -4391.832786196844,
-        "y": -1205.0642046502594
+        "x": -4359.20729961221,
+        "y": -1405.9685167766938
       },
       "data": {
         "nodeType": "case",
@@ -1516,21 +1521,23 @@
           "suspicions": [
             {
               "id": "s1",
-              "subject": "Domestic violence",
+              "subject": "His wife’s family reported that he assaulted her and threatened to kill her.",
               "status": "Urgent",
               "statusColor": "green",
               "date": "08/02/2026",
               "fileUrl": "",
-              "details": "His wife’s family reported that he assaulted her and threatened to kill her."
+              "details": "His wife’s family reported that he assaulted her and threatened to kill her.",
+              "fileFootageVariant": "arab-violence"
             }
           ],
           "arrestLabel": "Arrest",
           "releaseLabel": "Release"
-        }
+        },
+        "isImportant": false
       },
       "measured": {
         "width": 325,
-        "height": 159
+        "height": 197
       },
       "selected": false,
       "dragging": false
@@ -1549,8 +1556,8 @@
         "delaySeconds": 0.4
       },
       "measured": {
-        "width": 220,
-        "height": 168
+        "width": 481,
+        "height": 174
       },
       "selected": false,
       "dragging": false
@@ -1574,7 +1581,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 499
+        "height": 506
       },
       "selected": false,
       "dragging": false
@@ -1598,7 +1605,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 499
+        "height": 506
       },
       "selected": false,
       "dragging": false
@@ -1622,7 +1629,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 547
+        "height": 554
       },
       "selected": false,
       "dragging": false
@@ -1631,8 +1638,8 @@
       "id": "message-43",
       "type": "message",
       "position": {
-        "x": -4723.589230562324,
-        "y": 166.53310318567395
+        "x": -4690.370442986729,
+        "y": 154.29460249992866
       },
       "data": {
         "nodeType": "message",
@@ -1646,7 +1653,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 499
+        "height": 506
       },
       "selected": false,
       "dragging": false
@@ -1670,7 +1677,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 499
+        "height": 506
       },
       "selected": false,
       "dragging": false
@@ -1694,7 +1701,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 499
+        "height": 506
       },
       "selected": false,
       "dragging": false
@@ -1709,7 +1716,7 @@
       "data": {
         "nodeType": "result",
         "resultType": "win",
-        "caseId": "",
+        "caseId": "895",
         "label": "Win 5",
         "winImage": "picnic",
         "winTitle": "Win",
@@ -1718,8 +1725,8 @@
         "winSound": "hashem-itbarach"
       },
       "measured": {
-        "width": 235,
-        "height": 315
+        "width": 245,
+        "height": 367
       },
       "selected": false,
       "dragging": false
@@ -1728,8 +1735,8 @@
       "id": "message-46",
       "type": "message",
       "position": {
-        "x": -3291.4750857850313,
-        "y": -1017.845542420437
+        "x": -3244.3976935935807,
+        "y": -941.34478010933
       },
       "data": {
         "nodeType": "message",
@@ -1743,7 +1750,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 547
+        "height": 554
       },
       "selected": false,
       "dragging": false
@@ -1758,7 +1765,7 @@
       "data": {
         "nodeType": "result",
         "resultType": "win",
-        "caseId": "",
+        "caseId": "896",
         "label": "Win 6",
         "winImage": "eilat",
         "winTitle": "Win",
@@ -1767,8 +1774,345 @@
         "winSound": "hashem-itbarach"
       },
       "measured": {
-        "width": 235,
-        "height": 315
+        "width": 245,
+        "height": 367
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "ranking-final-pending-case-7",
+      "type": "ranking",
+      "position": {
+        "x": -7221.938160290277,
+        "y": -1380.2498272392065
+      },
+      "data": {
+        "nodeType": "ranking",
+        "title": "Final Ranking (connect after Case 7)",
+        "winningTarget": 600,
+        "normalFirstPoints": 100,
+        "normalSecondPoints": 50,
+        "importantFirstPoints": 200,
+        "importantSecondPoints": 100
+      },
+      "selected": false,
+      "dragging": false,
+      "measured": {
+        "width": 329,
+        "height": 73
+      }
+    },
+    {
+      "id": "global-scoring",
+      "type": "scoring",
+      "position": {
+        "x": 1840.5927591728193,
+        "y": -3258.4945369205807
+      },
+      "data": {
+        "nodeType": "scoring",
+        "title": "Global Points",
+        "winningTarget": 600,
+        "normalFirstPoints": 100,
+        "normalSecondPoints": 50,
+        "importantFirstPoints": 200,
+        "importantSecondPoints": 100,
+        "speedBonusEnabled": true,
+        "speedTimeLimitSeconds": 120,
+        "speedMaxBonus": 50
+      },
+      "measured": {
+        "width": 245,
+        "height": 265
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "case-1785011742640",
+      "type": "case",
+      "position": {
+        "x": -5745.309674047422,
+        "y": -1532.0139708768347
+      },
+      "data": {
+        "nodeType": "case",
+        "caseId": "897",
+        "title": "Case 7",
+        "order": 6,
+        "hasOperation": false,
+        "isImportant": true,
+        "window": {
+          "caseId": "897",
+          "createdAt": "22:34 PM",
+          "statusLabel": "Open",
+          "statusColor": "green",
+          "photoUrl": "",
+          "fullName": "Adam Mahmud",
+          "idNo": "20851365",
+          "dob": "08/11/2008",
+          "sex": "Male",
+          "sexColor": "black",
+          "nationality": "Israeli",
+          "nationalityColor": "black",
+          "religion": "Jewish",
+          "religionColor": "green",
+          "address": "Shalom Merhavi 6, Lod",
+          "criminalRecord": [],
+          "criminalRecordEmptyText": "No criminal record yet.",
+          "extraChips": [],
+          "suspicions": [
+            {
+              "id": "s1",
+              "subject": "A group of teenagers is suspected of vandalizing public property. A witness reported seeing one of them with a knife.",
+              "status": "Urgent",
+              "statusColor": "red",
+              "date": "08/02/2026",
+              "fileUrl": "",
+              "details": "Subject suspected in a **large-scale security** incident involving **Palestinian flag graffiti** on a municipal building wall.\n\nIt looks like him but we are not sure.",
+              "fileFootageVariant": "teens"
+            }
+          ],
+          "arrestLabel": "Arrest",
+          "releaseLabel": "Release"
+        },
+        "arrestContinuesWithoutDecision": true
+      },
+      "measured": {
+        "width": 325,
+        "height": 226
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "message-47",
+      "type": "message",
+      "position": {
+        "x": -4343.677361893851,
+        "y": -2096.3439120124112
+      },
+      "data": {
+        "nodeType": "message",
+        "messageType": "link",
+        "content": "new easy case for you my friend",
+        "buttonLabel": "Open case",
+        "buttonLinkType": "edge",
+        "buttonUrl": "",
+        "locationX": 80,
+        "locationY": 20
+      },
+      "measured": {
+        "width": 290,
+        "height": 506
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "message-48",
+      "type": "message",
+      "position": {
+        "x": -5710.91099741802,
+        "y": -2168.895976450373
+      },
+      "data": {
+        "nodeType": "message",
+        "messageType": "link",
+        "content": "new easy case, finish quickly, we have protest to handle",
+        "buttonLabel": "Continue",
+        "buttonLinkType": "edge",
+        "buttonUrl": "",
+        "locationX": 50,
+        "locationY": 50
+      },
+      "measured": {
+        "width": 290,
+        "height": 506
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "message-49",
+      "type": "message",
+      "position": {
+        "x": -5224.868393216611,
+        "y": -1181.2068132189906
+      },
+      "data": {
+        "nodeType": "message",
+        "messageType": "link",
+        "content": "think of their future",
+        "buttonLabel": "Continue",
+        "buttonLinkType": "edge",
+        "buttonUrl": "",
+        "locationX": 20,
+        "locationY": 40
+      },
+      "measured": {
+        "width": 290,
+        "height": 506
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "trigger-1785051287112",
+      "type": "trigger",
+      "position": {
+        "x": -5312.150706579308,
+        "y": -1483.8071948989636
+      },
+      "data": {
+        "nodeType": "trigger",
+        "triggerType": "expandRow",
+        "targetRowId": "s1",
+        "delaySeconds": 0.2
+      },
+      "measured": {
+        "width": 711,
+        "height": 174
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "message-50",
+      "type": "message",
+      "position": {
+        "x": -5227.632456984948,
+        "y": -641.7724029570497
+      },
+      "data": {
+        "nodeType": "message",
+        "messageType": "link",
+        "content": "let’s go to protest",
+        "buttonLabel": "Continue",
+        "buttonLinkType": "edge",
+        "buttonUrl": "",
+        "locationX": 70,
+        "locationY": 80
+      },
+      "measured": {
+        "width": 290,
+        "height": 506
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "message-51",
+      "type": "message",
+      "position": {
+        "x": -6040.20805940383,
+        "y": -987.1061898435935
+      },
+      "data": {
+        "nodeType": "message",
+        "messageType": "link",
+        "content": "Let them enjoy Yom HaAtzmaut. We've got leftists to deal with",
+        "buttonLabel": "Continue",
+        "buttonLinkType": "edge",
+        "buttonUrl": "",
+        "locationX": 50,
+        "locationY": 50
+      },
+      "measured": {
+        "width": 290,
+        "height": 506
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "message-52",
+      "type": "message",
+      "position": {
+        "x": -6068.640517199716,
+        "y": -411.44461031507745
+      },
+      "data": {
+        "nodeType": "message",
+        "messageType": "photo",
+        "content": "",
+        "buttonLabel": "Continue",
+        "buttonLinkType": "edge",
+        "buttonUrl": "",
+        "locationX": 50,
+        "locationY": 50
+      },
+      "measured": {
+        "width": 290,
+        "height": 558
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "message-53",
+      "type": "message",
+      "position": {
+        "x": -5640.816246976421,
+        "y": -1207.021531482516
+      },
+      "data": {
+        "nodeType": "message",
+        "messageType": "photo",
+        "content": "oh no, they stabbed someone",
+        "buttonLabel": "Continue",
+        "buttonLinkType": "edge",
+        "buttonUrl": "",
+        "locationX": 50,
+        "locationY": 50
+      },
+      "measured": {
+        "width": 290,
+        "height": 558
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "message-54",
+      "type": "message",
+      "position": {
+        "x": -5641.241314332312,
+        "y": -559.892546452538
+      },
+      "data": {
+        "nodeType": "message",
+        "messageType": "link",
+        "content": "great, now the press is going wild over this!!",
+        "buttonLabel": "Continue",
+        "buttonLinkType": "edge",
+        "buttonUrl": "",
+        "locationX": 50,
+        "locationY": 50
+      },
+      "measured": {
+        "width": 290,
+        "height": 506
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "trigger-1785055022426",
+      "type": "trigger",
+      "position": {
+        "x": -6012.084593849019,
+        "y": -1245.1949472092178
+      },
+      "data": {
+        "nodeType": "trigger",
+        "triggerType": "arrest",
+        "retry": true
+      },
+      "measured": {
+        "width": 230,
+        "height": 175
       },
       "selected": false,
       "dragging": false
@@ -2113,6 +2457,107 @@
       "source": "message-39",
       "target": "result-win-1784877674028",
       "id": "xy-edge__message-39-result-win-1784877674028"
+    },
+    {
+      "source": "message-47",
+      "target": "case-1784873163332",
+      "id": "xy-edge__message-47-case-1784873163332"
+    },
+    {
+      "source": "message-48",
+      "target": "case-1785011742640",
+      "id": "xy-edge__message-48-case-1785011742640"
+    },
+    {
+      "source": "case-1785011742640",
+      "sourceHandle": "trigger",
+      "target": "trigger-1785051287112",
+      "id": "xy-edge__case-1785011742640trigger-trigger-1785051287112"
+    },
+    {
+      "source": "trigger-1785051287112",
+      "target": "message-49",
+      "id": "xy-edge__trigger-1785051287112-message-49"
+    },
+    {
+      "source": "message-49",
+      "target": "message-50",
+      "id": "xy-edge__message-49-message-50"
+    },
+    {
+      "source": "message-51",
+      "target": "message-52",
+      "id": "xy-edge__message-51-message-52"
+    },
+    {
+      "source": "case-1785011742640",
+      "sourceHandle": "release",
+      "target": "message-53",
+      "id": "xy-edge__case-1785011742640release-message-53"
+    },
+    {
+      "source": "message-53",
+      "target": "message-54",
+      "id": "xy-edge__message-53-message-54"
+    },
+    {
+      "source": "case-1785011742640",
+      "sourceHandle": "arrest",
+      "target": "trigger-1785055022426",
+      "id": "xy-edge__case-1785011742640arrest-trigger-1785055022426",
+      "selected": false
+    },
+    {
+      "source": "trigger-1785055022426",
+      "target": "message-51",
+      "id": "xy-edge__trigger-1785055022426-message-51"
+    },
+    {
+      "source": "message-43",
+      "target": "message-48",
+      "id": "xy-edge__message-43-message-48"
+    },
+    {
+      "source": "result-win-1784877414889",
+      "target": "message-48",
+      "id": "xy-edge__result-win-1784877414889-message-48"
+    },
+    {
+      "source": "message-38",
+      "target": "message-47",
+      "id": "xy-edge__message-38-message-47"
+    },
+    {
+      "source": "result-win-1784877674028",
+      "target": "message-47",
+      "id": "xy-edge__result-win-1784877674028-message-47"
+    },
+    {
+      "source": "result-win-1782311964781",
+      "target": "message-34",
+      "id": "xy-edge__result-win-1782311964781-message-34"
+    },
+    {
+      "source": "message-52",
+      "target": "case-1781506742927",
+      "id": "xy-edge__message-52-case-1781506742927"
+    },
+    {
+      "source": "case-1781506742927",
+      "sourceHandle": "arrest",
+      "target": "ranking-final-pending-case-7",
+      "id": "xy-edge__case-1781506742927arrest-ranking-final-pending-case-7"
+    },
+    {
+      "source": "case-1781506742927",
+      "sourceHandle": "release",
+      "target": "ranking-final-pending-case-7",
+      "id": "xy-edge__case-1781506742927release-ranking-final-pending-case-7"
+    },
+    {
+      "source": "message-54",
+      "target": "case-1781506742927",
+      "id": "xy-edge__message-54-case-1781506742927"
     }
   ]
 }

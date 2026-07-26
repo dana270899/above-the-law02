@@ -44,6 +44,7 @@ import type {
   ResultFlowNode,
   TriggerFlowNode,
   TriggerType,
+  RankingFlowNode,
 } from '@/types/editor'
 import { WinScreenComponent } from '@/components/game/WinScreen'
 import type { WinVariant } from '@/lib/winScreenImage'
@@ -52,6 +53,8 @@ import { loadAudioBlob } from '@/lib/audioBlobStore'
 import { BgMusicPlayer } from '@/components/game/BgMusicPlayer/BgMusicPlayer'
 import type { BgMusicFlowNode } from '@/types/editor'
 import { assetUrl } from '@/lib/paths'
+import { buildRunScore, calculateCaseScore, DEFAULT_SCORING_SETTINGS, recordCaseScore, type CaseScoreBreakdown, type PlayerProfile, type ScoringSettings } from '@/lib/scoring'
+import { RankingPage } from '@/components/game/RankingPage/RankingPage'
 import styles from './GamePage.module.css'
 
 function isCaseWindowHighlightTarget(
@@ -63,6 +66,7 @@ function isCaseWindowHighlightTarget(
 }
 
 const WINDOW_MOTION_MS = 420
+const REQUIRED_RANKING_CASES = 7
 type WindowMotion = 'idle' | 'minimizing' | 'restoring'
 type WindowMotionOrigin = 'desktop' | 'taskbar'
 
@@ -83,6 +87,13 @@ type WindowMotionOrigin = 'desktop' | 'taskbar'
 export function GamePage() {
   const flow = useGameFlow()
   const scaleRef = useGameScale()
+  const [playerProfile, setPlayerProfile] = useState<PlayerProfile>({ name: 'Officer', photo: null, photoPreviewUrl: null })
+  const [scoreByCase, setScoreByCase] = useState<Record<string, CaseScoreBreakdown>>({})
+  const [pointPopup, setPointPopup] = useState<{ id: string; points: number } | null>(null)
+  const winAdvancePendingRef = useRef(false)
+  const winAdvanceTimerRef = useRef<number | null>(null)
+  const caseStartedAtRef = useRef<Record<string, number>>({})
+  const caseAttemptRef = useRef<Record<string, 1 | 2>>({})
 
   // ?startCase / ?startOperation lets the editor's "Play from this
   // case" / "Preview this operation" links drop the player straight
@@ -293,6 +304,7 @@ export function GamePage() {
       currentNode.type === 'login' ||
       currentNode.type === 'case' ||
       currentNode.type === 'operation'
+      || currentNode.type === 'ranking'
     ) return
     if (
       currentNode.type === 'result' &&
@@ -447,6 +459,54 @@ export function GamePage() {
       ) ?? null
     )
   }, [activeCaseId, nodes])
+
+  useEffect(() => {
+    if (!caseWindowOpen || caseWindowMinimized || !activeCaseId) return
+    if (caseStartedAtRef.current[activeCaseId] == null) {
+      caseStartedAtRef.current[activeCaseId] = performance.now()
+      caseAttemptRef.current[activeCaseId] = 1
+    }
+  }, [activeCaseId, caseWindowMinimized, caseWindowOpen])
+
+  const rankingNode = nodes.find((node): node is RankingFlowNode => node.type === 'ranking')
+  const scoringNode = nodes.find((node) => node.type === 'scoring')
+  const scoringData = scoringNode?.data ?? rankingNode?.data
+  const scoringSettings: ScoringSettings = scoringData ? {
+    winningTarget: Number(scoringData.winningTarget ?? DEFAULT_SCORING_SETTINGS.winningTarget),
+    normalFirstPoints: Number(scoringData.normalFirstPoints ?? DEFAULT_SCORING_SETTINGS.normalFirstPoints),
+    normalSecondPoints: Number(scoringData.normalSecondPoints ?? DEFAULT_SCORING_SETTINGS.normalSecondPoints),
+    importantFirstPoints: Number(scoringData.importantFirstPoints ?? DEFAULT_SCORING_SETTINGS.importantFirstPoints),
+    importantSecondPoints: Number(scoringData.importantSecondPoints ?? DEFAULT_SCORING_SETTINGS.importantSecondPoints),
+    speedBonusEnabled: Boolean(scoringData.speedBonusEnabled ?? DEFAULT_SCORING_SETTINGS.speedBonusEnabled),
+    speedTimeLimitSeconds: Number(scoringData.speedTimeLimitSeconds ?? DEFAULT_SCORING_SETTINGS.speedTimeLimitSeconds),
+    speedMaxBonus: Number(scoringData.speedMaxBonus ?? DEFAULT_SCORING_SETTINGS.speedMaxBonus),
+  } : DEFAULT_SCORING_SETTINGS
+
+  useEffect(() => {
+    if (currentNode?.type !== 'result') return
+    const result = currentNode as ResultFlowNode
+    if (result.data.resultType === 'win') return
+    const caseId = result.data.caseId || lastCaseId
+    if (!caseId) return
+    const scoredCase = nodes.find((node): node is CaseFlowNode => node.type === 'case' && node.data.caseId === caseId)
+    if (!scoredCase) return
+    setScoreByCase((current) => {
+      if (current[caseId]) return current
+      const startedAt = caseStartedAtRef.current[caseId] ?? performance.now()
+      const breakdown = calculateCaseScore({
+        caseData: scoredCase.data,
+        correct: result.data.resultType === 'win',
+        attempt: caseAttemptRef.current[caseId] ?? 1,
+        elapsedSeconds: (performance.now() - startedAt) / 1000,
+        settings: scoringSettings,
+      })
+      return recordCaseScore(current, breakdown)
+    })
+  }, [currentNode, lastCaseId, nodes, scoringSettings])
+
+  useEffect(() => () => {
+    if (winAdvanceTimerRef.current != null) window.clearTimeout(winAdvanceTimerRef.current)
+  }, [])
 
   // Open the Cases window. Used by the desktop icon and by boss-message
   // 'case' / 'newCase' buttons. When `targetCaseId` is passed (only
@@ -708,6 +768,19 @@ export function GamePage() {
       return !!tNode && tNode.data.triggerType === triggerType && tNode.data.retry === true
     })
   }
+  const hasRestoreArrestButtonTrigger = (caseNodeId: string) => {
+    const triggerEdges = edges.filter(
+      (e) => e.source === caseNodeId && e.sourceHandle === 'trigger',
+    )
+    return triggerEdges.some((tEdge) => {
+      const tNode = nodes.find(
+        (n): n is TriggerFlowNode => n.id === tEdge.target && n.type === 'trigger',
+      )
+      return !!tNode
+        && tNode.data.triggerType === 'arrest'
+        && tNode.data.restoreArrestButton === true
+    })
+  }
   /** Find the next walker node along a specific source handle from
    *  any source id. Mirrors useGameFlow's internal lookup but lets us
    *  jump from a case node even when the walker isn't currently on it.
@@ -748,14 +821,24 @@ export function GamePage() {
     clearPendingTrigger()
     const caseId = activeCaseNode.data.caseId
     const retry = hasRetryTrigger(activeCaseNode.id, 'arrest')
+    const continueOnly = activeCaseNode.data.arrestContinuesWithoutDecision === true
+    const restoreArrestButton = hasRestoreArrestButtonTrigger(activeCaseNode.id)
+    if (retry) caseAttemptRef.current[caseId] = 2
     // On a retry-arrest trigger we never lock the decision — the pill
     // would otherwise flash "Arrested" while the boss scolds the player.
-    if (!retry) {
+    if (!retry && !continueOnly) {
       setCaseDecisions((prev) => ({ ...prev, [caseId]: 'arrested' }))
       if (activeCaseNode.data.hasOperation) setPendingOperationCaseId(caseId)
     }
     runWithTrigger(findTriggerMessageIds(activeCaseNode.id, 'arrest'), () => {
       if (retry) return
+      if (restoreArrestButton) {
+        setCaseDecisions((prev) => {
+          const next = { ...prev }
+          delete next[caseId]
+          return next
+        })
+      }
       const targetId = findNextFrom(activeCaseNode.id, 'arrest')
       if (targetId) goTo(targetId)
     })
@@ -765,6 +848,7 @@ export function GamePage() {
     clearPendingTrigger()
     const caseId = activeCaseNode.data.caseId
     const retry = hasRetryTrigger(activeCaseNode.id, 'release')
+    if (retry) caseAttemptRef.current[caseId] = 2
     if (!retry) {
       setCaseDecisions((prev) => ({ ...prev, [caseId]: 'released' }))
       if (activeCaseNode.data.hasOperation) setPendingOperationCaseId(caseId)
@@ -780,7 +864,9 @@ export function GamePage() {
   const achievementsResults: CaseOutcome[] = cases.map(
     (c) => caseResults.get(c.caseId) ?? null,
   )
-  const achievementsTotal = Math.max(cases.length, 8)
+  const caseBreakdowns = cases.map((item) => scoreByCase[item.caseId]).filter((item): item is CaseScoreBreakdown => !!item)
+  const runScore = buildRunScore(caseBreakdowns, scoringSettings.winningTarget)
+  const totalScore = runScore.total
   const taskbarApps = useMemo<TaskbarApp[]>(() => {
     const apps: TaskbarApp[] = []
     if (caseWindowOpen && activeCaseData) {
@@ -806,11 +892,29 @@ export function GamePage() {
     return (
       <>
         <div ref={scaleRef} className={styles.canvas} data-scaled-stage>
-          <LoginScreen onLogin={() => advance()} />
+          <LoginScreen
+            onLogin={(profile) => { setPlayerProfile(profile); advance() }}
+          />
         </div>
         {bgMusic}
       </>
     )
+  }
+
+  if (currentNode?.type === 'ranking') {
+    if (runScore.cases.length < REQUIRED_RANKING_CASES) {
+      return (
+        <div ref={scaleRef} className={styles.canvas} data-scaled-stage>
+          <main className={styles.cameraPermissionStatus} role="alert">
+            <div>
+              <p>Final ranking is waiting for all seven cases.</p>
+              <p>{runScore.cases.length} of {REQUIRED_RANKING_CASES} cases are resolved.</p>
+            </div>
+          </main>
+        </div>
+      )
+    }
+    return <div ref={scaleRef} className={styles.canvas} data-scaled-stage><RankingPage profile={playerProfile} run={runScore} /></div>
   }
 
   // Walker is on a win-result — keep the desktop visible behind the
@@ -829,6 +933,39 @@ export function GamePage() {
     const winTitle = resultData.winTitle
     const winFooterText = resultData.winFooterText
     const winCtaLabel = resultData.winCtaLabel
+    const awardWinAndAdvance = () => {
+      if (winAdvancePendingRef.current) return
+      const caseId = resultData.caseId || lastCaseId
+      const scoredCase = nodes.find((node): node is CaseFlowNode => node.type === 'case' && node.data.caseId === caseId)
+      if (!caseId || !scoredCase) {
+        advance()
+        return
+      }
+      const existingScore = scoreByCase[caseId]
+      if (existingScore?.correct) {
+        advance()
+        return
+      }
+      winAdvancePendingRef.current = true
+      const startedAt = caseStartedAtRef.current[caseId] ?? performance.now()
+      const breakdown = calculateCaseScore({
+        caseData: scoredCase.data,
+        correct: true,
+        attempt: caseAttemptRef.current[caseId] ?? 1,
+        elapsedSeconds: (performance.now() - startedAt) / 1000,
+        settings: scoringSettings,
+      })
+      setScoreByCase((current) => {
+        if (current[caseId]?.correct) return current
+        return { ...current, [caseId]: breakdown }
+      })
+      setPointPopup({ id: `${caseId}-${Date.now()}`, points: breakdown.totalPoints })
+      winAdvanceTimerRef.current = window.setTimeout(() => {
+        winAdvancePendingRef.current = false
+        setPointPopup(null)
+        advance()
+      }, 1400)
+    }
     return (
       <>
         <div ref={scaleRef} className={styles.canvas} data-scaled-stage>
@@ -853,8 +990,16 @@ export function GamePage() {
               winTitle={winTitle}
               winFooterText={winFooterText}
               winCtaLabel={winCtaLabel}
-              onNext={() => advance()}
+              onNext={awardWinAndAdvance}
             />
+            <div className={`${styles.achievementsLayer} ${styles.winAchievementsLayer}`}>
+              <AchievementsWindow
+                results={achievementsResults}
+                total={totalScore}
+                winningTarget={scoringSettings.winningTarget}
+                pointPopup={pointPopup}
+              />
+            </div>
           </Desktop>
         </div>
         {bgMusic}
@@ -996,7 +1141,8 @@ export function GamePage() {
         <div className={styles.achievementsLayer}>
           <AchievementsWindow
             results={achievementsResults}
-            total={achievementsTotal}
+            total={totalScore}
+            winningTarget={scoringSettings.winningTarget}
             loopEntryFlicker={
               messageNode?.data.buttonLinkType === 'achievements'
             }
@@ -1227,6 +1373,25 @@ function BossMessageSlot({
   // Set while a drag is in progress so the parent click handler (text-only
   // dismiss) doesn't fire on the mouseup that ends the drag.
   const justDraggedRef = useRef(false)
+  const [messagePhotoUrl, setMessagePhotoUrl] = useState<string | undefined>()
+
+  useEffect(() => {
+    let objectUrl: string | undefined
+    let cancelled = false
+    if (!data.photoCustomId) {
+      setMessagePhotoUrl(undefined)
+      return
+    }
+    loadAudioBlob(data.photoCustomId).then((blob) => {
+      if (!blob || cancelled) return
+      objectUrl = URL.createObjectURL(blob)
+      setMessagePhotoUrl(objectUrl)
+    }).catch(() => setMessagePhotoUrl(undefined))
+    return () => {
+      cancelled = true
+      if (objectUrl) URL.revokeObjectURL(objectUrl)
+    }
+  }, [data.photoCustomId])
 
   // Voice clip playback. The audio plays on mount; the flow auto-advances
   // when the clip finishes; the mic icon (see `replayVoice` below) restarts
@@ -1302,18 +1467,18 @@ function BossMessageSlot({
   }
 
   const onClick = () => {
-    if (data.messageType === 'link' && data.buttonLinkType === 'url' && data.buttonUrl) {
+    if ((data.messageType === 'link' || data.messageType === 'photo') && data.buttonLinkType === 'url' && data.buttonUrl) {
       window.location.assign(data.buttonUrl)
       return
     }
-    if (data.messageType === 'link' && data.buttonLinkType === 'case') {
+    if ((data.messageType === 'link' || data.messageType === 'photo') && data.buttonLinkType === 'case') {
       // Open the Cases window AND advance the flow so the case node
       // becomes current (and the decision buttons become live).
       onOpenCases()
       onAdvance()
       return
     }
-    if (data.messageType === 'link' && data.buttonLinkType === 'newCase') {
+    if ((data.messageType === 'link' || data.messageType === 'photo') && data.buttonLinkType === 'newCase') {
       // Force-unlock the target case, open Cases on that tab, and
       // advance the walker (same as the 'case' branch otherwise).
       if (data.targetCaseId) {
@@ -1325,13 +1490,13 @@ function BossMessageSlot({
       onAdvance()
       return
     }
-    if (data.messageType === 'link' && data.buttonLinkType === 'operation') {
+    if ((data.messageType === 'link' || data.messageType === 'photo') && data.buttonLinkType === 'operation') {
       // Unlock the Operation desktop icon (player still has to click it).
       onUnlockOperation()
       onAdvance()
       return
     }
-    if (data.messageType === 'link' && data.buttonLinkType === 'achievements') {
+    if ((data.messageType === 'link' || data.messageType === 'photo') && data.buttonLinkType === 'achievements') {
       onOpenAchievements()
       onAdvance()
       return
@@ -1440,7 +1605,7 @@ function BossMessageSlot({
       } : undefined}
     >
       <BossMessage
-        {...messageDataToBossProps(data, onClick, replayVoice)}
+        {...messageDataToBossProps(data, onClick, replayVoice, messagePhotoUrl)}
         {...(data.messageType === 'voice' ? { playKey } : {})}
       />
     </div>

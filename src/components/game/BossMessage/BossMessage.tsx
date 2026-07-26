@@ -13,6 +13,7 @@ import styles from './BossMessage.module.css'
 type Common = {
   sender?: string        // defaults to "Boss"
   timestamp?: string     // defaults to "now"
+  photoUrl?: string      // optional image attachment
   className?: string
 }
 
@@ -41,10 +42,18 @@ type LinkProps = Common & {
   onButtonClick?: () => void
 }
 
-export type BossMessageProps = VoiceProps | TextProps | LinkProps
+type PhotoProps = Common & {
+  type: 'photo'
+  text?: string
+  photoUrl?: string
+  buttonLabel?: string
+  onButtonClick?: () => void
+}
+
+export type BossMessageProps = VoiceProps | TextProps | LinkProps | PhotoProps
 
 export function BossMessage(props: BossMessageProps) {
-  const { type, sender = 'Boss', timestamp = 'now', className } = props
+  const { type, sender = 'Boss', timestamp = 'now', photoUrl, className } = props
 
   return (
     <div className={[styles.wrapper, className].filter(Boolean).join(' ')}>
@@ -62,6 +71,7 @@ export function BossMessage(props: BossMessageProps) {
           <div className={`${styles.content} ${
             type === 'voice' ? styles.contentVoice :
             type === 'link'  ? styles.contentLink  :
+            type === 'photo' ? styles.contentPhoto :
                                styles.contentText
           }`}>
             <p className={styles.senderName}>{sender}</p>
@@ -100,13 +110,21 @@ export function BossMessage(props: BossMessageProps) {
             {(type === 'text' || type === 'link') && (
               <p className={styles.bodyText}>{props.text}</p>
             )}
+
+            {type === 'photo' && props.text && (
+              <p className={styles.bodyText}>{props.text}</p>
+            )}
+
+            {photoUrl && (
+              <img className={styles.messagePhoto} src={photoUrl} alt="Boss message attachment" />
+            )}
           </div>
 
           <div className={styles.timestamp}>{timestamp}</div>
         </div>
 
-        {/* Footer (link variant only) */}
-        {type === 'link' && (
+        {/* Footer (link and photo variants) */}
+        {(type === 'link' || type === 'photo') && (
           <div className={styles.footer}>
             <button
               type="button"

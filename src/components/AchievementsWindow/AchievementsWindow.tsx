@@ -9,33 +9,28 @@ import { startDragCursor, stopDragCursor } from '@/lib/dragCursor'
 import { assetUrl } from '@/lib/paths'
 import styles from './AchievementsWindow.module.css'
 
-/* Module-level flag: the whole-bar entry flicker plays only on the
-   FIRST mount of this window per page load. Subsequent opens render
-   without the entry animation. Module scope (not state) so the flag
-   survives unmount/remount during the same session. */
-let hasFlickeredInThisSession = false
-
 /* ============================================================
-   AchievementsWindow — Figma 538:21055 ("Ranks").
+   AchievementsWindow — Figma 617:10703 ("Achievements").
 
-   Shield-and-star badge with a stack of six chevron rank
-   markers. Each chevron reflects a case outcome (Figma
-   578:25449): yellow = win, red = lose, white = not played.
-   When all six slots are wins, the shield turns gold to match
-   the "Win" badge variant (Figma 588:16620).
+   Shield-and-star badge with a stack of six chevrons. A gold
+   layer is clipped according to score progress so the artwork
+   fills continuously from bottom to top.
    ============================================================ */
 
 const A = assetUrl('/images/achievements')
 const RANK_COUNT = 6
-const ENTRY_FLICKER_INTERVAL_MS = 300
 
 export type CaseOutcome = 'win' | 'lose' | null
 
 export type AchievementsWindowProps = {
   /** Per-rank-slot outcomes. The first 6 entries drive the chevron states. */
   results?: CaseOutcome[]
-  /** Kept for backward compatibility with callers — the design has a fixed 6 ranks. */
+  /** Current run score displayed below the rank badges. */
   total?: number
+  /** Score at which the complete badge becomes gold. */
+  winningTarget?: number
+  /** Temporary points callout shown to the left of the bar. */
+  pointPopup?: { id: string; points: number } | null
   /** When set, the window renders a close button in the top-right. */
   onClose?: () => void
   /** When true, the window is absolute-positioned and draggable by the header. */
@@ -54,72 +49,40 @@ export type AchievementsWindowProps = {
 
 export function AchievementsWindow({
   results = [],
+  total = 0,
+  winningTarget = 1000,
+  pointPopup = null,
   onClose,
   draggable = false,
-  forceEntryFlicker = false,
-  loopEntryFlicker = false,
   className,
 }: AchievementsWindowProps) {
-  const slots: CaseOutcome[] = Array.from(
-    { length: RANK_COUNT },
-    (_, i) => results[i] ?? null,
-  )
-  const allWin = slots.every((r) => r === 'win')
-
-  /* First-appearance flicker: render with the entry-flicker state machine
-     only on the first mount of this window per page load. The decision is
-     captured in `useState`'s lazy initializer (pure — safe under React
-     StrictMode's double-invoke), and the module flag is mutated in a
-     useEffect side-effect so subsequent mounts read the new value.
-     `forceEntryFlicker` overrides the guard for demo/preview use. */
-  const [playEntryFlicker] = useState(
-    () => forceEntryFlicker || !hasFlickeredInThisSession,
-  )
-  useEffect(() => {
-    if (playEntryFlicker && !forceEntryFlicker) hasFlickeredInThisSession = true
-  }, [playEntryFlicker, forceEntryFlicker])
-
-  /* Phase machine — drives the empty↔full visual swap that plays as the
-     bar appears. `null` means "settled, render the actual results". The
-   bar starts on `empty` (so the first paint matches the empty state),
-     then alternates every 300ms. By default it settles after 6 ticks
-     (~1800ms). When `loopEntryFlicker` is true, it keeps cycling
-     indefinitely and only settles once the prop flips back to false. */
-  const [entryFlickerPhase, setEntryFlickerPhase] = useState<
-    'empty' | 'full' | null
-  >(playEntryFlicker ? 'empty' : null)
-
-  // Mirror the loop prop into a ref so the interval body reads the
-  // current value without restarting on every change.
-  const loopRef = useRef(loopEntryFlicker)
-  useEffect(() => {
-    loopRef.current = loopEntryFlicker
-  }, [loopEntryFlicker])
+  const [displayedTotal, setDisplayedTotal] = useState(total)
+  const previousTotalRef = useRef(total)
 
   useEffect(() => {
-    if (!playEntryFlicker) return
-    let step = 0
-    const id = window.setInterval(() => {
-      step++
-      if (!loopRef.current && step >= 6) {
-        window.clearInterval(id)
-        setEntryFlickerPhase(null)
-        return
-      }
-      setEntryFlickerPhase(step % 2 === 0 ? 'empty' : 'full')
-    }, ENTRY_FLICKER_INTERVAL_MS)
-    return () => window.clearInterval(id)
-  }, [playEntryFlicker])
+    const from = previousTotalRef.current
+    const to = total
+    previousTotalRef.current = to
+    if (from === to) {
+      setDisplayedTotal(to)
+      return
+    }
+    const duration = 900
+    const startedAt = performance.now()
+    let frame = 0
+    const tick = (now: number) => {
+      const progress = Math.min(1, (now - startedAt) / duration)
+      const eased = 1 - Math.pow(1 - progress, 3)
+      setDisplayedTotal(Math.round(from + (to - from) * eased))
+      if (progress < 1) frame = requestAnimationFrame(tick)
+    }
+    frame = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(frame)
+  }, [total])
 
-  const showFlickerFull = entryFlickerPhase === 'full'
-  const showFlickerEmpty = entryFlickerPhase === 'empty'
-  const shieldSrc = showFlickerFull
-    ? `${A}/shield-win.svg`
-    : showFlickerEmpty
-    ? `${A}/shield.svg`
-    : allWin
-    ? `${A}/shield-win.svg`
-    : `${A}/shield.svg`
+  const fallbackProgress = results.filter((result) => result === 'win').length / RANK_COUNT
+  const scoreProgress = winningTarget > 0 ? total / winningTarget : 0
+  const progress = Math.min(1, Math.max(0, total > 0 ? scoreProgress : fallbackProgress))
   /* --- Drag (only when draggable) -------------------- */
   const [pos, setPos] = useState<{ x: number; y: number } | null>(null)
   const dragRef = useRef<{
@@ -201,85 +164,59 @@ export function AchievementsWindow({
         </button>
       )}
 
-      <div className={styles.badgeStack}>
-        <img data-spot="rank.shield" className={styles.shield} src={shieldSrc} alt="" />
-        <div className={styles.chevrons} data-spot="rank.chevrons">
-          {/* Fills bottom-to-top: slot 0 is the lowest chevron, advances upward.
-              During the entry-flicker phase we render plain <img> tags forced
-              to either the all-empty or all-full state so the bar reads as a
-              clean swap between two design states. After it settles we mount
-              ChevronSlot, which then handles per-rank flickers on real
-              outcome transitions. */}
-          {entryFlickerPhase !== null
-            ? slots.map((_, i) => (
-                <img
-                  key={i}
-                  className={styles.chevron}
-                  style={{ order: RANK_COUNT - 1 - i }}
-                  src={showFlickerFull ? `${A}/chevron-win.svg` : `${A}/chevron.svg`}
-                  alt=""
-                />
-              ))
-            : slots.map((outcome, i) => (
-                <ChevronSlot
-                  key={i}
-                  outcome={outcome}
-                  order={RANK_COUNT - 1 - i}
-                />
-              ))}
+      {pointPopup && (
+        <div key={pointPopup.id} className={styles.pointsPopup} aria-live="polite">
+          +{Math.max(0, Math.round(pointPopup.points)).toLocaleString('en-US')}
+        </div>
+      )}
+
+      <div
+        className={styles.badgeStack}
+        role="progressbar"
+        aria-label="Winning score progress"
+        aria-valuemin={0}
+        aria-valuemax={winningTarget}
+        aria-valuenow={Math.min(Math.max(0, total), winningTarget)}
+      >
+        <BadgeArtwork filled={false} />
+        <div
+          className={styles.fillLayer}
+          style={{ clipPath: `inset(${(1 - progress) * 100}% 0 0)` }}
+          aria-hidden="true"
+        >
+          <BadgeArtwork filled />
         </div>
       </div>
 
-      <p className={styles.title}>Ranks</p>
+      <div className={styles.scoreBlock} data-spot="rank.score">
+        <p className={styles.scoreLabel}>Score</p>
+        <p className={styles.scoreValue}>
+          {Math.max(0, Math.round(displayedTotal)).toLocaleString('en-US')}
+        </p>
+      </div>
     </div>
   )
 }
 
-/* One chevron slot. Owns its own "just transitioned to win" state so
-   only the chevron that *changed* flickers — not every yellow chevron
-   on every parent re-render. The initial-mount guard means already-won
-   chevrons present on first open render silently (the whole-bar entry
-   flicker covers that moment). */
-function ChevronSlot({
-  outcome,
-  order,
-}: {
-  outcome: CaseOutcome
-  order: number
-}) {
-  const [isFlickering, setIsFlickering] = useState(false)
-  const prevOutcomeRef = useRef<CaseOutcome | 'init'>('init')
-
-  useEffect(() => {
-    const prev = prevOutcomeRef.current
-    prevOutcomeRef.current = outcome
-
-    // Skip the initial mount — either the bar is entering for the
-    // first time (whole-bar flicker covers it) or we're re-opening
-    // with existing wins that shouldn't replay.
-    if (prev === 'init') return
-
-    // Only flicker on a real transition INTO 'win'. Lose / null are
-    // applied silently.
-    if (prev !== 'win' && outcome === 'win') {
-      setIsFlickering(true)
-      const id = window.setTimeout(() => setIsFlickering(false), 600)
-      return () => window.clearTimeout(id)
-    }
-  }, [outcome])
-
+function BadgeArtwork({ filled }: { filled: boolean }) {
   return (
-    <img
-      className={`${styles.chevron}${isFlickering ? ` ${styles.chevronFlicker}` : ''}`}
-      style={{ order }}
-      src={chevronSrc(outcome)}
-      alt=""
-    />
+    <>
+      <img
+        data-spot="rank.shield"
+        className={styles.shield}
+        src={`${A}/${filled ? 'shield-win' : 'shield'}.svg`}
+        alt=""
+      />
+      <div className={styles.chevrons} data-spot="rank.chevrons">
+        {Array.from({ length: RANK_COUNT }, (_, index) => (
+          <img
+            key={index}
+            className={`${styles.chevron} ${filled ? styles.filledChevron : ''}`}
+            src={`${A}/${filled ? 'chevron-win' : 'chevron-new'}.svg`}
+            alt=""
+          />
+        ))}
+      </div>
+    </>
   )
-}
-
-function chevronSrc(outcome: CaseOutcome): string {
-  if (outcome === 'win') return `${A}/chevron-win.svg`
-  if (outcome === 'lose') return `${A}/chevron-lose.svg`
-  return `${A}/chevron.svg`
 }

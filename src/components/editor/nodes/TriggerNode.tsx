@@ -122,6 +122,24 @@ export function TriggerNode({ id, data }: NodeProps<TriggerFlowNode>) {
         </label>
       )}
 
+      {data.triggerType === 'arrest' && (
+        <label
+          className="nodrag"
+          style={{
+            display: 'flex', alignItems: 'center', gap: 6,
+            fontSize: 11, color: '#7a4f00', marginTop: 6,
+          }}
+          title="After this trigger finishes, show the Arrest and Release buttons again while continuing along the Arrest wire"
+        >
+          <input
+            type="checkbox"
+            checked={data.restoreArrestButton ?? false}
+            onChange={(e) => set('restoreArrestButton', e.target.checked)}
+          />
+          Switch back the Arrest button
+        </label>
+      )}
+
       <div style={{ fontSize: 11, color: '#7a4f00', marginTop: 8, marginBottom: 2 }}>
         Delay before fire
       </div>

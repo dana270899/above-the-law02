@@ -32,8 +32,11 @@ import { PrizeNode }     from '@/components/editor/nodes/PrizeNode'
 import { MessageNode }   from '@/components/editor/nodes/MessageNode'
 import { TriggerNode }   from '@/components/editor/nodes/TriggerNode'
 import { BgMusicNode }   from '@/components/editor/nodes/BgMusicNode'
+import { RankingNode }   from '@/components/editor/nodes/RankingNode'
+import { ScoringNode }   from '@/components/editor/nodes/ScoringNode'
 import { DEFAULT_BG_MUSIC_ID, DEFAULT_BG_MUSIC_VOLUME } from '@/lib/bgMusic'
 import { DEFAULT_WIN_SCREEN_ID } from '@/lib/winScreens'
+import { DEFAULT_SCORING_SETTINGS } from '@/lib/scoring'
 import styles from './EditorCanvas.module.css'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -47,6 +50,8 @@ const NODE_TYPES: Record<string, any> = {
   message:   MessageNode,
   trigger:   TriggerNode,
   bgMusic:   BgMusicNode,
+  ranking:   RankingNode,
+  scoring:   ScoringNode,
 }
 
 const DEFAULT_NODES: GameFlowNode[] = [
@@ -110,11 +115,27 @@ export function EditorCanvas() {
       .then((graph) => {
         if (cancelled) return
         const loaded = graph ?? { nodes: DEFAULT_NODES, edges: DEFAULT_EDGES }
-        setNodes(loaded.nodes)
+        const ranking = loaded.nodes.find((node) => node.type === 'ranking')
+        const migratedNodes = loaded.nodes.some((node) => node.type === 'scoring')
+          ? loaded.nodes
+          : [...loaded.nodes, {
+              id: 'global-scoring',
+              type: 'scoring' as const,
+              position: ranking
+                ? { x: ranking.position.x + 300, y: ranking.position.y }
+                : { x: 40, y: 40 },
+              data: {
+                ...DEFAULT_SCORING_SETTINGS,
+                ...(ranking?.data ?? {}),
+                nodeType: 'scoring' as const,
+                title: 'Global Points',
+              },
+            } as GameFlowNode]
+        setNodes(migratedNodes)
         setEdges(loaded.edges)
-        nodesRef.current = loaded.nodes
+        nodesRef.current = migratedNodes
         edgesRef.current = loaded.edges
-        nextMsgIdx.current = nextMessageIndex(loaded.nodes)
+        nextMsgIdx.current = nextMessageIndex(migratedNodes)
         historyRef.current = { past: [], future: [] }
         bumpHistory()
         setGraphLoaded(true)
@@ -338,6 +359,7 @@ export function EditorCanvas() {
           title: `Case ${order}`,
           order,
           hasOperation: false,
+          isImportant: false,
         },
       } as GameFlowNode,
     ])
@@ -418,6 +440,34 @@ export function EditorCanvas() {
         },
       } as GameFlowNode,
     ])
+  }
+
+  function addRankingNode() {
+    if (nodes.some((node) => node.type === 'ranking')) {
+      window.alert('A Final Ranking node already exists.')
+      return
+    }
+    commitHistory()
+    setNodes((current) => [...current, {
+      id: `ranking-${Date.now()}`,
+      type: 'ranking',
+      position: getCenterFlowPosition(),
+      data: { nodeType: 'ranking', title: 'Final Ranking', ...DEFAULT_SCORING_SETTINGS },
+    } as GameFlowNode])
+  }
+
+  function addScoringNode() {
+    if (nodes.some((node) => node.type === 'scoring')) {
+      window.alert('A Global Points node already exists.')
+      return
+    }
+    commitHistory()
+    setNodes((current) => [...current, {
+      id: `scoring-${Date.now()}`,
+      type: 'scoring',
+      position: getCenterFlowPosition(),
+      data: { nodeType: 'scoring', title: 'Global Points', ...DEFAULT_SCORING_SETTINGS },
+    } as GameFlowNode])
   }
 
   // Persist nodes + edges to data/editor-state-current.json on every change.
@@ -567,6 +617,12 @@ export function EditorCanvas() {
           title="Add a Background Music node — plays a looped track behind every screen except the win screens. Choose or upload the track from the node."
         >
           + Add Background Music
+        </button>
+        <button className={styles.addBtn} onClick={addRankingNode}>
+          + Add Final Ranking
+        </button>
+        <button className={styles.addBtn} onClick={addScoringNode}>
+          + Add Global Points
         </button>
         <button
           className={styles.addBtn}

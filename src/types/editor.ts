@@ -5,7 +5,7 @@ import type { OperationWindowV2Data } from '@/components/OperationWindowV2'
 // Data shapes
 export interface LoginNodeData  { nodeType: 'login'; label: string;  [key: string]: unknown }
 export interface IntroNodeData  { nodeType: 'intro'; label: string;  [key: string]: unknown }
-export interface CaseNodeData   { nodeType: 'case'; caseId: string; title: string; order: number; hasOperation: boolean; isBothWin?: boolean; useCamera?: boolean; window?: CaseWindowData; [key: string]: unknown }
+export interface CaseNodeData   { nodeType: 'case'; caseId: string; title: string; order: number; hasOperation: boolean; isImportant?: boolean; isBothWin?: boolean; useCamera?: boolean; arrestContinuesWithoutDecision?: boolean; window?: CaseWindowData; [key: string]: unknown }
 /**
  * OperationNodeData — a stop in the flow where the player must
  * configure an Operation Window V2. Each node carries its own
@@ -75,6 +75,24 @@ export interface ResultNodeData {
   [key: string]: unknown
 }
 export interface PrizeNodeData  { nodeType: 'prize'; prizeId: string; emoji: string; title: string; [key: string]: unknown }
+export interface RankingNodeData {
+  nodeType: 'ranking'
+  title: string
+  [key: string]: unknown
+}
+export interface ScoringNodeData {
+  nodeType: 'scoring'
+  title: string
+  winningTarget: number
+  normalFirstPoints: number
+  normalSecondPoints: number
+  importantFirstPoints: number
+  importantSecondPoints: number
+  speedBonusEnabled: boolean
+  speedTimeLimitSeconds: number
+  speedMaxBonus: number
+  [key: string]: unknown
+}
 
 /**
  * BgMusicNodeData — sits in the graph as a standalone "settings" node
@@ -116,6 +134,10 @@ export interface TriggerNodeData {
    *  messages finish the runtime resets the case decision and does NOT
    *  advance the walker — letting the player make a different choice. */
   retry?: boolean
+  /** When true on an `arrest` trigger, clear the visual Arrested state
+   *  after the trigger messages finish, but still follow the case's
+   *  arrest edge. */
+  restoreArrestButton?: boolean
   /** Seconds to wait between the player action firing the trigger and
    *  the downstream messages appearing. Defaults to 0 (no delay). */
   delaySeconds?: number
@@ -135,7 +157,7 @@ export interface SubtitleCue {
 
 export interface MessageNodeData {
   nodeType: 'message'
-  messageType: 'text' | 'voice' | 'link'
+  messageType: 'text' | 'voice' | 'link' | 'photo'
   content: string              // text body OR audio file path/URL
   /** [legacy] Single subtitle shown UNDER the voice card. Kept for
    *  backward compatibility — new content should use `subtitles`. */
@@ -147,6 +169,11 @@ export interface MessageNodeData {
    *  when the LAST subtitle cue ends. Optional — defaults to the last
    *  cue's `at` + 3 seconds. */
   voiceDuration?: number
+  /** Optional photo attachment displayed inside the boss message. */
+  photoUrl?: string
+  /** Uploaded photo blob stored in IndexedDB (preferred over photoUrl). */
+  photoCustomId?: string
+  photoCustomLabel?: string
   buttonLabel: string          // text on the message's button
   /**
    * Where the button leads:
@@ -184,6 +211,8 @@ export type PrizeFlowNode     = Node<PrizeNodeData, 'prize'>
 export type MessageFlowNode   = Node<MessageNodeData, 'message'>
 export type TriggerFlowNode   = Node<TriggerNodeData, 'trigger'>
 export type BgMusicFlowNode   = Node<BgMusicNodeData, 'bgMusic'>
+export type RankingFlowNode   = Node<RankingNodeData, 'ranking'>
+export type ScoringFlowNode   = Node<ScoringNodeData, 'scoring'>
 
-export type GameFlowNode = LoginFlowNode | IntroFlowNode | CaseFlowNode | OperationFlowNode | ResultFlowNode | PrizeFlowNode | MessageFlowNode | TriggerFlowNode | BgMusicFlowNode
+export type GameFlowNode = LoginFlowNode | IntroFlowNode | CaseFlowNode | OperationFlowNode | ResultFlowNode | PrizeFlowNode | MessageFlowNode | TriggerFlowNode | BgMusicFlowNode | RankingFlowNode | ScoringFlowNode
 export type GameFlowEdge = Edge<{ label?: string }>

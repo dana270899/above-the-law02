@@ -37,6 +37,8 @@ export type FootageVariant =
   | 'graffiti'
   | 'jewish-violence'
   | 'indecent-exposure'
+  | 'teens'
+  | 'arab-violence'
   | 'graffiti-video'
 
 /** Full-scene SVG per variant (or MP4 for the live-footage variant).
@@ -46,6 +48,8 @@ const VARIANT_SRC: Record<FootageVariant, string> = {
   'graffiti':          `${FOOTAGE_ASSETS}/Footage_grafitti.svg`,
   'jewish-violence':   `${FOOTAGE_ASSETS}/Footage_jewish_violence.svg`,
   'indecent-exposure': `${FOOTAGE_ASSETS}/Footage_indecent_exposure.svg`,
+  'teens':             `${FOOTAGE_ASSETS}/Footage_teens01.svg`,
+  'arab-violence':     `${FOOTAGE_ASSETS}/Footage_arab_violence.svg`,
   'graffiti-video':    `${FOOTAGE_ASSETS}/Graffiti.mp4`,
 }
 

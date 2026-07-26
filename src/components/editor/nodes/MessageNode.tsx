@@ -1,9 +1,11 @@
+import { useEffect, useRef, useState } from 'react'
 import { Handle, Position, useReactFlow } from '@xyflow/react'
 import type { NodeProps } from '@xyflow/react'
 import type { CaseFlowNode, MessageFlowNode, MessageNodeData, SubtitleCue } from '@/types/editor'
 import { BossMessage } from '@/components/game/BossMessage/BossMessage'
 import { messageDataToBossProps } from '@/lib/messageMapping'
 import { SPOTLIGHT_GROUPS, SPOTLIGHT_TARGETS } from '@/lib/spotlightTargets'
+import { loadAudioBlob, makeImageBlobId, removeAudioBlob, saveAudioBlob } from '@/lib/audioBlobStore'
 import styles from './MessageNode.module.css'
 
 function clampPercent(raw: string): number {
@@ -14,6 +16,27 @@ function clampPercent(raw: string): number {
 
 export function MessageNode({ id, data }: NodeProps<MessageFlowNode>) {
   const { updateNodeData, getNodes } = useReactFlow()
+  const photoInputRef = useRef<HTMLInputElement | null>(null)
+  const [uploadedPhotoUrl, setUploadedPhotoUrl] = useState<string | undefined>()
+
+  useEffect(() => {
+    let objectUrl: string | undefined
+    let cancelled = false
+    const blobId = data.photoCustomId
+    if (!blobId) {
+      setUploadedPhotoUrl(undefined)
+      return
+    }
+    loadAudioBlob(blobId).then((blob) => {
+      if (!blob || cancelled) return
+      objectUrl = URL.createObjectURL(blob)
+      setUploadedPhotoUrl(objectUrl)
+    }).catch(() => setUploadedPhotoUrl(undefined))
+    return () => {
+      cancelled = true
+      if (objectUrl) URL.revokeObjectURL(objectUrl)
+    }
+  }, [data.photoCustomId])
 
   function set<K extends keyof MessageNodeData>(field: K, value: MessageNodeData[K]) {
     updateNodeData(id, { [field]: value })
@@ -26,6 +49,7 @@ export function MessageNode({ id, data }: NodeProps<MessageFlowNode>) {
 
   const isVoice = data.messageType === 'voice'
   const isLink = data.messageType === 'link'
+  const isPhoto = data.messageType === 'photo'
 
   return (
     <div className={styles.wrap}>
@@ -34,9 +58,9 @@ export function MessageNode({ id, data }: NodeProps<MessageFlowNode>) {
       <div className={styles.title}>💬 Boss Message</div>
 
       {/* Live preview of the actual in-game design */}
-      <div className={`${styles.previewBox} ${isLink ? styles.previewBoxLink : ''}`}>
+      <div className={`${styles.previewBox} ${isLink ? styles.previewBoxLink : ''} ${(uploadedPhotoUrl || data.photoUrl) ? styles.previewBoxPhoto : ''}`}>
         <div className={styles.previewScale}>
-          <BossMessage {...messageDataToBossProps(data)} />
+          <BossMessage {...messageDataToBossProps(data, undefined, undefined, uploadedPhotoUrl)} />
         </div>
       </div>
 
@@ -50,11 +74,12 @@ export function MessageNode({ id, data }: NodeProps<MessageFlowNode>) {
         <option value="text">Text</option>
         <option value="voice">Voice</option>
         <option value="link">Link (text + button)</option>
+        <option value="photo">Photo</option>
       </select>
 
       {/* content — text body for text/link, audio path for voice */}
       <div className={styles.label}>
-        {isVoice ? 'Audio file path / URL' : 'Message content'}
+        {isVoice ? 'Audio file path / URL' : isPhoto ? 'Caption (optional)' : 'Message content'}
       </div>
       {isVoice ? (
         <input
@@ -71,6 +96,60 @@ export function MessageNode({ id, data }: NodeProps<MessageFlowNode>) {
           onChange={(e) => set('content', e.target.value)}
         />
       )}
+
+      {isPhoto && <>
+        <div className={styles.label}>Photo</div>
+        <input
+          className={`nodrag ${styles.field}`}
+          type="text"
+          value={data.photoUrl ?? ''}
+          placeholder="/images/message-photo.jpg or URL"
+          onChange={(e) => set('photoUrl', e.target.value || undefined)}
+        />
+        <div className={`nodrag ${styles.photoControls}`}>
+        <button type="button" onClick={() => photoInputRef.current?.click()}>
+          ⬆ Upload photo
+        </button>
+        {(data.photoCustomId || data.photoUrl) && (
+          <button
+            type="button"
+            onClick={() => {
+              if (data.photoCustomId) removeAudioBlob(data.photoCustomId).catch(() => {})
+              updateNodeData(id, {
+                photoUrl: undefined,
+                photoCustomId: undefined,
+                photoCustomLabel: undefined,
+              })
+            }}
+          >
+            ✕ Clear
+          </button>
+        )}
+        <input
+          ref={photoInputRef}
+          type="file"
+          accept="image/*"
+          hidden
+          onChange={(e) => {
+            const file = e.target.files?.[0]
+            if (!file) return
+            const blobId = makeImageBlobId()
+            saveAudioBlob(blobId, file).then(() => {
+              if (data.photoCustomId && data.photoCustomId !== blobId) {
+                removeAudioBlob(data.photoCustomId).catch(() => {})
+              }
+              updateNodeData(id, {
+                photoCustomId: blobId,
+                photoCustomLabel: file.name,
+                photoUrl: undefined,
+              })
+            }).catch(() => alert('Could not save the photo. Browser storage may be unavailable.'))
+            e.target.value = ''
+          }}
+        />
+        </div>
+        {data.photoCustomLabel && <div className={styles.photoLabel}>📎 {data.photoCustomLabel}</div>}
+      </>}
 
       {isVoice && (
         <>
@@ -107,8 +186,8 @@ export function MessageNode({ id, data }: NodeProps<MessageFlowNode>) {
         </>
       )}
 
-      {/* Link-only fields */}
-      {isLink && (
+      {/* Link/photo button fields */}
+      {(isLink || isPhoto) && (
         <>
           <div className={styles.label}>Button label</div>
           <input
