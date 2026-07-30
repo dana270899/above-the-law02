@@ -5,7 +5,7 @@ import type {
   CaseFlowNode,
   ResultFlowNode,
 } from '@/types/editor'
-import { loadGraph } from '@/lib/editorStorage'
+import { loadGameContent } from '@/lib/gameContent'
 
 /**
  * GAME FLOW HOOK
@@ -104,7 +104,7 @@ export function useGameFlow(): GameFlow {
 
   useEffect(() => {
     let cancelled = false
-    loadGraph().then((loaded) => {
+    loadGameContent().then((loaded) => {
       if (cancelled || !loaded) return
       setGraph(loaded)
       setCurrentId(findStartId(loaded.nodes))

@@ -73,7 +73,9 @@ export function BgMusicPlayer({ src, srcCustom, defaultVolume, showControl = tru
     const pct = Number(e.target.value)
     if (!Number.isFinite(pct)) return
     setVolume(clamp01(pct / 100))
-    if (muted) setMuted(false)
+    // The far-left design state is true silence. Moving right restores
+    // sound; returning the thumb to zero mutes it again.
+    setMuted(pct === 0)
   }
 
   function toggleMute() {
@@ -81,32 +83,45 @@ export function BgMusicPlayer({ src, srcCustom, defaultVolume, showControl = tru
   }
 
   const effectivePct = Math.round((muted ? 0 : volume) * 100)
-  const icon = muted || volume === 0 ? '🔇' : volume < 0.5 ? '🔉' : '🔊'
-
   if (!showControl) return null
 
   return (
-    <div className={styles.widget}>
-      <button
-        type="button"
-        className={styles.muteBtn}
-        onClick={toggleMute}
-        title={muted ? 'Unmute background music' : 'Mute background music'}
-        aria-label={muted ? 'Unmute background music' : 'Mute background music'}
-      >
-        {icon}
-      </button>
-      <input
-        type="range"
-        min={0}
-        max={100}
-        step={1}
-        value={effectivePct}
-        onChange={handleSliderChange}
-        className={styles.slider}
-        aria-label="Background music volume"
-      />
-      <span className={styles.pct}>{effectivePct}%</span>
+    <div className={styles.menu} role="dialog" aria-label="Menu">
+      <div className={styles.titleBar}>Menu</div>
+      <div className={styles.menuBody}>
+        <button
+          type="button"
+          className={styles.menuButton}
+          onClick={() => window.location.assign('/game')}
+        >
+          Start again
+        </button>
+        <button type="button" className={styles.menuButton}>Credits</button>
+        <button type="button" className={styles.menuButton}>About the game</button>
+        <div className={styles.volumeRow}>
+          <button
+            type="button"
+            className={styles.muteBtn}
+            onClick={toggleMute}
+            title={muted ? 'Unmute background music' : 'Mute background music'}
+            aria-label={muted ? 'Unmute background music' : 'Mute background music'}
+          >
+            <svg viewBox="0 0 40 40" aria-hidden="true">
+              <path d="M8.5 16.5h7L25 9v22l-9.5-7.5h-7z" />
+            </svg>
+          </button>
+          <input
+            type="range"
+            min={0}
+            max={100}
+            step={1}
+            value={effectivePct}
+            onChange={handleSliderChange}
+            className={styles.slider}
+            aria-label="Background music volume"
+          />
+        </div>
+      </div>
     </div>
   )
 }
@@ -161,7 +176,9 @@ function tryPlay(audio: HTMLAudioElement) {
 // remounts (login → desktop) without leaking across browser sessions.
 
 const VOLUME_KEY = 'bg-music-volume-v1'
-const MUTED_KEY = 'bg-music-muted-v1'
+// v2 intentionally starts new sessions muted so the menu initially
+// matches the Figma state with the yellow thumb at the far left.
+const MUTED_KEY = 'bg-music-muted-v2'
 
 function getStoredVolume(fallback: number): number {
   try {
@@ -180,9 +197,10 @@ function storeVolume(v: number) {
 
 function getStoredMuted(): boolean {
   try {
-    return sessionStorage.getItem(MUTED_KEY) === '1'
+    const raw = sessionStorage.getItem(MUTED_KEY)
+    return raw == null ? true : raw === '1'
   } catch {
-    return false
+    return true
   }
 }
 

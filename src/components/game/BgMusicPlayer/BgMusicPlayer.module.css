@@ -1,51 +1,136 @@
-/* Anchored to the bottom-left of the actual viewport so it stays on
-   screen at any game-canvas scale. position: fixed escapes the
-   1920×1080 transform-scaled wrapper used by useGameScale. */
-.widget {
-  position: fixed;
-  /* Sit just above the 61px taskbar so the widget never covers the
-     Start button — otherwise the player can't click Start again to
-     dismiss the widget. */
-  left: 16px;
-  bottom: 77px;
+/* Figma node 878:53244 — 260 × 308 desktop menu. */
+.menu {
+  position: absolute;
+  left: 0;
+  bottom: 61px;
   z-index: 9999;
+  width: 260px;
+  height: 308px;
+  overflow: hidden;
+  background: var(--white, #fffdfd);
+  border: 2px solid var(--black, #171717);
+  border-left: 0;
+  border-radius: 0 4px 0 0;
+  color: var(--black, #171717);
+  font-family: var(--font-main, 'ArbelHagilda', sans-serif);
+  user-select: none;
+}
+
+.titleBar {
+  height: 38px;
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 8px 12px;
-  background: rgba(0, 0, 0, 0.6);
-  color: #fff;
-  border: 2px solid #fff;
-  border-radius: 999px;
-  font-family: var(--font-main, system-ui, sans-serif);
-  font-size: 12px;
-  line-height: 1;
-  user-select: none;
-  backdrop-filter: blur(4px);
+  padding: 0 16px;
+  background: var(--light-blue-200, #e1f5ff);
+  border-bottom: 2px solid var(--black, #171717);
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 28px;
+}
+
+.menuBody {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+}
+
+.menuButton {
+  width: 228px;
+  height: 50px;
+  flex: 0 0 50px;
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  overflow: hidden;
+  border: 2px solid var(--black, #171717);
+  border-radius: 4px;
+  background: var(--light-blue-200, #e1f5ff);
+  color: var(--black, #171717);
+  font: 500 24px/26px var(--font-main, 'ArbelHagilda', sans-serif);
+  letter-spacing: 0;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.menuButton:focus-visible,
+.muteBtn:focus-visible,
+.slider:focus-visible {
+  outline: 3px solid var(--yellow, #ffe732);
+  outline-offset: 2px;
+}
+
+.volumeRow {
+  width: 228px;
+  height: 50px;
+  display: flex;
+  align-items: center;
 }
 
 .muteBtn {
-  background: transparent;
-  border: none;
-  color: inherit;
-  font-size: 18px;
-  line-height: 1;
-  padding: 0 2px;
-  cursor: var(--cursor-hover);
+  width: 50px;
+  height: 50px;
+  flex: 0 0 50px;
+  display: grid;
+  place-items: center;
+  padding: 3px;
+  border: 2px solid var(--black, #171717);
+  border-radius: 4px;
+  background: var(--light-blue-200, #e1f5ff);
+  color: var(--black, #171717);
 }
 
-.muteBtn:hover {
-  filter: brightness(1.2);
+.muteBtn svg {
+  display: block;
+  width: 40px;
+  height: 40px;
+  overflow: visible;
+  fill: var(--light-blue-200, #e1f5ff);
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .slider {
-  width: 100px;
-  accent-color: #fff;
-  cursor: var(--cursor-hover);
+  width: 180px;
+  height: 50px;
+  margin: 0;
+  padding: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
 }
 
-.pct {
-  min-width: 32px;
-  text-align: right;
-  font-variant-numeric: tabular-nums;
+.slider::-webkit-slider-runnable-track {
+  height: 5px;
+  border: 2px solid var(--black, #171717);
+  border-radius: 60px;
+  background: var(--grey, #8e8a7f);
+}
+
+.slider::-webkit-slider-thumb {
+  width: 9px;
+  height: 21px;
+  margin-top: -10px;
+  appearance: none;
+  -webkit-appearance: none;
+  border: 2px solid var(--black, #171717);
+  border-radius: 60px;
+  background: var(--yellow, #ffe732);
+}
+
+.slider::-moz-range-track {
+  height: 1px;
+  border: 2px solid var(--black, #171717);
+  border-radius: 60px;
+  background: var(--grey, #8e8a7f);
+}
+
+.slider::-moz-range-thumb {
+  width: 5px;
+  height: 17px;
+  border: 2px solid var(--black, #171717);
+  border-radius: 60px;
+  background: var(--yellow, #ffe732);
 }

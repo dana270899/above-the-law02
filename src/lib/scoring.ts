@@ -57,6 +57,20 @@ export function recordCaseScore(
   return { ...current, [breakdown.caseId]: breakdown }
 }
 
+export function combineRetryScore(
+  previous: CaseScoreBreakdown,
+  correctRetry: CaseScoreBreakdown,
+): CaseScoreBreakdown {
+  if (previous.correct || !correctRetry.correct || previous.caseId !== correctRetry.caseId) {
+    return correctRetry
+  }
+  return Object.freeze({
+    ...correctRetry,
+    basePoints: previous.basePoints + correctRetry.basePoints,
+    totalPoints: previous.totalPoints + correctRetry.totalPoints,
+  })
+}
+
 export function buildRunScore(
   cases: CaseScoreBreakdown[],
   winningTarget: number,
@@ -81,8 +95,11 @@ export function calculateCaseScore(args: {
   const { caseData, correct, attempt, settings } = args
   const elapsedSeconds = Math.max(0, args.elapsedSeconds)
   const important = !!caseData.isImportant
+  const configuredBasePoints = important
+    ? attempt === 1 ? settings.importantFirstPoints : settings.importantSecondPoints
+    : attempt === 1 ? settings.normalFirstPoints : settings.normalSecondPoints
   const basePoints = !correct
-    ? 0
+    ? -configuredBasePoints
     : important
       ? attempt === 1 ? settings.importantFirstPoints : settings.importantSecondPoints
       : attempt === 1 ? settings.normalFirstPoints : settings.normalSecondPoints

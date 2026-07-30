@@ -302,6 +302,11 @@
   line-height: 26px;
   white-space: nowrap;
   cursor: var(--cursor-hover);
+  transition: filter 120ms ease;
+}
+
+.ctas button:hover {
+  filter: brightness(1.05);
 }
 
 .playAgain {

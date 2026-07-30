@@ -21,6 +21,7 @@ const A = assetUrl('/images/achievements')
 const RANK_COUNT = 6
 
 export type CaseOutcome = 'win' | 'lose' | null
+export type PointPopupKind = 'win' | 'lose' | 'time'
 
 export type AchievementsWindowProps = {
   /** Per-rank-slot outcomes. The first 6 entries drive the chevron states. */
@@ -30,7 +31,7 @@ export type AchievementsWindowProps = {
   /** Score at which the complete badge becomes gold. */
   winningTarget?: number
   /** Temporary points callout shown to the left of the bar. */
-  pointPopup?: { id: string; points: number } | null
+  pointPopup?: { id: string; points: number; kind?: PointPopupKind } | null
   /** When set, the window renders a close button in the top-right. */
   onClose?: () => void
   /** When true, the window is absolute-positioned and draggable by the header. */
@@ -80,9 +81,9 @@ export function AchievementsWindow({
     return () => cancelAnimationFrame(frame)
   }, [total])
 
-  const fallbackProgress = results.filter((result) => result === 'win').length / RANK_COUNT
+  const legacyProgress = results.filter((result) => result === 'win').length / RANK_COUNT
   const scoreProgress = winningTarget > 0 ? total / winningTarget : 0
-  const progress = Math.min(1, Math.max(0, total > 0 ? scoreProgress : fallbackProgress))
+  const progress = Math.min(1, Math.max(0, winningTarget > 0 ? scoreProgress : legacyProgress))
   /* --- Drag (only when draggable) -------------------- */
   const [pos, setPos] = useState<{ x: number; y: number } | null>(null)
   const dragRef = useRef<{
@@ -165,8 +166,12 @@ export function AchievementsWindow({
       )}
 
       {pointPopup && (
-        <div key={pointPopup.id} className={styles.pointsPopup} aria-live="polite">
-          +{Math.max(0, Math.round(pointPopup.points)).toLocaleString('en-US')}
+        <div
+          key={pointPopup.id}
+          className={`${styles.pointsPopup} ${styles[pointPopup.kind ?? (pointPopup.points < 0 ? 'lose' : 'win')]}`}
+          aria-live="polite"
+        >
+          {pointPopup.points > 0 ? '+' : ''}{Math.round(pointPopup.points).toLocaleString('en-US')}
         </div>
       )}
 
@@ -190,8 +195,8 @@ export function AchievementsWindow({
 
       <div className={styles.scoreBlock} data-spot="rank.score">
         <p className={styles.scoreLabel}>Score</p>
-        <p className={styles.scoreValue}>
-          {Math.max(0, Math.round(displayedTotal)).toLocaleString('en-US')}
+        <p className={`${styles.scoreValue} ${displayedTotal < 0 ? styles.negativeScore : ''}`}>
+          {Math.round(displayedTotal).toLocaleString('en-US')}
         </p>
       </div>
     </div>
@@ -211,8 +216,8 @@ function BadgeArtwork({ filled }: { filled: boolean }) {
         {Array.from({ length: RANK_COUNT }, (_, index) => (
           <img
             key={index}
-            className={`${styles.chevron} ${filled ? styles.filledChevron : ''}`}
-            src={`${A}/${filled ? 'chevron-win' : 'chevron-new'}.svg`}
+            className={styles.chevron}
+            src={`${A}/${filled ? 'chevron-fill' : 'chevron-new'}.svg`}
             alt=""
           />
         ))}

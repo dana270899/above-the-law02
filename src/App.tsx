@@ -44,6 +44,7 @@ function WinScreenStage({ children }: { children: ReactNode }) {
   )
 }
 
+/** Local authoring application. Production builds use GameApp instead. */
 export default function App() {
   return (
     <BrowserRouter basename={routerBasename}>

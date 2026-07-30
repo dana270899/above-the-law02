@@ -1,8 +1,32 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "npm run build:game",
+  "outputDirectory": "dist",
+  "redirects": [
+    {
+      "source": "/desktop",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/login",
+      "destination": "/game",
+      "permanent": false
+    },
+    {
+      "source": "/ranking-preview",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/win/:path*",
+      "destination": "/",
+      "permanent": false
+    }
+  ],
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/((?!editor(?:/|$)|api/editor(?:[-/]|$)).*)",
       "destination": "/index.html"
     }
   ]

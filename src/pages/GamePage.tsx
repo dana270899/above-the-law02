@@ -53,8 +53,16 @@ import { loadAudioBlob } from '@/lib/audioBlobStore'
 import { BgMusicPlayer } from '@/components/game/BgMusicPlayer/BgMusicPlayer'
 import type { BgMusicFlowNode } from '@/types/editor'
 import { assetUrl } from '@/lib/paths'
-import { buildRunScore, calculateCaseScore, DEFAULT_SCORING_SETTINGS, recordCaseScore, type CaseScoreBreakdown, type PlayerProfile, type ScoringSettings } from '@/lib/scoring'
+import { buildRunScore, calculateCaseScore, combineRetryScore, DEFAULT_SCORING_SETTINGS, recordCaseScore, type CaseScoreBreakdown, type PlayerProfile, type ScoringSettings } from '@/lib/scoring'
+import {
+  freezeCaseTimer,
+  getCaseElapsedSeconds,
+  pauseCaseTimer,
+  resumeCaseTimer,
+  type CaseTimers,
+} from '@/lib/caseTimer'
 import { RankingPage } from '@/components/game/RankingPage/RankingPage'
+import { GameRestartDialog } from '@/components/game/GameRestartDialog/GameRestartDialog'
 import styles from './GamePage.module.css'
 
 function isCaseWindowHighlightTarget(
@@ -89,10 +97,14 @@ export function GamePage() {
   const publicationKeyRef = useRef(crypto.randomUUID())
   const [playerProfile, setPlayerProfile] = useState<PlayerProfile>({ name: 'Officer', photo: null, photoPreviewUrl: null })
   const [scoreByCase, setScoreByCase] = useState<Record<string, CaseScoreBreakdown>>({})
-  const [pointPopup, setPointPopup] = useState<{ id: string; points: number } | null>(null)
+  const showRestartPreview = import.meta.env.DEV
+    && new URLSearchParams(window.location.search).get('restartPreview') === '1'
+  const restartDialog = <GameRestartDialog preview={showRestartPreview} />
+  const [pointPopup, setPointPopup] = useState<{ id: string; points: number; kind: 'win' | 'lose' | 'time' } | null>(null)
   const winAdvancePendingRef = useRef(false)
   const winAdvanceTimerRef = useRef<number | null>(null)
-  const caseStartedAtRef = useRef<Record<string, number>>({})
+  const pointPopupTimerRef = useRef<number | null>(null)
+  const caseTimersRef = useRef<CaseTimers>({})
   const caseAttemptRef = useRef<Record<string, 1 | 2>>({})
 
   // ?startCase / ?startOperation lets the editor's "Play from this
@@ -102,6 +114,10 @@ export function GamePage() {
   // skipped (login etc.), but every downstream transition runs the
   // same as a normal `/game` session.
   const startParams = useMemo(() => {
+    if (!import.meta.env.DEV) {
+      return { startCaseId: null, startOperationId: null }
+    }
+
     const params = new URLSearchParams(window.location.search)
     return {
       startCaseId:      params.get('startCase')?.trim()      || null,
@@ -115,6 +131,9 @@ export function GamePage() {
   const [caseWindowOpen, setCaseWindowOpen] = useState(
     () => !!startParams.startCaseId,
   )
+  const [foregroundDesktopApp, setForegroundDesktopApp] = useState<
+    'cases' | 'operation' | null
+  >(() => startParams.startCaseId ? 'cases' : null)
 
   // Which case body is currently displayed inside the Cases window
   // (the active left-side tab). Defaults to the current flow case
@@ -142,6 +161,8 @@ export function GamePage() {
   // `pendingActionRef` (the click action that was deferred) runs.
   const [triggerQueue, setTriggerQueue] = useState<string[]>([])
   const pendingActionRef = useRef<(() => void) | null>(null)
+  const pendingIncorrectCaseRef = useRef<CaseFlowNode | null>(null)
+  const lossAwardedCaseIdsRef = useRef<Set<string>>(new Set())
 
   // Ids of trigger-fired messages that have already been displayed in
   // this session. Re-firing the same trigger (player re-expands a row,
@@ -460,13 +481,23 @@ export function GamePage() {
     )
   }, [activeCaseId, nodes])
 
+  const activelyViewedCaseId =
+    caseWindowOpen
+    && !caseWindowMinimized
+    && foregroundDesktopApp === 'cases'
+      ? activeCaseId
+      : null
+
   useEffect(() => {
-    if (!caseWindowOpen || caseWindowMinimized || !activeCaseId) return
-    if (caseStartedAtRef.current[activeCaseId] == null) {
-      caseStartedAtRef.current[activeCaseId] = performance.now()
-      caseAttemptRef.current[activeCaseId] = 1
+    if (!activelyViewedCaseId) return
+    resumeCaseTimer(caseTimersRef.current, activelyViewedCaseId, performance.now())
+    if (caseAttemptRef.current[activelyViewedCaseId] == null) {
+      caseAttemptRef.current[activelyViewedCaseId] = 1
     }
-  }, [activeCaseId, caseWindowMinimized, caseWindowOpen])
+    return () => {
+      pauseCaseTimer(caseTimersRef.current, activelyViewedCaseId, performance.now())
+    }
+  }, [activelyViewedCaseId])
 
   const rankingNode = nodes.find((node): node is RankingFlowNode => node.type === 'ranking')
   const scoringNode = nodes.find((node) => node.type === 'scoring')
@@ -490,22 +521,22 @@ export function GamePage() {
     if (!caseId) return
     const scoredCase = nodes.find((node): node is CaseFlowNode => node.type === 'case' && node.data.caseId === caseId)
     if (!scoredCase) return
-    setScoreByCase((current) => {
-      if (current[caseId]) return current
-      const startedAt = caseStartedAtRef.current[caseId] ?? performance.now()
-      const breakdown = calculateCaseScore({
-        caseData: scoredCase.data,
-        correct: result.data.resultType === 'win',
-        attempt: caseAttemptRef.current[caseId] ?? 1,
-        elapsedSeconds: (performance.now() - startedAt) / 1000,
-        settings: scoringSettings,
-      })
-      return recordCaseScore(current, breakdown)
+    if (scoreByCase[caseId]) return
+    const breakdown = calculateCaseScore({
+      caseData: scoredCase.data,
+      correct: false,
+      attempt: caseAttemptRef.current[caseId] ?? 1,
+      elapsedSeconds: getCaseElapsedSeconds(caseTimersRef.current, caseId, performance.now()),
+      settings: scoringSettings,
     })
-  }, [currentNode, lastCaseId, nodes, scoringSettings])
+    setAchievementsOpen(true)
+    setScoreByCase((current) => recordCaseScore(current, breakdown))
+    showPointPopup(breakdown.totalPoints, 'lose', caseId)
+  }, [currentNode, lastCaseId, nodes, scoreByCase, scoringSettings])
 
   useEffect(() => () => {
     if (winAdvanceTimerRef.current != null) window.clearTimeout(winAdvanceTimerRef.current)
+    if (pointPopupTimerRef.current != null) window.clearTimeout(pointPopupTimerRef.current)
   }, [])
 
   // Open the Cases window. Used by the desktop icon and by boss-message
@@ -525,6 +556,7 @@ export function GamePage() {
     }
     setCaseWindowOpen(true)
     setCaseWindowMinimized(false)
+    setForegroundDesktopApp('cases')
     setCaseWindowMotionOrigin('desktop')
     setCaseWindowMotion('restoring')
     caseWindowMotionTimeoutRef.current = window.setTimeout(() => {
@@ -541,6 +573,7 @@ export function GamePage() {
     setCaseWindowMotion('minimizing')
     caseWindowMotionTimeoutRef.current = window.setTimeout(() => {
       setCaseWindowMinimized(true)
+      setForegroundDesktopApp((current) => current === 'cases' ? null : current)
       setCaseWindowMotion('idle')
       caseWindowMotionTimeoutRef.current = null
     }, WINDOW_MOTION_MS)
@@ -552,6 +585,7 @@ export function GamePage() {
     }
     setCaseWindowOpen(true)
     setCaseWindowMinimized(false)
+    setForegroundDesktopApp('cases')
     setCaseWindowMotionOrigin('taskbar')
     setCaseWindowMotion('restoring')
     caseWindowMotionTimeoutRef.current = window.setTimeout(() => {
@@ -566,6 +600,7 @@ export function GamePage() {
     }
     setOperationWindowOpen(true)
     setOperationWindowMinimized(false)
+    setForegroundDesktopApp('operation')
     setOperationWindowMotionOrigin('desktop')
     setOperationWindowMotion('restoring')
     operationWindowMotionTimeoutRef.current = window.setTimeout(() => {
@@ -582,6 +617,11 @@ export function GamePage() {
     setOperationWindowMotion('minimizing')
     operationWindowMotionTimeoutRef.current = window.setTimeout(() => {
       setOperationWindowMinimized(true)
+      setForegroundDesktopApp((current) => (
+        current === 'operation'
+          ? caseWindowOpen && !caseWindowMinimized ? 'cases' : null
+          : current
+      ))
       setOperationWindowMotion('idle')
       operationWindowMotionTimeoutRef.current = null
     }, WINDOW_MOTION_MS)
@@ -593,6 +633,7 @@ export function GamePage() {
     }
     setOperationWindowOpen(true)
     setOperationWindowMinimized(false)
+    setForegroundDesktopApp('operation')
     setOperationWindowMotionOrigin('taskbar')
     setOperationWindowMotion('restoring')
     operationWindowMotionTimeoutRef.current = window.setTimeout(() => {
@@ -781,6 +822,17 @@ export function GamePage() {
         && tNode.data.restoreArrestButton === true
     })
   }
+  const isIncorrectDecision = (caseNode: CaseFlowNode, triggerType: TriggerType) => {
+    if (hasRetryTrigger(caseNode.id, triggerType)) return true
+    const decisionEdge = edges.find(
+      (edge) => edge.source === caseNode.id && edge.sourceHandle === triggerType,
+    )
+    const targetNode = decisionEdge
+      ? nodes.find((node) => node.id === decisionEdge.target)
+      : null
+    return targetNode?.type === 'message' && targetNode.data.messageType === 'voice'
+      || targetNode?.type === 'trigger' && targetNode.data.retry === true
+  }
   /** Find the next walker node along a specific source handle from
    *  any source id. Mirrors useGameFlow's internal lookup but lets us
    *  jump from a case node even when the walker isn't currently on it.
@@ -818,12 +870,14 @@ export function GamePage() {
   }
   const onArrest = () => {
     if (!activeCaseNode) return
-    clearPendingTrigger()
     const caseId = activeCaseNode.data.caseId
+    freezeCaseTimer(caseTimersRef.current, caseId, performance.now())
+    clearPendingTrigger()
     const retry = hasRetryTrigger(activeCaseNode.id, 'arrest')
+    const incorrect = isIncorrectDecision(activeCaseNode, 'arrest')
+    if (incorrect) pendingIncorrectCaseRef.current = activeCaseNode
     const continueOnly = activeCaseNode.data.arrestContinuesWithoutDecision === true
     const restoreArrestButton = hasRestoreArrestButtonTrigger(activeCaseNode.id)
-    if (retry) caseAttemptRef.current[caseId] = 2
     // On a retry-arrest trigger we never lock the decision — the pill
     // would otherwise flash "Arrested" while the boss scolds the player.
     if (!retry && !continueOnly) {
@@ -831,7 +885,10 @@ export function GamePage() {
       if (activeCaseNode.data.hasOperation) setPendingOperationCaseId(caseId)
     }
     runWithTrigger(findTriggerMessageIds(activeCaseNode.id, 'arrest'), () => {
-      if (retry) return
+      if (retry) {
+        caseAttemptRef.current[caseId] = 2
+        return
+      }
       if (restoreArrestButton) {
         setCaseDecisions((prev) => {
           const next = { ...prev }
@@ -845,26 +902,66 @@ export function GamePage() {
   }
   const onRelease = () => {
     if (!activeCaseNode) return
-    clearPendingTrigger()
     const caseId = activeCaseNode.data.caseId
+    freezeCaseTimer(caseTimersRef.current, caseId, performance.now())
+    clearPendingTrigger()
     const retry = hasRetryTrigger(activeCaseNode.id, 'release')
-    if (retry) caseAttemptRef.current[caseId] = 2
+    const incorrect = isIncorrectDecision(activeCaseNode, 'release')
+    if (incorrect) pendingIncorrectCaseRef.current = activeCaseNode
     if (!retry) {
       setCaseDecisions((prev) => ({ ...prev, [caseId]: 'released' }))
       if (activeCaseNode.data.hasOperation) setPendingOperationCaseId(caseId)
     }
     runWithTrigger(findTriggerMessageIds(activeCaseNode.id, 'release'), () => {
-      if (retry) return
+      if (retry) {
+        caseAttemptRef.current[caseId] = 2
+        return
+      }
       const targetId = findNextFrom(activeCaseNode.id, 'release')
       if (targetId) goTo(targetId)
     })
+  }
+
+  function recordIncorrectChoice(caseNode: CaseFlowNode) {
+    const caseId = caseNode.data.caseId
+    if (lossAwardedCaseIdsRef.current.has(caseId)) return
+    lossAwardedCaseIdsRef.current.add(caseId)
+    const breakdown = calculateCaseScore({
+      caseData: caseNode.data,
+      correct: false,
+      attempt: caseAttemptRef.current[caseId] ?? 1,
+      elapsedSeconds: getCaseElapsedSeconds(caseTimersRef.current, caseId, performance.now()),
+      settings: scoringSettings,
+    })
+    setAchievementsOpen(true)
+    setScoreByCase((current) => recordCaseScore(current, breakdown))
+    showPointPopup(breakdown.totalPoints, 'lose', `${caseId}-incorrect`)
+  }
+
+  function showPointPopup(points: number, kind: 'win' | 'lose' | 'time', key: string) {
+    if (pointPopupTimerRef.current != null) {
+      window.clearTimeout(pointPopupTimerRef.current)
+    }
+    const id = `${key}-${Date.now()}`
+    setPointPopup({ id, points, kind })
+    pointPopupTimerRef.current = window.setTimeout(() => {
+      setPointPopup((current) => current?.id === id ? null : current)
+      pointPopupTimerRef.current = null
+    }, 1400)
+  }
+
+  function flushPendingIncorrectChoice() {
+    const pendingCase = pendingIncorrectCaseRef.current
+    if (!pendingCase) return
+    pendingIncorrectCaseRef.current = null
+    recordIncorrectChoice(pendingCase)
   }
 
   // Per-slot outcomes for the achievements panel, in case-order.
   const achievementsResults: CaseOutcome[] = cases.map(
     (c) => caseResults.get(c.caseId) ?? null,
   )
-  const caseBreakdowns = cases.map((item) => scoreByCase[item.caseId]).filter((item): item is CaseScoreBreakdown => !!item)
+  const caseBreakdowns = Object.values(scoreByCase)
   const runScore = buildRunScore(caseBreakdowns, scoringSettings.winningTarget)
   const totalScore = runScore.total
   const taskbarApps = useMemo<TaskbarApp[]>(() => {
@@ -895,14 +992,15 @@ export function GamePage() {
           <LoginScreen
             onLogin={(profile) => { setPlayerProfile(profile); advance() }}
           />
+          {restartDialog}
+          {bgMusic}
         </div>
-        {bgMusic}
       </>
     )
   }
 
   if (currentNode?.type === 'ranking') {
-    return <div ref={scaleRef} className={styles.canvas} data-scaled-stage><RankingPage profile={playerProfile} run={runScore} publicationKey={publicationKeyRef.current} /></div>
+    return <div ref={scaleRef} className={styles.canvas} data-scaled-stage><RankingPage profile={playerProfile} run={runScore} publicationKey={publicationKeyRef.current} />{restartDialog}</div>
   }
 
   // Walker is on a win-result — keep the desktop visible behind the
@@ -935,19 +1033,22 @@ export function GamePage() {
         return
       }
       winAdvancePendingRef.current = true
-      const startedAt = caseStartedAtRef.current[caseId] ?? performance.now()
       const breakdown = calculateCaseScore({
         caseData: scoredCase.data,
         correct: true,
         attempt: caseAttemptRef.current[caseId] ?? 1,
-        elapsedSeconds: (performance.now() - startedAt) / 1000,
+        elapsedSeconds: getCaseElapsedSeconds(caseTimersRef.current, caseId, performance.now()),
         settings: scoringSettings,
       })
       setScoreByCase((current) => {
         if (current[caseId]?.correct) return current
-        return { ...current, [caseId]: breakdown }
+        const previous = current[caseId]
+        return {
+          ...current,
+          [caseId]: previous ? combineRetryScore(previous, breakdown) : breakdown,
+        }
       })
-      setPointPopup({ id: `${caseId}-${Date.now()}`, points: breakdown.totalPoints })
+      setPointPopup({ id: `${caseId}-${Date.now()}`, points: breakdown.totalPoints, kind: 'win' })
       winAdvanceTimerRef.current = window.setTimeout(() => {
         winAdvancePendingRef.current = false
         setPointPopup(null)
@@ -963,6 +1064,7 @@ export function GamePage() {
               if (operationUnlocked) {
                 openOperationWindow()
               } else {
+                setForegroundDesktopApp('operation')
                 setOperationLockedScreenOpen(true)
               }
             }}
@@ -989,8 +1091,9 @@ export function GamePage() {
               />
             </div>
           </Desktop>
+          {restartDialog}
+          {bgMusic}
         </div>
-        {bgMusic}
       </>
     )
   }
@@ -1014,6 +1117,7 @@ export function GamePage() {
         if (operationUnlocked) {
           openOperationWindow()
         } else {
+          setForegroundDesktopApp('operation')
           setOperationLockedScreenOpen(true)
         }
       }}
@@ -1052,6 +1156,7 @@ export function GamePage() {
             onClose={() => {
               setCaseWindowOpen(false)
               setCaseWindowMinimized(false)
+              setForegroundDesktopApp((current) => current === 'cases' ? null : current)
               setCaseWindowMotion('idle')
             }}
             onMinimizeChange={(minimized) => {
@@ -1081,6 +1186,11 @@ export function GamePage() {
         const closeWindow = () => {
           setOperationWindowOpen(false)
           setOperationWindowMinimized(false)
+          setForegroundDesktopApp((current) => (
+            current === 'operation'
+              ? caseWindowOpen && !caseWindowMinimized ? 'cases' : null
+              : current
+          ))
           setOperationWindowMotion('idle')
         }
         return (
@@ -1131,6 +1241,7 @@ export function GamePage() {
             results={achievementsResults}
             total={totalScore}
             winningTarget={scoringSettings.winningTarget}
+            pointPopup={pointPopup}
             loopEntryFlicker={
               messageNode?.data.buttonLinkType === 'achievements'
             }
@@ -1143,7 +1254,12 @@ export function GamePage() {
           clicking shows this screen instead of opening the window. */}
       {operationLockedScreenOpen && (
         <OperationLockedScreen
-          onClose={() => setOperationLockedScreenOpen(false)}
+          onClose={() => {
+            setOperationLockedScreenOpen(false)
+            setForegroundDesktopApp(
+              caseWindowOpen && !caseWindowMinimized ? 'cases' : null,
+            )
+          }}
         />
       )}
 
@@ -1157,6 +1273,15 @@ export function GamePage() {
             key={triggerHead.id}
             data={triggerHead.data}
             onAdvance={() => {
+              // Decision-triggered losses are awarded as soon as the voice
+              // finishes. A chained follow-up message may still open, but it
+              // must not delay the score change or red points indicator.
+              if (triggerHead.data.messageType === 'voice' && pendingActionRef.current) {
+                flushPendingIncorrectChoice()
+                const action = pendingActionRef.current
+                pendingActionRef.current = null
+                action()
+              }
               // Follow the message's outgoing edge to a chained message
               // node, so Trigger → Voice → Text plays the whole chain
               // before the queue drains and the pending action fires.
@@ -1187,7 +1312,10 @@ export function GamePage() {
           <BossMessageSlot
             key={messageNode.id}
             data={messageNode.data}
-            onAdvance={() => advance()}
+            onAdvance={() => {
+              flushPendingIncorrectChoice()
+              advance()
+            }}
             onOpenCases={openCaseWindow}
             onUnlockCase={unlockCase}
             onUnlockOperation={() => setOperationUnlocked(true)}
@@ -1215,8 +1343,9 @@ export function GamePage() {
         )
       })()}
     </Desktop>
-    </div>
+    {restartDialog}
     {bgMusic}
+    </div>
     </>
   )
 }

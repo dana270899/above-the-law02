@@ -1,5 +1,6 @@
-import type { GameFlowNode, GameFlowEdge } from '@/types/editor'
-import { assetUrl } from './paths'
+import { loadGameContent, type SavedGraph } from './gameContent'
+
+export type { SavedGraph } from './gameContent'
 
 /**
  * SHARED EDITOR STORAGE
@@ -7,9 +8,6 @@ import { assetUrl } from './paths'
  * so the editor (writer) and the game (reader) never drift apart.
  */
 const API_GRAPH_URL = '/api/editor-state'
-const STATIC_GRAPH_URL = assetUrl('/editor-state-current.json')
-
-export type SavedGraph = { nodes: GameFlowNode[]; edges: GameFlowEdge[] }
 
 function isSavedGraph(value: unknown): value is SavedGraph {
   return (
@@ -30,18 +28,18 @@ async function fetchGraph(url: string): Promise<SavedGraph | null> {
 /** Return the saved graph file, or null if nothing valid is available. */
 export async function loadGraph(): Promise<SavedGraph | null> {
   try {
-    return (await fetchGraph(API_GRAPH_URL)) ?? (await fetchGraph(STATIC_GRAPH_URL))
+    return (await fetchGraph(API_GRAPH_URL)) ?? (await loadGameContent())
   } catch {
-    try {
-      return await fetchGraph(STATIC_GRAPH_URL)
-    } catch {
-      return null
-    }
+    return loadGameContent()
   }
 }
 
 /** Persist the live graph to data/editor-state-current.json in local dev. */
 export async function saveCurrentGraph(graph: SavedGraph): Promise<void> {
+  if (!import.meta.env.DEV) {
+    throw new Error('The editor can only save through the local development server.')
+  }
+
   const response = await fetch(API_GRAPH_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

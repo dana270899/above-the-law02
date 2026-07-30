@@ -1,0 +1,159 @@
+.layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  background: rgb(23 23 23 / 22%);
+}
+
+.dialog {
+  width: 419px;
+  height: 368px;
+  overflow: hidden;
+  color: var(--black);
+  background: var(--white);
+  border: 2px solid var(--black);
+  border-radius: 2px;
+}
+
+.titleBar {
+  display: flex;
+  height: 40px;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid var(--black);
+}
+
+.titleBar h2 {
+  padding: 0 16px;
+  color: var(--grey);
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 28px;
+}
+
+.windowControls {
+  display: flex;
+  height: 40px;
+}
+
+.windowControls button {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  margin-left: -2px;
+  border: 2px solid var(--black);
+}
+
+.expand { background: var(--green); }
+.minimize { background: var(--yellow); }
+.close { background: var(--red); }
+
+.expand span::before,
+.expand span::after {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  content: '';
+}
+
+.expand span::before {
+  top: 9px;
+  right: 9px;
+  border-top: 2px solid var(--black);
+  border-right: 2px solid var(--black);
+}
+
+.expand span::after {
+  bottom: 9px;
+  left: 9px;
+  border-bottom: 2px solid var(--black);
+  border-left: 2px solid var(--black);
+}
+
+.minimize span::after {
+  position: absolute;
+  right: 9px;
+  bottom: 9px;
+  left: 9px;
+  height: 2px;
+  content: '';
+  background: var(--black);
+}
+
+.close span::before,
+.close span::after {
+  position: absolute;
+  top: 7px;
+  left: 17px;
+  width: 2px;
+  height: 24px;
+  content: '';
+  background: var(--black);
+}
+
+.close span::before { transform: rotate(45deg); }
+.close span::after { transform: rotate(-45deg); }
+
+.content {
+  display: flex;
+  height: 328px;
+  flex-direction: column;
+  gap: 24px;
+  padding: 32px 56px;
+}
+
+.message {
+  display: flex;
+  height: 132px;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+}
+
+.message p {
+  font-size: 32px;
+  line-height: 30px;
+  white-space: nowrap;
+}
+
+.message time {
+  display: block;
+  font-size: 64px;
+  font-variant-numeric: tabular-nums;
+  line-height: 64px;
+}
+
+.actions {
+  display: flex;
+  width: 307px;
+  height: 108px;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.actions button {
+  width: 307px;
+  height: 50px;
+  flex: 0 0 50px;
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  color: var(--white);
+  font: 400 24px/26px var(--font-main);
+}
+
+.stayButton { background: var(--green); }
+.restartButton { background: var(--red); }
+
+.actions button:focus-visible,
+.windowControls button:focus-visible {
+  outline: 3px solid var(--light-blue-300);
+  outline-offset: -5px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .layer { animation: none; }
+}

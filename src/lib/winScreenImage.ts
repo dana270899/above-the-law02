@@ -53,6 +53,10 @@ export function winScreenImageKey(variant: WinVariant): string {
 
 /** Return the override data URL for a variant, or null if none is set. */
 export function loadWinScreenImage(variant: WinVariant): string | null {
+  // Per-variant overrides are an authoring convenience, not published game
+  // content. Production always uses the graph or bundled registry asset.
+  if (!import.meta.env.DEV) return null
+
   try {
     return localStorage.getItem(winScreenImageKey(variant))
   } catch {

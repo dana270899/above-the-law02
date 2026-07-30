@@ -3,6 +3,7 @@ import type { CaseNodeData } from '@/types/editor'
 import {
   buildRunScore,
   calculateCaseScore,
+  combineRetryScore,
   DEFAULT_SCORING_SETTINGS,
   recordCaseScore,
 } from './scoring'
@@ -52,7 +53,7 @@ describe('calculateCaseScore', () => {
     expect(result.speedPoints).toBe(expected)
   })
 
-  it('awards no points for an incorrect result', () => {
+  it('deducts the configured base points for an incorrect result', () => {
     const result = calculateCaseScore({
       caseData: caseData({ isImportant: true }),
       correct: false,
@@ -60,7 +61,7 @@ describe('calculateCaseScore', () => {
       elapsedSeconds: 0,
       settings: { ...DEFAULT_SCORING_SETTINGS, speedTimeLimitSeconds: 100, speedMaxBonus: 100 },
     })
-    expect(result.totalPoints).toBe(0)
+    expect(result.totalPoints).toBe(-100)
   })
 
   it('records a case only once across repeated actions and revisits', () => {
@@ -69,6 +70,16 @@ describe('calculateCaseScore', () => {
     const state = recordCaseScore({}, first)
     expect(recordCaseScore(state, repeated)).toBe(state)
     expect(state['case-1'].totalPoints).toBe(100)
+  })
+
+  it('keeps the first loss and adds only the second-chance award', () => {
+    const settings = { ...DEFAULT_SCORING_SETTINGS, speedBonusEnabled: false }
+    const loss = calculateCaseScore({ caseData: caseData(), correct: false, attempt: 1, elapsedSeconds: 1, settings })
+    const retry = calculateCaseScore({ caseData: caseData(), correct: true, attempt: 2, elapsedSeconds: 1, settings })
+    const combined = combineRetryScore(loss, retry)
+    expect(loss.totalPoints).toBe(-100)
+    expect(retry.totalPoints).toBe(50)
+    expect(combined.totalPoints).toBe(-50)
   })
 
   it('marks a run as won without preventing later cases from raising the score', () => {
