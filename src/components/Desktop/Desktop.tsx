@@ -178,7 +178,7 @@ export function Desktop({
         <div className={`${styles.sidebarColumn} ${styles.sidebarColumnRight}`}>
           <button type="button" className={`${styles.appIcon} ${styles.appIconFirst}`} onClick={onWhackClick}>
             <div data-spot="icon.whack" className={styles.iconBox}><WhackIllustration /></div>
-            <span className={styles.appLabel}>Game</span>
+            <span className={styles.appLabel}>Mini Game</span>
           </button>
         </div>
       </div>

@@ -1,0 +1,52 @@
+{
+  "id": "2026-07-30T19-15-58Z",
+  "name": "Before restoring last version",
+  "createdAt": "2026-07-30T19:15:58.000Z",
+  "auto": true,
+  "filename": "2026-07-30T19-15-58Z-before-restoring-last-version.json",
+  "graph": {
+    "nodes": [
+      {
+        "id": "login",
+        "type": "login",
+        "position": {
+          "x": 300,
+          "y": 40
+        },
+        "data": {
+          "nodeType": "login",
+          "label": "Login Screen"
+        },
+        "measured": {
+          "width": 180,
+          "height": 88
+        }
+      },
+      {
+        "id": "global-scoring",
+        "type": "scoring",
+        "position": {
+          "x": 40,
+          "y": 40
+        },
+        "data": {
+          "winningTarget": 600,
+          "normalFirstPoints": 100,
+          "normalSecondPoints": 50,
+          "importantFirstPoints": 200,
+          "importantSecondPoints": 100,
+          "speedBonusEnabled": true,
+          "speedTimeLimitSeconds": 120,
+          "speedMaxBonus": 50,
+          "nodeType": "scoring",
+          "title": "Global Points"
+        },
+        "measured": {
+          "width": 982,
+          "height": 352
+        }
+      }
+    ],
+    "edges": []
+  }
+}

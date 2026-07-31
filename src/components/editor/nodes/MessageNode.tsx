@@ -5,7 +5,7 @@ import type { CaseFlowNode, MessageFlowNode, MessageNodeData, SubtitleCue } from
 import { BossMessage } from '@/components/game/BossMessage/BossMessage'
 import { messageDataToBossProps } from '@/lib/messageMapping'
 import { SPOTLIGHT_GROUPS, SPOTLIGHT_TARGETS } from '@/lib/spotlightTargets'
-import { loadAudioBlob, makeImageBlobId, removeAudioBlob, saveAudioBlob } from '@/lib/audioBlobStore'
+import { loadAudioBlob, removeAudioBlob } from '@/lib/audioBlobStore'
 import styles from './MessageNode.module.css'
 
 function clampPercent(raw: string): number {
@@ -108,7 +108,7 @@ export function MessageNode({ id, data }: NodeProps<MessageFlowNode>) {
         />
         <div className={`nodrag ${styles.photoControls}`}>
         <button type="button" onClick={() => photoInputRef.current?.click()}>
-          ⬆ Upload photo
+          🖼 Choose photo
         </button>
         {(data.photoCustomId || data.photoUrl) && (
           <button
@@ -133,17 +133,18 @@ export function MessageNode({ id, data }: NodeProps<MessageFlowNode>) {
           onChange={(e) => {
             const file = e.target.files?.[0]
             if (!file) return
-            const blobId = makeImageBlobId()
-            saveAudioBlob(blobId, file).then(() => {
-              if (data.photoCustomId && data.photoCustomId !== blobId) {
-                removeAudioBlob(data.photoCustomId).catch(() => {})
-              }
+            const reader = new FileReader()
+            reader.onload = () => {
+              if (typeof reader.result !== 'string') return
+              if (data.photoCustomId) removeAudioBlob(data.photoCustomId).catch(() => {})
               updateNodeData(id, {
-                photoCustomId: blobId,
+                photoUrl: reader.result,
+                photoCustomId: undefined,
                 photoCustomLabel: file.name,
-                photoUrl: undefined,
               })
-            }).catch(() => alert('Could not save the photo. Browser storage may be unavailable.'))
+            }
+            reader.onerror = () => alert('Could not read the selected photo.')
+            reader.readAsDataURL(file)
             e.target.value = ''
           }}
         />

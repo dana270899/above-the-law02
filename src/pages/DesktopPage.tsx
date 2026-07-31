@@ -79,7 +79,9 @@ export function DesktopPage() {
 
   const [closed, setClosed] = useState(false)
   const [operationClosed, setOperationClosed] = useState(false)
-  const [whackOpen, setWhackOpen] = useState(false)
+  const [whackOpen, setWhackOpen] = useState(
+    () => new URLSearchParams(window.location.search).get('startWhack') === '1',
+  )
   // Local decision state — without the full game flow here, the user
   // can still preview the "Arrested" / "Released" lower-bar variants
   // by clicking the buttons in the previewed case window.
@@ -100,7 +102,7 @@ export function DesktopPage() {
       apps.push({ id: 'operation', label: 'Operation' })
     }
     if (whackOpen) {
-      apps.push({ id: 'whack', label: 'Game' })
+      apps.push({ id: 'whack', label: 'Mini Game' })
     }
     return apps
   }, [closed, operationClosed, startCase, startOperation, whackOpen])

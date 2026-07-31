@@ -28,6 +28,15 @@
   pointer-events: auto;
 }
 
+/* TutorialSpotlight paints its grayscale strips at z-index 5 and the boss
+   message uses 10. Open app surfaces move above both while a tutorial is
+   active, so the active app stays in full color and covers tutorial messages
+   where they overlap. Applying this conditionally preserves the normal app
+   stacking order outside tutorials. */
+.tutorialColorLayer {
+  z-index: 11;
+}
+
 .windowMinimizing {
   animation: windowMinimizeToTaskbar 420ms cubic-bezier(.32, 0, .12, 1) forwards;
   transform-origin: center;

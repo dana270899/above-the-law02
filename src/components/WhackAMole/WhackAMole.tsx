@@ -1,6 +1,6 @@
 import {
   type CSSProperties,
-  type PointerEvent,
+  type MouseEvent,
   useCallback,
   useEffect,
   useMemo,
@@ -13,7 +13,7 @@ import styles from './WhackAMole.module.css'
 const HOLE_COUNT = 3
 const STARTING_LIVES = 3
 const POINTS_PER_HIT = 10
-const HIT_HOLD_MS = 220
+const HIT_HOLD_MS = 380
 const START_VISIBLE_MS = 1600
 const START_GAP_MS = 720
 const SPEED_VISIBLE_STEP_MS = 170
@@ -21,13 +21,15 @@ const SPEED_GAP_STEP_MS = 80
 const MIN_VISIBLE_MS = 260
 const MIN_GAP_MS = 70
 const HAMMER_STRIKE_MS = 620
-const HAMMER_ANCHOR_X = 100
-const HAMMER_ANCHOR_Y = 500
+const HAMMER_IMPACT_MS = 30
+const HAMMER_ANCHOR_X = 195
+const HAMMER_ANCHOR_Y = 575
+const HAMMER_HIT_Y_OFFSET = 310
+const GRANDMA_HEAD_Y_RATIO = 0.25
 const LIFE_FLICKER_MS = 620
 
 type GrandmaSprite = {
   default: string
-  hit: string
   name: string
 }
 
@@ -35,17 +37,14 @@ const GRANDMAS: GrandmaSprite[] = [
   {
     name: 'Lech grandma',
     default: assetUrl('/images/mini-game/Grandma01_default.svg'),
-    hit: assetUrl('/images/mini-game/Grandma01_hit.svg'),
   },
   {
     name: 'Democracy grandma',
     default: assetUrl('/images/mini-game/Grandma02_default.svg'),
-    hit: assetUrl('/images/mini-game/Grandma02_hit.svg'),
   },
   {
     name: 'Peace grandma',
     default: assetUrl('/images/mini-game/Grandma03_default.svg'),
-    hit: assetUrl('/images/mini-game/Grandma03_hit.svg'),
   },
 ]
 
@@ -66,7 +65,6 @@ export function WhackAMole({ onClose }: WhackAMoleProps) {
   const [gameOver, setGameOver] = useState(false)
   const [activeHole, setActiveHole] = useState<number | null>(null)
   const [activeGrandma, setActiveGrandma] = useState(0)
-  const [hitHole, setHitHole] = useState<number | null>(null)
   const [hammerStrike, setHammerStrike] = useState<{ x: number; y: number; id: number } | null>(null)
   const [lifeFlickerId, setLifeFlickerId] = useState(0)
 
@@ -76,6 +74,7 @@ export function WhackAMole({ onClose }: WhackAMoleProps) {
   const hammerTimerRef = useRef<number | null>(null)
   const lifeFlickerTimerRef = useRef<number | null>(null)
   const runningRef = useRef(false)
+  const hitPendingRef = useRef(false)
   const hammerStrikeIdRef = useRef(0)
   const previousHoleRef = useRef<number | null>(null)
 
@@ -121,9 +120,9 @@ export function WhackAMole({ onClose }: WhackAMoleProps) {
       runningRef.current = false
       clearTimers()
       setActiveHole(null)
-      setHitHole(null)
       setHammerStrike(null)
       setLifeFlickerId(0)
+      hitPendingRef.current = false
       previousHoleRef.current = null
       setRunning(false)
       setGameOver(over)
@@ -161,11 +160,9 @@ export function WhackAMole({ onClose }: WhackAMoleProps) {
       previousHoleRef.current = holeIdx
       setActiveHole(holeIdx)
       setActiveGrandma(grandmaIdx)
-      setHitHole(null)
       showTimerRef.current = window.setTimeout(() => {
         if (!runningRef.current) return
         setActiveHole(null)
-        setHitHole(null)
         loseLife()
         scheduleNextMole()
       }, speedRef.current.visible)
@@ -178,47 +175,97 @@ export function WhackAMole({ onClose }: WhackAMoleProps) {
     setLives(STARTING_LIVES)
     setGameOver(false)
     setActiveHole(null)
-    setHitHole(null)
     setHammerStrike(null)
     setLifeFlickerId(0)
+    hitPendingRef.current = false
     previousHoleRef.current = null
     setRunning(true)
     runningRef.current = true
     scheduleNextMole()
   }
 
-  const handleHoleClick = (i: number) => {
+  const handleHoleClick = (i: number, event: MouseEvent<HTMLButtonElement>) => {
     if (!running) return
-    if (hitHole !== null) return
+    if (hitPendingRef.current) return
     if (activeHole === i) {
+      const clickedElement = event.target as HTMLElement
+      const grandma = clickedElement.closest<HTMLImageElement>('[data-whack-grandma]')
+      if (!grandma) return
+
+      hitPendingRef.current = true
       if (showTimerRef.current !== null) {
         clearTimeout(showTimerRef.current)
         showTimerRef.current = null
       }
+
+      const board = event.currentTarget.closest<HTMLElement>('[data-whack-board]')
+      const holes = event.currentTarget.parentElement
+      if (board) {
+        const hole = event.currentTarget
+        playHammerStrikeAt(
+          (holes?.offsetLeft ?? 0) + hole.offsetLeft + hole.offsetWidth / 2,
+          (holes?.offsetTop ?? 0) + hole.offsetTop + grandma.offsetTop
+            + grandma.offsetHeight * GRANDMA_HEAD_Y_RATIO
+            + HAMMER_HIT_Y_OFFSET,
+        )
+      }
+
       setScore((s) => s + POINTS_PER_HIT)
-      setHitHole(i)
       const audio = new Audio(OUCH_SOUND)
-      audio.play().catch(() => { /* autoplay blocked — ignore */ })
       if (hitTimerRef.current !== null) {
         clearTimeout(hitTimerRef.current)
       }
       hitTimerRef.current = window.setTimeout(() => {
         if (!runningRef.current) return
-        setActiveHole(null)
-        setHitHole(null)
-        scheduleNextMole()
-      }, HIT_HOLD_MS)
+        audio.play().catch(() => { /* autoplay blocked — ignore */ })
+        grandma.animate(
+          [
+            {
+              opacity: 1,
+              filter: 'brightness(1) saturate(1)',
+              transform: 'translate(-50%, 0) scale(1, 1)',
+            },
+            {
+              opacity: 1,
+              filter: 'brightness(1) saturate(1)',
+              transform: 'translate(-50%, -7px) scale(0.98, 1.03)',
+              offset: 0.12,
+            },
+            {
+              opacity: 1,
+              filter: 'brightness(1.28) saturate(1.25)',
+              transform: 'translate(-54%, 9px) scale(1.18, 0.68)',
+              offset: 0.34,
+            },
+            {
+              opacity: 1,
+              filter: 'brightness(1.08) saturate(1.1)',
+              transform: 'translate(-46%, 18px) scale(1.27, 0.3)',
+              offset: 0.62,
+            },
+            {
+              opacity: 0,
+              filter: 'brightness(1) saturate(1)',
+              transform: 'translate(-50%, 24px) scale(1.32, 0.14)',
+            },
+          ],
+          { duration: HIT_HOLD_MS, easing: 'cubic-bezier(0.4, 0, 0.8, 1)', fill: 'forwards' },
+        )
+        hitTimerRef.current = window.setTimeout(() => {
+          if (!runningRef.current) return
+          setActiveHole(null)
+          hitPendingRef.current = false
+          scheduleNextMole()
+        }, HIT_HOLD_MS)
+      }, HAMMER_IMPACT_MS)
     }
   }
 
-  const playHammerStrike = (event: PointerEvent<HTMLDivElement>) => {
-    if (!runningRef.current) return
-
-    const rect = event.currentTarget.getBoundingClientRect()
+  const playHammerStrikeAt = (x: number, y: number) => {
     hammerStrikeIdRef.current += 1
     setHammerStrike({
-      x: event.clientX - rect.left,
-      y: event.clientY - rect.top,
+      x,
+      y,
       id: hammerStrikeIdRef.current,
     })
 
@@ -230,14 +277,6 @@ export function WhackAMole({ onClose }: WhackAMoleProps) {
       setHammerStrike(null)
       hammerTimerRef.current = null
     }, HAMMER_STRIKE_MS)
-  }
-
-  const stopHammerStrike = () => {
-    if (hammerTimerRef.current !== null) {
-      clearTimeout(hammerTimerRef.current)
-      hammerTimerRef.current = null
-    }
-    setHammerStrike(null)
   }
 
   useEffect(() => {
@@ -252,7 +291,7 @@ export function WhackAMole({ onClose }: WhackAMoleProps) {
   return (
     <div className={running ? styles.windowRunning : styles.window}>
       <div className={styles.titleBar}>
-        <span className={styles.title}>Game</span>
+        <span className={styles.title}>Mini Game</span>
         <div className={styles.windowActions}>
           <span className={styles.expandIcon} aria-hidden="true" />
           <span className={styles.minimizeIcon} aria-hidden="true" />
@@ -264,14 +303,12 @@ export function WhackAMole({ onClose }: WhackAMoleProps) {
 
       <div
         className={styles.board}
+        data-whack-board
         style={{ '--game-bg': `url(${BACKGROUND})` } as CSSProperties}
-        onPointerDown={playHammerStrike}
-        onPointerCancel={stopHammerStrike}
       >
         <div className={styles.holes} aria-label="Whack a mole holes">
           {Array.from({ length: HOLE_COUNT }).map((_, i) => {
             const isActive = activeHole === i
-            const isHit = hitHole === i
             const grandma = GRANDMAS[activeGrandma]
 
             return (
@@ -279,14 +316,15 @@ export function WhackAMole({ onClose }: WhackAMoleProps) {
                 key={i}
                 type="button"
                 className={styles.hole}
-                onClick={() => handleHoleClick(i)}
+                onClick={(event) => handleHoleClick(i, event)}
                 aria-label={`Hole ${i + 1}`}
               >
                 {isActive && (
                   <img
-                    className={isHit ? styles.grandmaHit : styles.grandma}
-                    src={isHit ? grandma.hit : grandma.default}
+                    className={styles.grandma}
+                    src={grandma.default}
                     alt={grandma.name}
+                    data-whack-grandma
                     draggable={false}
                   />
                 )}

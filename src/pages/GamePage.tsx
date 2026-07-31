@@ -31,6 +31,7 @@ import { startDragCursor, stopDragCursor } from '@/lib/dragCursor'
 import { TutorialSpotlight } from '@/components/game/TutorialSpotlight'
 import { OperationLockedScreen } from '@/components/game/OperationLockedScreen'
 import { AchievementsWindow, type CaseOutcome } from '@/components/AchievementsWindow'
+import { WhackAMole } from '@/components/WhackAMole'
 import { useGameFlow } from '@/hooks/useGameFlow'
 import { useGameScale } from '@/hooks/useGameScale'
 import { messageDataToBossProps } from '@/lib/messageMapping'
@@ -52,7 +53,7 @@ import { getWinSound } from '@/lib/winSounds'
 import { loadAudioBlob } from '@/lib/audioBlobStore'
 import { BgMusicPlayer } from '@/components/game/BgMusicPlayer/BgMusicPlayer'
 import type { BgMusicFlowNode } from '@/types/editor'
-import { assetUrl } from '@/lib/paths'
+import { appPath, assetUrl } from '@/lib/paths'
 import { buildRunScore, calculateCaseScore, combineRetryScore, DEFAULT_SCORING_SETTINGS, recordCaseScore, type CaseScoreBreakdown, type PlayerProfile, type ScoringSettings } from '@/lib/scoring'
 import {
   freezeCaseTimer,
@@ -99,7 +100,15 @@ export function GamePage() {
   const [scoreByCase, setScoreByCase] = useState<Record<string, CaseScoreBreakdown>>({})
   const showRestartPreview = import.meta.env.DEV
     && new URLSearchParams(window.location.search).get('restartPreview') === '1'
-  const restartDialog = <GameRestartDialog preview={showRestartPreview} />
+  const restartToRanking = useCallback(() => {
+    window.location.assign(appPath('/'))
+  }, [])
+  const restartDialog = (
+    <GameRestartDialog
+      preview={showRestartPreview}
+      onRestart={restartToRanking}
+    />
+  )
   const [pointPopup, setPointPopup] = useState<{ id: string; points: number; kind: 'win' | 'lose' | 'time' } | null>(null)
   const winAdvancePendingRef = useRef(false)
   const winAdvanceTimerRef = useRef<number | null>(null)
@@ -131,6 +140,7 @@ export function GamePage() {
   const [caseWindowOpen, setCaseWindowOpen] = useState(
     () => !!startParams.startCaseId,
   )
+  const [miniGameOpen, setMiniGameOpen] = useState(false)
   const [foregroundDesktopApp, setForegroundDesktopApp] = useState<
     'cases' | 'operation' | null
   >(() => startParams.startCaseId ? 'cases' : null)
@@ -980,8 +990,15 @@ export function GamePage() {
         onClick: restoreOperationWindow,
       })
     }
+    if (miniGameOpen) {
+      apps.push({
+        id: 'whack',
+        label: 'Mini Game',
+        onClick: () => setMiniGameOpen(true),
+      })
+    }
     return apps
-  }, [activeCaseData, caseWindowOpen, operationWindowOpen])
+  }, [activeCaseData, caseWindowOpen, miniGameOpen, operationWindowOpen])
 
   // While the flow sits on a login node, render the LoginScreen as a
   // full-screen step. Submitting follows the node's outgoing edge.
@@ -1000,7 +1017,7 @@ export function GamePage() {
   }
 
   if (currentNode?.type === 'ranking') {
-    return <div ref={scaleRef} className={styles.canvas} data-scaled-stage><RankingPage profile={playerProfile} run={runScore} publicationKey={publicationKeyRef.current} />{restartDialog}</div>
+    return <div ref={scaleRef} className={styles.canvas} data-scaled-stage><RankingPage profile={playerProfile} run={runScore} publicationKey={publicationKeyRef.current} /></div>
   }
 
   // Walker is on a win-result — keep the desktop visible behind the
@@ -1069,6 +1086,7 @@ export function GamePage() {
               }
             }}
             onStartClick={() => setVolumeControlVisible((v) => !v)}
+            onWhackClick={() => setMiniGameOpen(true)}
           >
             <WinScreenStop
               variant={winImage}
@@ -1122,6 +1140,7 @@ export function GamePage() {
         }
       }}
       onStartClick={() => setVolumeControlVisible((v) => !v)}
+      onWhackClick={() => setMiniGameOpen(true)}
       taskbarApps={taskbarApps}
       tutorialOverlay={(() => {
         if (!activeTutorialMsg || caseWindowHighlightTarget) return null
@@ -1138,6 +1157,7 @@ export function GamePage() {
           ref={caseWindowLayerRef}
           className={[
             styles.caseLayer,
+            activeTutorialMsg ? styles.tutorialColorLayer : '',
             caseWindowMotion === 'minimizing'
               ? styles.windowMinimizing
               : caseWindowMotion === 'restoring'
@@ -1198,6 +1218,7 @@ export function GamePage() {
             ref={operationWindowLayerRef}
             className={[
               styles.caseLayer,
+              activeTutorialMsg ? styles.tutorialColorLayer : '',
               operationWindowMotion === 'minimizing'
                 ? styles.windowMinimizing
                 : operationWindowMotion === 'restoring'
@@ -1236,7 +1257,12 @@ export function GamePage() {
       })()}
 
       {achievementsOpen && (
-        <div className={styles.achievementsLayer}>
+        <div
+          className={[
+            styles.achievementsLayer,
+            activeTutorialMsg ? styles.tutorialColorLayer : '',
+          ].filter(Boolean).join(' ')}
+        >
           <AchievementsWindow
             results={achievementsResults}
             total={totalScore}
@@ -1246,6 +1272,17 @@ export function GamePage() {
               messageNode?.data.buttonLinkType === 'achievements'
             }
           />
+        </div>
+      )}
+
+      {miniGameOpen && (
+        <div
+          className={[
+            styles.caseLayer,
+            activeTutorialMsg ? styles.tutorialColorLayer : '',
+          ].filter(Boolean).join(' ')}
+        >
+          <WhackAMole onClose={() => setMiniGameOpen(false)} />
         </div>
       )}
 

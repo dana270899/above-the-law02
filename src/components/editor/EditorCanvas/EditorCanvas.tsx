@@ -485,7 +485,7 @@ export function EditorCanvas() {
 
   // ─── Version history ────────────────────────────────────────
   // Snapshots of the editor graph are stored separately under
-  // `game-editor-versions-v1`. The user can save named versions, and
+  // `data/versions/` as timestamped JSON files. The user can save named versions, and
   // the editor itself takes an automatic snapshot on first ever load
   // and before any restore — so nothing the user has built can be
   // erased without a recovery path.

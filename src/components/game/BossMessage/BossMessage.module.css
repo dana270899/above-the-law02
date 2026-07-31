@@ -176,6 +176,14 @@
   min-height: 140px;
 }
 
+.photoAttachment {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+}
+
 .senderName {
   font-family: var(--font-main);
   font-size: 32px;
@@ -197,11 +205,12 @@
 
 .messagePhoto {
   display: block;
-  width: 100%;
-  max-height: 240px;
-  object-fit: contain;
+  width: 331px;
+  height: 160px;
+  max-width: 100%;
+  object-fit: cover;
   object-position: left center;
-  background: var(--light-blue-200);
+  background: var(--light-blue-100);
   border: 2px solid var(--black);
   border-radius: 4px;
 }

@@ -160,8 +160,7 @@
   background: var(--grey);
 }
 
-.grandma,
-.grandmaHit {
+.grandma {
   position: absolute;
   left: 50%;
   bottom: 51px;
@@ -171,14 +170,11 @@
   pointer-events: auto;
   user-select: none;
   transform: translateX(-50%);
+  transform-origin: 50% 100%;
 }
 
 .grandma {
   animation: rise 130ms ease-out;
-}
-
-.grandmaHit {
-  animation: hitDrop 220ms ease-in forwards;
 }
 
 .scoreBar,
@@ -294,17 +290,6 @@
   to {
     opacity: 1;
     transform: translate(-50%, 0);
-  }
-}
-
-@keyframes hitDrop {
-  0% {
-    opacity: 1;
-    transform: translate(-50%, 0) scaleY(1);
-  }
-  100% {
-    opacity: 1;
-    transform: translate(-50%, 94px) scaleY(0.24);
   }
 }
 

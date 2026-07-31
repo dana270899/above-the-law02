@@ -111,11 +111,16 @@ export function BossMessage(props: BossMessageProps) {
               <p className={styles.bodyText}>{props.text}</p>
             )}
 
-            {type === 'photo' && props.text && (
-              <p className={styles.bodyText}>{props.text}</p>
+            {type === 'photo' && (
+              <div className={styles.photoAttachment}>
+                {props.text && <p className={styles.bodyText}>{props.text}</p>}
+                {photoUrl && (
+                  <img className={styles.messagePhoto} src={photoUrl} alt="Boss message attachment" />
+                )}
+              </div>
             )}
 
-            {photoUrl && (
+            {type !== 'photo' && photoUrl && (
               <img className={styles.messagePhoto} src={photoUrl} alt="Boss message attachment" />
             )}
           </div>
