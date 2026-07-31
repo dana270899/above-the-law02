@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'vitest'
-import { buildLeaderboardDisplay, mergeLocalPlayer, type LeaderboardEntry } from './leaderboard'
+import {
+  buildLeaderboardDisplay,
+  getProfilePhotoUploadFormat,
+  mergeLocalPlayer,
+  type LeaderboardEntry,
+} from './leaderboard'
 
 function entry(id: string, score: number, createdAt: string, current = false): LeaderboardEntry {
   return { id, playerName: id, photoUrl: null, score, won: true, caseBreakdown: [], createdAt, isCurrentPlayer: current }
@@ -30,5 +35,17 @@ describe('leaderboard display', () => {
     expect(merged).toEqual(expect.arrayContaining([
       expect.objectContaining({ id: 'local-player', isCurrentPlayer: true, rank: 2 }),
     ]))
+  })
+})
+
+describe('leaderboard profile photos', () => {
+  it('keeps each supported image MIME type aligned with its stored extension', () => {
+    expect(getProfilePhotoUploadFormat('image/jpeg')).toEqual({ extension: 'jpg', contentType: 'image/jpeg' })
+    expect(getProfilePhotoUploadFormat('image/png')).toEqual({ extension: 'png', contentType: 'image/png' })
+    expect(getProfilePhotoUploadFormat('image/webp')).toEqual({ extension: 'webp', contentType: 'image/webp' })
+  })
+
+  it('requires SVG profile art to be rasterized before upload', () => {
+    expect(getProfilePhotoUploadFormat('image/svg+xml')).toBeNull()
   })
 })

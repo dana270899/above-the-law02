@@ -4,7 +4,7 @@ create table if not exists public.leaderboard_entries (
   id uuid primary key default gen_random_uuid(),
   player_name text not null check (char_length(player_name) between 1 and 60),
   photo_path text,
-  score integer not null check (score between 0 and 100000),
+  score integer not null check (score between -100000 and 100000),
   winning_target integer not null check (winning_target between 1 and 100000),
   won boolean not null,
   case_breakdown jsonb not null default '[]'::jsonb,
@@ -29,14 +29,14 @@ begin
      or coalesce(item->>'title', '') = ''
      or coalesce((item->>'attempt')::integer, 0) not in (1, 2)
      or coalesce((item->>'elapsedSeconds')::numeric, -1) < 0
-     or coalesce((item->>'basePoints')::integer, -1) < 0
-     or coalesce((item->>'speedPoints')::integer, -1) < 0
-     or coalesce((item->>'totalPoints')::integer, -1) < 0
+     or coalesce((item->>'basePoints')::integer, -100001) not between -100000 and 100000
+     or coalesce((item->>'speedPoints')::integer, -1) not between 0 and 100000
+     or coalesce((item->>'totalPoints')::integer, -100001) not between -100000 and 100000
+     or coalesce(item->>'correct', '') not in ('true', 'false')
      or (item->>'totalPoints')::integer <> (item->>'basePoints')::integer + (item->>'speedPoints')::integer
      or ((item->>'correct')::boolean = false and (
-       (item->>'basePoints')::integer <> 0 or
        (item->>'speedPoints')::integer <> 0 or
-       (item->>'totalPoints')::integer <> 0
+       (item->>'totalPoints')::integer <> (item->>'basePoints')::integer
      ));
 
   select count(distinct item->>'caseId') into distinct_cases
@@ -67,7 +67,7 @@ create policy "public completed-run insert" on public.leaderboard_entries for in
 with check (
   jsonb_typeof(case_breakdown) = 'array'
   and jsonb_array_length(case_breakdown) = 7
-  and (photo_path is null or photo_path ~ '^profiles/[0-9a-f-]{36}\\.(jpg|jpeg|png|webp)$')
+  and (photo_path is null or photo_path ~ '^profiles/[0-9a-f-]{36}\.(jpg|jpeg|png|webp)$')
 );
 
 insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)

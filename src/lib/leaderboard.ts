@@ -27,6 +27,61 @@ const headers = () => ({
     : {}),
 })
 
+type ProfilePhotoUploadFormat = {
+  extension: 'jpg' | 'png' | 'webp'
+  contentType: 'image/jpeg' | 'image/png' | 'image/webp'
+}
+
+export function getProfilePhotoUploadFormat(mimeType: string): ProfilePhotoUploadFormat | null {
+  switch (mimeType.toLowerCase().split(';', 1)[0].trim()) {
+    case 'image/jpeg':
+    case 'image/jpg':
+      return { extension: 'jpg', contentType: 'image/jpeg' }
+    case 'image/png':
+      return { extension: 'png', contentType: 'image/png' }
+    case 'image/webp':
+      return { extension: 'webp', contentType: 'image/webp' }
+    default:
+      return null
+  }
+}
+
+async function rasterizeSvg(photo: Blob): Promise<Blob> {
+  const sourceUrl = URL.createObjectURL(photo)
+  try {
+    const image = await new Promise<HTMLImageElement>((resolve, reject) => {
+      const element = new Image()
+      element.onload = () => resolve(element)
+      element.onerror = () => reject(new Error('Could not prepare the SVG profile photo.'))
+      element.src = sourceUrl
+    })
+    const canvas = document.createElement('canvas')
+    canvas.width = Math.max(1, image.naturalWidth || 512)
+    canvas.height = Math.max(1, image.naturalHeight || 512)
+    const context = canvas.getContext('2d')
+    if (!context) throw new Error('Could not prepare the profile photo.')
+    context.drawImage(image, 0, 0, canvas.width, canvas.height)
+    const png = await new Promise<Blob>((resolve, reject) => {
+      canvas.toBlob((result) => {
+        if (result) resolve(result)
+        else reject(new Error('Could not prepare the profile photo.'))
+      }, 'image/png')
+    })
+    return png
+  } finally {
+    URL.revokeObjectURL(sourceUrl)
+  }
+}
+
+async function prepareProfilePhoto(photo: Blob): Promise<{ photo: Blob } & ProfilePhotoUploadFormat> {
+  const directFormat = getProfilePhotoUploadFormat(photo.type)
+  if (directFormat) return { photo, ...directFormat }
+  if (photo.type.toLowerCase().split(';', 1)[0].trim() === 'image/svg+xml') {
+    return { photo: await rasterizeSvg(photo), extension: 'png', contentType: 'image/png' }
+  }
+  throw new Error('The selected profile photo type is not supported.')
+}
+
 async function responseError(response: Response, fallback: string) {
   const body = await response.json().catch(() => null) as { message?: string } | null
   return new Error(body?.message || fallback)
@@ -92,11 +147,12 @@ export async function fetchLeaderboard(): Promise<LeaderboardEntry[]> {
 
 async function uploadPhoto(photo: Blob): Promise<string> {
   if (!url || !key) throw new Error('Leaderboard is not configured.')
-  const path = `profiles/${crypto.randomUUID()}.jpg`
+  const prepared = await prepareProfilePhoto(photo)
+  const path = `profiles/${crypto.randomUUID()}.${prepared.extension}`
   const response = await fetch(`${url}/storage/v1/object/leaderboard-photos/${path}`, {
     method: 'POST',
-    headers: { ...headers(), 'Content-Type': photo.type || 'image/jpeg', 'x-upsert': 'false' },
-    body: photo,
+    headers: { ...headers(), 'Content-Type': prepared.contentType, 'x-upsert': 'false' },
+    body: prepared.photo,
   })
   if (!response.ok) throw await responseError(response, 'Could not upload the profile photo.')
   return path
@@ -104,7 +160,14 @@ async function uploadPhoto(photo: Blob): Promise<string> {
 
 export async function publishLeaderboardEntry(args: { playerName: string; photo?: Blob | null; run: RunScore }): Promise<LeaderboardEntry> {
   if (!url || !key) throw new Error('Leaderboard is not configured.')
-  const photoPath = args.photo ? await uploadPhoto(args.photo) : null
+  let photoPath: string | null = null
+  if (args.photo) {
+    try {
+      photoPath = await uploadPhoto(args.photo)
+    } catch (reason) {
+      console.warn('The score will be saved without a profile photo.', reason)
+    }
+  }
   const response = await fetch(`${url}/rest/v1/leaderboard_entries`, {
     method: 'POST',
     headers: { ...headers(), 'Content-Type': 'application/json', Prefer: 'return=representation' },
