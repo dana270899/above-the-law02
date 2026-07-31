@@ -20,7 +20,12 @@ export interface LeaderboardDisplay {
 
 const url = import.meta.env.VITE_SUPABASE_URL?.replace(/\/$/, '')
 const key = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY ?? import.meta.env.VITE_SUPABASE_ANON_KEY
-const headers = () => ({ apikey: key ?? '', Authorization: `Bearer ${key ?? ''}` })
+const headers = () => ({
+  apikey: key ?? '',
+  ...(key && !key.startsWith('sb_publishable_')
+    ? { Authorization: `Bearer ${key}` }
+    : {}),
+})
 
 async function responseError(response: Response, fallback: string) {
   const body = await response.json().catch(() => null) as { message?: string } | null
