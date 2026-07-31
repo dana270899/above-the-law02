@@ -79,10 +79,10 @@ export function RankingPage({
     let active = true
     async function loadAndPublish() {
       try {
-        const remoteEntries = await fetchLeaderboard()
-        if (!active) return
-        setEntries(remoteEntries)
         if (entryMode) {
+          const remoteEntries = await fetchLeaderboard(10)
+          if (!active) return
+          setEntries(remoteEntries)
           setStatus('ready')
           return
         }
@@ -94,10 +94,19 @@ export function RankingPage({
         }
         setStatus('publishing')
         const key = publicationKey ?? `${profile.name}:${run.total}:${JSON.stringify(run.cases)}`
-        const published = await publicationRequest(key, profile, run)
+        const [remoteResult, publicationResult] = await Promise.allSettled([
+          fetchLeaderboard(),
+          publicationRequest(key, profile, run),
+        ])
+        if (publicationResult.status === 'rejected') throw publicationResult.reason
+        const remoteEntries = remoteResult.status === 'fulfilled' ? remoteResult.value : []
+        if (remoteResult.status === 'rejected') {
+          console.warn('The latest shared ranking could not be loaded.', remoteResult.reason)
+        }
+        const published = publicationResult.value
         if (!active) return
         setEntries((current) => [
-          ...current.filter((entry) => entry.id !== published.id),
+          ...remoteEntries.filter((entry) => entry.id !== published.id),
           published,
         ])
         setStatus('published')
@@ -149,7 +158,11 @@ export function RankingPage({
               </button>
             </div>
 
-            <div className={styles.rows} ref={rowsRef}>
+            <div
+              className={styles.rows}
+              ref={rowsRef}
+              aria-busy={status === 'loading' || status === 'publishing'}
+            >
               {shown.map((entry) => (
                 <article
                   key={entry.id}
@@ -169,8 +182,6 @@ export function RankingPage({
                   </span>
                 </article>
               ))}
-              {status === 'loading' && <p className={styles.loading}>Loading ranking…</p>}
-              {status === 'publishing' && <p className={styles.loading}>Saving your result…</p>}
               {status === 'ready' && shown.length === 0 && <p className={styles.loading}>No saved results yet.</p>}
             </div>
           </div>

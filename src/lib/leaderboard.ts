@@ -128,9 +128,12 @@ async function signedPhotoUrl(path: string | null): Promise<string | null> {
   return signed ? `${url}/storage/v1${signed}` : null
 }
 
-export async function fetchLeaderboard(): Promise<LeaderboardEntry[]> {
+export async function fetchLeaderboard(limit = 100): Promise<LeaderboardEntry[]> {
   if (!url || !key) return []
-  const response = await fetch(`${url}/rest/v1/leaderboard_entries?select=*&order=score.desc,created_at.asc&limit=100`, { headers: headers() })
+  const resultLimit = Number.isFinite(limit)
+    ? Math.max(1, Math.min(100, Math.trunc(limit)))
+    : 100
+  const response = await fetch(`${url}/rest/v1/leaderboard_entries?select=*&order=score.desc,created_at.asc&limit=${resultLimit}`, { headers: headers() })
   if (!response.ok) throw await responseError(response, 'Leaderboard is temporarily unavailable.')
   const rows = await response.json() as Array<Record<string, unknown>>
   const mapped = await Promise.all(rows.map(async (row) => ({
