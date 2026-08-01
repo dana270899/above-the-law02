@@ -962,13 +962,14 @@
           "releaseLabel": "Release",
           "sexColor": "red",
           "nationalityColor": "red"
-        }
+        },
+        "isImportant": true
       },
       "measured": {
         "width": 325,
         "height": 223
       },
-      "selected": false,
+      "selected": true,
       "dragging": false
     },
     {
@@ -1916,7 +1917,7 @@
         "width": 325,
         "height": 223
       },
-      "selected": true,
+      "selected": false,
       "dragging": false
     },
     {
@@ -2090,8 +2091,8 @@
       "id": "result-win-1785066101684",
       "type": "result",
       "position": {
-        "x": -6002.255467970772,
-        "y": 3367.5970741382303
+        "x": -6000.3512241897915,
+        "y": 3131.4708452967657
       },
       "data": {
         "nodeType": "result",

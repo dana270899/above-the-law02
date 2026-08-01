@@ -82,6 +82,14 @@ export function BgMusicPlayer({ src, srcCustom, defaultVolume, showControl = tru
     setMuted((m) => !m)
   }
 
+  function startAgain() {
+    // A restart begins a fresh game, so discard any volume/mute changes
+    // the player made during the previous run.
+    storeVolume(initialVolume)
+    storeMuted(false)
+    window.location.assign('/game')
+  }
+
   const effectivePct = Math.round((muted ? 0 : volume) * 100)
   if (!showControl) return null
 
@@ -92,7 +100,7 @@ export function BgMusicPlayer({ src, srcCustom, defaultVolume, showControl = tru
         <button
           type="button"
           className={styles.menuButton}
-          onClick={() => window.location.assign('/game')}
+          onClick={startAgain}
         >
           Start again
         </button>
@@ -173,11 +181,9 @@ function tryPlay(audio: HTMLAudioElement) {
 
 // ─── Per-session prefs ────────────────────────────────────────────
 // Volume + mute live in sessionStorage so the player's tweak survives
-// remounts (login → desktop) without leaking across browser sessions.
+// remounts within one game. "Start again" restores the configured default.
 
 const VOLUME_KEY = 'bg-music-volume-v1'
-// v2 intentionally starts new sessions muted so the menu initially
-// matches the Figma state with the yellow thumb at the far left.
 const MUTED_KEY = 'bg-music-muted-v2'
 
 function getStoredVolume(fallback: number): number {
@@ -198,9 +204,9 @@ function storeVolume(v: number) {
 function getStoredMuted(): boolean {
   try {
     const raw = sessionStorage.getItem(MUTED_KEY)
-    return raw == null ? true : raw === '1'
+    return raw == null ? false : raw === '1'
   } catch {
-    return true
+    return false
   }
 }
 

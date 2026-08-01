@@ -88,7 +88,15 @@
   /* TODO — tune the hotspot offset (the two numbers after the URL) so
      the punch lands on the click point. SVG is 181×236; browser will
      cap the cursor at ~128px and scale accordingly. */
-  cursor: url('../../../../assets/images/win-screens/PunchingDummy/PunchingDummy_glove_cursor.svg') 32 32, auto;
+  --punching-glove-cursor: url('../../../../assets/images/win-screens/PunchingDummy/PunchingDummy_glove_cursor.svg') 32 32, auto;
+  cursor: var(--punching-glove-cursor);
+}
+
+/* Keep the glove across the whole playable scene. Global button/role cursor
+   rules are intentionally stronger than component rules, so cover every
+   descendant here without putting the cursor on either window bar. */
+.screen * {
+  cursor: var(--punching-glove-cursor) !important;
 }
 
 .scene {
@@ -138,7 +146,7 @@
   background: transparent;
   border: none;
   outline: none;
-  /* Inherit the glove cursor set on .window — otherwise the default
+  /* Inherit the glove cursor set on .screen — otherwise the default
      pointer would override it on the only places the player actually
      clicks. */
   cursor: inherit;

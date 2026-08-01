@@ -2,7 +2,9 @@
 .menu {
   position: absolute;
   left: 0;
-  bottom: 61px;
+  /* Overlap the taskbar's 2px top border so both surfaces share one
+     divider instead of rendering two adjacent strokes. */
+  bottom: 59px;
   z-index: 9999;
   width: 260px;
   height: 308px;

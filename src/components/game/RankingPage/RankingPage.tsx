@@ -9,7 +9,6 @@ import {
   type LeaderboardEntry,
 } from '@/lib/leaderboard'
 import { appPath, assetUrl } from '@/lib/paths'
-import { requestCameraStream, stopCameraStream } from '@/lib/camera'
 import styles from './RankingPage.module.css'
 
 const publicationRequests = new Map<string, Promise<LeaderboardEntry>>()
@@ -45,24 +44,6 @@ export function RankingPage({
   const [error, setError] = useState('')
   const [detailsOpen, setDetailsOpen] = useState(false)
   const rowsRef = useRef<HTMLDivElement | null>(null)
-
-  useEffect(() => {
-    if (!entryMode) return
-    let active = true
-    let stream: MediaStream | null = null
-
-    void requestCameraStream()
-      .then((cameraStream) => {
-        stream = cameraStream
-        if (!active) stopCameraStream(cameraStream)
-      })
-      .catch(() => {})
-
-    return () => {
-      active = false
-      stopCameraStream(stream)
-    }
-  }, [entryMode])
 
   const localEntry = useMemo<LeaderboardEntry>(() => ({
     id: 'local-player',

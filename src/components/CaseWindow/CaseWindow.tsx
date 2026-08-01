@@ -1000,12 +1000,29 @@ function PhotoVisual({ photoUrl }: { photoUrl: string }) {
 const WEBCAM_FILTER_ENABLED = false
 
 function WebcamVisual({ fallbackPhotoUrl }: { fallbackPhotoUrl: string }) {
+  const [attempt, setAttempt] = useState(0)
   const [errored, setErrored] = useState(false)
-  if (errored) return <PhotoVisual photoUrl={fallbackPhotoUrl} />
-  if (WEBCAM_FILTER_ENABLED) {
-    return <WebcamFilter onError={() => setErrored(true)} />
+  if (errored) {
+    return (
+      <div className={styles.cameraFallback}>
+        <PhotoVisual photoUrl={fallbackPhotoUrl} />
+        <button
+          type="button"
+          className={styles.cameraRetry}
+          onClick={() => {
+            setErrored(false)
+            setAttempt((current) => current + 1)
+          }}
+        >
+          Turn on camera
+        </button>
+      </div>
+    )
   }
-  return <RawWebcamVisual onError={() => setErrored(true)} />
+  if (WEBCAM_FILTER_ENABLED) {
+    return <WebcamFilter key={attempt} onError={() => setErrored(true)} />
+  }
+  return <RawWebcamVisual key={attempt} onError={() => setErrored(true)} />
 }
 
 /** Plain webcam feed — no shader, no segmentation. Stops the stream

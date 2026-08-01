@@ -33,13 +33,14 @@
   top: 37.36%;
   left: 50%;
   width: min(79.27vw, 311.54px);
-  height: auto;
+  height: min(39.4vw, 154.82px);
   transform: translateX(-50%);
+  object-fit: contain;
 }
 
 .message {
   position: absolute;
-  top: 58.33%;
+  top: calc(37.36% + min(39.4vw, 154.82px) + 32px);
   left: 50%;
   width: 100%;
   transform: translateX(-50%);

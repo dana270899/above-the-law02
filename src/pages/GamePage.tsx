@@ -166,6 +166,7 @@ export function GamePage() {
   const [miniGamePoints, setMiniGamePoints] = useState(0)
   const miniGameContinueRef = useRef<(() => void) | null>(null)
   const miniGameContinueOnCloseRef = useRef(false)
+  const miniGameNodeExitingRef = useRef(false)
   const [miniGameMotion, setMiniGameMotion] = useState<WindowMotion>('idle')
   const [miniGameMotionOrigin, setMiniGameMotionOrigin] = useState<WindowMotionOrigin>('desktop')
   const miniGameMotionTimeoutRef = useRef<number | null>(null)
@@ -1098,6 +1099,7 @@ export function GamePage() {
   const closeMiniGame = (result: { score: number; started: boolean }) => {
     bankMiniGameScore(result)
     const continueFlow = miniGameContinueOnCloseRef.current ? miniGameContinueRef.current : null
+    if (continueFlow) miniGameNodeExitingRef.current = true
     setMiniGameOpen(false)
     setMiniGameMinimized(false)
     setMiniGameScoringSession(false)
@@ -1109,6 +1111,7 @@ export function GamePage() {
   const continueFromMiniGame = (result: { score: number; started: boolean }) => {
     bankMiniGameScore(result)
     const continueFlow = miniGameContinueRef.current
+    if (continueFlow) miniGameNodeExitingRef.current = true
     setMiniGameOpen(false)
     setMiniGameMinimized(false)
     setMiniGameScoringSession(false)
@@ -1118,7 +1121,11 @@ export function GamePage() {
   }
 
   useEffect(() => {
-    if (currentNode?.type !== 'miniGame' || miniGameOpen) return
+    if (currentNode?.type !== 'miniGame') {
+      miniGameNodeExitingRef.current = false
+      return
+    }
+    if (miniGameOpen || miniGameNodeExitingRef.current) return
     openScoringMiniGame(advance, true)
   }, [currentNode, miniGameOpen, advance])
 
