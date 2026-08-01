@@ -138,9 +138,21 @@ export interface TriggerNodeData {
    *  after the trigger messages finish, but still follow the case's
    *  arrest edge. */
   restoreArrestButton?: boolean
+  /** When true on an arrest trigger, the first Arrest press arms the
+   *  case and keeps it in place; a second Arrest press continues along
+   *  the case's normal arrest edge. */
+  waitForSecondArrest?: boolean
   /** Seconds to wait between the player action firing the trigger and
    *  the downstream messages appearing. Defaults to 0 (no delay). */
   delaySeconds?: number
+  [key: string]: unknown
+}
+
+export interface SecondArrestNodeData {
+  nodeType: 'secondArrest'
+  /** Clear the case's earlier Arrest/Release state when this gate is
+   * reached so both decision buttons become available again. */
+  resetDecisionOnEnter?: boolean
   [key: string]: unknown
 }
 
@@ -159,6 +171,9 @@ export interface MessageNodeData {
   nodeType: 'message'
   messageType: 'text' | 'voice' | 'link' | 'photo'
   content: string              // text body OR audio file path/URL
+  /** Seconds to wait after reaching this node before the message appears.
+   *  Missing values are treated as 0 for backward compatibility. */
+  delaySeconds?: number
   /** [legacy] Single subtitle shown UNDER the voice card. Kept for
    *  backward compatibility — new content should use `subtitles`. */
   subtitle?: string
@@ -210,9 +225,10 @@ export type ResultFlowNode    = Node<ResultNodeData, 'result'>
 export type PrizeFlowNode     = Node<PrizeNodeData, 'prize'>
 export type MessageFlowNode   = Node<MessageNodeData, 'message'>
 export type TriggerFlowNode   = Node<TriggerNodeData, 'trigger'>
+export type SecondArrestFlowNode = Node<SecondArrestNodeData, 'secondArrest'>
 export type BgMusicFlowNode   = Node<BgMusicNodeData, 'bgMusic'>
 export type RankingFlowNode   = Node<RankingNodeData, 'ranking'>
 export type ScoringFlowNode   = Node<ScoringNodeData, 'scoring'>
 
-export type GameFlowNode = LoginFlowNode | IntroFlowNode | CaseFlowNode | OperationFlowNode | ResultFlowNode | PrizeFlowNode | MessageFlowNode | TriggerFlowNode | BgMusicFlowNode | RankingFlowNode | ScoringFlowNode
+export type GameFlowNode = LoginFlowNode | IntroFlowNode | CaseFlowNode | OperationFlowNode | ResultFlowNode | PrizeFlowNode | MessageFlowNode | TriggerFlowNode | SecondArrestFlowNode | BgMusicFlowNode | RankingFlowNode | ScoringFlowNode
 export type GameFlowEdge = Edge<{ label?: string }>

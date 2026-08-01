@@ -31,6 +31,7 @@ import { ResultNode }    from '@/components/editor/nodes/ResultNode'
 import { PrizeNode }     from '@/components/editor/nodes/PrizeNode'
 import { MessageNode }   from '@/components/editor/nodes/MessageNode'
 import { TriggerNode }   from '@/components/editor/nodes/TriggerNode'
+import { SecondArrestNode } from '@/components/editor/nodes/SecondArrestNode'
 import { BgMusicNode }   from '@/components/editor/nodes/BgMusicNode'
 import { RankingNode }   from '@/components/editor/nodes/RankingNode'
 import { ScoringNode }   from '@/components/editor/nodes/ScoringNode'
@@ -49,6 +50,7 @@ const NODE_TYPES: Record<string, any> = {
   prize:     PrizeNode,
   message:   MessageNode,
   trigger:   TriggerNode,
+  secondArrest: SecondArrestNode,
   bgMusic:   BgMusicNode,
   ranking:   RankingNode,
   scoring:   ScoringNode,
@@ -69,6 +71,7 @@ const DEFAULT_NODES: GameFlowNode[] = [
       nodeType: 'message',
       messageType: 'text',
       content: '',
+      delaySeconds: 0,
       buttonLabel: 'Continue',
       buttonLinkType: 'edge',
       buttonUrl: '',
@@ -315,6 +318,7 @@ export function EditorCanvas() {
           nodeType: 'message',
           messageType: 'text',
           content: '',
+          delaySeconds: 0,
           buttonLabel: 'Continue',
           buttonLinkType: 'edge',
           buttonUrl: '',
@@ -338,6 +342,20 @@ export function EditorCanvas() {
           nodeType: 'trigger',
           triggerType: 'arrest',
         },
+      } as GameFlowNode,
+    ])
+  }
+
+  function addSecondArrestNode() {
+    commitHistory()
+    const id = `second-arrest-${Date.now()}`
+    setNodes((ns) => [
+      ...ns,
+      {
+        id,
+        type: 'secondArrest',
+        position: getCenterFlowPosition(),
+        data: { nodeType: 'secondArrest', resetDecisionOnEnter: true },
       } as GameFlowNode,
     ])
   }
@@ -603,6 +621,9 @@ export function EditorCanvas() {
         </button>
         <button className={styles.addBtn} onClick={addTriggerNode}>
           + Add Trigger
+        </button>
+        <button className={styles.addBtn} onClick={addSecondArrestNode}>
+          + Add Second Arrest
         </button>
         <button
           className={styles.addBtn}

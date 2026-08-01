@@ -59,10 +59,12 @@ export type CaseTab = {
   id: string
   /** Right-side time label on the tab (e.g. "22:34 PM"). */
   time: string
-  /** Kept for saved-data compatibility; the current design has no disabled state. */
+  /** Locked tabs remain visible but cannot be selected. */
   locked?: boolean
   /** Completed cases display the green Solved chip. */
   solved?: boolean
+  /** Cases waiting for their linked operation display the red Operation chip. */
+  operationPending?: boolean
 }
 
 export type StatusColor = 'green' | 'red' | 'yellow' | 'grey'
@@ -563,22 +565,28 @@ export function CaseWindow({
                 {tabList.map((tab) => {
                   const isActive = stripHash(tab.id) === activeTabId
                   const isSolved = !!tab.solved
+                  const isLocked = !!tab.locked
+                  const isOperationPending = !!tab.operationPending
                   return (
                     <button
                       type="button"
                       key={tab.id}
+                      disabled={isLocked}
                       data-spot={isActive ? 'case.tab.active' : undefined}
                       className={[
                         styles.tab,
                         isActive ? styles.tabActive : '',
                       ].filter(Boolean).join(' ')}
                       onClick={() => {
-                        onTabSelect?.(tab.id)
+                        if (!isLocked) onTabSelect?.(tab.id)
                       }}
                     >
                       <span className={styles.tabTop}>
                         <span className={styles.tabId}>Case #{stripHash(tab.id)}</span>
                         {isSolved && <span className={styles.tabSolved}>Solved</span>}
+                        {!isSolved && isOperationPending && (
+                          <span className={styles.tabOperation}>Operation</span>
+                        )}
                       </span>
                       <span className={styles.tabTime}>{tab.time}</span>
                     </button>
@@ -1325,6 +1333,7 @@ function SuspicionRowView({
               <option value="jewish-violence">Footage: Jewish violence</option>
               <option value="indecent-exposure">Footage: Indecent exposure</option>
               <option value="teens">Footage: Teens</option>
+              <option value="teens-2">Footage: Teens 2</option>
               <option value="arab-violence">Footage: Arab violence</option>
             </select>
             <input

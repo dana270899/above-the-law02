@@ -77,6 +77,19 @@ export function MessageNode({ id, data }: NodeProps<MessageFlowNode>) {
         <option value="photo">Photo</option>
       </select>
 
+      <div className={styles.label}>Delay before showing (seconds)</div>
+      <input
+        className={`nodrag ${styles.field}`}
+        type="number"
+        min={0}
+        step={0.1}
+        value={data.delaySeconds ?? 0}
+        onChange={(e) => {
+          const n = Number(e.target.value)
+          set('delaySeconds', Number.isFinite(n) && n >= 0 ? n : 0)
+        }}
+      />
+
       {/* content — text body for text/link, audio path for voice */}
       <div className={styles.label}>
         {isVoice ? 'Audio file path / URL' : isPhoto ? 'Caption (optional)' : 'Message content'}

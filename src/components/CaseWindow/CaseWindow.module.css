@@ -290,6 +290,10 @@
   cursor: var(--cursor-hover);
 }
 
+.tab:disabled {
+  cursor: not-allowed;
+}
+
 .tabActive {
   background: var(--light-blue-200);
   border-bottom-color: var(--black);
@@ -332,9 +336,26 @@
   white-space: nowrap;
 }
 
+.tabOperation {
+  display: inline-flex;
+  height: 24px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 4px 10px;
+  border: 2px solid var(--black);
+  border-radius: 16px;
+  background: var(--red);
+  color: var(--white);
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 400;
+  white-space: nowrap;
+}
+
 /* CaseWindowV2 — Figma 170:471 / 170:595 case-menu states. */
 .caseWindowV2 .tabs {
-  width: 215px;
+  width: 225px;
   border-right: 0;
   box-shadow: none;
   position: relative;
@@ -353,7 +374,7 @@
 }
 
 .caseWindowV2 .tab {
-  width: 215px;
+  width: 225px;
   height: 88px;
   padding: 16px;
   gap: 4px;

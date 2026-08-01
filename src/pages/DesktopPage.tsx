@@ -82,6 +82,7 @@ export function DesktopPage() {
   const [whackOpen, setWhackOpen] = useState(
     () => new URLSearchParams(window.location.search).get('startWhack') === '1',
   )
+  const [whackMinimized, setWhackMinimized] = useState(false)
   // Local decision state — without the full game flow here, the user
   // can still preview the "Arrested" / "Released" lower-bar variants
   // by clicking the buttons in the previewed case window.
@@ -102,7 +103,11 @@ export function DesktopPage() {
       apps.push({ id: 'operation', label: 'Operation' })
     }
     if (whackOpen) {
-      apps.push({ id: 'whack', label: 'Mini Game' })
+      apps.push({
+        id: 'whack',
+        label: 'Mini Game',
+        onClick: () => setWhackMinimized(false),
+      })
     }
     return apps
   }, [closed, operationClosed, startCase, startOperation, whackOpen])
@@ -111,7 +116,10 @@ export function DesktopPage() {
     <div ref={scaleRef} className={styles.canvas} data-scaled-stage>
       <Desktop
         onStartClick={() => navigate('/game')}
-        onWhackClick={() => setWhackOpen(true)}
+        onWhackClick={() => {
+          setWhackOpen(true)
+          setWhackMinimized(false)
+        }}
         taskbarApps={taskbarApps}
       >
         <div className={styles.achievementsLayer}>
@@ -144,9 +152,13 @@ export function DesktopPage() {
             />
           </div>
         )}
-        {whackOpen && (
+        {whackOpen && !whackMinimized && (
           <div className={styles.caseLayer}>
-            <WhackAMole onClose={() => setWhackOpen(false)} />
+            <WhackAMole
+              draggable
+              onClose={() => setWhackOpen(false)}
+              onMinimizeChange={setWhackMinimized}
+            />
           </div>
         )}
       </Desktop>

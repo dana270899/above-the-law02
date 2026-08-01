@@ -126,6 +126,7 @@ export function LoginScreen({ onLogin }: LoginScreenProps = {}) {
               <div className={styles.photoChoiceRow}>
               {[
                 ['/images/login-screen/Man.svg', 'Man'],
+                ['/images/login-screen/Woman.svg', 'Woman'],
                 ['/images/login-screen/Flower.svg', 'Flower'],
                 ['/images/login-screen/Gun.svg', 'Gun'],
               ].map(([path, label]) => (

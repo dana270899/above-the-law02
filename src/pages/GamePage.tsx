@@ -64,6 +64,7 @@ import {
 } from '@/lib/caseTimer'
 import { RankingPage } from '@/components/game/RankingPage/RankingPage'
 import { GameRestartDialog } from '@/components/game/GameRestartDialog/GameRestartDialog'
+import { formatCaseTimestamp, isCaseUnlocked } from '@/lib/caseProgression'
 import styles from './GamePage.module.css'
 
 function isCaseWindowHighlightTarget(
@@ -77,6 +78,24 @@ function isCaseWindowHighlightTarget(
 const WINDOW_MOTION_MS = 420
 type WindowMotion = 'idle' | 'minimizing' | 'restoring'
 type WindowMotionOrigin = 'desktop' | 'taskbar'
+
+/** Keeps existing messages immediate while allowing each message node to
+ * opt into a delay. The node itself remains active so the graph cannot
+ * advance or lose state while its card is waiting to appear. */
+function useDelayedMessage(node: MessageFlowNode | null): MessageFlowNode | null {
+  const [revealedId, setRevealedId] = useState<string | null>(null)
+  const nodeId = node?.id ?? null
+  const delaySeconds = Math.max(0, node?.data.delaySeconds ?? 0)
+
+  useEffect(() => {
+    if (!nodeId || delaySeconds === 0) return
+    const timer = window.setTimeout(() => setRevealedId(nodeId), delaySeconds * 1000)
+    return () => window.clearTimeout(timer)
+  }, [nodeId, delaySeconds])
+
+  if (!node) return null
+  return delaySeconds === 0 || revealedId === node.id ? node : null
+}
 
 /**
  * GAME PAGE
@@ -94,6 +113,7 @@ type WindowMotionOrigin = 'desktop' | 'taskbar'
  */
 export function GamePage() {
   const flow = useGameFlow()
+  const gameStartedAtRef = useRef(new Date())
   const scaleRef = useGameScale()
   const publicationKeyRef = useRef(crypto.randomUUID())
   const [playerProfile, setPlayerProfile] = useState<PlayerProfile>({ name: 'Officer', photo: null, photoPreviewUrl: null })
@@ -141,6 +161,7 @@ export function GamePage() {
     () => !!startParams.startCaseId,
   )
   const [miniGameOpen, setMiniGameOpen] = useState(false)
+  const [miniGameMinimized, setMiniGameMinimized] = useState(false)
   const [foregroundDesktopApp, setForegroundDesktopApp] = useState<
     'cases' | 'operation' | null
   >(() => startParams.startCaseId ? 'cases' : null)
@@ -182,10 +203,10 @@ export function GamePage() {
     () => new Set(),
   )
 
-  // Case ids force-unlocked by a `newCase` boss-message button. Adds to
-  // the normal sequential-unlock rule (doesn't replace it).
-  const [manuallyUnlockedCaseIds, setManuallyUnlockedCaseIds] = useState<Set<string>>(
-    () => new Set(),
+  // Case ids made available only for direct editor previews. Normal game
+  // progression is unlocked sequentially from completed cases.
+  const [manuallyUnlockedCaseIds] = useState<Set<string>>(
+    () => new Set(startParams.startCaseId ? [startParams.startCaseId] : []),
   )
 
   // Operation desktop icon: starts locked. A boss-message with
@@ -335,6 +356,7 @@ export function GamePage() {
       currentNode.type === 'login' ||
       currentNode.type === 'case' ||
       currentNode.type === 'operation'
+      || currentNode.type === 'secondArrest'
       || currentNode.type === 'ranking'
     ) return
     if (
@@ -350,6 +372,7 @@ export function GamePage() {
     currentNode?.type === 'case' ? (currentNode as CaseFlowNode) : null
   const operationNode: OperationFlowNode | null =
     currentNode?.type === 'operation' ? (currentNode as OperationFlowNode) : null
+  const secondArrestNode = currentNode?.type === 'secondArrest' ? currentNode : null
 
   // Per-operation counter state, keyed by operationId. Always
   // initialised from DEFAULT_OPERATION_V2_DATA.counters (all 0)
@@ -380,21 +403,7 @@ export function GamePage() {
   // Play the notification chime each time a NEW boss message appears.
   // Browsers block autoplay before any user interaction, so the first
   // play() may reject — that's fine, we swallow it silently.
-  const messageNodeId = messageNode?.id ?? null
-  useEffect(() => {
-    if (!messageNodeId) return
-    const audio = new Audio(assetUrl('/sounds/notification.mp3'))
-    audio.play().catch(() => { /* autoplay blocked — ignore */ })
-  }, [messageNodeId])
-
-  // Same chime for trigger-queue messages (Arrest/Release/row triggers).
-  // Without this, messages fired by a Trigger node appear silently.
   const triggerHeadId = triggerQueue[0] ?? null
-  useEffect(() => {
-    if (!triggerHeadId) return
-    const audio = new Audio(assetUrl('/sounds/notification.mp3'))
-    audio.play().catch(() => { /* autoplay blocked — ignore */ })
-  }, [triggerHeadId])
 
   // Remember every trigger-fired message id as it actually appears, so
   // a future re-fire of the same trigger filters it out instead of
@@ -421,13 +430,16 @@ export function GamePage() {
 
   // Compute the case tab list for the Cases window. A tab is locked
   // unless either (a) it is the first case in `order`, (b) the previous
-  // case (by order) has been completed, OR (c) it was force-unlocked
-  // by a `newCase` boss-message button.
+  // case (by order) has been completed, OR (c) it is the case requested
+  // by a direct editor preview link.
   const tabs: CaseTab[] = useMemo(() => {
     return cases.map((c, i) => {
-      const prev = i === 0 ? null : cases[i - 1]
-      const seqUnlocked = prev == null || completedCaseIds.has(prev.caseId)
-      const manuallyUnlocked = manuallyUnlockedCaseIds.has(c.caseId)
+      const unlocked = isCaseUnlocked(
+        cases,
+        i,
+        completedCaseIds,
+        manuallyUnlockedCaseIds,
+      )
       const caseHasOperation = nodes.some(
         (node) => node.type === 'case'
           && (node as CaseFlowNode).data.caseId === c.caseId
@@ -435,11 +447,14 @@ export function GamePage() {
       )
       return {
         id: c.caseId,
-        time: caseWindowDataFor(c.caseId, nodes)?.createdAt ?? '',
-        locked: !seqUnlocked && !manuallyUnlocked,
+        time: i === cases.length - 1
+          ? formatCaseTimestamp(gameStartedAtRef.current)
+          : caseWindowDataFor(c.caseId, nodes)?.createdAt ?? '',
+        locked: !unlocked,
         solved: caseHasOperation
           ? completedOperationCaseIds.has(c.caseId)
           : !!caseDecisions[c.caseId],
+        operationPending: pendingOperationCaseId === c.caseId,
       }
     })
   }, [
@@ -449,6 +464,7 @@ export function GamePage() {
     completedOperationCaseIds,
     manuallyUnlockedCaseIds,
     nodes,
+    pendingOperationCaseId,
   ])
 
   // Sticky case id — remembers the last case the walker visited so
@@ -490,6 +506,20 @@ export function GamePage() {
       ) ?? null
     )
   }, [activeCaseId, nodes])
+
+  // A Second Arrest gate is a visible second decision point in the graph.
+  // Clear the earlier case choice on entry so Arrest and Release are both
+  // available again; Release can then loop back into this same gate.
+  useEffect(() => {
+    if (!secondArrestNode || !activeCaseId) return
+    if (secondArrestNode.data.resetDecisionOnEnter === false) return
+    setCaseDecisions((prev) => {
+      if (prev[activeCaseId] == null) return prev
+      const next = { ...prev }
+      delete next[activeCaseId]
+      return next
+    })
+  }, [activeCaseId, secondArrestNode])
 
   const activelyViewedCaseId =
     caseWindowOpen
@@ -558,6 +588,7 @@ export function GamePage() {
   const openCaseWindow = (targetCaseId?: string) => {
     if (caseWindowMotionTimeoutRef.current != null) {
       window.clearTimeout(caseWindowMotionTimeoutRef.current)
+      caseWindowMotionTimeoutRef.current = null
     }
     if (typeof targetCaseId === 'string' && targetCaseId) {
       setViewCaseId(targetCaseId)
@@ -567,6 +598,16 @@ export function GamePage() {
     setCaseWindowOpen(true)
     setCaseWindowMinimized(false)
     setForegroundDesktopApp('cases')
+
+    // Tutorial messages sometimes select the next case while the Cases
+    // window is already visible. In that situation, update the content in
+    // place instead of replaying the restore animation (which looks like
+    // the same window opens twice).
+    if (caseWindowOpen && !caseWindowMinimized) {
+      setCaseWindowMotion('idle')
+      return
+    }
+
     setCaseWindowMotionOrigin('desktop')
     setCaseWindowMotion('restoring')
     caseWindowMotionTimeoutRef.current = window.setTimeout(() => {
@@ -652,16 +693,6 @@ export function GamePage() {
     }, WINDOW_MOTION_MS)
   }
 
-  // Force-unlock a specific case (used by the 'newCase' message button).
-  const unlockCase = (caseId: string) => {
-    setManuallyUnlockedCaseIds((prev) => {
-      if (prev.has(caseId)) return prev
-      const next = new Set(prev)
-      next.add(caseId)
-      return next
-    })
-  }
-
   /**
    * Run `action` immediately if `ids` is empty/undefined; otherwise
    * queue the messages and defer `action` until the queue drains.
@@ -694,6 +725,19 @@ export function GamePage() {
           n.id === triggerQueue[0] && n.type === 'message',
       ) ?? null
     : null
+  const visibleTriggerHead = useDelayedMessage(triggerHead)
+  const visibleMessageNode = useDelayedMessage(messageNode)
+  const visibleMessageNodeId = visibleMessageNode?.id ?? null
+  const visibleTriggerHeadId = visibleTriggerHead?.id ?? null
+
+  // Play the notification only when the delayed card actually appears,
+  // so the sound and visual stay synchronized for every message path.
+  useEffect(() => {
+    const visibleId = visibleTriggerHeadId ?? visibleMessageNodeId
+    if (!visibleId) return
+    const audio = new Audio(assetUrl('/sounds/notification.mp3'))
+    audio.play().catch(() => { /* autoplay blocked — ignore */ })
+  }, [visibleMessageNodeId, visibleTriggerHeadId])
 
   // If the queue head points at a missing/non-message id, skip past it
   // so the queue can drain instead of getting stuck.
@@ -869,6 +913,13 @@ export function GamePage() {
     }
     return walkerEdges.find((e) => e.source === sourceId)?.target ?? null
   }
+  const nextCaseIdFrom = (sourceId: string): string | undefined => {
+    const nextId = findNextFrom(sourceId)
+    const nextNode = nextId ? nodes.find((node) => node.id === nextId) : null
+    return nextNode?.type === 'case'
+      ? (nextNode as CaseFlowNode).data.caseId
+      : undefined
+  }
   /** Wipe any lingering tutorial trigger overlay from a previous click
    *  so a fresh decision isn't blocked by a stale "I give you another
    *  chance" voice still sitting in the queue. The pending action from
@@ -880,6 +931,12 @@ export function GamePage() {
   }
   const onArrest = () => {
     if (!activeCaseNode) return
+    if (secondArrestNode) {
+      clearPendingTrigger()
+      const targetId = findNextFrom(secondArrestNode.id, 'arrest')
+      if (targetId) goTo(targetId)
+      return
+    }
     const caseId = activeCaseNode.data.caseId
     freezeCaseTimer(caseTimersRef.current, caseId, performance.now())
     clearPendingTrigger()
@@ -912,6 +969,12 @@ export function GamePage() {
   }
   const onRelease = () => {
     if (!activeCaseNode) return
+    if (secondArrestNode) {
+      clearPendingTrigger()
+      const targetId = findNextFrom(secondArrestNode.id, 'release')
+      if (targetId) goTo(targetId)
+      return
+    }
     const caseId = activeCaseNode.data.caseId
     freezeCaseTimer(caseTimersRef.current, caseId, performance.now())
     clearPendingTrigger()
@@ -994,7 +1057,7 @@ export function GamePage() {
       apps.push({
         id: 'whack',
         label: 'Mini Game',
-        onClick: () => setMiniGameOpen(true),
+        onClick: () => setMiniGameMinimized(false),
       })
     }
     return apps
@@ -1086,7 +1149,10 @@ export function GamePage() {
               }
             }}
             onStartClick={() => setVolumeControlVisible((v) => !v)}
-            onWhackClick={() => setMiniGameOpen(true)}
+            onWhackClick={() => {
+              setMiniGameOpen(true)
+              setMiniGameMinimized(false)
+            }}
           >
             <WinScreenStop
               variant={winImage}
@@ -1119,8 +1185,8 @@ export function GamePage() {
   // Same precedence as the BossMessage stacking below: a trigger-queue
   // tutorial message wins over the walker's current message.
   const activeTutorialMsg =
-    (triggerHead?.data.isTutorial ? triggerHead : null)
-    ?? (messageNode?.data.isTutorial ? messageNode : null)
+    (visibleTriggerHead?.data.isTutorial ? visibleTriggerHead : null)
+    ?? (visibleMessageNode?.data.isTutorial ? visibleMessageNode : null)
   const activeTutorialTargetId = activeTutorialMsg?.data.spotlightTargetId
   const caseWindowHighlightTarget = isCaseWindowHighlightTarget(activeTutorialTargetId)
     ? activeTutorialTargetId
@@ -1140,7 +1206,10 @@ export function GamePage() {
         }
       }}
       onStartClick={() => setVolumeControlVisible((v) => !v)}
-      onWhackClick={() => setMiniGameOpen(true)}
+      onWhackClick={() => {
+        setMiniGameOpen(true)
+        setMiniGameMinimized(false)
+      }}
       taskbarApps={taskbarApps}
       tutorialOverlay={(() => {
         if (!activeTutorialMsg || caseWindowHighlightTarget) return null
@@ -1275,14 +1344,18 @@ export function GamePage() {
         </div>
       )}
 
-      {miniGameOpen && (
+      {miniGameOpen && !miniGameMinimized && (
         <div
           className={[
             styles.caseLayer,
-            activeTutorialMsg ? styles.tutorialColorLayer : '',
+            activeTutorialMsg ? styles.tutorialTopColorLayer : '',
           ].filter(Boolean).join(' ')}
         >
-          <WhackAMole onClose={() => setMiniGameOpen(false)} />
+          <WhackAMole
+            draggable
+            onClose={() => setMiniGameOpen(false)}
+            onMinimizeChange={setMiniGameMinimized}
+          />
         </div>
       )}
 
@@ -1304,16 +1377,17 @@ export function GamePage() {
           (Arrest / Release / suspicion expand / suspicion attachment).
           The walker's own message overlay is suppressed while the queue
           runs so two messages can't stack. */}
-      {triggerHead && (
+      {visibleTriggerHead && (
         <div className={styles.messageOverlay}>
           <BossMessageSlot
-            key={triggerHead.id}
-            data={triggerHead.data}
+            key={visibleTriggerHead.id}
+            data={visibleTriggerHead.data}
+            nextCaseId={nextCaseIdFrom(visibleTriggerHead.id)}
             onAdvance={() => {
               // Decision-triggered losses are awarded as soon as the voice
               // finishes. A chained follow-up message may still open, but it
               // must not delay the score change or red points indicator.
-              if (triggerHead.data.messageType === 'voice' && pendingActionRef.current) {
+              if (visibleTriggerHead.data.messageType === 'voice' && pendingActionRef.current) {
                 flushPendingIncorrectChoice()
                 const action = pendingActionRef.current
                 pendingActionRef.current = null
@@ -1322,7 +1396,7 @@ export function GamePage() {
               // Follow the message's outgoing edge to a chained message
               // node, so Trigger → Voice → Text plays the whole chain
               // before the queue drains and the pending action fires.
-              const nextId = findNextFrom(triggerHead.id)
+              const nextId = findNextFrom(visibleTriggerHead.id)
               const isChainable =
                 nextId != null &&
                 nodes.some((n) => n.id === nextId && n.type === 'message')
@@ -1334,7 +1408,6 @@ export function GamePage() {
               })
             }}
             onOpenCases={openCaseWindow}
-            onUnlockCase={unlockCase}
             onUnlockOperation={() => setOperationUnlocked(true)}
             onOpenAchievements={() => setAchievementsOpen(true)}
           />
@@ -1344,17 +1417,17 @@ export function GamePage() {
       {/* Game-flow sidecar: only renders when the current node is a message.
           `key` resets drag state whenever a new message takes the slot, so
           each notification re-appears at its editor-defined locationX/Y. */}
-      {messageNode && !triggerHead && (
+      {visibleMessageNode && !triggerHead && (
         <div className={styles.messageOverlay}>
           <BossMessageSlot
-            key={messageNode.id}
-            data={messageNode.data}
+            key={visibleMessageNode.id}
+            data={visibleMessageNode.data}
+            nextCaseId={nextCaseIdFrom(visibleMessageNode.id)}
             onAdvance={() => {
               flushPendingIncorrectChoice()
               advance()
             }}
             onOpenCases={openCaseWindow}
-            onUnlockCase={unlockCase}
             onUnlockOperation={() => setOperationUnlocked(true)}
             onOpenAchievements={() => setAchievementsOpen(true)}
           />
@@ -1366,8 +1439,8 @@ export function GamePage() {
           stacking above). Subtitles auto-tick from when they mount, so
           we key on the node id to restart the timer per message. */}
       {(() => {
-        const activeVoice = (triggerHead?.data.messageType === 'voice' ? triggerHead : null)
-          ?? (messageNode?.data.messageType === 'voice' ? messageNode : null)
+        const activeVoice = (visibleTriggerHead?.data.messageType === 'voice' ? visibleTriggerHead : null)
+          ?? (visibleMessageNode?.data.messageType === 'voice' ? visibleMessageNode : null)
         if (!activeVoice) return null
         const cues = activeVoice.data.subtitles ?? []
         if (cues.length === 0) return null
@@ -1504,16 +1577,16 @@ function caseWindowDataFor(
  */
 function BossMessageSlot({
   data,
+  nextCaseId,
   onAdvance,
   onOpenCases,
-  onUnlockCase,
   onUnlockOperation,
   onOpenAchievements,
 }: {
   data: MessageNodeData
+  nextCaseId?: string
   onAdvance: () => void
   onOpenCases: (targetCaseId?: string) => void
-  onUnlockCase: (caseId: string) => void
   onUnlockOperation: () => void
   onOpenAchievements: () => void
 }) {
@@ -1625,6 +1698,14 @@ function BossMessageSlot({
       window.location.assign(data.buttonUrl)
       return
     }
+    if ((data.messageType === 'link' || data.messageType === 'photo') && nextCaseId) {
+      // A case announcement opens its directly connected case only when
+      // the player clicks the message button. Sequential completion owns
+      // the tab's enabled state independently.
+      onOpenCases(nextCaseId)
+      onAdvance()
+      return
+    }
     if ((data.messageType === 'link' || data.messageType === 'photo') && data.buttonLinkType === 'case') {
       // Open the Cases window AND advance the flow so the case node
       // becomes current (and the decision buttons become live).
@@ -1633,10 +1714,9 @@ function BossMessageSlot({
       return
     }
     if ((data.messageType === 'link' || data.messageType === 'photo') && data.buttonLinkType === 'newCase') {
-      // Force-unlock the target case, open Cases on that tab, and
-      // advance the walker (same as the 'case' branch otherwise).
+      // Some tutorial announcements target a later case through an
+      // intermediate message chain, so they specify the case explicitly.
       if (data.targetCaseId) {
-        onUnlockCase(data.targetCaseId)
         onOpenCases(data.targetCaseId)
       } else {
         onOpenCases()

@@ -8,6 +8,7 @@ import {
   useState,
 } from 'react'
 import { assetUrl } from '@/lib/paths'
+import { startDragCursor, stopDragCursor } from '@/lib/dragCursor'
 import styles from './WhackAMole.module.css'
 
 const HOLE_COUNT = 3
@@ -56,9 +57,11 @@ const OUCH_SOUND = assetUrl('/sounds/Ouch01.mp3')
 
 export type WhackAMoleProps = {
   onClose: () => void
+  onMinimizeChange?: (minimized: boolean) => void
+  draggable?: boolean
 }
 
-export function WhackAMole({ onClose }: WhackAMoleProps) {
+export function WhackAMole({ onClose, onMinimizeChange, draggable = false }: WhackAMoleProps) {
   const [score, setScore] = useState(0)
   const [lives, setLives] = useState(STARTING_LIVES)
   const [running, setRunning] = useState(false)
@@ -67,7 +70,11 @@ export function WhackAMole({ onClose }: WhackAMoleProps) {
   const [activeGrandma, setActiveGrandma] = useState(0)
   const [hammerStrike, setHammerStrike] = useState<{ x: number; y: number; id: number } | null>(null)
   const [lifeFlickerId, setLifeFlickerId] = useState(0)
+  const [minimized, setMinimized] = useState(false)
+  const [position, setPosition] = useState<{ x: number; y: number } | null>(null)
 
+  const windowRef = useRef<HTMLDivElement>(null)
+  const dragRef = useRef<{ startX: number; startY: number; originX: number; originY: number } | null>(null)
   const showTimerRef = useRef<number | null>(null)
   const gapTimerRef = useRef<number | null>(null)
   const hitTimerRef = useRef<number | null>(null)
@@ -77,6 +84,7 @@ export function WhackAMole({ onClose }: WhackAMoleProps) {
   const hitPendingRef = useRef(false)
   const hammerStrikeIdRef = useRef(0)
   const previousHoleRef = useRef<number | null>(null)
+  const nextGrandmaRef = useRef(0)
 
   const clearTimers = useCallback(() => {
     if (showTimerRef.current !== null) {
@@ -156,7 +164,8 @@ export function WhackAMole({ onClose }: WhackAMoleProps) {
         (i) => i !== previousHoleRef.current,
       )
       const holeIdx = availableHoles[Math.floor(Math.random() * availableHoles.length)]
-      const grandmaIdx = Math.floor(Math.random() * GRANDMAS.length)
+      const grandmaIdx = nextGrandmaRef.current
+      nextGrandmaRef.current = (nextGrandmaRef.current + 1) % GRANDMAS.length
       previousHoleRef.current = holeIdx
       setActiveHole(holeIdx)
       setActiveGrandma(grandmaIdx)
@@ -179,6 +188,7 @@ export function WhackAMole({ onClose }: WhackAMoleProps) {
     setLifeFlickerId(0)
     hitPendingRef.current = false
     previousHoleRef.current = null
+    nextGrandmaRef.current = 0
     setRunning(true)
     runningRef.current = true
     scheduleNextMole()
@@ -288,20 +298,95 @@ export function WhackAMole({ onClose }: WhackAMoleProps) {
 
   const showStartScreen = !running && !gameOver
 
+  const handleMinimize = () => {
+    setMinimized((current) => {
+      const next = !current
+      onMinimizeChange?.(next)
+      return onMinimizeChange ? current : next
+    })
+  }
+
+  const handleTitleMouseDown = (event: MouseEvent<HTMLDivElement>) => {
+    if (!draggable || (event.target as HTMLElement).closest('button')) return
+    const element = windowRef.current
+    if (!element) return
+    const rect = element.getBoundingClientRect()
+    dragRef.current = {
+      startX: event.clientX,
+      startY: event.clientY,
+      originX: rect.left,
+      originY: rect.top,
+    }
+    startDragCursor()
+    event.preventDefault()
+  }
+
+  useEffect(() => {
+    if (!draggable) return
+    const handleMove = (event: globalThis.MouseEvent) => {
+      const drag = dragRef.current
+      if (!drag) return
+      const element = windowRef.current
+      const width = element?.offsetWidth ?? 0
+      const nextX = drag.originX + event.clientX - drag.startX
+      const nextY = drag.originY + event.clientY - drag.startY
+      setPosition({
+        x: Math.max(-width + 200, Math.min(window.innerWidth - Math.min(width, 200), nextX)),
+        y: Math.max(0, Math.min(window.innerHeight - 50, nextY)),
+      })
+      const selection = getSelection()
+      if (selection && !selection.isCollapsed) selection.removeAllRanges()
+    }
+    const handleUp = () => {
+      if (!dragRef.current) return
+      dragRef.current = null
+      stopDragCursor()
+    }
+    window.addEventListener('mousemove', handleMove)
+    window.addEventListener('mouseup', handleUp)
+    return () => {
+      window.removeEventListener('mousemove', handleMove)
+      window.removeEventListener('mouseup', handleUp)
+      if (dragRef.current) {
+        dragRef.current = null
+        stopDragCursor()
+      }
+    }
+  }, [draggable])
+
+  const positionStyle: CSSProperties = !draggable
+    ? {}
+    : position === null
+      ? { position: 'absolute', left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }
+      : { position: 'absolute', left: position.x, top: position.y, transform: 'none' }
+
   return (
-    <div className={running ? styles.windowRunning : styles.window}>
-      <div className={styles.titleBar}>
+    <div
+      ref={windowRef}
+      className={[
+        running ? styles.windowRunning : styles.window,
+        draggable ? styles.draggable : '',
+        minimized ? styles.windowMinimized : '',
+      ].filter(Boolean).join(' ')}
+      style={positionStyle}
+    >
+      <div className={styles.titleBar} onMouseDown={handleTitleMouseDown}>
         <span className={styles.title}>Mini Game</span>
         <div className={styles.windowActions}>
           <span className={styles.expandIcon} aria-hidden="true" />
-          <span className={styles.minimizeIcon} aria-hidden="true" />
+          <button
+            type="button"
+            className={styles.minimizeIcon}
+            onClick={handleMinimize}
+            aria-label={minimized ? 'Restore' : 'Minimize'}
+          />
           <button type="button" className={styles.closeBtn} onClick={onClose} aria-label="Close">
             ×
           </button>
         </div>
       </div>
 
-      <div
+      {!minimized && <div
         className={styles.board}
         data-whack-board
         style={{ '--game-bg': `url(${BACKGROUND})` } as CSSProperties}
@@ -356,9 +441,17 @@ export function WhackAMole({ onClose }: WhackAMoleProps) {
 
         {(showStartScreen || gameOver) && (
           <div className={styles.overlay}>
-            {showStartScreen && <h2 className={styles.startTitle}>Whack-a-Mole</h2>}
+            {showStartScreen && (
+              <h2
+                className={styles.startTitle}
+                data-node-id="916:53140"
+                data-text="Whack a Grandma"
+              >
+                Whack a Grandma
+              </h2>
+            )}
             <button type="button" className={styles.startBtn} onClick={handleStart}>
-              {gameOver ? 'Start' : 'Start'}
+              {gameOver ? 'Play again' : 'Start'}
             </button>
           </div>
         )}
@@ -375,7 +468,7 @@ export function WhackAMole({ onClose }: WhackAMoleProps) {
             }}
           />
         )}
-      </div>
+      </div>}
     </div>
   )
 }

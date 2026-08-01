@@ -29,11 +29,15 @@
 }
 
 /* TutorialSpotlight paints its grayscale strips at z-index 5 and the boss
-   message uses 10. Open app surfaces move above both while a tutorial is
-   active, so the active app stays in full color and covers tutorial messages
-   where they overlap. Applying this conditionally preserves the normal app
-   stacking order outside tutorials. */
+   message uses 10. Regular app surfaces move above the grayscale strips but
+   remain below tutorial messages. Applying this conditionally preserves the
+   normal app stacking order outside tutorials. */
 .tutorialColorLayer {
+  z-index: 6;
+}
+
+/* The Mini Game is intentionally modal relative to tutorial messages. */
+.tutorialTopColorLayer {
   z-index: 11;
 }
 

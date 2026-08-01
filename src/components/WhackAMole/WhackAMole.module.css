@@ -9,11 +9,24 @@
   flex-direction: column;
   font-family: var(--font-main);
   overflow: hidden;
-  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.28);
+  box-shadow: none;
 }
 
 .windowRunning {
   composes: window;
+}
+
+.draggable {
+  position: absolute;
+}
+
+.draggable .titleBar {
+  cursor: var(--cursor-hover-drag);
+  user-select: none;
+}
+
+.windowMinimized {
+  height: 44px;
 }
 
 .titleBar {
@@ -48,6 +61,7 @@
   margin-bottom: -2px;
   margin-left: -2px;
   border: 2px solid var(--black);
+  padding: 0;
 }
 
 .expandIcon {
@@ -241,18 +255,34 @@
   align-items: center;
   justify-content: center;
   gap: 28px;
-  background: rgba(255, 253, 253, 0.72);
+  background: transparent;
 }
 
 .startTitle {
-  color: var(--black);
-  font-size: 76px;
-  font-weight: 400;
-  line-height: 76px;
+  position: relative;
+  isolation: isolate;
+  transform: translateY(-48px);
+  color: var(--yellow);
+  font-family: var(--font-main);
+  font-size: 77.941px;
+  font-weight: 700;
+  line-height: 77.941px;
   letter-spacing: 0;
+  white-space: nowrap;
+}
+
+.startTitle::before {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  color: transparent;
+  -webkit-text-stroke: 6px var(--black);
+  white-space: nowrap;
 }
 
 .startBtn {
+  transform: translateY(-48px);
   min-width: 220px;
   height: 74px;
   border: 2px solid var(--black);
@@ -265,10 +295,11 @@
   line-height: 44px;
   letter-spacing: 0;
   padding: 8px 28px 12px;
+  transition: filter 120ms ease;
 }
 
 .startBtn:hover {
-  background: #008f5d;
+  filter: brightness(1.05);
 }
 
 .hammer {

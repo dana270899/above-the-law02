@@ -38,6 +38,7 @@ export type FootageVariant =
   | 'jewish-violence'
   | 'indecent-exposure'
   | 'teens'
+  | 'teens-2'
   | 'arab-violence'
   | 'graffiti-video'
 
@@ -49,6 +50,7 @@ const VARIANT_SRC: Record<FootageVariant, string> = {
   'jewish-violence':   `${FOOTAGE_ASSETS}/Footage_jewish_violence.svg`,
   'indecent-exposure': `${FOOTAGE_ASSETS}/Footage_indecent_exposure.svg`,
   'teens':             `${FOOTAGE_ASSETS}/Footage_teens01.svg`,
+  'teens-2':           `${FOOTAGE_ASSETS}/Footage_teens02.svg`,
   'arab-violence':     `${FOOTAGE_ASSETS}/Footage_arab_violence.svg`,
   'graffiti-video':    `${FOOTAGE_ASSETS}/Graffiti.mp4`,
 }
@@ -57,8 +59,7 @@ const VARIANT_SRC: Record<FootageVariant, string> = {
 const VIDEO_VARIANTS = new Set<FootageVariant>(['graffiti-video'])
 
 export type FootageWindowData = {
-  /** Full string shown in the title bar, e.g. "Video #31931902". The
-   *  prefix and id format vary per variant in the source designs. */
+  /** Legacy title value. The displayed title is generated per window. */
   title: string
   /** Reserved — the source SVGs already include the burned-in timestamp. */
   timestamp: string
@@ -67,14 +68,13 @@ export type FootageWindowData = {
 }
 
 export const DEFAULT_FOOTAGE_DATA: FootageWindowData = {
-  title: 'Video #31931902',
+  title: 'footage',
   timestamp: '2026/05/02  23:44:56 pm',
   tagText: 'Municipality',
 }
 
-/** Title shown by the indecent-exposure source design (lowercase prefix). */
 export const DEFAULT_INDECENT_EXPOSURE_DATA: FootageWindowData = {
-  title: 'footage #31666702',
+  title: 'footage',
   timestamp: '2026/05/02  23:44:56 pm',
   tagText: '',
 }
@@ -101,6 +101,9 @@ export function FootageWindow({
   className,
 }: FootageWindowProps) {
   const [minimized, setMinimized] = useState(false)
+  const [title] = useState(
+    () => `footage #${Math.floor(10_000_000 + Math.random() * 90_000_000)}`,
+  )
   const videoRef = useRef<HTMLVideoElement | null>(null)
   const isDuckingRef = useRef(false)
 
@@ -251,7 +254,7 @@ export function FootageWindow({
     >
       {/* Title bar */}
       <div className={styles.upperBar} onMouseDown={onTitleMouseDown}>
-        <div className={styles.upperBarTitle}>{`${data.title} `}</div>
+        <div className={styles.upperBarTitle}>{title}</div>
         <div className={styles.upperBarBtns}>
           <button
             type="button"
