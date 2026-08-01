@@ -640,25 +640,6 @@
   display: block;
 }
 
-.cameraFallback {
-  position: absolute;
-  inset: 0;
-}
-
-.cameraRetry {
-  position: absolute;
-  left: 50%;
-  bottom: 16px;
-  transform: translateX(-50%);
-  width: max-content;
-  padding: 8px 14px;
-  border: 2px solid var(--black);
-  border-radius: 4px;
-  background: var(--yellow);
-  color: var(--black);
-  font: 16px/1 var(--font-main);
-  cursor: var(--cursor-hover);
-}
 
 
 /* Editable photo: input is invisible but covers the photo box */

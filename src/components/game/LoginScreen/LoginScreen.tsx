@@ -1,5 +1,6 @@
 import { useState, type FormEvent } from 'react'
 import { assetUrl } from '@/lib/paths'
+import { requestCameraStream, stopCameraStream } from '@/lib/camera'
 import type { PlayerProfile } from '@/lib/scoring'
 import styles from './LoginScreen.module.css'
 
@@ -21,6 +22,16 @@ export function LoginScreen({ onLogin }: LoginScreenProps = {}) {
   const [photoPreviewUrl, setPhotoPreviewUrl] = useState<string | null>(null)
   const [photoHasBuiltInBorder, setPhotoHasBuiltInBorder] = useState(false)
   const [photoPickerOpen, setPhotoPickerOpen] = useState(false)
+
+  async function requestLoginCameraPermission() {
+    try {
+      const stream = await requestCameraStream()
+      stopCameraStream(stream)
+    } catch {
+      // The final camera case falls back to its static image if access is
+      // unavailable. Keep the login design unchanged.
+    }
+  }
 
   async function choosePreset(path: string | null) {
     if (photoPreviewUrl?.startsWith('blob:')) URL.revokeObjectURL(photoPreviewUrl)
@@ -78,7 +89,10 @@ export function LoginScreen({ onLogin }: LoginScreenProps = {}) {
           <button
             type="button"
             className={`${styles.photoPicker} ${photoHasBuiltInBorder ? styles.photoPickerBuiltInBorder : ''}`}
-            onClick={() => setPhotoPickerOpen(true)}
+            onClick={() => {
+              setPhotoPickerOpen(true)
+              void requestLoginCameraPermission()
+            }}
           >
             {photoPreviewUrl ? (
               <img className={styles.photoPreview} src={photoPreviewUrl} alt="Selected profile" />
