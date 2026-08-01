@@ -17,7 +17,7 @@ export const DEFAULT_SCORING_SETTINGS: ScoringSettings = {
   normalSecondPoints: 50,
   importantFirstPoints: 200,
   importantSecondPoints: 100,
-  speedBonusEnabled: true,
+  speedBonusEnabled: false,
   speedTimeLimitSeconds: 120,
   speedMaxBonus: 50,
 }
@@ -47,6 +47,8 @@ export interface RunScore {
   target: number
   won: boolean
   cases: CaseScoreBreakdown[]
+  /** Missing on legacy/saved runs and treated as zero. */
+  miniGamePoints?: number
 }
 
 export function recordCaseScore(
@@ -74,14 +76,17 @@ export function combineRetryScore(
 export function buildRunScore(
   cases: CaseScoreBreakdown[],
   winningTarget: number,
+  miniGamePoints = 0,
 ): RunScore {
   const immutableCases = cases.map((item) => Object.freeze({ ...item }))
-  const total = immutableCases.reduce((sum, item) => sum + item.totalPoints, 0)
+  const normalizedMiniGamePoints = Math.max(0, Math.round(miniGamePoints))
+  const total = immutableCases.reduce((sum, item) => sum + item.totalPoints, 0) + normalizedMiniGamePoints
   return Object.freeze({
     total,
     target: winningTarget,
     won: total >= winningTarget,
     cases: Object.freeze(immutableCases) as unknown as CaseScoreBreakdown[],
+    miniGamePoints: normalizedMiniGamePoints,
   })
 }
 
@@ -103,9 +108,7 @@ export function calculateCaseScore(args: {
     : important
       ? attempt === 1 ? settings.importantFirstPoints : settings.importantSecondPoints
       : attempt === 1 ? settings.normalFirstPoints : settings.normalSecondPoints
-  const speedPoints = !correct || !settings.speedBonusEnabled || settings.speedTimeLimitSeconds <= 0
-    ? 0
-    : Math.round(settings.speedMaxBonus * Math.max(0, 1 - elapsedSeconds / settings.speedTimeLimitSeconds))
+  const speedPoints = 0
 
   return Object.freeze({
     caseId: caseData.caseId,

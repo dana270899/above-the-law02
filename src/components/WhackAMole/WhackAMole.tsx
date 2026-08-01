@@ -56,21 +56,25 @@ const BACKGROUND = assetUrl('/images/mini-game/game_bg.svg')
 const OUCH_SOUND = assetUrl('/sounds/Ouch01.mp3')
 
 export type WhackAMoleProps = {
-  onClose: () => void
+  onClose: (result: { score: number; started: boolean }) => void
+  onContinue?: (result: { score: number; started: boolean }) => void
   onMinimizeChange?: (minimized: boolean) => void
+  minimized?: boolean
   draggable?: boolean
 }
 
-export function WhackAMole({ onClose, onMinimizeChange, draggable = false }: WhackAMoleProps) {
+export function WhackAMole({ onClose, onContinue, onMinimizeChange, minimized: controlledMinimized, draggable = false }: WhackAMoleProps) {
   const [score, setScore] = useState(0)
   const [lives, setLives] = useState(STARTING_LIVES)
   const [running, setRunning] = useState(false)
   const [gameOver, setGameOver] = useState(false)
+  const [started, setStarted] = useState(false)
   const [activeHole, setActiveHole] = useState<number | null>(null)
   const [activeGrandma, setActiveGrandma] = useState(0)
   const [hammerStrike, setHammerStrike] = useState<{ x: number; y: number; id: number } | null>(null)
   const [lifeFlickerId, setLifeFlickerId] = useState(0)
-  const [minimized, setMinimized] = useState(false)
+  const [localMinimized, setLocalMinimized] = useState(false)
+  const minimized = controlledMinimized ?? localMinimized
   const [position, setPosition] = useState<{ x: number; y: number } | null>(null)
 
   const windowRef = useRef<HTMLDivElement>(null)
@@ -190,6 +194,7 @@ export function WhackAMole({ onClose, onMinimizeChange, draggable = false }: Wha
     previousHoleRef.current = null
     nextGrandmaRef.current = 0
     setRunning(true)
+    setStarted(true)
     runningRef.current = true
     scheduleNextMole()
   }
@@ -299,11 +304,9 @@ export function WhackAMole({ onClose, onMinimizeChange, draggable = false }: Wha
   const showStartScreen = !running && !gameOver
 
   const handleMinimize = () => {
-    setMinimized((current) => {
-      const next = !current
-      onMinimizeChange?.(next)
-      return onMinimizeChange ? current : next
-    })
+    const next = !minimized
+    if (controlledMinimized === undefined) setLocalMinimized(next)
+    onMinimizeChange?.(next)
   }
 
   const handleTitleMouseDown = (event: MouseEvent<HTMLDivElement>) => {
@@ -380,7 +383,7 @@ export function WhackAMole({ onClose, onMinimizeChange, draggable = false }: Wha
             onClick={handleMinimize}
             aria-label={minimized ? 'Restore' : 'Minimize'}
           />
-          <button type="button" className={styles.closeBtn} onClick={onClose} aria-label="Close">
+          <button type="button" className={styles.closeBtn} onClick={() => onClose({ score, started })} aria-label="Close">
             ×
           </button>
         </div>
@@ -450,9 +453,18 @@ export function WhackAMole({ onClose, onMinimizeChange, draggable = false }: Wha
                 Whack a Grandma
               </h2>
             )}
-            <button type="button" className={styles.startBtn} onClick={handleStart}>
-              {gameOver ? 'Play again' : 'Start'}
-            </button>
+            {gameOver && onContinue ? (
+              <div className={styles.endActions}>
+                <button type="button" className={styles.startBtn} onClick={handleStart}>Try again</button>
+                <button type="button" className={styles.continueBtn} onClick={() => onContinue({ score, started })}>
+                  Give me a new case
+                </button>
+              </div>
+            ) : (
+              <button type="button" className={styles.startBtn} onClick={handleStart}>
+                {gameOver ? 'Play again' : 'Start'}
+              </button>
+            )}
           </div>
         )}
 

@@ -21,29 +21,6 @@ export function ScoringNode({ id, data }: NodeProps<ScoringFlowNode>) {
         {numberField('Normal / second', 'normalSecondPoints')}
         {numberField('Important / first', 'importantFirstPoints')}
         {numberField('Important / second', 'importantSecondPoints')}
-        <label className="nodrag" style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 5, fontSize: 11 }}>
-          <input type="checkbox" checked={data.speedBonusEnabled} onChange={(event) => updateNodeData(id, { speedBonusEnabled: event.target.checked })} />
-          Speed bonus for all cases
-        </label>
-        {data.speedBonusEnabled && (
-          <>
-            {numberField('Speed time limit', 'speedTimeLimitSeconds')}
-            {numberField('Maximum extra points', 'speedMaxBonus')}
-          </>
-        )}
-      </div>
-      <div style={{ marginTop: 11, paddingTop: 9, borderTop: '1px solid #9bc4a5', fontSize: 10, lineHeight: 1.45, color: '#244f30' }}>
-        <strong>Speed bonus logic</strong>
-        <div>Bonus = max extra × max(0, 1 − active time ÷ time limit), rounded.</div>
-        <div style={{ marginTop: 5 }}>
-          Active time starts when a case opens. It pauses when Cases is closed or minimized,
-          another case is selected, or another desktop app opens. Returning resumes the same timer.
-        </div>
-        <div style={{ marginTop: 5 }}>
-          The first Arrest or Release permanently stops the timer, including retry cases.
-          Win screens and post-decision time never count. Wrong answers get no speed bonus.
-          Boss messages and Achievements do not pause it.
-        </div>
       </div>
     </div>
   )

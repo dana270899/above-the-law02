@@ -30,6 +30,7 @@ import { OperationNode } from '@/components/editor/nodes/OperationNode'
 import { ResultNode }    from '@/components/editor/nodes/ResultNode'
 import { PrizeNode }     from '@/components/editor/nodes/PrizeNode'
 import { MessageNode }   from '@/components/editor/nodes/MessageNode'
+import { MiniGameNode }  from '@/components/editor/nodes/MiniGameNode'
 import { TriggerNode }   from '@/components/editor/nodes/TriggerNode'
 import { SecondArrestNode } from '@/components/editor/nodes/SecondArrestNode'
 import { BgMusicNode }   from '@/components/editor/nodes/BgMusicNode'
@@ -49,6 +50,7 @@ const NODE_TYPES: Record<string, any> = {
   result:    ResultNode,
   prize:     PrizeNode,
   message:   MessageNode,
+  miniGame:  MiniGameNode,
   trigger:   TriggerNode,
   secondArrest: SecondArrestNode,
   bgMusic:   BgMusicNode,
@@ -325,6 +327,19 @@ export function EditorCanvas() {
           locationX: 50,
           locationY: 50,
         },
+      } as GameFlowNode,
+    ])
+  }
+
+  function addMiniGameNode() {
+    commitHistory()
+    setNodes((ns) => [
+      ...ns,
+      {
+        id: `mini-game-${Date.now()}`,
+        type: 'miniGame',
+        position: getCenterFlowPosition(),
+        data: { nodeType: 'miniGame', label: 'Mini Game' },
       } as GameFlowNode,
     ])
   }
@@ -612,6 +627,9 @@ export function EditorCanvas() {
         </button>
         <button className={styles.addBtn} onClick={addMessageNode}>
           + Add Message
+        </button>
+        <button className={styles.addBtn} onClick={addMiniGameNode}>
+          + Add Mini Game
         </button>
         <button className={styles.addBtn} onClick={addCaseNode}>
           + Add Case

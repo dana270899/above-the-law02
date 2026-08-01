@@ -162,6 +162,14 @@ export function GamePage() {
   )
   const [miniGameOpen, setMiniGameOpen] = useState(false)
   const [miniGameMinimized, setMiniGameMinimized] = useState(false)
+  const [miniGameScoringSession, setMiniGameScoringSession] = useState(false)
+  const [miniGamePoints, setMiniGamePoints] = useState(0)
+  const miniGameContinueRef = useRef<(() => void) | null>(null)
+  const miniGameContinueOnCloseRef = useRef(false)
+  const [miniGameMotion, setMiniGameMotion] = useState<WindowMotion>('idle')
+  const [miniGameMotionOrigin, setMiniGameMotionOrigin] = useState<WindowMotionOrigin>('desktop')
+  const miniGameMotionTimeoutRef = useRef<number | null>(null)
+  const miniGameLayerRef = useRef<HTMLDivElement | null>(null)
   const [foregroundDesktopApp, setForegroundDesktopApp] = useState<
     'cases' | 'operation' | null
   >(() => startParams.startCaseId ? 'cases' : null)
@@ -243,13 +251,13 @@ export function GamePage() {
   useLayoutEffect(() => {
     const setFlightPath = (
       layer: HTMLDivElement | null,
-      appId: 'cases' | 'operation',
+      appId: 'cases' | 'operation' | 'whack',
       motion: WindowMotion,
       origin: WindowMotionOrigin,
     ) => {
       if (!layer || motion === 'idle') return
       const targetSelector = origin === 'desktop'
-        ? `[data-spot="icon.${appId === 'cases' ? 'cases' : 'operation'}"]`
+        ? `[data-spot="icon.${appId}"]`
         : `[data-taskbar-app="${appId}"]`
       const app = document.querySelector<HTMLElement>(targetSelector)
       const windowElement = layer.firstElementChild as HTMLElement | null
@@ -289,11 +297,19 @@ export function GamePage() {
       operationWindowMotion,
       operationWindowMotionOrigin,
     )
+    setFlightPath(
+      miniGameLayerRef.current,
+      'whack',
+      miniGameMotion,
+      miniGameMotionOrigin,
+    )
   }, [
     caseWindowMotion,
     caseWindowMotionOrigin,
     operationWindowMotion,
     operationWindowMotionOrigin,
+    miniGameMotion,
+    miniGameMotionOrigin,
   ])
 
   // Look up the single bgMusic settings node from the saved graph (if any).
@@ -341,6 +357,9 @@ export function GamePage() {
       if (operationWindowMotionTimeoutRef.current != null) {
         window.clearTimeout(operationWindowMotionTimeoutRef.current)
       }
+      if (miniGameMotionTimeoutRef.current != null) {
+        window.clearTimeout(miniGameMotionTimeoutRef.current)
+      }
     }
   }, [])
 
@@ -353,6 +372,7 @@ export function GamePage() {
     if (!currentNode) return
     if (
       currentNode.type === 'message' ||
+      currentNode.type === 'miniGame' ||
       currentNode.type === 'login' ||
       currentNode.type === 'case' ||
       currentNode.type === 'operation'
@@ -1035,8 +1055,84 @@ export function GamePage() {
     (c) => caseResults.get(c.caseId) ?? null,
   )
   const caseBreakdowns = Object.values(scoreByCase)
-  const runScore = buildRunScore(caseBreakdowns, scoringSettings.winningTarget)
+  const runScore = buildRunScore(caseBreakdowns, scoringSettings.winningTarget, miniGamePoints)
   const totalScore = runScore.total
+
+  const openCasualMiniGame = () => {
+    miniGameContinueRef.current = null
+    miniGameContinueOnCloseRef.current = false
+    setMiniGameScoringSession(false)
+    setMiniGameOpen(true)
+    setMiniGameMinimized(false)
+    setMiniGameMotionOrigin('desktop')
+    setMiniGameMotion('restoring')
+    if (miniGameMotionTimeoutRef.current != null) window.clearTimeout(miniGameMotionTimeoutRef.current)
+    miniGameMotionTimeoutRef.current = window.setTimeout(() => {
+      setMiniGameMotion('idle')
+      miniGameMotionTimeoutRef.current = null
+    }, WINDOW_MOTION_MS)
+  }
+
+  const openScoringMiniGame = (onContinue: () => void, continueOnClose = false) => {
+    miniGameContinueRef.current = onContinue
+    miniGameContinueOnCloseRef.current = continueOnClose
+    setMiniGameScoringSession(true)
+    setMiniGameOpen(true)
+    setMiniGameMinimized(false)
+    setMiniGameMotionOrigin('desktop')
+    setMiniGameMotion('restoring')
+    if (miniGameMotionTimeoutRef.current != null) window.clearTimeout(miniGameMotionTimeoutRef.current)
+    miniGameMotionTimeoutRef.current = window.setTimeout(() => {
+      setMiniGameMotion('idle')
+      miniGameMotionTimeoutRef.current = null
+    }, WINDOW_MOTION_MS)
+  }
+
+  const bankMiniGameScore = ({ score, started }: { score: number; started: boolean }) => {
+    if (!miniGameScoringSession || !started) return
+    const points = Math.max(0, Math.round(score))
+    setMiniGamePoints(points)
+    showPointPopup(points, 'win', 'mini-game')
+  }
+
+  const closeMiniGame = (result: { score: number; started: boolean }) => {
+    bankMiniGameScore(result)
+    const continueFlow = miniGameContinueOnCloseRef.current ? miniGameContinueRef.current : null
+    setMiniGameOpen(false)
+    setMiniGameMinimized(false)
+    setMiniGameScoringSession(false)
+    miniGameContinueRef.current = null
+    miniGameContinueOnCloseRef.current = false
+    continueFlow?.()
+  }
+
+  const continueFromMiniGame = (result: { score: number; started: boolean }) => {
+    bankMiniGameScore(result)
+    const continueFlow = miniGameContinueRef.current
+    setMiniGameOpen(false)
+    setMiniGameMinimized(false)
+    setMiniGameScoringSession(false)
+    miniGameContinueRef.current = null
+    miniGameContinueOnCloseRef.current = false
+    continueFlow?.()
+  }
+
+  useEffect(() => {
+    if (currentNode?.type !== 'miniGame' || miniGameOpen) return
+    openScoringMiniGame(advance, true)
+  }, [currentNode, miniGameOpen, advance])
+
+  const restoreMiniGame = () => {
+    setMiniGameMinimized(false)
+    setMiniGameMotionOrigin('taskbar')
+    setMiniGameMotion('restoring')
+    if (miniGameMotionTimeoutRef.current != null) window.clearTimeout(miniGameMotionTimeoutRef.current)
+    miniGameMotionTimeoutRef.current = window.setTimeout(() => {
+      setMiniGameMotion('idle')
+      miniGameMotionTimeoutRef.current = null
+    }, WINDOW_MOTION_MS)
+  }
+
   const taskbarApps = useMemo<TaskbarApp[]>(() => {
     const apps: TaskbarApp[] = []
     if (caseWindowOpen && activeCaseData) {
@@ -1057,11 +1153,11 @@ export function GamePage() {
       apps.push({
         id: 'whack',
         label: 'Mini Game',
-        onClick: () => setMiniGameMinimized(false),
+        onClick: restoreMiniGame,
       })
     }
     return apps
-  }, [activeCaseData, caseWindowOpen, miniGameOpen, operationWindowOpen])
+  }, [activeCaseData, caseWindowOpen, miniGameOpen, operationWindowOpen, miniGameMinimized])
 
   // While the flow sits on a login node, render the LoginScreen as a
   // full-screen step. Submitting follows the node's outgoing edge.
@@ -1149,10 +1245,7 @@ export function GamePage() {
               }
             }}
             onStartClick={() => setVolumeControlVisible((v) => !v)}
-            onWhackClick={() => {
-              setMiniGameOpen(true)
-              setMiniGameMinimized(false)
-            }}
+            onWhackClick={openCasualMiniGame}
           >
             <WinScreenStop
               variant={winImage}
@@ -1206,10 +1299,7 @@ export function GamePage() {
         }
       }}
       onStartClick={() => setVolumeControlVisible((v) => !v)}
-      onWhackClick={() => {
-        setMiniGameOpen(true)
-        setMiniGameMinimized(false)
-      }}
+      onWhackClick={openCasualMiniGame}
       taskbarApps={taskbarApps}
       tutorialOverlay={(() => {
         if (!activeTutorialMsg || caseWindowHighlightTarget) return null
@@ -1344,17 +1434,21 @@ export function GamePage() {
         </div>
       )}
 
-      {miniGameOpen && !miniGameMinimized && (
+      {miniGameOpen && (
         <div
+          ref={miniGameLayerRef}
           className={[
             styles.caseLayer,
             activeTutorialMsg ? styles.tutorialTopColorLayer : '',
+            miniGameMotion === 'restoring' ? styles.windowRestoring : '',
           ].filter(Boolean).join(' ')}
         >
           <WhackAMole
             draggable
-            onClose={() => setMiniGameOpen(false)}
+            onClose={closeMiniGame}
+            onContinue={miniGameScoringSession ? continueFromMiniGame : undefined}
             onMinimizeChange={setMiniGameMinimized}
+            minimized={miniGameMinimized}
           />
         </div>
       )}
@@ -1377,7 +1471,7 @@ export function GamePage() {
           (Arrest / Release / suspicion expand / suspicion attachment).
           The walker's own message overlay is suppressed while the queue
           runs so two messages can't stack. */}
-      {visibleTriggerHead && (
+      {visibleTriggerHead && !(miniGameOpen && visibleTriggerHead.data.buttonLinkType === 'miniGame') && (
         <div className={styles.messageOverlay}>
           <BossMessageSlot
             key={visibleTriggerHead.id}
@@ -1410,6 +1504,7 @@ export function GamePage() {
             onOpenCases={openCaseWindow}
             onUnlockOperation={() => setOperationUnlocked(true)}
             onOpenAchievements={() => setAchievementsOpen(true)}
+            onOpenMiniGame={openScoringMiniGame}
           />
         </div>
       )}
@@ -1417,7 +1512,7 @@ export function GamePage() {
       {/* Game-flow sidecar: only renders when the current node is a message.
           `key` resets drag state whenever a new message takes the slot, so
           each notification re-appears at its editor-defined locationX/Y. */}
-      {visibleMessageNode && !triggerHead && (
+      {visibleMessageNode && !triggerHead && !(miniGameOpen && visibleMessageNode.data.buttonLinkType === 'miniGame') && (
         <div className={styles.messageOverlay}>
           <BossMessageSlot
             key={visibleMessageNode.id}
@@ -1430,6 +1525,7 @@ export function GamePage() {
             onOpenCases={openCaseWindow}
             onUnlockOperation={() => setOperationUnlocked(true)}
             onOpenAchievements={() => setAchievementsOpen(true)}
+            onOpenMiniGame={openScoringMiniGame}
           />
         </div>
       )}
@@ -1582,6 +1678,7 @@ function BossMessageSlot({
   onOpenCases,
   onUnlockOperation,
   onOpenAchievements,
+  onOpenMiniGame,
 }: {
   data: MessageNodeData
   nextCaseId?: string
@@ -1589,6 +1686,7 @@ function BossMessageSlot({
   onOpenCases: (targetCaseId?: string) => void
   onUnlockOperation: () => void
   onOpenAchievements: () => void
+  onOpenMiniGame: (onContinue: () => void) => void
 }) {
   // Drag position. `null` = use the editor's locationX/locationY (%).
   // Once dragged, switches to absolute pixel coords.
@@ -1696,6 +1794,10 @@ function BossMessageSlot({
   const onClick = () => {
     if ((data.messageType === 'link' || data.messageType === 'photo') && data.buttonLinkType === 'url' && data.buttonUrl) {
       window.location.assign(data.buttonUrl)
+      return
+    }
+    if ((data.messageType === 'link' || data.messageType === 'photo') && data.buttonLinkType === 'miniGame') {
+      onOpenMiniGame(onAdvance)
       return
     }
     if ((data.messageType === 'link' || data.messageType === 'photo') && nextCaseId) {

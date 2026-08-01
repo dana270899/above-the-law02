@@ -198,9 +198,10 @@ export interface MessageNodeData {
    *   - 'newCase'      → force-unlock `targetCaseId` AND open Cases on that tab
    *   - 'operation'    → unlock the Operation desktop icon (player still clicks it)
    *   - 'achievements' → open the Achievements window
+   *   - 'miniGame'     → open the scoring mini-game and wait for its continuation
    * All branches except 'url' also advance the walker via the outgoing edge.
    */
-  buttonLinkType: 'edge' | 'url' | 'case' | 'newCase' | 'operation' | 'achievements'
+  buttonLinkType: 'edge' | 'url' | 'case' | 'newCase' | 'operation' | 'achievements' | 'miniGame'
   buttonUrl: string            // only used when buttonLinkType === 'url'
   targetCaseId?: string        // only used when buttonLinkType === 'newCase'
   locationX: number            // horizontal position on screen, 0–100 (% from left)
@@ -216,6 +217,12 @@ export interface MessageNodeData {
   [key: string]: unknown
 }
 
+export interface MiniGameNodeData {
+  nodeType: 'miniGame'
+  label: string
+  [key: string]: unknown
+}
+
 // Full Node types (Data + Type discriminant) — required by @xyflow/react v12 NodeProps
 export type LoginFlowNode     = Node<LoginNodeData, 'login'>
 export type IntroFlowNode     = Node<IntroNodeData, 'intro'>
@@ -224,11 +231,12 @@ export type OperationFlowNode = Node<OperationNodeData, 'operation'>
 export type ResultFlowNode    = Node<ResultNodeData, 'result'>
 export type PrizeFlowNode     = Node<PrizeNodeData, 'prize'>
 export type MessageFlowNode   = Node<MessageNodeData, 'message'>
+export type MiniGameFlowNode  = Node<MiniGameNodeData, 'miniGame'>
 export type TriggerFlowNode   = Node<TriggerNodeData, 'trigger'>
 export type SecondArrestFlowNode = Node<SecondArrestNodeData, 'secondArrest'>
 export type BgMusicFlowNode   = Node<BgMusicNodeData, 'bgMusic'>
 export type RankingFlowNode   = Node<RankingNodeData, 'ranking'>
 export type ScoringFlowNode   = Node<ScoringNodeData, 'scoring'>
 
-export type GameFlowNode = LoginFlowNode | IntroFlowNode | CaseFlowNode | OperationFlowNode | ResultFlowNode | PrizeFlowNode | MessageFlowNode | TriggerFlowNode | SecondArrestFlowNode | BgMusicFlowNode | RankingFlowNode | ScoringFlowNode
+export type GameFlowNode = LoginFlowNode | IntroFlowNode | CaseFlowNode | OperationFlowNode | ResultFlowNode | PrizeFlowNode | MessageFlowNode | MiniGameFlowNode | TriggerFlowNode | SecondArrestFlowNode | BgMusicFlowNode | RankingFlowNode | ScoringFlowNode
 export type GameFlowEdge = Edge<{ label?: string }>

@@ -223,6 +223,7 @@ export function MessageNode({ id, data }: NodeProps<MessageFlowNode>) {
             <option value="newCase">Open a specific case</option>
             <option value="operation">Unlock Operation icon</option>
             <option value="achievements">Open Achievements window</option>
+            <option value="miniGame">Open Mini Game</option>
           </select>
 
           {data.buttonLinkType === 'url' && (

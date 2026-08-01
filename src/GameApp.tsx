@@ -1,5 +1,7 @@
+import { useEffect, useState } from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { GamePage } from '@/pages/GamePage'
+import { MobileNotice } from '@/components/game/MobileNotice/MobileNotice'
 import { RankingPage } from '@/components/game/RankingPage/RankingPage'
 import { useGameScale } from '@/hooks/useGameScale'
 import { routerBasename } from '@/lib/paths'
@@ -16,6 +18,21 @@ const ENTRY_RUN: RunScore = {
   target: 0,
   won: false,
   cases: [],
+}
+
+const MOBILE_QUERY = '(max-width: 768px), (pointer: coarse) and (max-width: 1024px)'
+
+function useMobileViewport() {
+  const [isMobile, setIsMobile] = useState(() => window.matchMedia(MOBILE_QUERY).matches)
+
+  useEffect(() => {
+    const media = window.matchMedia(MOBILE_QUERY)
+    const update = () => setIsMobile(media.matches)
+    media.addEventListener('change', update)
+    return () => media.removeEventListener('change', update)
+  }, [])
+
+  return isMobile
 }
 
 function RankingEntryPage() {
@@ -39,6 +56,10 @@ function RankingEntryPage() {
 
 /** Public application: deliberately contains only the playable game. */
 export default function GameApp() {
+  const isMobile = useMobileViewport()
+
+  if (isMobile) return <MobileNotice />
+
   return (
     <BrowserRouter basename={routerBasename}>
       <Routes>

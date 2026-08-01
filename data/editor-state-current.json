@@ -556,8 +556,8 @@
       "id": "tut-msg-newcase",
       "type": "message",
       "position": {
-        "x": 52.69255663672425,
-        "y": -1920.7475940301483
+        "x": 48.69255663672425,
+        "y": -2050.7475940301483
       },
       "data": {
         "nodeType": "message",
@@ -651,7 +651,7 @@
       "type": "operation",
       "position": {
         "x": -1674.7478002703274,
-        "y": 44.19080820939381
+        "y": 102.19080820939381
       },
       "data": {
         "nodeType": "operation",
@@ -922,7 +922,7 @@
       "id": "case-1781506742927",
       "type": "case",
       "position": {
-        "x": -7058.060596032096,
+        "x": -7404.060596032096,
         "y": -1869.609345102809
       },
       "data": {
@@ -975,8 +975,8 @@
       "id": "message-21",
       "type": "message",
       "position": {
-        "x": -6604.700301501241,
-        "y": -1815.2801939875574
+        "x": -6996.700301501241,
+        "y": -1817.2801939875574
       },
       "data": {
         "nodeType": "message",
@@ -1151,8 +1151,8 @@
       "id": "message-29",
       "type": "message",
       "position": {
-        "x": -1266.1069144480557,
-        "y": -528.0850973270008
+        "x": -1260.1069144480557,
+        "y": -482.08509732700077
       },
       "data": {
         "nodeType": "message",
@@ -1784,8 +1784,8 @@
       "id": "message-case-7-announcement",
       "type": "message",
       "position": {
-        "x": -7051.817370065009,
-        "y": -2449.6325329323117
+        "x": -7371.817370065009,
+        "y": -2473.6325329323117
       },
       "data": {
         "nodeType": "message",
@@ -1808,8 +1808,8 @@
       "id": "ranking-final-pending-case-7",
       "type": "ranking",
       "position": {
-        "x": -7221.938160290277,
-        "y": -1380.2498272392065
+        "x": -7453.938160290277,
+        "y": -1382.2498272392065
       },
       "data": {
         "nodeType": "ranking",
@@ -1847,8 +1847,8 @@
         "speedMaxBonus": 50
       },
       "measured": {
-        "width": 982,
-        "height": 352
+        "width": 285,
+        "height": 191
       },
       "selected": false,
       "dragging": false
@@ -1916,7 +1916,7 @@
         "width": 325,
         "height": 223
       },
-      "selected": false,
+      "selected": true,
       "dragging": false
     },
     {
@@ -2221,6 +2221,49 @@
       "measured": {
         "width": 290,
         "height": 545
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "message-60",
+      "type": "message",
+      "position": {
+        "x": -6415.186668385429,
+        "y": -2108.153749642333
+      },
+      "data": {
+        "nodeType": "message",
+        "messageType": "link",
+        "content": "Break time! Go earn some promotion points.",
+        "delaySeconds": 0,
+        "buttonLabel": "So fun!",
+        "buttonLinkType": "miniGame",
+        "buttonUrl": "",
+        "locationX": 80,
+        "locationY": 20
+      },
+      "measured": {
+        "width": 290,
+        "height": 545
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "mini-game-1785579048911",
+      "type": "miniGame",
+      "position": {
+        "x": -6502.2890149519335,
+        "y": -1440.5091535260399
+      },
+      "data": {
+        "nodeType": "miniGame",
+        "label": "Mini Game"
+      },
+      "measured": {
+        "width": 468,
+        "height": 68
       },
       "selected": false,
       "dragging": false
@@ -2625,11 +2668,6 @@
       "id": "xy-edge__case-1781506742927release-ranking-final-pending-case-7"
     },
     {
-      "source": "result-win-1785066101684",
-      "target": "message-case-7-announcement",
-      "id": "xy-edge__result-win-1785066101684-message-case-7-announcement"
-    },
-    {
       "source": "message-case-7-announcement",
       "target": "case-1781506742927",
       "id": "xy-edge__message-case-7-announcement-case-1781506742927"
@@ -2692,6 +2730,22 @@
       "source": "message-59",
       "target": "result-win-1785066101684",
       "id": "xy-edge__message-59-result-win-1785066101684"
+    },
+    {
+      "source": "mini-game-1785579048911",
+      "target": "message-case-7-announcement",
+      "id": "xy-edge__mini-game-1785579048911-message-case-7-announcement",
+      "selected": false
+    },
+    {
+      "source": "result-win-1785066101684",
+      "target": "message-60",
+      "id": "xy-edge__result-win-1785066101684-message-60"
+    },
+    {
+      "source": "message-60",
+      "target": "mini-game-1785579048911",
+      "id": "xy-edge__message-60-mini-game-1785579048911"
     }
   ]
 }

@@ -1,0 +1,59 @@
+.page {
+  position: fixed;
+  inset: 0;
+  min-width: 320px;
+  overflow: hidden;
+  background: var(--light-yellow-100);
+  color: var(--black);
+  font-family: var(--font-main);
+}
+
+.page::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('../../../../assets/images/vintage-comic-style-dots-texture.jpg');
+  background-size: 348px 348px;
+  opacity: 0.1;
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+.logo {
+  position: absolute;
+  top: 35px;
+  left: 50%;
+  width: 66.44px;
+  height: 84px;
+  transform: translateX(-50%);
+}
+
+.illustration {
+  position: absolute;
+  top: 37.36%;
+  left: 50%;
+  width: min(79.27vw, 311.54px);
+  height: auto;
+  transform: translateX(-50%);
+}
+
+.message {
+  position: absolute;
+  top: 58.33%;
+  left: 50%;
+  width: 100%;
+  transform: translateX(-50%);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+@media (max-height: 620px) {
+  .logo {
+    top: 24px;
+    width: 55px;
+    height: auto;
+  }
+}

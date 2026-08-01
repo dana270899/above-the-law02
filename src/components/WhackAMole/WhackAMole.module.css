@@ -302,6 +302,38 @@
   filter: brightness(1.05);
 }
 
+.endActions {
+  transform: translateY(-48px);
+  display: flex;
+  gap: 18px;
+}
+
+.endActions .startBtn {
+  transform: none;
+  background: var(--red);
+  font-size: 34px;
+  line-height: 34px;
+}
+
+.continueBtn {
+  min-width: 360px;
+  height: 74px;
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  background: var(--green);
+  color: var(--white);
+  cursor: var(--cursor-hover);
+  font: inherit;
+  font-size: 34px;
+  line-height: 34px;
+  padding: 8px 22px 12px;
+  transition: filter 120ms ease;
+}
+
+.continueBtn:hover {
+  filter: brightness(1.05);
+}
+
 .hammer {
   position: absolute;
   top: 0;
