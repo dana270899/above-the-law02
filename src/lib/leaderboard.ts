@@ -174,7 +174,11 @@ export async function publishLeaderboardEntry(args: { playerName: string; photo?
   const response = await fetch(`${url}/rest/v1/leaderboard_entries`, {
     method: 'POST',
     headers: { ...headers(), 'Content-Type': 'application/json', Prefer: 'return=representation' },
-    body: JSON.stringify({ player_name: args.playerName, photo_path: photoPath, score: args.run.total, winning_target: args.run.target, won: args.run.won, case_breakdown: args.run.cases }),
+    body: JSON.stringify(leaderboardInsertPayload({
+      playerName: args.playerName,
+      photoPath,
+      run: args.run,
+    })),
   })
   if (!response.ok) throw await responseError(response, 'Could not publish your score.')
   const [row] = await response.json() as Array<Record<string, unknown>>
@@ -189,4 +193,16 @@ export async function publishLeaderboardEntry(args: { playerName: string; photo?
 export function mergeLocalPlayer(entries: LeaderboardEntry[], local: LeaderboardEntry) {
   const merged = [...entries, local].sort((a, b) => b.score - a.score || a.createdAt.localeCompare(b.createdAt))
   return rankEntries(merged)
+}
+
+export function leaderboardInsertPayload(args: { playerName: string; photoPath: string | null; run: RunScore }) {
+  return {
+    player_name: args.playerName,
+    photo_path: args.photoPath,
+    score: args.run.total,
+    winning_target: args.run.target,
+    won: args.run.won,
+    case_breakdown: args.run.cases,
+    mini_game_points: args.run.miniGamePoints ?? 0,
+  }
 }

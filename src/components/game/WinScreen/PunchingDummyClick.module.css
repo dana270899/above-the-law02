@@ -9,8 +9,8 @@
    drag variant does.
 ════════════════════════════════════════════════ */
 
-/* Outer window: 90% of the available width, centered horizontally,
-   borders + title bar matching the other in-game windows. Custom
+/* Fixed 1440px desktop window, centered horizontally, with borders +
+   title bar matching the other in-game win windows. Custom
    cursor is applied to the content screen below so the window chrome keeps
    the normal app cursor behavior. */
 .window {
@@ -18,7 +18,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 1244px;
+  width: 1440px;
   background: var(--white);
   border: 2px solid var(--black);
   border-radius: 4px;
@@ -80,7 +80,7 @@
 .screen {
   position: relative;
   width: 100%;
-  height: 697.5px;
+  height: 810px;
   aspect-ratio: 16 / 9;
   background: var(--white);
   overflow: hidden;

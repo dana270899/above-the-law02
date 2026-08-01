@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import {
   buildLeaderboardDisplay,
   getProfilePhotoUploadFormat,
+  leaderboardInsertPayload,
   mergeLocalPlayer,
   type LeaderboardEntry,
 } from './leaderboard'
@@ -47,5 +48,24 @@ describe('leaderboard profile photos', () => {
 
   it('requires SVG profile art to be rasterized before upload', () => {
     expect(getProfilePhotoUploadFormat('image/svg+xml')).toBeNull()
+  })
+})
+
+describe('leaderboard publishing', () => {
+  it('sends mini-game points separately from the final score', () => {
+    const cases = [{
+      caseId: 'case-1', title: 'Case 1', important: false, attempt: 1 as const,
+      correct: true, basePoints: 100, speedPoints: 0, elapsedSeconds: 10, totalPoints: 100,
+    }]
+
+    expect(leaderboardInsertPayload({
+      playerName: 'Dana',
+      photoPath: null,
+      run: { total: 175, target: 600, won: false, cases, miniGamePoints: 75 },
+    })).toMatchObject({
+      score: 175,
+      case_breakdown: cases,
+      mini_game_points: 75,
+    })
   })
 })

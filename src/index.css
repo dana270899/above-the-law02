@@ -118,3 +118,9 @@ textarea:disabled:not([data-native-cursors] *),
 [data-win-content] [data-win-inherit-cursor] {
   cursor: inherit !important;
 }
+
+/* The Nahum Takum hit areas are role="button" elements, but should retain
+   the screen's punching-glove cursor instead of the global button cursor. */
+[data-native-cursors][data-win-content] [role='button'][data-punching-glove-cursor] {
+  cursor: url('../assets/images/win-screens/PunchingDummy/PunchingDummy_glove_cursor.svg') 32 32, auto !important;
+}

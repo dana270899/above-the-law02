@@ -11,6 +11,16 @@ create table if not exists public.leaderboard_entries (
   created_at timestamptz not null default now()
 );
 
+alter table public.leaderboard_entries
+add column if not exists mini_game_points integer not null default 0;
+
+alter table public.leaderboard_entries
+drop constraint if exists leaderboard_entries_mini_game_points_check;
+
+alter table public.leaderboard_entries
+add constraint leaderboard_entries_mini_game_points_check
+check (mini_game_points between 0 and 100000);
+
 create index if not exists leaderboard_entries_score_created_at_idx
 on public.leaderboard_entries (score desc, created_at asc);
 
@@ -44,7 +54,7 @@ begin
 
   if invalid_items > 0
      or distinct_cases <> jsonb_array_length(new.case_breakdown)
-     or calculated_score <> new.score
+     or calculated_score + new.mini_game_points <> new.score
      or new.won <> (new.score >= new.winning_target) then
     raise exception 'Invalid leaderboard score';
   end if;
