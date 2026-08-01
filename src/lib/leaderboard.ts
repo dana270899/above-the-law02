@@ -4,6 +4,7 @@ export interface LeaderboardEntry {
   id: string
   playerName: string
   photoUrl: string | null
+  photoPath?: string | null
   score: number
   won: boolean
   caseBreakdown: CaseScoreBreakdown[]
@@ -117,7 +118,7 @@ export function buildLeaderboardDisplay(
   return { ranked, visible, currentPlayer }
 }
 
-async function signedPhotoUrl(path: string | null): Promise<string | null> {
+export async function fetchLeaderboardPhotoUrl(path: string | null): Promise<string | null> {
   if (!path || !url || !key) return null
   const response = await fetch(`${url}/storage/v1/object/sign/leaderboard-photos/${path}`, {
     method: 'POST', headers: { ...headers(), 'Content-Type': 'application/json' }, body: JSON.stringify({ expiresIn: 3600 }),
@@ -136,15 +137,16 @@ export async function fetchLeaderboard(limit = 100): Promise<LeaderboardEntry[]>
   const response = await fetch(`${url}/rest/v1/leaderboard_entries?select=*&order=score.desc,created_at.asc&limit=${resultLimit}`, { headers: headers() })
   if (!response.ok) throw await responseError(response, 'Leaderboard is temporarily unavailable.')
   const rows = await response.json() as Array<Record<string, unknown>>
-  const mapped = await Promise.all(rows.map(async (row) => ({
+  const mapped = rows.map((row) => ({
     id: String(row.id),
     playerName: String(row.player_name),
-    photoUrl: await signedPhotoUrl(typeof row.photo_path === 'string' ? row.photo_path : null),
+    photoUrl: null,
+    photoPath: typeof row.photo_path === 'string' ? row.photo_path : null,
     score: Number(row.score),
     won: Boolean(row.won),
     caseBreakdown: (row.case_breakdown ?? []) as CaseScoreBreakdown[],
     createdAt: String(row.created_at),
-  })))
+  }))
   return rankEntries(mapped)
 }
 
@@ -183,7 +185,7 @@ export async function publishLeaderboardEntry(args: { playerName: string; photo?
   if (!response.ok) throw await responseError(response, 'Could not publish your score.')
   const [row] = await response.json() as Array<Record<string, unknown>>
   return {
-    id: String(row.id), playerName: String(row.player_name), photoUrl: await signedPhotoUrl(photoPath),
+    id: String(row.id), playerName: String(row.player_name), photoUrl: null, photoPath,
     score: Number(row.score), won: Boolean(row.won),
     caseBreakdown: (row.case_breakdown ?? []) as CaseScoreBreakdown[], createdAt: String(row.created_at),
     isCurrentPlayer: true,

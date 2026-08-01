@@ -3,6 +3,7 @@ import type { PlayerProfile, RunScore } from '@/lib/scoring'
 import {
   buildLeaderboardDisplay,
   fetchLeaderboard,
+  fetchLeaderboardPhotoUrl,
   isLeaderboardConfigured,
   mergeLocalPlayer,
   publishLeaderboardEntry,
@@ -75,8 +76,12 @@ export function RankingPage({
         }
         setStatus('publishing')
         const key = publicationKey ?? `${profile.name}:${run.total}:${JSON.stringify(run.cases)}`
+        const remoteRequest = fetchLeaderboard().then((remoteEntries) => {
+          if (active) setEntries(remoteEntries)
+          return remoteEntries
+        })
         const [remoteResult, publicationResult] = await Promise.allSettled([
-          fetchLeaderboard(),
+          remoteRequest,
           publicationRequest(key, profile, run),
         ])
         if (publicationResult.status === 'rejected') throw publicationResult.reason
@@ -110,6 +115,30 @@ export function RankingPage({
       ? entries.find((entry) => entry.isCurrentPlayer)?.id ?? localEntry.id
       : localEntry.id
   const { visible: shown } = buildLeaderboardDisplay(withCurrentPlayer, currentPlayerId)
+  const visiblePhotoRequestKey = shown
+    .map((entry) => `${entry.id}:${entry.photoPath ?? ''}:${entry.photoUrl ? 'loaded' : 'pending'}`)
+    .join('|')
+
+  useEffect(() => {
+    const pending = shown.filter((entry) => entry.photoPath && !entry.photoUrl)
+    if (pending.length === 0) return
+    let active = true
+
+    void Promise.all(pending.map(async (entry) => ({
+      id: entry.id,
+      photoUrl: await fetchLeaderboardPhotoUrl(entry.photoPath ?? null),
+    }))).then((photos) => {
+      if (!active) return
+      const photoById = new Map(photos.map((photo) => [photo.id, photo.photoUrl]))
+      setEntries((current) => current.map((entry) => {
+        const photoUrl = photoById.get(entry.id)
+        return photoUrl ? { ...entry, photoUrl } : entry
+      }))
+    })
+
+    return () => { active = false }
+  // Only restart when the visible rows or their photo state changes.
+  }, [visiblePhotoRequestKey])
 
   function scrollRows(direction: -1 | 1) {
     rowsRef.current?.scrollBy({ top: direction * 188, behavior: 'smooth' })
