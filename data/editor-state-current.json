@@ -13,9 +13,9 @@
       },
       "measured": {
         "width": 180,
-        "height": 88
+        "height": 92
       },
-      "selected": false,
+      "selected": true,
       "dragging": false
     },
     {
@@ -125,7 +125,7 @@
       },
       "measured": {
         "width": 325,
-        "height": 223
+        "height": 226
       },
       "selected": false,
       "dragging": false
@@ -211,7 +211,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -236,7 +236,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -261,7 +261,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -270,8 +270,8 @@
       "id": "tut-msg-rewards",
       "type": "message",
       "position": {
-        "x": 1105.6237642240492,
-        "y": -2155.1309322077336
+        "x": 1097.7233511054155,
+        "y": -2200.360797311912
       },
       "data": {
         "nodeType": "message",
@@ -287,7 +287,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 635
+        "height": 643
       },
       "selected": false,
       "dragging": false
@@ -312,7 +312,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 592
+        "height": 600
       },
       "selected": false,
       "dragging": false
@@ -338,7 +338,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 635
+        "height": 643
       },
       "selected": false,
       "dragging": false
@@ -364,7 +364,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 635
+        "height": 643
       },
       "selected": false,
       "dragging": false
@@ -384,7 +384,7 @@
       },
       "measured": {
         "width": 220,
-        "height": 168
+        "height": 174
       },
       "selected": false,
       "dragging": false
@@ -410,7 +410,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 635
+        "height": 643
       },
       "selected": false,
       "dragging": false
@@ -430,7 +430,7 @@
       },
       "measured": {
         "width": 220,
-        "height": 168
+        "height": 174
       },
       "selected": false,
       "dragging": false
@@ -456,7 +456,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -475,7 +475,7 @@
       },
       "measured": {
         "width": 230,
-        "height": 170
+        "height": 175
       },
       "selected": false,
       "dragging": false
@@ -501,7 +501,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 593
+        "height": 600
       },
       "selected": false,
       "dragging": false
@@ -525,7 +525,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -546,8 +546,8 @@
         "winSound": "hashem-itbarach"
       },
       "measured": {
-        "width": 235,
-        "height": 358
+        "width": 245,
+        "height": 367
       },
       "selected": false,
       "dragging": false
@@ -572,7 +572,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 592
+        "height": 600
       },
       "selected": false,
       "dragging": false
@@ -592,7 +592,7 @@
       },
       "measured": {
         "width": 220,
-        "height": 168
+        "height": 174
       },
       "selected": false,
       "dragging": false
@@ -616,7 +616,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -641,7 +641,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 593
+        "height": 600
       },
       "selected": false,
       "dragging": false
@@ -679,7 +679,7 @@
       },
       "measured": {
         "width": 307,
-        "height": 130
+        "height": 129
       },
       "selected": false,
       "dragging": false
@@ -703,7 +703,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -729,7 +729,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 593
+        "height": 600
       },
       "selected": false,
       "dragging": false
@@ -753,7 +753,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -776,8 +776,8 @@
         "winCtaLabel": "I was born to be a cop!"
       },
       "measured": {
-        "width": 235,
-        "height": 358
+        "width": 245,
+        "height": 367
       },
       "selected": false,
       "dragging": false
@@ -801,7 +801,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -825,8 +825,8 @@
         "winSound": "hashem-itbarach"
       },
       "measured": {
-        "width": 235,
-        "height": 358
+        "width": 245,
+        "height": 367
       },
       "selected": false,
       "dragging": false
@@ -846,7 +846,7 @@
       },
       "measured": {
         "width": 220,
-        "height": 168
+        "height": 174
       },
       "selected": false,
       "dragging": false
@@ -870,7 +870,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -894,7 +894,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -913,7 +913,7 @@
       },
       "measured": {
         "width": 317,
-        "height": 135
+        "height": 140
       },
       "selected": false,
       "dragging": false
@@ -967,9 +967,9 @@
       },
       "measured": {
         "width": 325,
-        "height": 223
+        "height": 226
       },
-      "selected": true,
+      "selected": false,
       "dragging": false
     },
     {
@@ -991,7 +991,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -1000,8 +1000,8 @@
       "id": "message-22",
       "type": "message",
       "position": {
-        "x": 1118.1389143614877,
-        "y": -1514.4328911755626
+        "x": 1597.774416792713,
+        "y": -1556.598649631055
       },
       "data": {
         "nodeType": "message",
@@ -1017,7 +1017,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 635
+        "height": 643
       },
       "selected": false,
       "dragging": false
@@ -1026,24 +1026,24 @@
       "id": "message-23",
       "type": "message",
       "position": {
-        "x": 1105.84688108615,
-        "y": -884.4097507200152
+        "x": 1101.8773667664257,
+        "y": -1012.7573803911024
       },
       "data": {
         "nodeType": "message",
         "messageType": "link",
-        "content": "In Cases, you review cases and decide whether to arrest or release. Easy peasy!",
+        "content": "Your job is to review cases and decide whether to arrest or release. Easy peasy!",
         "buttonLabel": "Continue",
         "buttonLinkType": "edge",
         "buttonUrl": "",
         "locationX": 35,
-        "locationY": 30,
+        "locationY": 20,
         "isTutorial": true,
         "spotlightTargetId": "icon.cases"
       },
       "measured": {
         "width": 290,
-        "height": 635
+        "height": 643
       },
       "selected": false,
       "dragging": false
@@ -1063,13 +1063,13 @@
         "buttonLinkType": "edge",
         "buttonUrl": "",
         "locationX": 35,
-        "locationY": 50,
+        "locationY": 40,
         "isTutorial": true,
         "spotlightTargetId": "icon.operation"
       },
       "measured": {
         "width": 290,
-        "height": 635
+        "height": 643
       },
       "selected": false,
       "dragging": false
@@ -1078,8 +1078,8 @@
       "id": "message-25",
       "type": "message",
       "position": {
-        "x": 1100.953969382079,
-        "y": 389.99651866911097
+        "x": 1110.2174815509193,
+        "y": 418.42689005203323
       },
       "data": {
         "nodeType": "message",
@@ -1095,7 +1095,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 635
+        "height": 643
       },
       "selected": false,
       "dragging": false
@@ -1119,7 +1119,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -1143,7 +1143,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -1152,8 +1152,8 @@
       "id": "message-29",
       "type": "message",
       "position": {
-        "x": -1260.1069144480557,
-        "y": -482.08509732700077
+        "x": -1260.5970744046172,
+        "y": -298.8419652537747
       },
       "data": {
         "nodeType": "message",
@@ -1167,7 +1167,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -1191,7 +1191,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -1215,8 +1215,8 @@
         "winSound": "hashem-itbarach"
       },
       "measured": {
-        "width": 235,
-        "height": 358
+        "width": 245,
+        "height": 367
       },
       "selected": false,
       "dragging": false
@@ -1240,7 +1240,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -1264,7 +1264,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -1310,7 +1310,7 @@
               "date": "08/02/2026",
               "fileUrl": "",
               "details": "A group of teenagers is suspected of causing significant damage to a public bus.\nWitnesses described the incident as \"complete chaos.\"",
-              "fileFootageVariant": "teens-2"
+              "fileFootageVariant": "teens"
             }
           ],
           "arrestLabel": "Arrest",
@@ -1343,7 +1343,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -1362,7 +1362,7 @@
       },
       "measured": {
         "width": 220,
-        "height": 168
+        "height": 174
       },
       "selected": false,
       "dragging": false
@@ -1386,7 +1386,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -1410,7 +1410,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -1434,7 +1434,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -1458,7 +1458,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -1482,7 +1482,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -1558,7 +1558,7 @@
       },
       "measured": {
         "width": 220,
-        "height": 168
+        "height": 174
       },
       "selected": false,
       "dragging": false
@@ -1582,7 +1582,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -1606,7 +1606,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -1630,7 +1630,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 593
+        "height": 600
       },
       "selected": false,
       "dragging": false
@@ -1654,7 +1654,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -1678,7 +1678,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -1702,7 +1702,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -1726,8 +1726,8 @@
         "winSound": "hashem-itbarach"
       },
       "measured": {
-        "width": 235,
-        "height": 358
+        "width": 245,
+        "height": 367
       },
       "selected": false,
       "dragging": false
@@ -1751,7 +1751,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 593
+        "height": 600
       },
       "selected": false,
       "dragging": false
@@ -1775,8 +1775,8 @@
         "winSound": "hashem-itbarach"
       },
       "measured": {
-        "width": 235,
-        "height": 358
+        "width": 245,
+        "height": 367
       },
       "selected": false,
       "dragging": false
@@ -1802,7 +1802,7 @@
       "dragging": false,
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       }
     },
     {
@@ -1824,8 +1824,8 @@
       "selected": false,
       "dragging": false,
       "measured": {
-        "width": 325,
-        "height": 68
+        "width": 329,
+        "height": 73
       }
     },
     {
@@ -1849,7 +1849,7 @@
       },
       "measured": {
         "width": 285,
-        "height": 191
+        "height": 194
       },
       "selected": false,
       "dragging": false
@@ -1915,7 +1915,7 @@
       },
       "measured": {
         "width": 325,
-        "height": 223
+        "height": 226
       },
       "selected": false,
       "dragging": false
@@ -1939,7 +1939,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -1963,7 +1963,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -1987,7 +1987,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -2007,7 +2007,7 @@
       },
       "measured": {
         "width": 711,
-        "height": 168
+        "height": 174
       },
       "selected": false,
       "dragging": false
@@ -2031,7 +2031,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -2057,7 +2057,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 726
+        "height": 739
       },
       "selected": false,
       "dragging": false
@@ -2082,7 +2082,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -2105,8 +2105,8 @@
         "winCtaLabel": "Bring me the next challenge!"
       },
       "measured": {
-        "width": 235,
-        "height": 358
+        "width": 245,
+        "height": 367
       },
       "selected": false,
       "dragging": false
@@ -2130,7 +2130,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -2155,7 +2155,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -2179,7 +2179,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -2196,7 +2196,7 @@
       },
       "measured": {
         "width": 268,
-        "height": 116
+        "height": 120
       },
       "selected": false,
       "dragging": false
@@ -2221,7 +2221,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -2246,7 +2246,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -2264,7 +2264,25 @@
       },
       "measured": {
         "width": 468,
-        "height": 68
+        "height": 73
+      },
+      "selected": false,
+      "dragging": false
+    },
+    {
+      "id": "points-1785598847053",
+      "type": "points",
+      "position": {
+        "x": -876.6683527318637,
+        "y": -475.38598274413647
+      },
+      "data": {
+        "nodeType": "points",
+        "amount": -200
+      },
+      "measured": {
+        "width": 340,
+        "height": 103
       },
       "selected": false,
       "dragging": false
@@ -2434,24 +2452,9 @@
       "id": "xy-edge__case-1781506742927trigger-message-21"
     },
     {
-      "source": "tut-msg-rewards",
-      "target": "message-22",
-      "id": "xy-edge__tut-msg-rewards-message-22"
-    },
-    {
-      "source": "message-22",
-      "target": "message-23",
-      "id": "xy-edge__message-22-message-23"
-    },
-    {
       "source": "message-23",
       "target": "message-24",
       "id": "xy-edge__message-23-message-24"
-    },
-    {
-      "source": "message-24",
-      "target": "message-25",
-      "id": "xy-edge__message-24-message-25"
     },
     {
       "source": "tut-msg-anotherchance",
@@ -2467,11 +2470,6 @@
       "source": "message-28",
       "target": "message-16",
       "id": "xy-edge__message-28-message-16"
-    },
-    {
-      "source": "message-13",
-      "target": "message-29",
-      "id": "xy-edge__message-13-message-29"
     },
     {
       "source": "message-29",
@@ -2493,11 +2491,6 @@
       "id": "tut-e-goodjob-result",
       "source": "tut-msg-goodjob",
       "target": "tut-result-891-win"
-    },
-    {
-      "source": "message-25",
-      "target": "tut-msg-start",
-      "id": "xy-edge__message-25-tut-msg-start"
     },
     {
       "source": "login",
@@ -2747,6 +2740,26 @@
       "source": "message-60",
       "target": "mini-game-1785579048911",
       "id": "xy-edge__message-60-mini-game-1785579048911"
+    },
+    {
+      "source": "message-13",
+      "target": "message-29",
+      "id": "xy-edge__message-13-message-29"
+    },
+    {
+      "source": "tut-msg-rewards",
+      "target": "message-23",
+      "id": "xy-edge__tut-msg-rewards-message-23"
+    },
+    {
+      "source": "message-24",
+      "target": "message-25",
+      "id": "xy-edge__message-24-message-25"
+    },
+    {
+      "source": "message-25",
+      "target": "tut-msg-start",
+      "id": "xy-edge__message-25-tut-msg-start"
     }
   ]
 }

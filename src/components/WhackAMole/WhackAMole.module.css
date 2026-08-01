@@ -188,7 +188,7 @@
 }
 
 .grandma {
-  animation: rise 130ms ease-out;
+  animation: rise 78ms ease-out;
 }
 
 .scoreBar,
@@ -221,6 +221,18 @@
 .score {
   color: var(--black);
   font-weight: 400;
+}
+
+.timer {
+  position: absolute;
+  left: 50%;
+  margin: 0;
+  color: var(--black);
+  font-size: 64px;
+  font-weight: 400;
+  line-height: 64px;
+  letter-spacing: 0;
+  transform: translateX(-50%);
 }
 
 .endMessage {

@@ -52,6 +52,11 @@
   transform-origin: center;
 }
 
+.windowHidden {
+  visibility: hidden;
+  pointer-events: none;
+}
+
 @keyframes windowMinimizeToTaskbar {
   from {
     opacity: 1;
@@ -94,6 +99,17 @@
   bottom: 40px;
   right: 32px;
   z-index: 0;
+}
+
+/* Point changes must remain visible even when they are fired while the
+   Cases/Operation window is open. The lift lasts only for the popup's
+   lifetime; normal Achievements stacking remains unchanged afterward. */
+.achievementsPopupLayer {
+  z-index: 2;
+}
+
+.achievementsPopupLayer.tutorialColorLayer {
+  z-index: 6;
 }
 
 .winAchievementsLayer {

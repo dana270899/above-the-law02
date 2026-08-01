@@ -37,21 +37,14 @@
   --icon-scale: calc(var(--icon-size) / 120px);
   --label-size: 24px;
   --sidebar-width: 200px;
-  --sidebar-gap: 40px;
+  --sidebar-gap: 50px;
 }
 
-/* Sidebar — anchored to top-left, 54px from edges.
-   Two-column layout: left column holds Rulebook/Cases/Operation/Trash,
-   right column holds Game. The row gap is half the standard sidebar
-   gap so the Game column sits closer to the others. */
+/* Sidebar — anchored near the top-left. */
 .sidebar {
   position: absolute;
-  left: 54px;
-  top: 58px;
-  display: flex;
-  flex-direction: row;
-  gap: calc(var(--sidebar-gap) / 2);
-  align-items: flex-start;
+  left: 24px;
+  top: 43px;
 }
 
 .sidebarColumn {
@@ -60,14 +53,6 @@
   flex-direction: column;
   gap: var(--sidebar-gap);
   align-items: flex-start;
-}
-
-/* Right column (Game) — sized to its content (not the full sidebar
-   width) so the Game icon sits flush at the start of its column,
-   removing the centering padding that would otherwise widen the gap. */
-.sidebarColumnRight {
-  width: auto;
-  margin-left: -5px;
 }
 
 .appIcon {
@@ -91,21 +76,13 @@
   outline-offset: 2px;
 }
 
-/* First icon (Rulebook) uses a tighter gap in the Figma source */
-.appIconFirst {
-  gap: calc(16px * var(--icon-scale));
+.operationIcon {
+  transform: translateY(-5px);
 }
 
-/* Top row — Game and Rulebook side by side */
-.topRow {
-  display: flex;
-  flex-direction: row;
-  gap: var(--sidebar-gap);
-  align-items: flex-start;
-}
-
-.topRow .appIcon {
-  width: auto;
+/* Preserve Trash's screen position while the other icons move 15px up. */
+.trashIcon {
+  margin-top: calc(var(--icon-size) - var(--sidebar-gap) - 5px);
 }
 
 .iconBox {

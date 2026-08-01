@@ -30,6 +30,8 @@ export interface CaseSummary {
 }
 
 export interface GameFlow {
+  /** True until the saved graph has finished loading. */
+  isLoading: boolean
   /** All nodes from the saved graph (empty if nothing was saved). */
   nodes: GameFlowNode[]
   /** All edges from the saved graph. */
@@ -97,6 +99,7 @@ export function useGameFlow(): GameFlow {
     edges: [],
   })
   const [currentId, setCurrentId] = useState<string | null>(null)
+  const [isLoading, setIsLoading] = useState(true)
   const [completedCaseIds, setCompletedCaseIds] = useState<Set<string>>(() => new Set())
   const [caseResults, setCaseResults] = useState<Map<string, 'win' | 'lose'>>(
     () => new Map(),
@@ -104,11 +107,15 @@ export function useGameFlow(): GameFlow {
 
   useEffect(() => {
     let cancelled = false
-    loadGameContent().then((loaded) => {
-      if (cancelled || !loaded) return
-      setGraph(loaded)
-      setCurrentId(findStartId(loaded.nodes))
-    })
+    loadGameContent()
+      .then((loaded) => {
+        if (cancelled || !loaded) return
+        setGraph(loaded)
+        setCurrentId(findStartId(loaded.nodes))
+      })
+      .finally(() => {
+        if (!cancelled) setIsLoading(false)
+      })
     return () => {
       cancelled = true
     }
@@ -171,6 +178,7 @@ export function useGameFlow(): GameFlow {
   )
 
   return {
+    isLoading,
     nodes: graph.nodes,
     edges: graph.edges,
     currentNode,

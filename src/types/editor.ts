@@ -222,6 +222,12 @@ export interface MiniGameNodeData {
   label: string
   [key: string]: unknown
 }
+export interface PointsNodeData {
+  nodeType: 'points'
+  /** Signed whole-number adjustment applied each time the walker visits. */
+  amount: number
+  [key: string]: unknown
+}
 
 // Full Node types (Data + Type discriminant) — required by @xyflow/react v12 NodeProps
 export type LoginFlowNode     = Node<LoginNodeData, 'login'>
@@ -232,11 +238,12 @@ export type ResultFlowNode    = Node<ResultNodeData, 'result'>
 export type PrizeFlowNode     = Node<PrizeNodeData, 'prize'>
 export type MessageFlowNode   = Node<MessageNodeData, 'message'>
 export type MiniGameFlowNode  = Node<MiniGameNodeData, 'miniGame'>
+export type PointsFlowNode    = Node<PointsNodeData, 'points'>
 export type TriggerFlowNode   = Node<TriggerNodeData, 'trigger'>
 export type SecondArrestFlowNode = Node<SecondArrestNodeData, 'secondArrest'>
 export type BgMusicFlowNode   = Node<BgMusicNodeData, 'bgMusic'>
 export type RankingFlowNode   = Node<RankingNodeData, 'ranking'>
 export type ScoringFlowNode   = Node<ScoringNodeData, 'scoring'>
 
-export type GameFlowNode = LoginFlowNode | IntroFlowNode | CaseFlowNode | OperationFlowNode | ResultFlowNode | PrizeFlowNode | MessageFlowNode | MiniGameFlowNode | TriggerFlowNode | SecondArrestFlowNode | BgMusicFlowNode | RankingFlowNode | ScoringFlowNode
+export type GameFlowNode = LoginFlowNode | IntroFlowNode | CaseFlowNode | OperationFlowNode | ResultFlowNode | PrizeFlowNode | MessageFlowNode | MiniGameFlowNode | PointsFlowNode | TriggerFlowNode | SecondArrestFlowNode | BgMusicFlowNode | RankingFlowNode | ScoringFlowNode
 export type GameFlowEdge = Edge<{ label?: string }>

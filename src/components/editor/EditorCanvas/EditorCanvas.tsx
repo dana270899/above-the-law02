@@ -36,6 +36,7 @@ import { SecondArrestNode } from '@/components/editor/nodes/SecondArrestNode'
 import { BgMusicNode }   from '@/components/editor/nodes/BgMusicNode'
 import { RankingNode }   from '@/components/editor/nodes/RankingNode'
 import { ScoringNode }   from '@/components/editor/nodes/ScoringNode'
+import { PointsNode }    from '@/components/editor/nodes/PointsNode'
 import { DEFAULT_BG_MUSIC_ID, DEFAULT_BG_MUSIC_VOLUME } from '@/lib/bgMusic'
 import { DEFAULT_WIN_SCREEN_ID } from '@/lib/winScreens'
 import { DEFAULT_SCORING_SETTINGS } from '@/lib/scoring'
@@ -56,6 +57,7 @@ const NODE_TYPES: Record<string, any> = {
   bgMusic:   BgMusicNode,
   ranking:   RankingNode,
   scoring:   ScoringNode,
+  points:    PointsNode,
 }
 
 const DEFAULT_NODES: GameFlowNode[] = [
@@ -340,6 +342,19 @@ export function EditorCanvas() {
         type: 'miniGame',
         position: getCenterFlowPosition(),
         data: { nodeType: 'miniGame', label: 'Mini Game' },
+      } as GameFlowNode,
+    ])
+  }
+
+  function addPointsNode() {
+    commitHistory()
+    setNodes((ns) => [
+      ...ns,
+      {
+        id: `points-${Date.now()}`,
+        type: 'points',
+        position: getCenterFlowPosition(),
+        data: { nodeType: 'points', amount: 100 },
       } as GameFlowNode,
     ])
   }
@@ -630,6 +645,9 @@ export function EditorCanvas() {
         </button>
         <button className={styles.addBtn} onClick={addMiniGameNode}>
           + Add Mini Game
+        </button>
+        <button className={styles.addBtn} onClick={addPointsNode}>
+          + Add Points
         </button>
         <button className={styles.addBtn} onClick={addCaseNode}>
           + Add Case

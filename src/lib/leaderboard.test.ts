@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+import { buildRunScore } from './scoring'
 import {
   buildLeaderboardDisplay,
   getProfilePhotoUploadFormat,
@@ -52,18 +53,19 @@ describe('leaderboard profile photos', () => {
 })
 
 describe('leaderboard publishing', () => {
-  it('sends mini-game points separately from the final score', () => {
+  it('publishes the final score including flow points while keeping mini-game points separate', () => {
     const cases = [{
       caseId: 'case-1', title: 'Case 1', important: false, attempt: 1 as const,
       correct: true, basePoints: 100, speedPoints: 0, elapsedSeconds: 10, totalPoints: 100,
     }]
 
+    const run = buildRunScore(cases, 600, 75, -25)
     expect(leaderboardInsertPayload({
       playerName: 'Dana',
       photoPath: null,
-      run: { total: 175, target: 600, won: false, cases, miniGamePoints: 75 },
+      run,
     })).toMatchObject({
-      score: 175,
+      score: 150,
       case_breakdown: cases,
       mini_game_points: 75,
     })

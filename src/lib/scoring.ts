@@ -49,6 +49,8 @@ export interface RunScore {
   cases: CaseScoreBreakdown[]
   /** Missing on legacy/saved runs and treated as zero. */
   miniGamePoints?: number
+  /** Signed total awarded by connected Points nodes. */
+  flowPoints?: number
 }
 
 export function recordCaseScore(
@@ -77,16 +79,19 @@ export function buildRunScore(
   cases: CaseScoreBreakdown[],
   winningTarget: number,
   miniGamePoints = 0,
+  flowPoints = 0,
 ): RunScore {
   const immutableCases = cases.map((item) => Object.freeze({ ...item }))
   const normalizedMiniGamePoints = Math.max(0, Math.round(miniGamePoints))
-  const total = immutableCases.reduce((sum, item) => sum + item.totalPoints, 0) + normalizedMiniGamePoints
+  const normalizedFlowPoints = Math.round(Number.isFinite(flowPoints) ? flowPoints : 0)
+  const total = immutableCases.reduce((sum, item) => sum + item.totalPoints, 0) + normalizedMiniGamePoints + normalizedFlowPoints
   return Object.freeze({
     total,
     target: winningTarget,
     won: total >= winningTarget,
     cases: Object.freeze(immutableCases) as unknown as CaseScoreBreakdown[],
     miniGamePoints: normalizedMiniGamePoints,
+    flowPoints: normalizedFlowPoints,
   })
 }
 

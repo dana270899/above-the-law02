@@ -13,16 +13,17 @@ import styles from './WhackAMole.module.css'
 
 const HOLE_COUNT = 3
 const STARTING_LIVES = 3
+const ROUND_DURATION_SECONDS = 30
 const POINTS_PER_HIT = 10
-const HIT_HOLD_MS = 380
-const START_VISIBLE_MS = 1600
-const START_GAP_MS = 720
-const SPEED_VISIBLE_STEP_MS = 170
-const SPEED_GAP_STEP_MS = 80
-const MIN_VISIBLE_MS = 260
-const MIN_GAP_MS = 70
-const HAMMER_STRIKE_MS = 620
-const HAMMER_IMPACT_MS = 30
+const HIT_HOLD_MS = 228
+const START_VISIBLE_MS = 672
+const START_GAP_MS = 302
+const SPEED_VISIBLE_STEP_MS = 72
+const SPEED_GAP_STEP_MS = 34
+const MIN_VISIBLE_MS = 109
+const MIN_GAP_MS = 30
+const HAMMER_STRIKE_MS = 372
+const HAMMER_IMPACT_MS = 18
 const HAMMER_ANCHOR_X = 195
 const HAMMER_ANCHOR_Y = 575
 const HAMMER_HIT_Y_OFFSET = 310
@@ -68,6 +69,8 @@ export function WhackAMole({ onClose, onContinue, onMinimizeChange, minimized: c
   const [lives, setLives] = useState(STARTING_LIVES)
   const [running, setRunning] = useState(false)
   const [gameOver, setGameOver] = useState(false)
+  const [endReason, setEndReason] = useState<'lives' | 'time' | null>(null)
+  const [remainingSeconds, setRemainingSeconds] = useState(ROUND_DURATION_SECONDS)
   const [started, setStarted] = useState(false)
   const [activeHole, setActiveHole] = useState<number | null>(null)
   const [activeGrandma, setActiveGrandma] = useState(0)
@@ -128,7 +131,7 @@ export function WhackAMole({ onClose, onContinue, onMinimizeChange, minimized: c
   }, [speed])
 
   const endRound = useCallback(
-    (over: boolean) => {
+    (over: boolean, reason: 'lives' | 'time' | null = null) => {
       runningRef.current = false
       clearTimers()
       setActiveHole(null)
@@ -138,6 +141,7 @@ export function WhackAMole({ onClose, onContinue, onMinimizeChange, minimized: c
       previousHoleRef.current = null
       setRunning(false)
       setGameOver(over)
+      setEndReason(reason)
     },
     [clearTimers],
   )
@@ -157,8 +161,20 @@ export function WhackAMole({ onClose, onContinue, onMinimizeChange, minimized: c
   }, [])
 
   useEffect(() => {
-    if (running && lives <= 0) endRound(true)
+    if (running && lives <= 0) endRound(true, 'lives')
   }, [running, lives, endRound])
+
+  useEffect(() => {
+    if (!running) return
+    const timer = window.setInterval(() => {
+      setRemainingSeconds((seconds) => Math.max(0, seconds - 1))
+    }, 1000)
+    return () => window.clearInterval(timer)
+  }, [running])
+
+  useEffect(() => {
+    if (running && remainingSeconds <= 0) endRound(true, 'time')
+  }, [running, remainingSeconds, endRound])
 
   const scheduleNextMole = useCallback(() => {
     if (!runningRef.current) return
@@ -186,7 +202,9 @@ export function WhackAMole({ onClose, onContinue, onMinimizeChange, minimized: c
     clearTimers()
     setScore(0)
     setLives(STARTING_LIVES)
+    setRemainingSeconds(ROUND_DURATION_SECONDS)
     setGameOver(false)
+    setEndReason(null)
     setActiveHole(null)
     setHammerStrike(null)
     setLifeFlickerId(0)
@@ -423,10 +441,15 @@ export function WhackAMole({ onClose, onContinue, onMinimizeChange, minimized: c
 
         <div className={gameOver ? styles.scoreBarEnd : styles.scoreBar}>
           {gameOver ? (
-            <p className={styles.endMessage}>Loser! The grandmas win</p>
+            <p className={styles.endMessage}>
+              {endReason === 'time' ? "Time's up!" : 'Loser! The grandmas win'}
+            </p>
           ) : (
             <>
               <p className={styles.score}>Score: {score}</p>
+              <p className={styles.timer} aria-label={`${remainingSeconds} seconds remaining`}>
+                {String(Math.floor(remainingSeconds / 60)).padStart(2, '0')}:{String(remainingSeconds % 60).padStart(2, '0')}
+              </p>
               <div className={styles.lives} aria-label={`${lives} lives left`}>
                 {Array.from({ length: STARTING_LIVES }).map((_, i) => (
                   <img
@@ -457,7 +480,7 @@ export function WhackAMole({ onClose, onContinue, onMinimizeChange, minimized: c
               <div className={styles.endActions}>
                 <button type="button" className={styles.startBtn} onClick={handleStart}>Try again</button>
                 <button type="button" className={styles.continueBtn} onClick={() => onContinue({ score, started })}>
-                  Give me a new case
+                  Back to the cases
                 </button>
               </div>
             ) : (

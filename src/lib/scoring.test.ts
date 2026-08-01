@@ -90,4 +90,9 @@ describe('calculateCaseScore', () => {
     expect(buildRunScore([one], 150, 49.6)).toMatchObject({ total: 150, miniGamePoints: 50, won: true })
     expect(buildRunScore([one], 150, -20)).toMatchObject({ total: 100, miniGamePoints: 0, won: false })
   })
+
+  it('adds signed, normalized flow points to the run total', () => {
+    expect(buildRunScore([], 100, 0, 125.6)).toMatchObject({ total: 126, flowPoints: 126, won: true })
+    expect(buildRunScore([], 100, 0, -40.4)).toMatchObject({ total: -40, flowPoints: -40, won: false })
+  })
 })

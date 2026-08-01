@@ -42,6 +42,7 @@ import type {
   MessageFlowNode,
   MessageNodeData,
   OperationFlowNode,
+  PointsFlowNode,
   ResultFlowNode,
   TriggerFlowNode,
   TriggerType,
@@ -65,6 +66,7 @@ import {
 import { RankingPage } from '@/components/game/RankingPage/RankingPage'
 import { GameRestartDialog } from '@/components/game/GameRestartDialog/GameRestartDialog'
 import { formatCaseTimestamp, isCaseUnlocked } from '@/lib/caseProgression'
+import { pathContainsPointsNode } from '@/lib/pointsFlow'
 import styles from './GamePage.module.css'
 
 function isCaseWindowHighlightTarget(
@@ -164,6 +166,7 @@ export function GamePage() {
   const [miniGameMinimized, setMiniGameMinimized] = useState(false)
   const [miniGameScoringSession, setMiniGameScoringSession] = useState(false)
   const [miniGamePoints, setMiniGamePoints] = useState(0)
+  const [flowPoints, setFlowPoints] = useState(0)
   const miniGameContinueRef = useRef<(() => void) | null>(null)
   const miniGameContinueOnCloseRef = useRef(false)
   const miniGameNodeExitingRef = useRef(false)
@@ -203,6 +206,7 @@ export function GamePage() {
   const pendingActionRef = useRef<(() => void) | null>(null)
   const pendingIncorrectCaseRef = useRef<CaseFlowNode | null>(null)
   const lossAwardedCaseIdsRef = useRef<Set<string>>(new Set())
+  const pointsControlledCaseIdsRef = useRef<Set<string>>(new Set())
 
   // Ids of trigger-fired messages that have already been displayed in
   // this session. Re-firing the same trigger (player re-expands a row,
@@ -212,9 +216,10 @@ export function GamePage() {
     () => new Set(),
   )
 
-  // Case ids made available only for direct editor previews. Normal game
-  // progression is unlocked sequentially from completed cases.
-  const [manuallyUnlockedCaseIds] = useState<Set<string>>(
+  // Cases explicitly reached during this session stay available. This
+  // includes direct editor previews and cases opened by announcement
+  // messages, so visiting an earlier tab cannot lock the current case.
+  const [sessionUnlockedCaseIds, setSessionUnlockedCaseIds] = useState<Set<string>>(
     () => new Set(startParams.startCaseId ? [startParams.startCaseId] : []),
   )
 
@@ -238,7 +243,7 @@ export function GamePage() {
   const [operationLockedScreenOpen, setOperationLockedScreenOpen] =
     useState(false)
 
-  const { currentNode, advance, goTo, cases, completedCaseIds, caseResults, nodes, edges } = flow
+  const { isLoading, currentNode, advance, goTo, cases, completedCaseIds, caseResults, nodes, edges } = flow
   const [achievementsOpen, setAchievementsOpen] = useState(false)
   const [caseWindowMinimized, setCaseWindowMinimized] = useState(false)
   const [caseWindowMotion, setCaseWindowMotion] = useState<WindowMotion>('idle')
@@ -364,6 +369,26 @@ export function GamePage() {
     }
   }, [])
 
+  // A connected Points node is a transparent action. Guard the current
+  // visit synchronously so React Strict Mode and unrelated re-renders cannot
+  // award it twice; leaving the node arms it for a future loop visit.
+  const processedPointsNodeRef = useRef<string | null>(null)
+  useEffect(() => {
+    if (currentNode?.type !== 'points') {
+      processedPointsNodeRef.current = null
+      return
+    }
+    if (processedPointsNodeRef.current === currentNode.id) return
+    processedPointsNodeRef.current = currentNode.id
+    const amount = Math.round(Number((currentNode as PointsFlowNode).data.amount) || 0)
+    if (amount !== 0) {
+      setAchievementsOpen(true)
+      setFlowPoints((current) => current + amount)
+      showPointPopup(amount, amount < 0 ? 'lose' : 'win', currentNode.id)
+    }
+    advance()
+  }, [currentNode, advance])
+
   // Auto-skip everything except the player-facing node types.
   // `result` nodes still stop the walker when they are a 'win' so the
   // full-screen win overlay can render; 'lose' results are skipped past.
@@ -379,6 +404,7 @@ export function GamePage() {
       currentNode.type === 'operation'
       || currentNode.type === 'secondArrest'
       || currentNode.type === 'ranking'
+      || currentNode.type === 'points'
     ) return
     if (
       currentNode.type === 'result' &&
@@ -425,19 +451,22 @@ export function GamePage() {
   // Browsers block autoplay before any user interaction, so the first
   // play() may reject — that's fine, we swallow it silently.
   const triggerHeadId = triggerQueue[0] ?? null
+  const triggerHeadNode = triggerHeadId
+    ? nodes.find((node) => node.id === triggerHeadId) ?? null
+    : null
 
   // Remember every trigger-fired message id as it actually appears, so
   // a future re-fire of the same trigger filters it out instead of
   // replaying the bubble the player already dismissed.
   useEffect(() => {
-    if (!triggerHeadId) return
+    if (!triggerHeadId || triggerHeadNode?.type !== 'message') return
     setShownTriggerMessageIds((prev) => {
       if (prev.has(triggerHeadId)) return prev
       const next = new Set(prev)
       next.add(triggerHeadId)
       return next
     })
-  }, [triggerHeadId])
+  }, [triggerHeadId, triggerHeadNode])
 
   // When the walker lands on a message whose button opens the
   // Achievements window, pop the window AS the message appears — not
@@ -451,15 +480,15 @@ export function GamePage() {
 
   // Compute the case tab list for the Cases window. A tab is locked
   // unless either (a) it is the first case in `order`, (b) the previous
-  // case (by order) has been completed, OR (c) it is the case requested
-  // by a direct editor preview link.
+  // case (by order) has been completed, OR (c) the case has already been
+  // reached in this session (through a message or direct editor preview).
   const tabs: CaseTab[] = useMemo(() => {
     return cases.map((c, i) => {
       const unlocked = isCaseUnlocked(
         cases,
         i,
         completedCaseIds,
-        manuallyUnlockedCaseIds,
+        sessionUnlockedCaseIds,
       )
       const caseHasOperation = nodes.some(
         (node) => node.type === 'case'
@@ -474,7 +503,7 @@ export function GamePage() {
         locked: !unlocked,
         solved: caseHasOperation
           ? completedOperationCaseIds.has(c.caseId)
-          : !!caseDecisions[c.caseId],
+          : caseDecisions[c.caseId] != null || completedCaseIds.has(c.caseId),
         operationPending: pendingOperationCaseId === c.caseId,
       }
     })
@@ -483,7 +512,7 @@ export function GamePage() {
     caseDecisions,
     completedCaseIds,
     completedOperationCaseIds,
-    manuallyUnlockedCaseIds,
+    sessionUnlockedCaseIds,
     nodes,
     pendingOperationCaseId,
   ])
@@ -495,7 +524,15 @@ export function GamePage() {
   // leaves the case node, confusing the player.
   const [lastCaseId, setLastCaseId] = useState<string | null>(null)
   useEffect(() => {
-    if (caseNode) setLastCaseId(caseNode.data.caseId)
+    if (!caseNode) return
+    const reachedCaseId = caseNode.data.caseId
+    setLastCaseId(reachedCaseId)
+    setSessionUnlockedCaseIds((current) => {
+      if (current.has(reachedCaseId)) return current
+      const next = new Set(current)
+      next.add(reachedCaseId)
+      return next
+    })
   }, [caseNode])
 
   // Resolve which case body to display in the open window.
@@ -580,6 +617,7 @@ export function GamePage() {
     if (result.data.resultType === 'win') return
     const caseId = result.data.caseId || lastCaseId
     if (!caseId) return
+    if (pointsControlledCaseIdsRef.current.has(caseId)) return
     const scoredCase = nodes.find((node): node is CaseFlowNode => node.type === 'case' && node.data.caseId === caseId)
     if (!scoredCase) return
     if (scoreByCase[caseId]) return
@@ -612,6 +650,12 @@ export function GamePage() {
       caseWindowMotionTimeoutRef.current = null
     }
     if (typeof targetCaseId === 'string' && targetCaseId) {
+      setSessionUnlockedCaseIds((current) => {
+        if (current.has(targetCaseId)) return current
+        const next = new Set(current)
+        next.add(targetCaseId)
+        return next
+      })
       setViewCaseId(targetCaseId)
     } else {
       setViewCaseId(null) // resolve via priority again
@@ -740,11 +784,8 @@ export function GamePage() {
     [],
   )
 
-  const triggerHead: MessageFlowNode | null = triggerQueue[0]
-    ? nodes.find(
-        (n): n is MessageFlowNode =>
-          n.id === triggerQueue[0] && n.type === 'message',
-      ) ?? null
+  const triggerHead: MessageFlowNode | null = triggerHeadNode?.type === 'message'
+    ? triggerHeadNode as MessageFlowNode
     : null
   const visibleTriggerHead = useDelayedMessage(triggerHead)
   const visibleMessageNode = useDelayedMessage(messageNode)
@@ -760,13 +801,40 @@ export function GamePage() {
     audio.play().catch(() => { /* autoplay blocked — ignore */ })
   }, [visibleMessageNodeId, visibleTriggerHeadId])
 
-  // If the queue head points at a missing/non-message id, skip past it
+  // Points nodes in a trigger side-chain apply without moving the main
+  // walker, then replace themselves with the next supported side node.
+  const processedTriggerPointsRef = useRef<string | null>(null)
+  useEffect(() => {
+    if (triggerHeadNode?.type !== 'points') {
+      processedTriggerPointsRef.current = null
+      return
+    }
+    if (processedTriggerPointsRef.current === triggerHeadNode.id) return
+    processedTriggerPointsRef.current = triggerHeadNode.id
+    const amount = Math.round(Number((triggerHeadNode as PointsFlowNode).data.amount) || 0)
+    if (amount !== 0) {
+      setAchievementsOpen(true)
+      setFlowPoints((current) => current + amount)
+      showPointPopup(amount, amount < 0 ? 'lose' : 'win', triggerHeadNode.id)
+    }
+    const nextId = findNextFrom(triggerHeadNode.id)
+    const nextNode = nextId ? nodes.find((node) => node.id === nextId) : null
+    setTriggerQueue((queue) => {
+      const rest = queue.slice(1)
+      return nextNode && (nextNode.type === 'message' || nextNode.type === 'points')
+        && !rest.includes(nextNode.id)
+        ? [nextNode.id, ...rest]
+        : rest
+    })
+  }, [triggerHeadNode, nodes])
+
+  // If the queue head points at a missing/unsupported id, skip past it
   // so the queue can drain instead of getting stuck.
   useEffect(() => {
-    if (triggerQueue.length > 0 && !triggerHead) {
+    if (triggerQueue.length > 0 && !triggerHeadNode) {
       setTriggerQueue((q) => q.slice(1))
     }
-  }, [triggerHead, triggerQueue.length])
+  }, [triggerHeadNode, triggerQueue.length])
 
   // When the queue empties, fire whatever click action was deferred.
   // Runs once per drain (the ref is cleared immediately).
@@ -807,14 +875,17 @@ export function GamePage() {
         if (rowId && tNode.data.targetRowId !== rowId) continue
         const d = tNode.data.delaySeconds ?? 0
         if (d > delaySeconds) delaySeconds = d
-        // Follow each outgoing edge from the trigger node to a message.
+        // Follow each outgoing edge from the trigger node to a message or
+        // transparent Points node. Subsequent nodes are resolved as the
+        // side queue advances.
         // Skip messages the player has already seen in this session so a
         // repeat trigger doesn't re-show the same bubble.
         for (const out of edges.filter((e) => e.source === tNode.id)) {
-          const mNode = nodes.find(
-            (n): n is MessageFlowNode => n.id === out.target && n.type === 'message',
-          )
-          if (mNode && !shownTriggerMessageIds.has(mNode.id)) ids.push(mNode.id)
+          const targetNode = nodes.find((n) => n.id === out.target)
+          if (targetNode?.type === 'points') ids.push(targetNode.id)
+          if (targetNode?.type === 'message' && !shownTriggerMessageIds.has(targetNode.id)) {
+            ids.push(targetNode.id)
+          }
         }
       }
       return { ids, delaySeconds }
@@ -948,6 +1019,7 @@ export function GamePage() {
    *  floor too — its purpose was tied to the now-superseded choice. */
   const clearPendingTrigger = () => {
     pendingActionRef.current = null
+    pendingIncorrectCaseRef.current = null
     setTriggerQueue([])
   }
   const onArrest = () => {
@@ -963,7 +1035,10 @@ export function GamePage() {
     clearPendingTrigger()
     const retry = hasRetryTrigger(activeCaseNode.id, 'arrest')
     const incorrect = isIncorrectDecision(activeCaseNode, 'arrest')
-    if (incorrect) pendingIncorrectCaseRef.current = activeCaseNode
+    const decisionTargetId = findNextFrom(activeCaseNode.id, 'arrest')
+    const usesPointsNode = pathContainsPointsNode(decisionTargetId, nodes, edges)
+    if (usesPointsNode) pointsControlledCaseIdsRef.current.add(caseId)
+    if (incorrect && !usesPointsNode) pendingIncorrectCaseRef.current = activeCaseNode
     const continueOnly = activeCaseNode.data.arrestContinuesWithoutDecision === true
     const restoreArrestButton = hasRestoreArrestButtonTrigger(activeCaseNode.id)
     // On a retry-arrest trigger we never lock the decision — the pill
@@ -1001,7 +1076,10 @@ export function GamePage() {
     clearPendingTrigger()
     const retry = hasRetryTrigger(activeCaseNode.id, 'release')
     const incorrect = isIncorrectDecision(activeCaseNode, 'release')
-    if (incorrect) pendingIncorrectCaseRef.current = activeCaseNode
+    const decisionTargetId = findNextFrom(activeCaseNode.id, 'release')
+    const usesPointsNode = pathContainsPointsNode(decisionTargetId, nodes, edges)
+    if (usesPointsNode) pointsControlledCaseIdsRef.current.add(caseId)
+    if (incorrect && !usesPointsNode) pendingIncorrectCaseRef.current = activeCaseNode
     if (!retry) {
       setCaseDecisions((prev) => ({ ...prev, [caseId]: 'released' }))
       if (activeCaseNode.data.hasOperation) setPendingOperationCaseId(caseId)
@@ -1056,7 +1134,7 @@ export function GamePage() {
     (c) => caseResults.get(c.caseId) ?? null,
   )
   const caseBreakdowns = Object.values(scoreByCase)
-  const runScore = buildRunScore(caseBreakdowns, scoringSettings.winningTarget, miniGamePoints)
+  const runScore = buildRunScore(caseBreakdowns, scoringSettings.winningTarget, miniGamePoints, flowPoints)
   const totalScore = runScore.total
 
   const openCasualMiniGame = () => {
@@ -1087,6 +1165,25 @@ export function GamePage() {
       setMiniGameMotion('idle')
       miniGameMotionTimeoutRef.current = null
     }, WINDOW_MOTION_MS)
+  }
+
+  // A message can explicitly open a mini-game and also point at a miniGame
+  // graph node. In that shape the window already represents that node, so
+  // exiting must continue from the node rather than land on it and reopen
+  // the same window a second time.
+  const openMessageMiniGame = (sourceId: string, onContinue: () => void) => {
+    const linkedNodeId = findNextFrom(sourceId)
+    const linkedNode = linkedNodeId
+      ? nodes.find((node) => node.id === linkedNodeId)
+      : null
+    const followingNodeId = linkedNode?.type === 'miniGame'
+      ? findNextFrom(linkedNode.id)
+      : null
+
+    openScoringMiniGame(
+      followingNodeId ? () => goTo(followingNodeId) : onContinue,
+      true,
+    )
   }
 
   const bankMiniGameScore = ({ score, started }: { score: number; started: boolean }) => {
@@ -1140,6 +1237,19 @@ export function GamePage() {
     }, WINDOW_MOTION_MS)
   }
 
+  const minimizeMiniGame = () => {
+    if (miniGameMotionTimeoutRef.current != null) {
+      window.clearTimeout(miniGameMotionTimeoutRef.current)
+    }
+    setMiniGameMotionOrigin('taskbar')
+    setMiniGameMotion('minimizing')
+    miniGameMotionTimeoutRef.current = window.setTimeout(() => {
+      setMiniGameMinimized(true)
+      setMiniGameMotion('idle')
+      miniGameMotionTimeoutRef.current = null
+    }, WINDOW_MOTION_MS)
+  }
+
   const taskbarApps = useMemo<TaskbarApp[]>(() => {
     const apps: TaskbarApp[] = []
     if (caseWindowOpen && activeCaseData) {
@@ -1168,6 +1278,10 @@ export function GamePage() {
 
   // While the flow sits on a login node, render the LoginScreen as a
   // full-screen step. Submitting follows the node's outgoing edge.
+  if (isLoading) {
+    return <div ref={scaleRef} className={styles.canvas} data-scaled-stage />
+  }
+
   if (currentNode?.type === 'login') {
     return (
       <>
@@ -1205,6 +1319,10 @@ export function GamePage() {
     const awardWinAndAdvance = () => {
       if (winAdvancePendingRef.current) return
       const caseId = resultData.caseId || lastCaseId
+      if (caseId && pointsControlledCaseIdsRef.current.has(caseId)) {
+        advance()
+        return
+      }
       const scoredCase = nodes.find((node): node is CaseFlowNode => node.type === 'case' && node.data.caseId === caseId)
       if (!caseId || !scoredCase) {
         advance()
@@ -1426,6 +1544,7 @@ export function GamePage() {
         <div
           className={[
             styles.achievementsLayer,
+            pointPopup ? styles.achievementsPopupLayer : '',
             activeTutorialMsg ? styles.tutorialColorLayer : '',
           ].filter(Boolean).join(' ')}
         >
@@ -1446,15 +1565,23 @@ export function GamePage() {
           ref={miniGameLayerRef}
           className={[
             styles.caseLayer,
+            miniGameMinimized ? styles.windowHidden : '',
             activeTutorialMsg ? styles.tutorialTopColorLayer : '',
-            miniGameMotion === 'restoring' ? styles.windowRestoring : '',
+            miniGameMotion === 'minimizing'
+              ? styles.windowMinimizing
+              : miniGameMotion === 'restoring'
+              ? styles.windowRestoring
+              : '',
           ].filter(Boolean).join(' ')}
         >
           <WhackAMole
             draggable
             onClose={closeMiniGame}
             onContinue={miniGameScoringSession ? continueFromMiniGame : undefined}
-            onMinimizeChange={setMiniGameMinimized}
+            onMinimizeChange={(minimized) => {
+              if (minimized) minimizeMiniGame()
+              else restoreMiniGame()
+            }}
             minimized={miniGameMinimized}
           />
         </div>
@@ -1500,7 +1627,7 @@ export function GamePage() {
               const nextId = findNextFrom(visibleTriggerHead.id)
               const isChainable =
                 nextId != null &&
-                nodes.some((n) => n.id === nextId && n.type === 'message')
+                nodes.some((n) => n.id === nextId && (n.type === 'message' || n.type === 'points'))
               setTriggerQueue((q) => {
                 const rest = q.slice(1)
                 return isChainable && !rest.includes(nextId!)
@@ -1511,7 +1638,9 @@ export function GamePage() {
             onOpenCases={openCaseWindow}
             onUnlockOperation={() => setOperationUnlocked(true)}
             onOpenAchievements={() => setAchievementsOpen(true)}
-            onOpenMiniGame={openScoringMiniGame}
+            onOpenMiniGame={(onContinue) => {
+              openScoringMiniGame(onContinue, true)
+            }}
           />
         </div>
       )}
@@ -1532,7 +1661,9 @@ export function GamePage() {
             onOpenCases={openCaseWindow}
             onUnlockOperation={() => setOperationUnlocked(true)}
             onOpenAchievements={() => setAchievementsOpen(true)}
-            onOpenMiniGame={openScoringMiniGame}
+            onOpenMiniGame={(onContinue) => {
+              openMessageMiniGame(visibleMessageNode.id, onContinue)
+            }}
           />
         </div>
       )}
