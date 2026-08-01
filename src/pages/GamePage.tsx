@@ -69,6 +69,7 @@ import { RankingPage } from '@/components/game/RankingPage/RankingPage'
 import { GameRestartDialog } from '@/components/game/GameRestartDialog/GameRestartDialog'
 import { formatCaseTimestamp, isCaseUnlocked } from '@/lib/caseProgression'
 import { pathContainsPointsNode } from '@/lib/pointsFlow'
+import { pathReachesRankingWithoutResult } from '@/lib/terminalCaseFlow'
 import styles from './GamePage.module.css'
 
 function isCaseWindowHighlightTarget(
@@ -1033,6 +1034,37 @@ export function GamePage() {
     pendingIncorrectCaseRef.current = null
     setTriggerQueue([])
   }
+  const recordRankingBoundCase = (
+    caseNode: CaseFlowNode,
+    targetId: string | null,
+    incorrect: boolean,
+    usesPointsNode: boolean,
+  ) => {
+    if (
+      incorrect
+      || usesPointsNode
+      || !pathReachesRankingWithoutResult(targetId, nodes, edges)
+    ) return
+
+    const caseId = caseNode.data.caseId
+    const breakdown = calculateCaseScore({
+      caseData: caseNode.data,
+      correct: true,
+      attempt: caseAttemptRef.current[caseId] ?? 1,
+      elapsedSeconds: getCaseElapsedSeconds(caseTimersRef.current, caseId, performance.now()),
+      settings: scoringSettings,
+    })
+    setAchievementsOpen(true)
+    setScoreByCase((current) => {
+      if (current[caseId]?.correct) return current
+      const previous = current[caseId]
+      return {
+        ...current,
+        [caseId]: previous ? combineRetryScore(previous, breakdown) : breakdown,
+      }
+    })
+    showPointPopup(breakdown.totalPoints, 'win', `${caseId}-ranking`)
+  }
   const onArrest = () => {
     if (!activeCaseNode) return
     if (secondArrestNode) {
@@ -1070,8 +1102,8 @@ export function GamePage() {
           return next
         })
       }
-      const targetId = findNextFrom(activeCaseNode.id, 'arrest')
-      if (targetId) goTo(targetId)
+      recordRankingBoundCase(activeCaseNode, decisionTargetId, incorrect, usesPointsNode)
+      if (decisionTargetId) goTo(decisionTargetId)
     })
   }
   const onRelease = () => {
@@ -1100,8 +1132,8 @@ export function GamePage() {
         caseAttemptRef.current[caseId] = 2
         return
       }
-      const targetId = findNextFrom(activeCaseNode.id, 'release')
-      if (targetId) goTo(targetId)
+      recordRankingBoundCase(activeCaseNode, decisionTargetId, incorrect, usesPointsNode)
+      if (decisionTargetId) goTo(decisionTargetId)
     })
   }
 
