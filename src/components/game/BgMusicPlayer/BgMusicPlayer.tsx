@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
   getBgMusic,
   DEFAULT_BG_MUSIC_VOLUME,
@@ -34,6 +35,7 @@ interface BgMusicPlayerProps {
  * that the audio starts and keeps looping for the session.
  */
 export function BgMusicPlayer({ src, srcCustom, defaultVolume, showControl = true }: BgMusicPlayerProps) {
+  const navigate = useNavigate()
   const initialVolume = clamp01(defaultVolume ?? DEFAULT_BG_MUSIC_VOLUME)
   const [volume, setVolume] = useState<number>(() => getStoredVolume(initialVolume))
   const [muted, setMuted] = useState<boolean>(() => getStoredMuted())
@@ -87,7 +89,7 @@ export function BgMusicPlayer({ src, srcCustom, defaultVolume, showControl = tru
     // the player made during the previous run.
     storeVolume(initialVolume)
     storeMuted(false)
-    window.location.assign('/game')
+    navigate('/game', { replace: true })
   }
 
   const effectivePct = Math.round((muted ? 0 : volume) * 100)
@@ -104,8 +106,13 @@ export function BgMusicPlayer({ src, srcCustom, defaultVolume, showControl = tru
         >
           Start again
         </button>
-        <button type="button" className={styles.menuButton}>Credits</button>
-        <button type="button" className={styles.menuButton}>About the game</button>
+        <button
+          type="button"
+          className={styles.menuButton}
+          onClick={() => navigate('/credits')}
+        >
+          About &amp; Credits
+        </button>
         <div className={styles.volumeRow}>
           <button
             type="button"

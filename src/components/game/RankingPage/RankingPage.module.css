@@ -259,6 +259,35 @@
   font-size: 24px;
 }
 
+.historyError {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 20px;
+}
+
+.historyError p,
+.historyErrorText {
+  margin: 0;
+}
+
+.historyError button {
+  box-sizing: border-box;
+  padding: 8px 18px;
+  background: var(--yellow);
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  color: var(--black);
+  font-family: var(--font-main);
+  font-size: 18px;
+  cursor: var(--cursor-hover);
+}
+
+.historyErrorText {
+  font-size: 20px;
+}
+
 .illustrationColumn {
   width: 635px;
   display: flex;

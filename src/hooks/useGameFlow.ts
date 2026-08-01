@@ -6,6 +6,7 @@ import type {
   ResultFlowNode,
 } from '@/types/editor'
 import { loadGameContent } from '@/lib/gameContent'
+import { useSharedGameContent } from '@/components/game/GameContentProvider'
 
 /**
  * GAME FLOW HOOK
@@ -92,34 +93,47 @@ function findNextNodeId(
 }
 
 export function useGameFlow(): GameFlow {
+  const sharedContent = useSharedGameContent()
   // Load ONCE after first render. We intentionally don't reload on every
   // change — the game runs against a snapshot of the editor file.
-  const [graph, setGraph] = useState<{ nodes: GameFlowNode[]; edges: GameFlowEdge[] }>({
+  const [localGraph, setLocalGraph] = useState<{ nodes: GameFlowNode[]; edges: GameFlowEdge[] }>({
     nodes: [],
     edges: [],
   })
   const [currentId, setCurrentId] = useState<string | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
+  const [localIsLoading, setLocalIsLoading] = useState(true)
   const [completedCaseIds, setCompletedCaseIds] = useState<Set<string>>(() => new Set())
   const [caseResults, setCaseResults] = useState<Map<string, 'win' | 'lose'>>(
     () => new Map(),
   )
 
   useEffect(() => {
+    if (sharedContent) return
     let cancelled = false
     loadGameContent()
       .then((loaded) => {
         if (cancelled || !loaded) return
-        setGraph(loaded)
+        setLocalGraph(loaded)
         setCurrentId(findStartId(loaded.nodes))
       })
       .finally(() => {
-        if (!cancelled) setIsLoading(false)
+        if (!cancelled) setLocalIsLoading(false)
       })
     return () => {
       cancelled = true
     }
-  }, [])
+  }, [sharedContent])
+
+  const graph = sharedContent?.graph ?? localGraph
+  const isLoading = sharedContent?.isLoading ?? localIsLoading
+
+  // The public provider may finish loading after this hook mounts. Seed the
+  // walker once from that shared snapshot; local previews already seed it in
+  // their load effect above.
+  useEffect(() => {
+    if (currentId !== null || graph.nodes.length === 0) return
+    setCurrentId(findStartId(graph.nodes))
+  }, [currentId, graph.nodes])
 
   const currentNode = useMemo(
     () => graph.nodes.find((n) => n.id === currentId) ?? null,

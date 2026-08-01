@@ -8,6 +8,7 @@ import {
   type CSSProperties,
   type MouseEvent as ReactMouseEvent,
 } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Desktop, type TaskbarApp } from '@/components/Desktop'
 import {
   CaseWindowV2 as CaseWindow,
@@ -33,6 +34,7 @@ import { OperationLockedScreen } from '@/components/game/OperationLockedScreen'
 import { AchievementsWindow, type CaseOutcome } from '@/components/AchievementsWindow'
 import { WhackAMole } from '@/components/WhackAMole'
 import { useGameFlow } from '@/hooks/useGameFlow'
+import { useFlowAssetPreloader } from '@/hooks/useFlowAssetPreloader'
 import { useGameScale } from '@/hooks/useGameScale'
 import { messageDataToBossProps } from '@/lib/messageMapping'
 import type {
@@ -54,7 +56,7 @@ import { getWinSound } from '@/lib/winSounds'
 import { loadAudioBlob } from '@/lib/audioBlobStore'
 import { BgMusicPlayer } from '@/components/game/BgMusicPlayer/BgMusicPlayer'
 import type { BgMusicFlowNode } from '@/types/editor'
-import { appPath, assetUrl } from '@/lib/paths'
+import { assetUrl } from '@/lib/paths'
 import { buildRunScore, calculateCaseScore, combineRetryScore, DEFAULT_SCORING_SETTINGS, recordCaseScore, type CaseScoreBreakdown, type PlayerProfile, type ScoringSettings } from '@/lib/scoring'
 import {
   freezeCaseTimer,
@@ -114,6 +116,7 @@ function useDelayedMessage(node: MessageFlowNode | null): MessageFlowNode | null
  * which unlocks the next tab in the Cases window.
  */
 export function GamePage() {
+  const navigate = useNavigate()
   const flow = useGameFlow()
   const gameStartedAtRef = useRef(new Date())
   const scaleRef = useGameScale()
@@ -123,8 +126,8 @@ export function GamePage() {
   const showRestartPreview = import.meta.env.DEV
     && new URLSearchParams(window.location.search).get('restartPreview') === '1'
   const restartToRanking = useCallback(() => {
-    window.location.assign(appPath('/'))
-  }, [])
+    navigate('/')
+  }, [navigate])
   const restartDialog = (
     <GameRestartDialog
       preview={showRestartPreview}
@@ -564,6 +567,14 @@ export function GamePage() {
       ) ?? null
     )
   }, [activeCaseId, nodes])
+
+  useFlowAssetPreloader({
+    nodes,
+    edges,
+    currentNodeId: currentNode?.id ?? null,
+    additionalRootIds: [activeCaseNode?.id]
+      .filter((id): id is string => typeof id === 'string'),
+  })
 
   // A Second Arrest gate is a visible second decision point in the graph.
   // Clear the earlier case choice on entry so Arrest and Release are both
@@ -1133,8 +1144,15 @@ export function GamePage() {
   const achievementsResults: CaseOutcome[] = cases.map(
     (c) => caseResults.get(c.caseId) ?? null,
   )
-  const caseBreakdowns = Object.values(scoreByCase)
-  const runScore = buildRunScore(caseBreakdowns, scoringSettings.winningTarget, miniGamePoints, flowPoints)
+  const runScore = useMemo(
+    () => buildRunScore(
+      Object.values(scoreByCase),
+      scoringSettings.winningTarget,
+      miniGamePoints,
+      flowPoints,
+    ),
+    [flowPoints, miniGamePoints, scoreByCase, scoringSettings.winningTarget],
+  )
   const totalScore = runScore.total
 
   const openCasualMiniGame = () => {

@@ -15,7 +15,7 @@ const HOLE_COUNT = 3
 const STARTING_LIVES = 3
 const ROUND_DURATION_SECONDS = 30
 const POINTS_PER_HIT = 10
-const HIT_HOLD_MS = 228
+const HIT_HOLD_MS = 262
 const START_VISIBLE_MS = 672
 const START_GAP_MS = 302
 const SPEED_VISIBLE_STEP_MS = 72
@@ -220,6 +220,38 @@ export function WhackAMole({ onClose, onContinue, onMinimizeChange, minimized: c
   const handleHoleClick = (i: number, event: MouseEvent<HTMLButtonElement>) => {
     if (!running) return
     if (hitPendingRef.current) return
+
+    // Let the hammer strike an empty hole during the gap between grandmas.
+    // Cancel the pending spawn first so a grandma cannot appear underneath
+    // the hammer, then resume the normal spawn schedule once it finishes.
+    if (activeHole === null) {
+      hitPendingRef.current = true
+      if (gapTimerRef.current !== null) {
+        clearTimeout(gapTimerRef.current)
+        gapTimerRef.current = null
+      }
+
+      const board = event.currentTarget.closest<HTMLElement>('[data-whack-board]')
+      const holes = event.currentTarget.parentElement
+      if (board) {
+        const hole = event.currentTarget
+        playHammerStrikeAt(
+          (holes?.offsetLeft ?? 0) + hole.offsetLeft + hole.offsetWidth / 2,
+          (holes?.offsetTop ?? 0) + hole.offsetTop + hole.offsetHeight / 2
+            + HAMMER_HIT_Y_OFFSET,
+        )
+      }
+
+      if (hitTimerRef.current !== null) clearTimeout(hitTimerRef.current)
+      hitTimerRef.current = window.setTimeout(() => {
+        if (!runningRef.current) return
+        hitPendingRef.current = false
+        hitTimerRef.current = null
+        scheduleNextMole()
+      }, HAMMER_STRIKE_MS)
+      return
+    }
+
     if (activeHole === i) {
       const clickedElement = event.target as HTMLElement
       const grandma = clickedElement.closest<HTMLImageElement>('[data-whack-grandma]')

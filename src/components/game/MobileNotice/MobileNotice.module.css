@@ -12,7 +12,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background-image: url('../../../../assets/images/vintage-comic-style-dots-texture.jpg');
+  background-image: url('../../../../assets/images/mobile-notice/dots-texture.webp');
   background-size: 348px 348px;
   opacity: 0.1;
   mix-blend-mode: multiply;

@@ -9,6 +9,10 @@ import { startDragCursor, stopDragCursor } from '@/lib/dragCursor'
 import { assetUrl } from '@/lib/paths'
 import styles from './AchievementsWindow.module.css'
 
+/* The standard entry flicker plays only on the first mount per page load.
+   Tutorial-driven loops and forced component previews bypass this guard. */
+let hasFlickeredInThisSession = false
+
 /* ============================================================
    AchievementsWindow — Figma 617:10703 ("Achievements").
 
@@ -19,6 +23,10 @@ import styles from './AchievementsWindow.module.css'
 
 const A = assetUrl('/images/achievements')
 const RANK_COUNT = 6
+const ENTRY_FLICKER_INTERVAL_MS = 300
+const ENTRY_FLICKER_TICKS = 6
+
+type EntryFlickerPhase = 'empty' | 'full' | null
 
 export type CaseOutcome = 'win' | 'lose' | null
 export type PointPopupKind = 'win' | 'lose' | 'time'
@@ -55,10 +63,78 @@ export function AchievementsWindow({
   pointPopup = null,
   onClose,
   draggable = false,
+  forceEntryFlicker = false,
+  loopEntryFlicker = false,
   className,
 }: AchievementsWindowProps) {
   const [displayedTotal, setDisplayedTotal] = useState(total)
   const previousTotalRef = useRef(total)
+
+  const [playEntryFlicker] = useState(
+    () => forceEntryFlicker || !hasFlickeredInThisSession,
+  )
+  const startsFlickering = playEntryFlicker || loopEntryFlicker
+  const [entryFlickerPhase, setEntryFlickerPhase] =
+    useState<EntryFlickerPhase>(startsFlickering ? 'empty' : null)
+  const [suppressFillTransition, setSuppressFillTransition] =
+    useState(startsFlickering)
+  const wasLoopingRef = useRef(loopEntryFlicker)
+
+  useEffect(() => {
+    if (playEntryFlicker && !forceEntryFlicker) {
+      hasFlickeredInThisSession = true
+    }
+  }, [forceEntryFlicker, playEntryFlicker])
+
+  useEffect(() => {
+    let intervalId: number | null = null
+    let firstSettleFrame = 0
+    let secondSettleFrame = 0
+
+    const settleAtActualProgress = () => {
+      setEntryFlickerPhase(null)
+
+      // Keep clip-path transitions off while the actual score fill is
+      // restored. Re-enable them after the snapped value has painted so
+      // future score changes retain their normal smooth transition.
+      firstSettleFrame = window.requestAnimationFrame(() => {
+        secondSettleFrame = window.requestAnimationFrame(() => {
+          setSuppressFillTransition(false)
+        })
+      })
+    }
+
+    if (loopEntryFlicker) {
+      wasLoopingRef.current = true
+      setSuppressFillTransition(true)
+      setEntryFlickerPhase((phase) => phase ?? 'empty')
+      intervalId = window.setInterval(() => {
+        setEntryFlickerPhase((phase) => phase === 'full' ? 'empty' : 'full')
+      }, ENTRY_FLICKER_INTERVAL_MS)
+    } else if (wasLoopingRef.current) {
+      wasLoopingRef.current = false
+      settleAtActualProgress()
+    } else if (playEntryFlicker) {
+      setSuppressFillTransition(true)
+      let tick = 0
+      intervalId = window.setInterval(() => {
+        tick += 1
+        if (tick >= ENTRY_FLICKER_TICKS) {
+          if (intervalId !== null) window.clearInterval(intervalId)
+          intervalId = null
+          settleAtActualProgress()
+          return
+        }
+        setEntryFlickerPhase(tick % 2 === 0 ? 'empty' : 'full')
+      }, ENTRY_FLICKER_INTERVAL_MS)
+    }
+
+    return () => {
+      if (intervalId !== null) window.clearInterval(intervalId)
+      if (firstSettleFrame) window.cancelAnimationFrame(firstSettleFrame)
+      if (secondSettleFrame) window.cancelAnimationFrame(secondSettleFrame)
+    }
+  }, [loopEntryFlicker, playEntryFlicker])
 
   useEffect(() => {
     const from = previousTotalRef.current
@@ -84,6 +160,11 @@ export function AchievementsWindow({
   const legacyProgress = results.filter((result) => result === 'win').length / RANK_COUNT
   const scoreProgress = winningTarget > 0 ? total / winningTarget : 0
   const progress = Math.min(1, Math.max(0, winningTarget > 0 ? scoreProgress : legacyProgress))
+  const visibleProgress = entryFlickerPhase === 'empty'
+    ? 0
+    : entryFlickerPhase === 'full'
+    ? 1
+    : progress
   /* --- Drag (only when draggable) -------------------- */
   const [pos, setPos] = useState<{ x: number; y: number } | null>(null)
   const dragRef = useRef<{
@@ -185,8 +266,9 @@ export function AchievementsWindow({
       >
         <BadgeArtwork filled={false} />
         <div
-          className={styles.fillLayer}
-          style={{ clipPath: `inset(${(1 - progress) * 100}% 0 0)` }}
+          className={`${styles.fillLayer} ${suppressFillTransition ? styles.fillLayerInstant : ''}`}
+          style={{ clipPath: `inset(${(1 - visibleProgress) * 100}% 0 0)` }}
+          data-entry-flicker={entryFlickerPhase ?? undefined}
           aria-hidden="true"
         >
           <BadgeArtwork filled />

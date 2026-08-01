@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import type { PlayerProfile, RunScore } from '@/lib/scoring'
 import {
   buildLeaderboardDisplay,
@@ -9,7 +10,7 @@ import {
   publishLeaderboardEntry,
   type LeaderboardEntry,
 } from '@/lib/leaderboard'
-import { appPath, assetUrl } from '@/lib/paths'
+import { assetUrl } from '@/lib/paths'
 import styles from './RankingPage.module.css'
 
 const publicationRequests = new Map<string, Promise<LeaderboardEntry>>()
@@ -40,9 +41,11 @@ export function RankingPage({
   entryMode?: boolean
   publicationKey?: string
 }) {
+  const navigate = useNavigate()
   const [entries, setEntries] = useState<LeaderboardEntry[]>([])
-  const [status, setStatus] = useState<'loading' | 'ready' | 'publishing' | 'published' | 'error'>('loading')
+  const [status, setStatus] = useState<'loading' | 'ready' | 'publishing' | 'published' | 'history-error' | 'error'>('loading')
   const [error, setError] = useState('')
+  const [historyReloadKey, setHistoryReloadKey] = useState(0)
   const [detailsOpen, setDetailsOpen] = useState(false)
   const rowsRef = useRef<HTMLDivElement | null>(null)
 
@@ -61,6 +64,7 @@ export function RankingPage({
     let active = true
     async function loadAndPublish() {
       try {
+        setError('')
         if (entryMode) {
           const remoteEntries = await fetchLeaderboard(10)
           if (!active) return
@@ -85,14 +89,17 @@ export function RankingPage({
           publicationRequest(key, profile, run),
         ])
         if (publicationResult.status === 'rejected') throw publicationResult.reason
-        const remoteEntries = remoteResult.status === 'fulfilled' ? remoteResult.value : []
-        if (remoteResult.status === 'rejected') {
-          console.warn('The latest shared ranking could not be loaded.', remoteResult.reason)
-        }
         const published = publicationResult.value
         if (!active) return
-        setEntries((current) => [
-          ...remoteEntries.filter((entry) => entry.id !== published.id),
+        if (remoteResult.status === 'rejected') {
+          console.warn('The latest shared ranking could not be loaded.', remoteResult.reason)
+          setEntries([published])
+          setError('Your score was saved, but previous rankings could not be loaded.')
+          setStatus('history-error')
+          return
+        }
+        setEntries([
+          ...remoteResult.value.filter((entry) => entry.id !== published.id),
           published,
         ])
         setStatus('published')
@@ -104,14 +111,15 @@ export function RankingPage({
     }
     void loadAndPublish()
     return () => { active = false }
-  }, [entryMode, profile, publicationKey, run])
+  }, [entryMode, historyReloadKey, profile, publicationKey, run])
 
-  const withCurrentPlayer = entryMode || status === 'published'
+  const hasPublishedEntry = status === 'published' || status === 'history-error'
+  const withCurrentPlayer = entryMode || hasPublishedEntry
     ? entries
     : mergeLocalPlayer(entries.filter((entry) => entry.id !== localEntry.id), localEntry)
   const currentPlayerId = entryMode
     ? ''
-    : status === 'published'
+    : hasPublishedEntry
       ? entries.find((entry) => entry.isCurrentPlayer)?.id ?? localEntry.id
       : localEntry.id
   const { visible: shown } = buildLeaderboardDisplay(withCurrentPlayer, currentPlayerId)
@@ -193,6 +201,15 @@ export function RankingPage({
                 </article>
               ))}
               {status === 'ready' && shown.length === 0 && <p className={styles.loading}>No saved results yet.</p>}
+              {status === 'history-error' && (
+                <div className={styles.historyError} role="alert">
+                  <p>{error}</p>
+                  <button type="button" onClick={() => setHistoryReloadKey((current) => current + 1)}>
+                    Retry ranking
+                  </button>
+                </div>
+              )}
+              {status === 'error' && <p className={styles.historyErrorText} role="alert">{error}</p>}
             </div>
           </div>
         </section>
@@ -209,16 +226,16 @@ export function RankingPage({
             <button
               type="button"
               className={styles.playAgain}
-              onClick={() => window.location.assign(appPath('/game'))}
+              onClick={() => navigate('/game')}
             >
               {entryMode ? 'Start game' : 'Play again'}
             </button>
             <button
               type="button"
               className={styles.credits}
-              onClick={() => setDetailsOpen(true)}
+              onClick={() => navigate('/credits')}
             >
-              Credits
+              About &amp; Credits
             </button>
           </div>
         </section>

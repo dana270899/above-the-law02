@@ -1,4 +1,4 @@
-/* Figma node 878:53244 — 260 × 308 desktop menu. */
+/* Figma node 878:53244 — compact desktop menu. */
 .menu {
   position: absolute;
   left: 0;
@@ -7,7 +7,7 @@
   bottom: 59px;
   z-index: 9999;
   width: 260px;
-  height: 308px;
+  height: 246px;
   overflow: hidden;
   background: var(--white, #fffdfd);
   border: 2px solid var(--black, #171717);

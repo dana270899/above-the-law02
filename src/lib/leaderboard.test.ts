@@ -1,12 +1,17 @@
-import { describe, expect, it } from 'vitest'
+import { afterEach, describe, expect, it, vi } from 'vitest'
 import { buildRunScore } from './scoring'
 import {
   buildLeaderboardDisplay,
+  fetchLeaderboard,
   getProfilePhotoUploadFormat,
   leaderboardInsertPayload,
   mergeLocalPlayer,
   type LeaderboardEntry,
 } from './leaderboard'
+
+afterEach(() => {
+  vi.unstubAllGlobals()
+})
 
 function entry(id: string, score: number, createdAt: string, current = false): LeaderboardEntry {
   return { id, playerName: id, photoUrl: null, score, won: true, caseBreakdown: [], createdAt, isCurrentPlayer: current }
@@ -49,6 +54,48 @@ describe('leaderboard profile photos', () => {
 
   it('requires SVG profile art to be rasterized before upload', () => {
     expect(getProfilePhotoUploadFormat('image/svg+xml')).toBeNull()
+  })
+})
+
+describe('leaderboard history loading', () => {
+  it('retries a transient response before returning the previous scores', async () => {
+    const fetchMock = vi.fn()
+      .mockResolvedValueOnce(new Response(JSON.stringify({ message: 'Temporarily unavailable' }), {
+        status: 503,
+        headers: { 'Content-Type': 'application/json' },
+      }))
+      .mockResolvedValueOnce(new Response(JSON.stringify([{
+        id: 'previous-player',
+        player_name: 'Previous player',
+        photo_path: null,
+        score: 420,
+        won: false,
+        case_breakdown: [],
+        created_at: '2026-08-01T00:00:00Z',
+      }]), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      }))
+    vi.stubGlobal('fetch', fetchMock)
+
+    const rows = await fetchLeaderboard(10, { attempts: 2, retryDelayMs: 0 })
+
+    expect(fetchMock).toHaveBeenCalledTimes(2)
+    expect(rows).toEqual([
+      expect.objectContaining({ id: 'previous-player', playerName: 'Previous player', score: 420 }),
+    ])
+  })
+
+  it('does not retry a non-transient authorization error', async () => {
+    const fetchMock = vi.fn().mockResolvedValue(new Response(JSON.stringify({ message: 'Unauthorized' }), {
+      status: 401,
+      headers: { 'Content-Type': 'application/json' },
+    }))
+    vi.stubGlobal('fetch', fetchMock)
+
+    await expect(fetchLeaderboard(10, { attempts: 3, retryDelayMs: 0 }))
+      .rejects.toThrow('Unauthorized')
+    expect(fetchMock).toHaveBeenCalledTimes(1)
   })
 })
 

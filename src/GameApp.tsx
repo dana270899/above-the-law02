@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
-import { GamePage } from '@/pages/GamePage'
+import { CreditsPage } from '@/pages/CreditsPage'
+import { GameContentProvider } from '@/components/game/GameContentProvider'
+import { GameSessionRoute } from '@/components/game/GameSessionRoute'
 import { MobileNotice } from '@/components/game/MobileNotice/MobileNotice'
 import { RankingPage } from '@/components/game/RankingPage/RankingPage'
 import { useGameScale } from '@/hooks/useGameScale'
@@ -61,12 +63,15 @@ export default function GameApp() {
   if (isMobile) return <MobileNotice />
 
   return (
-    <BrowserRouter basename={routerBasename}>
-      <Routes>
-        <Route path="/" element={<RankingEntryPage />} />
-        <Route path="/game" element={<GamePage />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-    </BrowserRouter>
+    <GameContentProvider>
+      <BrowserRouter basename={routerBasename}>
+        <Routes>
+          <Route path="/" element={<RankingEntryPage />} />
+          <Route path="/game" element={<GameSessionRoute />} />
+          <Route path="/credits" element={<CreditsPage />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </BrowserRouter>
+    </GameContentProvider>
   )
 }

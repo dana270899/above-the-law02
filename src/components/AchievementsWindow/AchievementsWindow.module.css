@@ -111,6 +111,10 @@
   pointer-events: none;
 }
 
+.fillLayerInstant {
+  transition: none;
+}
+
 .shield {
   width: 92.526px;
   height: 116.358px;

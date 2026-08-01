@@ -33,6 +33,22 @@ type ProfilePhotoUploadFormat = {
   contentType: 'image/jpeg' | 'image/png' | 'image/webp'
 }
 
+export type FetchLeaderboardOptions = {
+  /** Total attempts, including the first request. */
+  attempts?: number
+  /** Base delay between attempts; each retry waits one additional base unit. */
+  retryDelayMs?: number
+}
+
+const TRANSIENT_LEADERBOARD_STATUSES = new Set([408, 429, 500, 502, 503, 504, 520])
+const DEFAULT_LEADERBOARD_FETCH_ATTEMPTS = 3
+const DEFAULT_LEADERBOARD_RETRY_DELAY_MS = 250
+
+function waitForRetry(delayMs: number): Promise<void> {
+  if (delayMs <= 0) return Promise.resolve()
+  return new Promise((resolve) => globalThis.setTimeout(resolve, delayMs))
+}
+
 export function getProfilePhotoUploadFormat(mimeType: string): ProfilePhotoUploadFormat | null {
   switch (mimeType.toLowerCase().split(';', 1)[0].trim()) {
     case 'image/jpeg':
@@ -129,25 +145,64 @@ export async function fetchLeaderboardPhotoUrl(path: string | null): Promise<str
   return signed ? `${url}/storage/v1${signed}` : null
 }
 
-export async function fetchLeaderboard(limit = 100): Promise<LeaderboardEntry[]> {
+export async function fetchLeaderboard(
+  limit = 100,
+  options: FetchLeaderboardOptions = {},
+): Promise<LeaderboardEntry[]> {
   if (!url || !key) return []
   const resultLimit = Number.isFinite(limit)
     ? Math.max(1, Math.min(100, Math.trunc(limit)))
     : 100
-  const response = await fetch(`${url}/rest/v1/leaderboard_entries?select=*&order=score.desc,created_at.asc&limit=${resultLimit}`, { headers: headers() })
-  if (!response.ok) throw await responseError(response, 'Leaderboard is temporarily unavailable.')
-  const rows = await response.json() as Array<Record<string, unknown>>
-  const mapped = rows.map((row) => ({
-    id: String(row.id),
-    playerName: String(row.player_name),
-    photoUrl: null,
-    photoPath: typeof row.photo_path === 'string' ? row.photo_path : null,
-    score: Number(row.score),
-    won: Boolean(row.won),
-    caseBreakdown: (row.case_breakdown ?? []) as CaseScoreBreakdown[],
-    createdAt: String(row.created_at),
-  }))
-  return rankEntries(mapped)
+  const attempts = Math.max(
+    1,
+    Math.min(5, Math.trunc(options.attempts ?? DEFAULT_LEADERBOARD_FETCH_ATTEMPTS)),
+  )
+  const retryDelayMs = Math.max(
+    0,
+    Math.min(2_000, Math.trunc(options.retryDelayMs ?? DEFAULT_LEADERBOARD_RETRY_DELAY_MS)),
+  )
+
+  for (let attempt = 1; attempt <= attempts; attempt += 1) {
+    let response: Response
+    try {
+      response = await fetch(
+        `${url}/rest/v1/leaderboard_entries?select=*&order=score.desc,created_at.asc&limit=${resultLimit}`,
+        { headers: headers() },
+      )
+    } catch (reason) {
+      if (attempt >= attempts) throw reason
+      await waitForRetry(retryDelayMs * attempt)
+      continue
+    }
+
+    if (!response.ok) {
+      const error = await responseError(response, 'Leaderboard is temporarily unavailable.')
+      const canRetry = TRANSIENT_LEADERBOARD_STATUSES.has(response.status) && attempt < attempts
+      if (!canRetry) throw error
+      await waitForRetry(retryDelayMs * attempt)
+      continue
+    }
+
+    try {
+      const rows = await response.json() as Array<Record<string, unknown>>
+      const mapped = rows.map((row) => ({
+        id: String(row.id),
+        playerName: String(row.player_name),
+        photoUrl: null,
+        photoPath: typeof row.photo_path === 'string' ? row.photo_path : null,
+        score: Number(row.score),
+        won: Boolean(row.won),
+        caseBreakdown: (row.case_breakdown ?? []) as CaseScoreBreakdown[],
+        createdAt: String(row.created_at),
+      }))
+      return rankEntries(mapped)
+    } catch (reason) {
+      if (attempt >= attempts) throw reason
+      await waitForRetry(retryDelayMs * attempt)
+    }
+  }
+
+  throw new Error('Leaderboard is temporarily unavailable.')
 }
 
 async function uploadPhoto(photo: Blob): Promise<string> {
