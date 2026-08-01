@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type FormEvent } from 'react'
+import { useEffect, useState, type FormEvent } from 'react'
 import { assetUrl } from '@/lib/paths'
 import { requestCameraStream, stopCameraStream } from '@/lib/camera'
 import type { PlayerProfile } from '@/lib/scoring'
@@ -22,20 +22,13 @@ export function LoginScreen({ onLogin }: LoginScreenProps = {}) {
   const [photoPreviewUrl, setPhotoPreviewUrl] = useState<string | null>(null)
   const [photoHasBuiltInBorder, setPhotoHasBuiltInBorder] = useState(false)
   const [photoPickerOpen, setPhotoPickerOpen] = useState(false)
-  const cameraRequestRef = useRef<Promise<void> | null>(null)
 
   function requestLoginCameraPermission() {
-    if (cameraRequestRef.current) return cameraRequestRef.current
-    const request = requestCameraStream()
+    return requestCameraStream()
       .then((stream) => stopCameraStream(stream))
       .catch(() => {
         // Keep the login design unchanged if access is unavailable.
       })
-      .finally(() => {
-        cameraRequestRef.current = null
-      })
-    cameraRequestRef.current = request
-    return request
   }
 
   // Prompt as soon as the login screen appears. The photo-picker click below
