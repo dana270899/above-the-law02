@@ -1,4 +1,5 @@
 import type { GameFlowEdge, GameFlowNode } from '@/types/editor'
+import { normalizeCaseOrder } from './caseOrder'
 import { assetUrl } from './paths'
 
 const GAME_CONTENT_URL = assetUrl('/game-content.json')
@@ -20,7 +21,11 @@ export async function loadGameContent(): Promise<SavedGraph | null> {
     const response = await fetch(GAME_CONTENT_URL, { cache: 'no-store' })
     if (!response.ok) return null
     const parsed = await response.json()
-    return isSavedGraph(parsed) ? parsed : null
+    if (!isSavedGraph(parsed)) return null
+    return {
+      ...parsed,
+      nodes: normalizeCaseOrder(parsed.nodes, parsed.edges),
+    }
   } catch {
     return null
   }

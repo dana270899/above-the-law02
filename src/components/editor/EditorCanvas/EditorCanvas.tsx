@@ -40,6 +40,7 @@ import { PointsNode }    from '@/components/editor/nodes/PointsNode'
 import { DEFAULT_BG_MUSIC_ID, DEFAULT_BG_MUSIC_VOLUME } from '@/lib/bgMusic'
 import { DEFAULT_WIN_SCREEN_ID } from '@/lib/winScreens'
 import { DEFAULT_SCORING_SETTINGS } from '@/lib/scoring'
+import { caseNumberForOrder, normalizeCaseOrder } from '@/lib/caseOrder'
 import styles from './EditorCanvas.module.css'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -122,10 +123,11 @@ export function EditorCanvas() {
       .then((graph) => {
         if (cancelled) return
         const loaded = graph ?? { nodes: DEFAULT_NODES, edges: DEFAULT_EDGES }
-        const ranking = loaded.nodes.find((node) => node.type === 'ranking')
-        const migratedNodes = loaded.nodes.some((node) => node.type === 'scoring')
-          ? loaded.nodes
-          : [...loaded.nodes, {
+        const orderedNodes = normalizeCaseOrder(loaded.nodes, loaded.edges)
+        const ranking = orderedNodes.find((node) => node.type === 'ranking')
+        const migratedNodes = orderedNodes.some((node) => node.type === 'scoring')
+          ? orderedNodes
+          : [...orderedNodes, {
               id: 'global-scoring',
               type: 'scoring' as const,
               position: ranking
@@ -403,7 +405,7 @@ export function EditorCanvas() {
         position: getCenterFlowPosition(),
         data: {
           nodeType: 'case',
-          caseId: String(890 + order),
+          caseId: caseNumberForOrder(order),
           title: `Case ${order}`,
           order,
           hasOperation: false,
@@ -613,7 +615,7 @@ export function EditorCanvas() {
     } catch (error) {
       setSaveError(error instanceof Error ? error.message : String(error))
     }
-    setNodes(v.graph.nodes)
+    setNodes(normalizeCaseOrder(v.graph.nodes, v.graph.edges))
     setEdges(v.graph.edges)
     setVersionsOpen(false)
   }

@@ -8,6 +8,7 @@ import { LoginPage } from '@/pages/LoginPage'
 import { WinScreenComponent } from '@/components/game/WinScreen'
 import { useGameScale } from '@/hooks/useGameScale'
 import { assetUrl, routerBasename } from '@/lib/paths'
+import { caseNumberForOrder } from '@/lib/caseOrder'
 import { RankingPage } from '@/components/game/RankingPage/RankingPage'
 import type { PlayerProfile, RunScore } from '@/lib/scoring'
 
@@ -68,13 +69,13 @@ export default function App() {
         <Route path="/credits" element={<CreditsPage />} />
         <Route path="/editor" element={<EditorPage />} />
         <Route path="/ranking-preview" element={<WinScreenStage><RankingPage profile={{ name: 'Dana Officer', photo: null, photoPreviewUrl: assetUrl('/images/login-screen/Flower.svg') }} run={{ total: 280, target: 600, won: false, cases: [
-          { caseId: '891', title: 'Case 1', important: false, attempt: 2, correct: true, basePoints: 50, speedPoints: 18, elapsedSeconds: 76, totalPoints: 68 },
-          { caseId: '892', title: 'Case 2', important: false, attempt: 1, correct: true, basePoints: 100, speedPoints: 34, elapsedSeconds: 39, totalPoints: 134 },
-          { caseId: '893', title: 'Case 3', important: true, attempt: 1, correct: true, basePoints: 200, speedPoints: 42, elapsedSeconds: 18, totalPoints: 242 },
-          { caseId: '894', title: 'Case 4', important: false, attempt: 1, correct: false, basePoints: 0, speedPoints: 0, elapsedSeconds: 103, totalPoints: 0 },
-          { caseId: '895', title: 'Case 5', important: false, attempt: 1, correct: true, basePoints: 100, speedPoints: 21, elapsedSeconds: 70, totalPoints: 121 },
-          { caseId: '896', title: 'Case 6', important: true, attempt: 2, correct: true, basePoints: 100, speedPoints: 20, elapsedSeconds: 72, totalPoints: 120 },
-          { caseId: '897', title: 'Case 7', important: false, attempt: 2, correct: true, basePoints: 50, speedPoints: 0, elapsedSeconds: 131, totalPoints: 50 },
+          { caseId: caseNumberForOrder(1), title: 'Case 1', important: false, attempt: 2, correct: true, basePoints: 50, speedPoints: 18, elapsedSeconds: 76, totalPoints: 68 },
+          { caseId: caseNumberForOrder(2), title: 'Case 2', important: false, attempt: 1, correct: true, basePoints: 100, speedPoints: 34, elapsedSeconds: 39, totalPoints: 134 },
+          { caseId: caseNumberForOrder(3), title: 'Case 3', important: true, attempt: 1, correct: true, basePoints: 200, speedPoints: 42, elapsedSeconds: 18, totalPoints: 242 },
+          { caseId: caseNumberForOrder(4), title: 'Case 4', important: false, attempt: 1, correct: false, basePoints: 0, speedPoints: 0, elapsedSeconds: 103, totalPoints: 0 },
+          { caseId: caseNumberForOrder(5), title: 'Case 5', important: false, attempt: 1, correct: true, basePoints: 100, speedPoints: 21, elapsedSeconds: 70, totalPoints: 121 },
+          { caseId: caseNumberForOrder(6), title: 'Case 6', important: true, attempt: 2, correct: true, basePoints: 100, speedPoints: 20, elapsedSeconds: 72, totalPoints: 120 },
+          { caseId: caseNumberForOrder(7), title: 'Case 7', important: false, attempt: 2, correct: true, basePoints: 50, speedPoints: 0, elapsedSeconds: 131, totalPoints: 50 },
         ] }} /></WinScreenStage>} />
         {/* Route every standalone preview through the dispatcher so the
             entrance pop animation (and any future dispatcher-level

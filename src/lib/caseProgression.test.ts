@@ -2,9 +2,9 @@ import { describe, expect, it } from 'vitest'
 import { formatCaseTimestamp, isCaseUnlocked } from './caseProgression'
 
 const cases = [
-  { caseId: '891' },
-  { caseId: '892' },
-  { caseId: '893' },
+  { caseId: '861' },
+  { caseId: '862' },
+  { caseId: '863' },
 ]
 
 describe('case progression', () => {
@@ -17,7 +17,7 @@ describe('case progression', () => {
   })
 
   it('unlocks only the case immediately after a completed case', () => {
-    const completed = new Set(['891'])
+    const completed = new Set(['861'])
     const previews = new Set<string>()
 
     expect(cases.map((_, index) => isCaseUnlocked(cases, index, completed, previews)))
@@ -26,7 +26,7 @@ describe('case progression', () => {
 
   it('allows a direct editor preview without unlocking other cases', () => {
     const completed = new Set<string>()
-    const previews = new Set(['893'])
+    const previews = new Set(['863'])
 
     expect(cases.map((_, index) => isCaseUnlocked(cases, index, completed, previews)))
       .toEqual([true, false, true])

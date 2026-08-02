@@ -70,6 +70,7 @@ import { GameRestartDialog } from '@/components/game/GameRestartDialog/GameResta
 import { formatCaseTimestamp, isCaseUnlocked } from '@/lib/caseProgression'
 import { pathContainsPointsNode } from '@/lib/pointsFlow'
 import { pathReachesRankingWithoutResult } from '@/lib/terminalCaseFlow'
+import { findOwningCaseNode } from '@/lib/caseOrder'
 import styles from './GamePage.module.css'
 
 function isCaseWindowHighlightTarget(
@@ -531,6 +532,9 @@ export function GamePage() {
     if (!caseNode) return
     const reachedCaseId = caseNode.data.caseId
     setLastCaseId(reachedCaseId)
+    // A tab the player inspected earlier must not stay selected when the
+    // walker reaches the next case, otherwise decisions can jump backward.
+    setViewCaseId(reachedCaseId)
     setSessionUnlockedCaseIds((current) => {
       if (current.has(reachedCaseId)) return current
       const next = new Set(current)
@@ -627,7 +631,8 @@ export function GamePage() {
     if (currentNode?.type !== 'result') return
     const result = currentNode as ResultFlowNode
     if (result.data.resultType === 'win') return
-    const caseId = result.data.caseId || lastCaseId
+    const caseId = findOwningCaseNode(result.id, nodes, edges)?.data.caseId
+      ?? lastCaseId
     if (!caseId) return
     if (pointsControlledCaseIdsRef.current.has(caseId)) return
     const scoredCase = nodes.find((node): node is CaseFlowNode => node.type === 'case' && node.data.caseId === caseId)
@@ -643,7 +648,7 @@ export function GamePage() {
     setAchievementsOpen(true)
     setScoreByCase((current) => recordCaseScore(current, breakdown))
     showPointPopup(breakdown.totalPoints, 'lose', caseId)
-  }, [currentNode, lastCaseId, nodes, scoreByCase, scoringSettings])
+  }, [currentNode, edges, lastCaseId, nodes, scoreByCase, scoringSettings])
 
   useEffect(() => () => {
     if (winAdvanceTimerRef.current != null) window.clearTimeout(winAdvanceTimerRef.current)
@@ -1368,7 +1373,8 @@ export function GamePage() {
     const winCtaLabel = resultData.winCtaLabel
     const awardWinAndAdvance = () => {
       if (winAdvancePendingRef.current) return
-      const caseId = resultData.caseId || lastCaseId
+      const caseId = findOwningCaseNode(currentNode.id, nodes, edges)?.data.caseId
+        ?? lastCaseId
       if (caseId && pointsControlledCaseIdsRef.current.has(caseId)) {
         advance()
         return

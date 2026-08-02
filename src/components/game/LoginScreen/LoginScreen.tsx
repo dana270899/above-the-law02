@@ -61,11 +61,11 @@ export function LoginScreen({ onLogin }: LoginScreenProps = {}) {
   function handleLogin(e?: FormEvent) {
     e?.preventDefault()
     const name = value.trim()
-    if (!name || !photoPreviewUrl) return
+    if (!name || !photo || !photoPreviewUrl) return
     onLogin?.({ name, photo, photoPreviewUrl })
   }
 
-  const canLogin = !!value.trim() && !!photoPreviewUrl
+  const canLogin = !!value.trim() && !!photo && !!photoPreviewUrl
 
   return (
     <div className={styles.screen} data-node="login">

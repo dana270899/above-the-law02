@@ -18,6 +18,7 @@ import {
 import { startDragCursor, stopDragCursor } from '@/lib/dragCursor'
 import { assetUrl } from '@/lib/paths'
 import { requestCameraStream, stopCameraStream } from '@/lib/camera'
+import { caseNumberForOrder } from '@/lib/caseOrder'
 import { WebcamFilter } from './WebcamFilter'
 import styles from './CaseWindow.module.css'
 
@@ -43,15 +44,10 @@ const A = assetUrl('/images/case-window')
    Used as a fallback when the parent does not pass a `tabs` prop
    (editor preview / standalone usages). The game runtime passes its
    own list of tabs derived from the saved graph. */
-const DEFAULT_CASE_TABS: CaseTab[] = [
-  { id: '891', time: '22:34 PM' },
-  { id: '892', time: '22:34 PM' },
-  { id: '893', time: '22:34 PM' },
-  { id: '894', time: '22:34 PM' },
-  { id: '895', time: '22:34 PM' },
-  { id: '896', time: '22:34 PM' },
-  { id: '897', time: '22:34 PM' },
-]
+const DEFAULT_CASE_TABS: CaseTab[] = Array.from({ length: 7 }, (_, index) => ({
+  id: caseNumberForOrder(index + 1),
+  time: '22:34 PM',
+}))
 
 /** One entry in the left-side case tab list. */
 export type CaseTab = {
@@ -147,7 +143,7 @@ export type CaseWindowData = {
 }
 
 export const DEFAULT_CASE_DATA: CaseWindowData = {
-  caseId: '0890',
+  caseId: caseNumberForOrder(1),
   createdAt: '22:34 PM',
   statusLabel: 'Open',
   statusColor: 'green',
@@ -601,15 +597,7 @@ export function CaseWindow({
                 <div className={styles.caseHeader} data-spot="case.header">
                   <div className={styles.caseHeaderInner}>
                     <div className={styles.caseHeaderLeft}>
-                      {editable ? (
-                        <input
-                          className={`${styles.editableInputInline} ${styles.caseId}`}
-                          value={data.caseId}
-                          onChange={(e) => set('caseId', e.target.value)}
-                        />
-                      ) : (
-                        <p className={styles.caseId}>Case #{data.caseId}</p>
-                      )}
+                      <p className={styles.caseId}>Case #{data.caseId}</p>
                       {editable ? (
                         <span className={styles.caseCreated}>
                           Created on{' '}

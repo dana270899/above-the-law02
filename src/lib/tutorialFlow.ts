@@ -1,5 +1,6 @@
 import type { GameFlowNode, GameFlowEdge } from '@/types/editor'
 import { DEFAULT_CASE_DATA } from '@/components/CaseWindow'
+import { caseNumberForOrder } from './caseOrder'
 import { assetUrl } from './paths'
 
 /**
@@ -13,18 +14,20 @@ import { assetUrl } from './paths'
  *
  * Sequence:
  *   welcome → learn → rewards (opens Achievements) → job →
- *   start (opens case 891) → details → check (advance edge) →
- *   case-891 (paused here; player interacts)
+ *   start (opens case 861) → details → check (advance edge) →
+ *   first case (paused here; player interacts)
  *     ⚡ expandRow s1   → "Don't forget to check the attachment"
  *     ⚡ attachmentRow s1 → "And now you decide if to arrest or release"
  *     ⚡ arrest (retry)  → voice "I give you another chance" (subtitle)
- *     release handle     → "good job" → result-win → newCase msg → case-892
+ *     release handle     → "good job" → result-win → newCase msg → case 862
  */
 
 export const TUTORIAL_NODE_PREFIX = 'tut-'
 
 /** A column-based layout — all ids fixed so re-injection is idempotent. */
 export function buildTutorialNodes(): GameFlowNode[] {
+  const firstCaseId = caseNumberForOrder(1)
+  const secondCaseId = caseNumberForOrder(2)
   const x = 1200 // off to the right of the existing default layout
   const dy = 220 // vertical spacing
   let row = 0
@@ -98,7 +101,7 @@ export function buildTutorialNodes(): GameFlowNode[] {
         buttonLabel: 'Open case',
         buttonLinkType: 'newCase',
         buttonUrl: '',
-        targetCaseId: '891',
+        targetCaseId: firstCaseId,
         locationX: 50, locationY: 50,
       },
     },
@@ -136,13 +139,13 @@ export function buildTutorialNodes(): GameFlowNode[] {
       position: next(),
       data: {
         nodeType: 'case',
-        caseId: '891',
-        title: 'Case 891 — Tutorial',
+        caseId: firstCaseId,
+        title: 'Case 1',
         order: 1,
         hasOperation: false,
         window: {
           ...DEFAULT_CASE_DATA,
-          caseId: '891',
+          caseId: firstCaseId,
           suspicions: [
             {
               id: 's1',
@@ -253,8 +256,8 @@ export function buildTutorialNodes(): GameFlowNode[] {
       data: {
         nodeType: 'result',
         resultType: 'win',
-        caseId: '891',
-        label: 'Case 891 — Released (correct)',
+        caseId: firstCaseId,
+        label: `Case ${firstCaseId} — Released (correct)`,
       },
     },
     {
@@ -268,7 +271,7 @@ export function buildTutorialNodes(): GameFlowNode[] {
         buttonLabel: 'Open case',
         buttonLinkType: 'newCase',
         buttonUrl: '',
-        targetCaseId: '892',
+        targetCaseId: secondCaseId,
         locationX: 50, locationY: 50,
       },
     },
@@ -278,8 +281,8 @@ export function buildTutorialNodes(): GameFlowNode[] {
       position: next(),
       data: {
         nodeType: 'case',
-        caseId: '892',
-        title: 'Case 892',
+        caseId: secondCaseId,
+        title: 'Case 2',
         order: 2,
         hasOperation: false,
       },

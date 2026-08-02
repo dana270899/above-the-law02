@@ -6,6 +6,7 @@ import { BossMessage } from '@/components/game/BossMessage/BossMessage'
 import { messageDataToBossProps } from '@/lib/messageMapping'
 import { SPOTLIGHT_GROUPS, SPOTLIGHT_TARGETS } from '@/lib/spotlightTargets'
 import { loadAudioBlob, removeAudioBlob } from '@/lib/audioBlobStore'
+import { caseNumberForOrder } from '@/lib/caseOrder'
 import styles from './MessageNode.module.css'
 
 function clampPercent(raw: string): number {
@@ -45,7 +46,11 @@ export function MessageNode({ id, data }: NodeProps<MessageFlowNode>) {
   // For the 'newCase' target picker: list of cases in the graph by caseId.
   const caseOptions = getNodes()
     .filter((n): n is CaseFlowNode => n.type === 'case')
-    .map((n) => ({ caseId: n.data.caseId, title: n.data.title }))
+    .sort((a, b) => a.data.order - b.data.order)
+    .map((n) => ({
+      caseId: caseNumberForOrder(n.data.order),
+      title: `Case ${n.data.order}`,
+    }))
 
   const isVoice = data.messageType === 'voice'
   const isLink = data.messageType === 'link'

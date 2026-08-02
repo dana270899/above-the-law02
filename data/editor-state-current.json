@@ -13,7 +13,7 @@
       },
       "measured": {
         "width": 180,
-        "height": 88
+        "height": 92
       },
       "selected": false,
       "dragging": false
@@ -27,12 +27,12 @@
       },
       "data": {
         "nodeType": "case",
-        "caseId": "891",
+        "caseId": "861",
         "title": "Case 1",
         "order": 1,
         "hasOperation": false,
         "window": {
-          "caseId": "891",
+          "caseId": "861",
           "createdAt": "12/06/2026 22:34 PM",
           "statusLabel": "Open",
           "statusColor": "green",
@@ -73,7 +73,7 @@
       },
       "measured": {
         "width": 325,
-        "height": 197
+        "height": 196
       },
       "selected": false,
       "dragging": false
@@ -87,12 +87,12 @@
       },
       "data": {
         "nodeType": "case",
-        "caseId": "893",
-        "title": "Case 2",
+        "caseId": "863",
+        "title": "Case 3",
         "order": 3,
         "hasOperation": true,
         "window": {
-          "caseId": "893",
+          "caseId": "863",
           "createdAt": "27/06/2026 09:18 AM",
           "statusLabel": "Open",
           "statusColor": "green",
@@ -125,7 +125,7 @@
       },
       "measured": {
         "width": 325,
-        "height": 223
+        "height": 225
       },
       "selected": false,
       "dragging": false
@@ -139,12 +139,12 @@
       },
       "data": {
         "nodeType": "case",
-        "caseId": "892",
-        "title": "Case 3",
+        "caseId": "862",
+        "title": "Case 2",
         "order": 2,
         "hasOperation": false,
         "window": {
-          "caseId": "892",
+          "caseId": "862",
           "createdAt": "18/06/2026 16:47 PM",
           "statusLabel": "Open",
           "statusColor": "green",
@@ -187,7 +187,7 @@
       },
       "measured": {
         "width": 325,
-        "height": 197
+        "height": 196
       },
       "selected": false,
       "dragging": false
@@ -211,7 +211,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -236,7 +236,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -261,7 +261,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -287,7 +287,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 635
+        "height": 643
       },
       "selected": false,
       "dragging": false
@@ -306,13 +306,13 @@
         "buttonLabel": "Open case",
         "buttonLinkType": "newCase",
         "buttonUrl": "",
-        "targetCaseId": "891",
+        "targetCaseId": "861",
         "locationX": 80,
         "locationY": 20
       },
       "measured": {
         "width": 290,
-        "height": 592
+        "height": 600
       },
       "selected": false,
       "dragging": false
@@ -338,7 +338,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 635
+        "height": 643
       },
       "selected": false,
       "dragging": false
@@ -364,7 +364,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 635
+        "height": 643
       },
       "selected": false,
       "dragging": false
@@ -384,7 +384,7 @@
       },
       "measured": {
         "width": 220,
-        "height": 168
+        "height": 174
       },
       "selected": false,
       "dragging": false
@@ -410,7 +410,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 635
+        "height": 643
       },
       "selected": false,
       "dragging": false
@@ -430,7 +430,7 @@
       },
       "measured": {
         "width": 220,
-        "height": 168
+        "height": 174
       },
       "selected": false,
       "dragging": false
@@ -456,7 +456,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -475,7 +475,7 @@
       },
       "measured": {
         "width": 230,
-        "height": 170
+        "height": 175
       },
       "selected": false,
       "dragging": false
@@ -501,7 +501,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 593
+        "height": 600
       },
       "selected": false,
       "dragging": false
@@ -525,7 +525,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -540,14 +540,14 @@
       "data": {
         "nodeType": "result",
         "resultType": "win",
-        "caseId": "891",
-        "label": "Case 891 — Released (correct)",
+        "caseId": "861",
+        "label": "Case 861 — Released (correct)",
         "winImage": "punching-dummy-click",
         "winSound": "hashem-itbarach"
       },
       "measured": {
-        "width": 235,
-        "height": 358
+        "width": 245,
+        "height": 345
       },
       "selected": false,
       "dragging": false
@@ -566,13 +566,13 @@
         "buttonLabel": "Open case",
         "buttonLinkType": "newCase",
         "buttonUrl": "",
-        "targetCaseId": "892",
+        "targetCaseId": "862",
         "locationX": 80,
         "locationY": 20
       },
       "measured": {
         "width": 290,
-        "height": 592
+        "height": 600
       },
       "selected": false,
       "dragging": false
@@ -592,7 +592,7 @@
       },
       "measured": {
         "width": 220,
-        "height": 168
+        "height": 174
       },
       "selected": false,
       "dragging": false
@@ -616,7 +616,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -641,7 +641,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 593
+        "height": 600
       },
       "selected": false,
       "dragging": false
@@ -679,7 +679,7 @@
       },
       "measured": {
         "width": 307,
-        "height": 130
+        "height": 129
       },
       "selected": false,
       "dragging": false
@@ -703,7 +703,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -729,7 +729,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 593
+        "height": 600
       },
       "selected": false,
       "dragging": false
@@ -753,7 +753,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -768,7 +768,7 @@
       "data": {
         "nodeType": "result",
         "resultType": "win",
-        "caseId": "892",
+        "caseId": "862",
         "label": "Win 2",
         "winSound": "hashem-itbarach",
         "winImage": "kippah-cutting-workshop",
@@ -776,8 +776,8 @@
         "winCtaLabel": "I was born to be a cop!"
       },
       "measured": {
-        "width": 235,
-        "height": 358
+        "width": 245,
+        "height": 345
       },
       "selected": false,
       "dragging": false
@@ -801,7 +801,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -816,7 +816,7 @@
       "data": {
         "nodeType": "result",
         "resultType": "win",
-        "caseId": "893",
+        "caseId": "863",
         "label": "Win 3",
         "winImage": "graffiti",
         "winTitle": "News",
@@ -825,10 +825,10 @@
         "winSound": "hashem-itbarach"
       },
       "measured": {
-        "width": 235,
-        "height": 358
+        "width": 245,
+        "height": 345
       },
-      "selected": true,
+      "selected": false,
       "dragging": false
     },
     {
@@ -846,7 +846,7 @@
       },
       "measured": {
         "width": 220,
-        "height": 168
+        "height": 174
       },
       "selected": false,
       "dragging": false
@@ -870,7 +870,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -894,7 +894,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -913,7 +913,7 @@
       },
       "measured": {
         "width": 317,
-        "height": 135
+        "height": 140
       },
       "selected": false,
       "dragging": false
@@ -927,13 +927,13 @@
       },
       "data": {
         "nodeType": "case",
-        "caseId": "894",
-        "title": "Case 4",
+        "caseId": "867",
+        "title": "Case 7",
         "order": 7,
         "hasOperation": false,
         "useCamera": true,
         "window": {
-          "caseId": "894",
+          "caseId": "867",
           "createdAt": "31/07/2026 20:33 PM",
           "statusLabel": "Open",
           "statusColor": "green",
@@ -967,7 +967,7 @@
       },
       "measured": {
         "width": 325,
-        "height": 223
+        "height": 225
       },
       "selected": false,
       "dragging": false
@@ -991,7 +991,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -1017,7 +1017,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 635
+        "height": 643
       },
       "selected": false,
       "dragging": false
@@ -1037,13 +1037,13 @@
         "buttonLinkType": "edge",
         "buttonUrl": "",
         "locationX": 35,
-        "locationY": 10,
+        "locationY": 20,
         "isTutorial": true,
         "spotlightTargetId": "icon.cases"
       },
       "measured": {
         "width": 290,
-        "height": 635
+        "height": 643
       },
       "selected": false,
       "dragging": false
@@ -1069,7 +1069,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 635
+        "height": 643
       },
       "selected": false,
       "dragging": false
@@ -1095,7 +1095,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 635
+        "height": 643
       },
       "selected": false,
       "dragging": false
@@ -1119,7 +1119,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -1143,7 +1143,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -1167,7 +1167,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -1191,7 +1191,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -1206,7 +1206,7 @@
       "data": {
         "nodeType": "result",
         "resultType": "win",
-        "caseId": "893",
+        "caseId": "863",
         "label": "Win 4",
         "winImage": "bdsm-party",
         "winTitle": "Win",
@@ -1215,8 +1215,8 @@
         "winSound": "hashem-itbarach"
       },
       "measured": {
-        "width": 235,
-        "height": 358
+        "width": 245,
+        "height": 345
       },
       "selected": false,
       "dragging": false
@@ -1240,7 +1240,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -1264,7 +1264,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -1278,12 +1278,12 @@
       },
       "data": {
         "nodeType": "case",
-        "caseId": "895",
-        "title": "Case 5",
+        "caseId": "864",
+        "title": "Case 4",
         "order": 4,
         "hasOperation": false,
         "window": {
-          "caseId": "895",
+          "caseId": "864",
           "createdAt": "05/07/2026 13:26 PM",
           "statusLabel": "Open",
           "statusColor": "green",
@@ -1319,7 +1319,7 @@
       },
       "measured": {
         "width": 325,
-        "height": 197
+        "height": 196
       },
       "selected": false,
       "dragging": false
@@ -1343,7 +1343,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -1362,7 +1362,7 @@
       },
       "measured": {
         "width": 220,
-        "height": 168
+        "height": 174
       },
       "selected": false,
       "dragging": false
@@ -1386,7 +1386,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -1410,7 +1410,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -1434,7 +1434,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -1458,7 +1458,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -1482,7 +1482,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -1496,12 +1496,12 @@
       },
       "data": {
         "nodeType": "case",
-        "caseId": "896",
-        "title": "Case 6",
+        "caseId": "865",
+        "title": "Case 5",
         "order": 5,
         "hasOperation": false,
         "window": {
-          "caseId": "896",
+          "caseId": "865",
           "createdAt": "13/07/2026 18:05 PM",
           "statusLabel": "Open",
           "statusColor": "green",
@@ -1538,7 +1538,7 @@
       },
       "measured": {
         "width": 325,
-        "height": 197
+        "height": 196
       },
       "selected": false,
       "dragging": false
@@ -1558,7 +1558,7 @@
       },
       "measured": {
         "width": 220,
-        "height": 168
+        "height": 174
       },
       "selected": false,
       "dragging": false
@@ -1582,7 +1582,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -1606,7 +1606,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -1630,7 +1630,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 593
+        "height": 600
       },
       "selected": false,
       "dragging": false
@@ -1654,7 +1654,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -1678,7 +1678,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -1702,7 +1702,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -1717,7 +1717,7 @@
       "data": {
         "nodeType": "result",
         "resultType": "win",
-        "caseId": "895",
+        "caseId": "865",
         "label": "Win 5",
         "winImage": "picnic",
         "winTitle": "Win",
@@ -1726,8 +1726,8 @@
         "winSound": "hashem-itbarach"
       },
       "measured": {
-        "width": 235,
-        "height": 358
+        "width": 245,
+        "height": 345
       },
       "selected": false,
       "dragging": false
@@ -1751,7 +1751,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 593
+        "height": 600
       },
       "selected": false,
       "dragging": false
@@ -1766,7 +1766,7 @@
       "data": {
         "nodeType": "result",
         "resultType": "win",
-        "caseId": "896",
+        "caseId": "864",
         "label": "Win 6",
         "winImage": "eilat",
         "winTitle": "Win",
@@ -1775,8 +1775,8 @@
         "winSound": "hashem-itbarach"
       },
       "measured": {
-        "width": 235,
-        "height": 358
+        "width": 245,
+        "height": 345
       },
       "selected": false,
       "dragging": false
@@ -1802,7 +1802,7 @@
       "dragging": false,
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       }
     },
     {
@@ -1824,16 +1824,16 @@
       "selected": false,
       "dragging": false,
       "measured": {
-        "width": 325,
-        "height": 68
+        "width": 329,
+        "height": 73
       }
     },
     {
       "id": "global-scoring",
       "type": "scoring",
       "position": {
-        "x": 1840.5927591728193,
-        "y": -3258.4945369205807
+        "x": 1706.5927591728193,
+        "y": -3432.4945369205807
       },
       "data": {
         "nodeType": "scoring",
@@ -1849,7 +1849,7 @@
       },
       "measured": {
         "width": 285,
-        "height": 191
+        "height": 194
       },
       "selected": false,
       "dragging": false
@@ -1863,13 +1863,13 @@
       },
       "data": {
         "nodeType": "case",
-        "caseId": "897",
-        "title": "Case 7",
+        "caseId": "866",
+        "title": "Case 6",
         "order": 6,
         "hasOperation": false,
         "isImportant": true,
         "window": {
-          "caseId": "897",
+          "caseId": "866",
           "createdAt": "24/07/2026 11:52 AM",
           "statusLabel": "Open",
           "statusColor": "green",
@@ -1899,7 +1899,7 @@
           "suspicions": [
             {
               "id": "s1",
-              "subject": "A group of teenagers is suspected of vandalizing public property. A witness reported seeing one of them with a knife.",
+              "subject": "Vandalism",
               "status": "Urgent",
               "statusColor": "red",
               "date": "08/02/2026",
@@ -1915,9 +1915,9 @@
       },
       "measured": {
         "width": 325,
-        "height": 223
+        "height": 225
       },
-      "selected": false,
+      "selected": true,
       "dragging": false
     },
     {
@@ -1939,7 +1939,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -1963,7 +1963,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -1987,7 +1987,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -2006,8 +2006,8 @@
         "delaySeconds": 0.2
       },
       "measured": {
-        "width": 711,
-        "height": 168
+        "width": 220,
+        "height": 174
       },
       "selected": false,
       "dragging": false
@@ -2031,7 +2031,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -2057,7 +2057,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 726
+        "height": 739
       },
       "selected": false,
       "dragging": false
@@ -2082,7 +2082,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -2097,7 +2097,7 @@
       "data": {
         "nodeType": "result",
         "resultType": "win",
-        "caseId": "897",
+        "caseId": "866",
         "label": "Win 7",
         "winImage": "pizza",
         "winTitle": "Win",
@@ -2105,8 +2105,8 @@
         "winCtaLabel": "Bring me the next challenge!"
       },
       "measured": {
-        "width": 235,
-        "height": 358
+        "width": 245,
+        "height": 345
       },
       "selected": false,
       "dragging": false
@@ -2130,7 +2130,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -2155,7 +2155,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -2179,7 +2179,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -2196,7 +2196,7 @@
       },
       "measured": {
         "width": 268,
-        "height": 116
+        "height": 120
       },
       "selected": false,
       "dragging": false
@@ -2221,7 +2221,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -2246,7 +2246,7 @@
       },
       "measured": {
         "width": 290,
-        "height": 545
+        "height": 552
       },
       "selected": false,
       "dragging": false
@@ -2264,7 +2264,7 @@
       },
       "measured": {
         "width": 468,
-        "height": 68
+        "height": 73
       },
       "selected": false,
       "dragging": false
@@ -2282,7 +2282,7 @@
       },
       "measured": {
         "width": 340,
-        "height": 99
+        "height": 103
       },
       "selected": false,
       "dragging": false

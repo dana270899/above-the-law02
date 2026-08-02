@@ -11,6 +11,7 @@ import {
   type LeaderboardEntry,
 } from '@/lib/leaderboard'
 import { assetUrl } from '@/lib/paths'
+import { ScorePublishScreen } from '@/components/game/ScorePublishScreen/ScorePublishScreen'
 import styles from './RankingPage.module.css'
 
 const publicationRequests = new Map<string, Promise<LeaderboardEntry>>()
@@ -45,20 +46,21 @@ export function RankingPage({
   const [entries, setEntries] = useState<LeaderboardEntry[]>([])
   const [status, setStatus] = useState<'loading' | 'ready' | 'publishing' | 'published' | 'history-error' | 'error'>('loading')
   const [error, setError] = useState('')
-  const [historyReloadKey, setHistoryReloadKey] = useState(0)
   const [detailsOpen, setDetailsOpen] = useState(false)
+  const [publicationProfile, setPublicationProfile] = useState<PlayerProfile | null>(entryMode ? profile : null)
   const rowsRef = useRef<HTMLDivElement | null>(null)
+  const effectiveProfile = publicationProfile ?? profile
 
   const localEntry = useMemo<LeaderboardEntry>(() => ({
     id: 'local-player',
-    playerName: profile.name,
-    photoUrl: profile.photoPreviewUrl ?? null,
+    playerName: effectiveProfile.name,
+    photoUrl: effectiveProfile.photoPreviewUrl ?? null,
     score: run.total,
     won: run.won,
     caseBreakdown: run.cases,
     createdAt: new Date().toISOString(),
     isCurrentPlayer: true,
-  }), [profile, run])
+  }), [effectiveProfile, run])
 
   useEffect(() => {
     let active = true
@@ -72,21 +74,19 @@ export function RankingPage({
           setStatus('ready')
           return
         }
+        if (!publicationProfile) return
         if (!isLeaderboardConfigured()) {
           throw new Error('Shared ranking is not configured.')
         }
-        if (run.cases.length !== 7) {
-          throw new Error(`The run has ${run.cases.length} of 7 case results, so it cannot be saved yet.`)
-        }
         setStatus('publishing')
-        const key = publicationKey ?? `${profile.name}:${run.total}:${JSON.stringify(run.cases)}`
+        const key = publicationKey ?? `${effectiveProfile.name}:${run.total}:${JSON.stringify(run.cases)}`
         const remoteRequest = fetchLeaderboard().then((remoteEntries) => {
           if (active) setEntries(remoteEntries)
           return remoteEntries
         })
         const [remoteResult, publicationResult] = await Promise.allSettled([
           remoteRequest,
-          publicationRequest(key, profile, run),
+          publicationRequest(key, effectiveProfile, run),
         ])
         if (publicationResult.status === 'rejected') throw publicationResult.reason
         const published = publicationResult.value
@@ -105,13 +105,15 @@ export function RankingPage({
         setStatus('published')
       } catch (reason) {
         if (!active) return
-        setError(reason instanceof Error ? reason.message : String(reason))
+        const message = reason instanceof Error ? reason.message : String(reason)
+        console.warn('The score could not be added to the shared ranking; showing it locally.', message)
+        setError(message)
         setStatus('error')
       }
     }
     void loadAndPublish()
     return () => { active = false }
-  }, [entryMode, historyReloadKey, profile, publicationKey, run])
+  }, [effectiveProfile, entryMode, publicationKey, publicationProfile, run])
 
   const hasPublishedEntry = status === 'published' || status === 'history-error'
   const withCurrentPlayer = entryMode || hasPublishedEntry
@@ -148,6 +150,10 @@ export function RankingPage({
   // Only restart when the visible rows or their photo state changes.
   }, [visiblePhotoRequestKey])
 
+  if (!entryMode && !publicationProfile) {
+    return <ScorePublishScreen profile={profile} score={run.total} onPublish={setPublicationProfile} />
+  }
+
   function scrollRows(direction: -1 | 1) {
     rowsRef.current?.scrollBy({ top: direction * 188, behavior: 'smooth' })
   }
@@ -166,13 +172,13 @@ export function RankingPage({
           <div className={styles.board}>
             <div className={styles.scrollbar}>
               <button type="button" className={styles.scrollUp} onClick={() => scrollRows(-1)} aria-label="Scroll ranking up">
-                <span aria-hidden="true" />
+                <img src={assetUrl('/images/case-window/arrow-forward.svg')} alt="" aria-hidden="true" />
               </button>
               <div className={styles.scrollTrack}>
                 <div className={styles.scrollThumb} />
               </div>
               <button type="button" className={styles.scrollDown} onClick={() => scrollRows(1)} aria-label="Scroll ranking down">
-                <span aria-hidden="true" />
+                <img src={assetUrl('/images/case-window/arrow-forward.svg')} alt="" aria-hidden="true" />
               </button>
             </div>
 
@@ -191,7 +197,11 @@ export function RankingPage({
                     {entry.photoUrl ? (
                       <img src={entry.photoUrl} alt="" />
                     ) : (
-                      <span>{entry.playerName.slice(0, 1).toUpperCase()}</span>
+                      <img
+                        src={assetUrl('/images/Player.svg')}
+                        alt=""
+                        className={styles.defaultPlayerPhoto}
+                      />
                     )}
                   </span>
                   <span className={styles.playerName}>{entry.playerName}</span>
@@ -201,21 +211,17 @@ export function RankingPage({
                 </article>
               ))}
               {status === 'ready' && shown.length === 0 && <p className={styles.loading}>No saved results yet.</p>}
-              {status === 'history-error' && (
-                <div className={styles.historyError} role="alert">
-                  <p>{error}</p>
-                  <button type="button" onClick={() => setHistoryReloadKey((current) => current + 1)}>
-                    Retry ranking
-                  </button>
-                </div>
-              )}
-              {status === 'error' && <p className={styles.historyErrorText} role="alert">{error}</p>}
             </div>
           </div>
         </section>
 
         <section className={styles.illustrationColumn}>
           <div className={styles.illustrationFrame}>
+            <img
+              src={assetUrl('/images/Logo.svg')}
+              alt=""
+              className={styles.rankingBadge}
+            />
             <img
               src={assetUrl('/images/ranking-board/Boss on Crocodile.svg')}
               alt=""
@@ -253,7 +259,7 @@ export function RankingPage({
             <button type="button" className={styles.modalClose} onClick={() => setDetailsOpen(false)} aria-label="Close">
               ×
             </button>
-            <h2>{profile.name}</h2>
+            <h2>{effectiveProfile.name}</h2>
             <p className={styles.modalScore}>{run.total.toLocaleString('en-US')} points</p>
             <div className={styles.breakdown}>
               {run.cases.map((item) => (

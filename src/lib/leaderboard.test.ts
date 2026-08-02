@@ -115,6 +115,7 @@ describe('leaderboard publishing', () => {
       score: 150,
       case_breakdown: cases,
       mini_game_points: 75,
+      flow_points: -25,
     })
   })
 })

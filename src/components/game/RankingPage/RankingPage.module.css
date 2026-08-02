@@ -51,22 +51,23 @@
 
 .content {
   position: absolute;
-  left: 227px;
-  top: 173px;
-  width: 1465px;
-  height: 694px;
+  left: 50%;
+  top: 50%;
+  width: 1582.123px;
   display: flex;
+  flex-direction: row-reverse;
   align-items: flex-end;
-  justify-content: space-between;
+  gap: 14px;
+  transform: translate(-50%, -50%);
 }
 
 .rankingColumn {
   width: 746.4px;
-  height: 694px;
+  height: 696px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 16px;
+  gap: 14px;
 }
 
 .title {
@@ -76,7 +77,7 @@
   margin: 0;
   color: var(--yellow);
   font-family: var(--font-main);
-  font-size: 64px;
+  font-size: 48px;
   font-weight: 700;
   line-height: 64px;
   text-align: center;
@@ -102,7 +103,7 @@
 .board {
   box-sizing: border-box;
   width: 746.4px;
-  height: 614px;
+  height: 618px;
   display: flex;
   align-items: stretch;
   gap: 10px;
@@ -145,19 +146,18 @@
   border-top: 2px solid var(--black);
 }
 
-.scrollbar button span {
-  width: 10px;
-  height: 10px;
-  border-top: 2px solid var(--black);
-  border-left: 2px solid var(--black);
+.scrollbar button img {
+  display: block;
+  width: 24px;
+  height: 24px;
 }
 
-.scrollUp span {
-  transform: translateY(3px) rotate(45deg);
+.scrollUp img {
+  transform: rotate(-90deg);
 }
 
-.scrollDown span {
-  transform: translateY(-3px) rotate(225deg);
+.scrollDown img {
+  transform: rotate(90deg);
 }
 
 .scrollTrack {
@@ -232,6 +232,10 @@
   object-fit: cover;
 }
 
+.playerPhoto .defaultPlayerPhoto {
+  object-fit: contain;
+}
+
 .playerName,
 .playerScore {
   box-sizing: border-box;
@@ -289,46 +293,55 @@
 }
 
 .illustrationColumn {
-  width: 635px;
+  width: 821.723px;
+  height: 694px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: 10px;
+  justify-content: space-between;
 }
 
 .illustrationFrame {
-  width: 635px;
-  height: 524px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
+  position: relative;
+  width: 717.736px;
+  height: 551.583px;
+  overflow: visible;
+}
+
+.rankingBadge {
+  position: absolute;
+  top: 0;
+  right: 168.97px;
+  display: block;
+  width: 408.553px;
+  height: 516.544px;
 }
 
 .illustration {
+  position: absolute;
+  top: 294.92px;
+  left: -57.21px;
   display: block;
-  width: 635px;
-  height: 524px;
+  width: 540.28px;
+  height: 268.493px;
 }
 
 .ctas {
-  height: 50px;
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 18.085px;
 }
 
 .ctas button,
 .modalActions button {
   box-sizing: border-box;
-  padding: 12px 32px;
-  border: 2px solid var(--black);
+  padding: 13.564px 36.169px;
+  border: 2.261px solid var(--black);
   border-radius: 4px;
   font-family: var(--font-main);
-  font-size: 24px;
+  font-size: 27.13px;
   font-weight: 500;
-  line-height: 26px;
+  line-height: 29.388px;
   white-space: nowrap;
   cursor: var(--cursor-hover);
   transition: filter 120ms ease;

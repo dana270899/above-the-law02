@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { Handle, Position, useReactFlow } from '@xyflow/react'
 import type { NodeProps } from '@xyflow/react'
-import type { ResultFlowNode } from '@/types/editor'
+import type { GameFlowEdge, GameFlowNode, ResultFlowNode } from '@/types/editor'
 import { WIN_SCREENS, DEFAULT_WIN_SCREEN_ID } from '@/lib/winScreens'
 import { WIN_SOUNDS, DEFAULT_WIN_SOUND_ID, WIN_SOUND_NONE } from '@/lib/winSounds'
 import {
@@ -11,6 +11,7 @@ import {
   makeImageBlobId,
 } from '@/lib/audioBlobStore'
 import { appPath } from '@/lib/paths'
+import { caseNumberForOrder, findOwningCaseNode } from '@/lib/caseOrder'
 
 const CUSTOM_OPTION_VALUE = '__custom__'
 const DEFAULT_WIN_TITLE = 'Win'
@@ -18,10 +19,15 @@ const DEFAULT_WIN_FOOTER_TEXT = 'Winning is so good'
 const DEFAULT_WIN_CTA_LABEL = 'Love this job, next case!'
 
 export function ResultNode({ id, data }: NodeProps<ResultFlowNode>) {
-  const { updateNodeData } = useReactFlow()
+  const { updateNodeData, getNodes, getEdges } =
+    useReactFlow<GameFlowNode, GameFlowEdge>()
   const imageFileInputRef = useRef<HTMLInputElement | null>(null)
   const soundFileInputRef = useRef<HTMLInputElement | null>(null)
   const isWin = data.resultType === 'win'
+  const owningCase = findOwningCaseNode(id, getNodes(), getEdges())
+  const inferredCaseNumber = owningCase
+    ? caseNumberForOrder(owningCase.data.order)
+    : ''
 
   // ─── Image picker state ────────────────────────────────────
   // A custom image can live in two places — IndexedDB (new uploads,
@@ -181,10 +187,11 @@ export function ResultNode({ id, data }: NodeProps<ResultFlowNode>) {
       fontFamily: 'sans-serif',
     }}>
       <Handle type="target" position={Position.Top} />
-      <label className="nodrag" style={{ display: 'grid', gap: 3, marginBottom: 8, fontSize: 11 }}>
-        Case ID (required for scoring)
-        <input type="text" value={data.caseId} onChange={(event) => updateNodeData(id, { caseId: event.target.value.trim() })} placeholder="e.g. 891" />
-      </label>
+      <div style={{ marginBottom: 8, fontSize: 11, color: '#555' }}>
+        {inferredCaseNumber
+          ? `Case #${inferredCaseNumber} (from incoming flow)`
+          : 'Connect this result after a case to assign it automatically.'}
+      </div>
       <div style={{ fontWeight: 700, fontSize: 13, color: isWin ? '#0f6e56' : '#a32d2d' }}>
         {isWin ? '✅ Win' : '❌ Lose'}
       </div>
@@ -437,14 +444,16 @@ export function ResultNode({ id, data }: NodeProps<ResultFlowNode>) {
         </div>
       )}
 
-      <a
-        href={appPath(`/game?startCase=${encodeURIComponent(data.caseId)}`)}
-        target="_blank"
-        rel="noreferrer"
-        style={{ fontSize: 11, color: isWin ? '#0f6e56' : '#a32d2d', textDecoration: 'underline' }}
-      >
-        ▶ Play from this case
-      </a>
+      {inferredCaseNumber && (
+        <a
+          href={appPath(`/game?startCase=${encodeURIComponent(inferredCaseNumber)}`)}
+          target="_blank"
+          rel="noreferrer"
+          style={{ fontSize: 11, color: isWin ? '#0f6e56' : '#a32d2d', textDecoration: 'underline' }}
+        >
+          ▶ Play from this case
+        </a>
+      )}
       <Handle type="source" position={Position.Bottom} />
     </div>
   )

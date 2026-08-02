@@ -2,19 +2,26 @@ import { useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { Handle, Position, useReactFlow } from '@xyflow/react'
 import type { NodeProps } from '@xyflow/react'
-import type { CaseFlowNode } from '@/types/editor'
+import type { CaseFlowNode, GameFlowEdge, GameFlowNode } from '@/types/editor'
 import {
   CaseWindowV2 as CaseWindow,
   DEFAULT_CASE_DATA,
   type CaseWindowData,
 } from '@/components/CaseWindow'
+import { caseNumberForOrder, moveCaseToOrder } from '@/lib/caseOrder'
 import { appPath } from '@/lib/paths'
 import styles from './CaseNode.module.css'
 
 export function CaseNode({ id, data }: NodeProps<CaseFlowNode>) {
-  const { updateNodeData, setEdges } = useReactFlow()
+  const { updateNodeData, setEdges, getNodes, getEdges, setNodes } =
+    useReactFlow<GameFlowNode, GameFlowEdge>()
   const [editing, setEditing] = useState(false)
   const [orderDraft, setOrderDraft] = useState(String(data.order))
+  const caseNumber = caseNumberForOrder(data.order)
+  const caseWindowData: CaseWindowData = {
+    ...(data.window ?? DEFAULT_CASE_DATA),
+    caseId: caseNumber,
+  }
 
   useEffect(() => {
     setOrderDraft(String(data.order))
@@ -44,44 +51,31 @@ export function CaseNode({ id, data }: NodeProps<CaseFlowNode>) {
 
   function openEditor() {
     if (!data.window) {
-      // Lazily seed with the Figma default + this node's case id/title
+      // Lazily seed with the Figma default + the order-derived case number.
       const seeded: CaseWindowData = {
         ...DEFAULT_CASE_DATA,
-        caseId: data.caseId || DEFAULT_CASE_DATA.caseId,
+        caseId: caseNumber,
       }
       updateNodeData(id, { window: seeded })
     }
     setEditing(true)
   }
 
-  /** Apply a patch from the inner CaseWindow editor.
-   *  Special-case caseId: keep the node-level `data.caseId` in sync so
-   *  the game has a single source of truth. */
+  /** Apply content edits while keeping identity derived from order. */
   function applyPatch(patch: Partial<CaseWindowData>) {
     const current = data.window ?? DEFAULT_CASE_DATA
-    const nodePatch: Partial<CaseFlowNode['data']> = {
-      window: { ...current, ...patch },
-    }
-    if (typeof patch.caseId === 'string') nodePatch.caseId = patch.caseId
-    updateNodeData(id, nodePatch)
-  }
-
-  /** Update the node-level caseId from the on-node input.
-   *  Mirrors into `data.window.caseId` so the case window body stays
-   *  in sync with the tab label. */
-  function setCaseId(next: string) {
-    const trimmed = next
-    const windowPatch = data.window
-      ? { window: { ...data.window, caseId: trimmed } }
-      : {}
-    updateNodeData(id, { caseId: trimmed, ...windowPatch })
+    updateNodeData(id, {
+      window: { ...current, ...patch, caseId: caseNumber },
+    })
   }
 
   function commitOrder() {
     const nextOrder = Number(orderDraft)
     if (Number.isInteger(nextOrder) && nextOrder >= 1) {
-      updateNodeData(id, { order: nextOrder })
-      setOrderDraft(String(nextOrder))
+      const nextNodes = moveCaseToOrder(getNodes(), getEdges(), id, nextOrder)
+      setNodes(nextNodes)
+      const movedCase = nextNodes.find((node) => node.id === id)
+      setOrderDraft(String(movedCase?.type === 'case' ? movedCase.data.order : data.order))
       return
     }
     setOrderDraft(String(data.order))
@@ -95,19 +89,16 @@ export function CaseNode({ id, data }: NodeProps<CaseFlowNode>) {
       <Handle type="target" position={Position.Top} />
 
       <div style={{ fontWeight: 700, fontSize: 13, color: '#0c447c', marginBottom: 4 }}>
-        Case #
-        <input
-          type="text"
-          className="nodrag"
-          value={data.caseId}
-          onChange={(e) => setCaseId(e.target.value)}
+        Case #{' '}
+        <span
           aria-label="Case number"
           style={{
-            width: 64, marginLeft: 4, padding: '1px 4px',
-            border: '1px solid #c2d4e6', borderRadius: 3,
-            font: 'inherit', color: '#0c447c', background: '#fff',
+            display: 'inline-block', minWidth: 48, padding: '1px 4px',
+            borderRadius: 3, color: '#0c447c', background: '#d8e9f8',
           }}
-        />
+        >
+          {caseNumber}
+        </span>
         <label style={{ marginLeft: 8, fontWeight: 400, fontSize: 11, color: '#5b7596' }}>
           order{' '}
           <input
@@ -134,7 +125,7 @@ export function CaseNode({ id, data }: NodeProps<CaseFlowNode>) {
           />
         </label>
       </div>
-      <div style={{ fontSize: 12, color: '#333', marginBottom: 6 }}>{data.title}</div>
+      <div style={{ fontSize: 12, color: '#333', marginBottom: 6 }}>Case {data.order}</div>
 
       {flags.length > 0 && (
         <div style={{ display: 'flex', gap: 4, flexWrap: 'wrap', marginBottom: 8 }}>
@@ -198,7 +189,7 @@ export function CaseNode({ id, data }: NodeProps<CaseFlowNode>) {
 
       <div style={{ marginTop: 6 }}>
         <a
-          href={appPath(`/game?startCase=${encodeURIComponent(data.caseId)}`)}
+          href={appPath(`/game?startCase=${encodeURIComponent(caseNumber)}`)}
           target="_blank"
           rel="noreferrer"
           style={{ fontSize: 11, color: '#185fa5', textDecoration: 'underline' }}
@@ -249,7 +240,7 @@ export function CaseNode({ id, data }: NodeProps<CaseFlowNode>) {
               Close
             </button>
             <CaseWindow
-              data={data.window ?? DEFAULT_CASE_DATA}
+              data={caseWindowData}
               editable
               onChange={applyPatch}
               useCamera={!!data.useCamera}

@@ -222,11 +222,7 @@ export async function publishLeaderboardEntry(args: { playerName: string; photo?
   if (!url || !key) throw new Error('Leaderboard is not configured.')
   let photoPath: string | null = null
   if (args.photo) {
-    try {
-      photoPath = await uploadPhoto(args.photo)
-    } catch (reason) {
-      console.warn('The score will be saved without a profile photo.', reason)
-    }
+    photoPath = await uploadPhoto(args.photo)
   }
   const response = await fetch(`${url}/rest/v1/leaderboard_entries`, {
     method: 'POST',
@@ -261,5 +257,6 @@ export function leaderboardInsertPayload(args: { playerName: string; photoPath: 
     won: args.run.won,
     case_breakdown: args.run.cases,
     mini_game_points: args.run.miniGamePoints ?? 0,
+    flow_points: args.run.flowPoints ?? 0,
   }
 }

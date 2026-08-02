@@ -7,6 +7,7 @@ import type {
 } from '@/types/editor'
 import { loadGameContent } from '@/lib/gameContent'
 import { useSharedGameContent } from '@/components/game/GameContentProvider'
+import { findOwningCaseNode } from '@/lib/caseOrder'
 
 /**
  * GAME FLOW HOOK
@@ -146,7 +147,10 @@ export function useGameFlow(): GameFlow {
   // side-effect records both before that happens.
   useEffect(() => {
     if (currentNode?.type !== 'result') return
-    const { caseId, resultType } = (currentNode as ResultFlowNode).data
+    const result = currentNode as ResultFlowNode
+    const owner = findOwningCaseNode(result.id, graph.nodes, graph.edges)
+    const caseId = owner?.data.caseId
+    const { resultType } = result.data
     if (!caseId) return
     setCompletedCaseIds((prev) => {
       if (prev.has(caseId)) return prev
@@ -160,7 +164,7 @@ export function useGameFlow(): GameFlow {
       next.set(caseId, resultType)
       return next
     })
-  }, [currentNode])
+  }, [currentNode, graph.nodes, graph.edges])
 
   // All cases from the graph, sorted by `order` (asc). Locked / unlocked
   // is computed by the consumer using `completedCaseIds`.
