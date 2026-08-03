@@ -16,18 +16,19 @@ const HOLE_COUNT = 3
 const STARTING_LIVES = 3
 const ROUND_DURATION_SECONDS = 30
 const POINTS_PER_HIT = 10
-const HIT_HOLD_MS = 262
+const HIT_HOLD_MS = 320
 const START_VISIBLE_MS = 672
 const START_GAP_MS = 302
 const SPEED_VISIBLE_STEP_MS = 72
 const SPEED_GAP_STEP_MS = 34
 const MIN_VISIBLE_MS = 109
 const MIN_GAP_MS = 30
-const HAMMER_STRIKE_MS = 420
-const HAMMER_IMPACT_PROGRESS = 0.34
+const HAMMER_STRIKE_MS = 340
+const HAMMER_IMPACT_PROGRESS = 0.68
 const HAMMER_IMPACT_MS = Math.round(HAMMER_STRIKE_MS * HAMMER_IMPACT_PROGRESS)
 const HAMMER_IMPACT_X = 88
 const HAMMER_IMPACT_Y = 266
+const HAMMER_OFFSET_X = 80
 const LIFE_FLICKER_MS = 620
 
 type GrandmaSprite = {
@@ -54,6 +55,7 @@ const LIFE_FULL = assetUrl('/images/mini-game/Life-full.svg')
 const LIFE_EMPTY = assetUrl('/images/mini-game/Life-empty.svg')
 const HAMMER = assetUrl('/images/mini-game/Hammer.svg')
 const BACKGROUND = assetUrl('/images/mini-game/game_bg.png')
+const CLOSE_ICON = assetUrl('/images/case-window/close.svg')
 const OUCH_SOUND = assetUrl('/sounds/Ouch01.mp3')
 
 export type WhackAMoleProps = {
@@ -75,7 +77,6 @@ export function WhackAMole({ onClose, onContinue, onMinimizeChange, minimized: c
   const [activeHole, setActiveHole] = useState<number | null>(null)
   const [activeGrandma, setActiveGrandma] = useState(0)
   const [hammerStrike, setHammerStrike] = useState<{ x: number; y: number; id: number } | null>(null)
-  const [hammerPointer, setHammerPointer] = useState<{ x: number; y: number } | null>(null)
   const [lifeFlickerId, setLifeFlickerId] = useState(0)
   const [localMinimized, setLocalMinimized] = useState(false)
   const minimized = controlledMinimized ?? localMinimized
@@ -89,6 +90,7 @@ export function WhackAMole({ onClose, onContinue, onMinimizeChange, minimized: c
   const hammerTimerRef = useRef<number | null>(null)
   const lifeFlickerTimerRef = useRef<number | null>(null)
   const runningRef = useRef(false)
+  const livesRef = useRef(STARTING_LIVES)
   const hitPendingRef = useRef(false)
   const hammerStrikeIdRef = useRef(0)
   const previousHoleRef = useRef<number | null>(null)
@@ -159,7 +161,9 @@ export function WhackAMole({ onClose, onContinue, onMinimizeChange, minimized: c
   )
 
   const loseLife = useCallback(() => {
-    setLives((prev) => Math.max(prev - 1, 0))
+    const nextLives = Math.max(livesRef.current - 1, 0)
+    livesRef.current = nextLives
+    setLives(nextLives)
     setLifeFlickerId((prev) => prev + 1)
 
     if (lifeFlickerTimerRef.current !== null) {
@@ -170,11 +174,9 @@ export function WhackAMole({ onClose, onContinue, onMinimizeChange, minimized: c
       setLifeFlickerId(0)
       lifeFlickerTimerRef.current = null
     }, LIFE_FLICKER_MS)
-  }, [])
 
-  useEffect(() => {
-    if (running && lives <= 0) endRound(true, 'lives')
-  }, [running, lives, endRound])
+    return nextLives
+  }, [])
 
   useEffect(() => {
     if (!running) return
@@ -204,15 +206,20 @@ export function WhackAMole({ onClose, onContinue, onMinimizeChange, minimized: c
       showTimerRef.current = window.setTimeout(() => {
         if (!runningRef.current) return
         setActiveHole(null)
-        loseLife()
+        const remainingLives = loseLife()
+        if (remainingLives <= 0) {
+          endRound(true, 'lives')
+          return
+        }
         scheduleNextMole()
       }, speedRef.current.visible)
     }, speedRef.current.gap)
-  }, [loseLife])
+  }, [endRound, loseLife])
 
   const handleStart = () => {
     clearTimers()
     setScore(0)
+    livesRef.current = STARTING_LIVES
     setLives(STARTING_LIVES)
     setRemainingSeconds(ROUND_DURATION_SECONDS)
     setGameOver(false)
@@ -226,8 +233,26 @@ export function WhackAMole({ onClose, onContinue, onMinimizeChange, minimized: c
     setRunning(true)
     setStarted(true)
     runningRef.current = true
-    scheduleNextMole()
   }
+
+  useEffect(() => {
+    if (!running) return
+
+    runningRef.current = true
+    const hasGameplayTimer =
+      gapTimerRef.current !== null ||
+      showTimerRef.current !== null ||
+      hitTimerRef.current !== null
+
+    if (hasGameplayTimer) return
+
+    // Fast Refresh and other interrupted renders can preserve React state
+    // while clearing native timers. Recover the round instead of leaving it
+    // active with no future grandma scheduled.
+    hitPendingRef.current = false
+    if (activeHole !== null) setActiveHole(null)
+    scheduleNextMole()
+  }, [activeHole, running, scheduleNextMole])
 
   const handleHoleActivation = (
     i: number,
@@ -235,37 +260,7 @@ export function WhackAMole({ onClose, onContinue, onMinimizeChange, minimized: c
   ) => {
     if (!running) return
     if (hitPendingRef.current) return
-    setHammerPointer(null)
-
-    // Let the hammer strike an empty hole during the gap between grandmas.
-    // Cancel the pending spawn first so a grandma cannot appear underneath
-    // the hammer, then resume the normal spawn schedule once it finishes.
-    if (activeHole === null) {
-      hitPendingRef.current = true
-      if (gapTimerRef.current !== null) {
-        clearTimeout(gapTimerRef.current)
-        gapTimerRef.current = null
-      }
-
-      const board = event.currentTarget.closest<HTMLElement>('[data-whack-board]')
-      if (board) {
-        const rect = board.getBoundingClientRect()
-        const pointer = hammerPointer ?? {
-          x: (event.clientX - rect.left) * (board.offsetWidth / rect.width),
-          y: (event.clientY - rect.top) * (board.offsetHeight / rect.height),
-        }
-        playHammerStrikeAt(pointer.x, pointer.y)
-      }
-
-      if (hitTimerRef.current !== null) clearTimeout(hitTimerRef.current)
-      hitTimerRef.current = window.setTimeout(() => {
-        if (!runningRef.current) return
-        hitPendingRef.current = false
-        hitTimerRef.current = null
-        scheduleNextMole()
-      }, HAMMER_STRIKE_MS)
-      return
-    }
+    if (activeHole === null) return
 
     if (activeHole === i) {
       const clickedElement = event.target as HTMLElement
@@ -280,12 +275,14 @@ export function WhackAMole({ onClose, onContinue, onMinimizeChange, minimized: c
 
       const board = event.currentTarget.closest<HTMLElement>('[data-whack-board]')
       if (board) {
-        const rect = board.getBoundingClientRect()
-        const pointer = hammerPointer ?? {
-          x: (event.clientX - rect.left) * (board.offsetWidth / rect.width),
-          y: (event.clientY - rect.top) * (board.offsetHeight / rect.height),
-        }
-        playHammerStrikeAt(pointer.x, pointer.y)
+        const boardRect = board.getBoundingClientRect()
+        const grandmaRect = grandma.getBoundingClientRect()
+        const scaleX = board.offsetWidth / boardRect.width
+        const scaleY = board.offsetHeight / boardRect.height
+        playHammerStrikeAt(
+          (grandmaRect.left + grandmaRect.width / 2 - boardRect.left) * scaleX,
+          (grandmaRect.top + grandmaRect.height * 0.24 - boardRect.top) * scaleY,
+        )
       }
 
       setScore((s) => s + POINTS_PER_HIT)
@@ -303,40 +300,56 @@ export function WhackAMole({ onClose, onContinue, onMinimizeChange, minimized: c
             // Sound is optional and must not interrupt the hit sequence.
           }
         }
-        grandma.animate(
-          [
-            {
-              transform: 'translate(-50%, 0)',
-              clipPath: 'inset(0 0 13px 0)',
-            },
-            {
-              transform: 'translate(-50%, -9px)',
-              clipPath: 'inset(0 0 13px 0)',
-              offset: 0.12,
-            },
-            {
-              transform: 'translate(-50%, 48px)',
-              clipPath: 'inset(0 0 61px 0)',
-              offset: 0.32,
-            },
-            {
-              transform: 'translate(-50%, 190px)',
-              clipPath: 'inset(0 0 203px 0)',
-              offset: 0.72,
-            },
-            {
-              transform: 'translate(-50%, 380px)',
-              clipPath: 'inset(0 0 100% 0)',
-            },
-          ],
-          { duration: HIT_HOLD_MS, easing: 'cubic-bezier(0.5, 0, 0.9, 0.45)', fill: 'forwards' },
-        )
         hitTimerRef.current = window.setTimeout(() => {
           if (!runningRef.current) return
           setActiveHole(null)
           hitPendingRef.current = false
           scheduleNextMole()
         }, HIT_HOLD_MS)
+
+        try {
+          grandma.animate(
+            [
+              {
+                transform: 'translate(-50%, 0)',
+                clipPath: 'inset(0 0 13px 0)',
+              },
+              {
+                transform: 'translate(-55%, -11px) rotate(-3deg) scale(1.025)',
+                clipPath: 'inset(0 0 13px 0)',
+                offset: 0.16,
+              },
+              {
+                transform: 'translate(-45%, 4px) rotate(3deg) scale(0.975)',
+                clipPath: 'inset(0 0 13px 0)',
+                offset: 0.32,
+              },
+              {
+                transform: 'translate(-50%, 0) rotate(0deg) scale(1)',
+                clipPath: 'inset(0 0 13px 0)',
+                offset: 0.46,
+              },
+              {
+                transform: 'translate(-50%, 48px)',
+                clipPath: 'inset(0 0 61px 0)',
+                offset: 0.62,
+              },
+              {
+                transform: 'translate(-50%, 190px)',
+                clipPath: 'inset(0 0 203px 0)',
+                offset: 0.82,
+              },
+              {
+                transform: 'translate(-50%, 380px)',
+                clipPath: 'inset(0 0 100% 0)',
+              },
+            ],
+            { duration: HIT_HOLD_MS, easing: 'cubic-bezier(0.5, 0, 0.9, 0.45)', fill: 'forwards' },
+          )
+        } catch {
+          // The visual effect is optional; the already-scheduled round
+          // transition must continue even if Web Animations is unavailable.
+        }
       }, HAMMER_IMPACT_MS)
     }
   }
@@ -357,16 +370,6 @@ export function WhackAMole({ onClose, onContinue, onMinimizeChange, minimized: c
       setHammerStrike(null)
       hammerTimerRef.current = null
     }, HAMMER_STRIKE_MS)
-  }
-
-  const handleBoardPointerMove = (event: PointerEvent<HTMLDivElement>) => {
-    const board = event.currentTarget
-    const rect = board.getBoundingClientRect()
-    if (rect.width === 0 || rect.height === 0) return
-    setHammerPointer({
-      x: (event.clientX - rect.left) * (board.offsetWidth / rect.width),
-      y: (event.clientY - rect.top) * (board.offsetHeight / rect.height),
-    })
   }
 
   useEffect(() => {
@@ -448,6 +451,7 @@ export function WhackAMole({ onClose, onContinue, onMinimizeChange, minimized: c
       ].filter(Boolean).join(' ')}
       style={positionStyle}
     >
+      <div className={styles.windowSurface}>
       <div className={styles.titleBar} onMouseDown={handleTitleMouseDown}>
         <span className={styles.title}>Mini Game</span>
         <div className={styles.windowActions}>
@@ -458,7 +462,7 @@ export function WhackAMole({ onClose, onContinue, onMinimizeChange, minimized: c
             aria-label={minimized ? 'Restore' : 'Minimize'}
           />
           <button type="button" className={styles.closeBtn} onClick={() => onClose({ score, started })} aria-label="Close">
-            ×
+            <img src={CLOSE_ICON} alt="" draggable={false} />
           </button>
         </div>
       </div>
@@ -466,8 +470,6 @@ export function WhackAMole({ onClose, onContinue, onMinimizeChange, minimized: c
       {!minimized && <div
         className={`${styles.board} ${running ? styles.boardRunning : ''}`}
         data-whack-board
-        onPointerMove={handleBoardPointerMove}
-        onPointerLeave={() => setHammerPointer(null)}
         style={{ '--game-bg': `url(${BACKGROUND})` } as CSSProperties}
       >
         <div className={styles.holes} aria-label="Whack a mole holes">
@@ -504,11 +506,17 @@ export function WhackAMole({ onClose, onContinue, onMinimizeChange, minimized: c
           })}
         </div>
 
-        <div className={gameOver ? styles.scoreBarEnd : styles.scoreBar}>
+        <div
+          className={gameOver ? styles.scoreBarEnd : styles.scoreBar}
+          data-node-id={gameOver ? '711:81716' : undefined}
+        >
           {gameOver ? (
-            <p className={styles.endMessage}>
-              {endReason === 'time' ? "Time's up!" : 'Loser! The grandmas win'}
-            </p>
+            <>
+              <p className={styles.score} data-node-id="956:77485">Score: {score}</p>
+              <p className={styles.endMessage} data-node-id="711:81728">
+                {endReason === 'time' ? "Time's up!" : 'Loser! The grandmas win'}
+              </p>
+            </>
           ) : (
             <>
               <p className={styles.score}>Score: {score}</p>
@@ -556,23 +564,21 @@ export function WhackAMole({ onClose, onContinue, onMinimizeChange, minimized: c
           </div>
         )}
 
-        {running && (hammerStrike || hammerPointer) && (() => {
-          const hammerPosition = hammerStrike ?? hammerPointer!
-          return (
+        {running && hammerStrike && (
           <img
-            key={hammerStrike?.id ?? 'pointer-hammer'}
-            className={`${styles.hammer} ${hammerStrike ? styles.hammerStriking : styles.hammerFollowing}`}
+            key={hammerStrike.id}
+            className={`${styles.hammer} ${styles.hammerStriking}`}
             src={HAMMER}
             alt=""
             draggable={false}
             style={{
-              '--hammer-x': `${hammerPosition.x - HAMMER_IMPACT_X}px`,
-              '--hammer-y': `${hammerPosition.y - HAMMER_IMPACT_Y}px`,
+              '--hammer-x': `${hammerStrike.x - HAMMER_IMPACT_X + HAMMER_OFFSET_X}px`,
+              '--hammer-y': `${hammerStrike.y - HAMMER_IMPACT_Y}px`,
             } as CSSProperties}
           />
-          )
-        })()}
+        )}
       </div>}
+      </div>
     </div>
   )
 }

@@ -1,14 +1,13 @@
 .window {
   position: relative;
   isolation: isolate;
-  width: 1147px;
-  height: 796px;
-  background: var(--white);
-  border: 2px solid var(--black);
+  width: 1303px;
+  height: 804px;
+  padding: 0 8px 8px 0;
+  background: var(--grey);
+  border: 0;
   border-radius: 4px;
   color: var(--black);
-  display: flex;
-  flex-direction: column;
   font-family: var(--font-main);
   overflow: visible;
   box-shadow: none;
@@ -17,11 +16,33 @@
 .window::before {
   content: '';
   position: absolute;
-  inset: 0 -8px -8px 0;
-  z-index: -1;
-  background: var(--grey);
+  inset: 0;
+  z-index: 40;
   border: 2px solid var(--black);
   border-radius: 4px;
+  pointer-events: none;
+}
+
+.windowSurface {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  align-items: stretch;
+  background: var(--white);
+  border-radius: 4px;
+  overflow: clip;
+}
+
+.windowSurface::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  border-right: 2px solid var(--black);
+  border-bottom: 2px solid var(--black);
+  border-radius: 0 0 4px;
   pointer-events: none;
 }
 
@@ -39,16 +60,21 @@
 }
 
 .windowMinimized {
+  height: 52px;
+}
+
+.windowMinimized .windowSurface {
   height: 44px;
 }
 
 .titleBar {
+  flex: 0 0 44px;
   height: 44px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   background: var(--white);
-  border-bottom: 2px solid var(--black);
+  border: 2px solid var(--black);
   overflow: hidden;
   border-radius: 2px 2px 0 0;
 }
@@ -63,19 +89,24 @@
 
 .windowActions {
   display: flex;
+  height: 44px;
+  margin: -2px -2px -2px 0;
   align-items: stretch;
-  align-self: stretch;
+  align-self: auto;
 }
 
 .minimizeIcon,
 .closeBtn {
   width: 44px;
   height: 44px;
-  margin-top: -2px;
-  margin-bottom: -2px;
-  margin-left: -2px;
+  flex: 0 0 44px;
+  margin-right: -2px;
   border: 2px solid var(--black);
   padding: 0;
+}
+
+.closeBtn {
+  margin-right: 0;
 }
 
 .minimizeIcon {
@@ -98,12 +129,14 @@
   align-items: center;
   justify-content: center;
   background: var(--red);
-  color: var(--black);
   cursor: var(--cursor-hover);
-  font: inherit;
-  font-size: 44px;
-  line-height: 1;
-  padding: 0 0 5px;
+}
+
+.closeBtn img {
+  display: block;
+  width: 40px;
+  height: 40px;
+  user-select: none;
 }
 
 .board {
@@ -114,11 +147,6 @@
   overflow: hidden;
 }
 
-.boardRunning,
-.boardRunning .hole {
-  cursor: none;
-}
-
 .board::before {
   content: '';
   position: absolute;
@@ -127,13 +155,13 @@
   background-image: var(--game-bg);
   background-position: center top;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: auto 61%;
 }
 
 .holes {
   position: absolute;
   z-index: 1;
-  left: 101px;
+  left: 50%;
   top: 457px;
   width: 944px;
   height: 138px;
@@ -141,6 +169,7 @@
   grid-template-columns: repeat(3, 1fr);
   align-items: end;
   column-gap: 22px;
+  transform: translateX(-50%);
 }
 
 .hole {
@@ -202,7 +231,7 @@
 }
 
 .scoreBarEnd {
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .score,
@@ -233,6 +262,7 @@
   color: var(--red);
   font-weight: 500;
   text-align: center;
+  white-space: nowrap;
 }
 
 .lives {
@@ -300,7 +330,7 @@
   font-size: 44px;
   line-height: 44px;
   letter-spacing: 0;
-  padding: 8px 28px 12px;
+  padding: 10px 28px;
   transition: filter 120ms ease;
 }
 
@@ -353,43 +383,33 @@
   will-change: transform;
 }
 
-.hammerFollowing {
-  transform: translate(var(--hammer-x), var(--hammer-y)) rotate(26deg);
-}
-
 .hammerStriking {
-  animation: hammerStrike 420ms cubic-bezier(0.22, 0.76, 0.3, 1) both;
+  animation: hammerStrike 340ms both;
 }
 
 @keyframes hammerStrike {
   0% {
-    transform: translate(var(--hammer-x), var(--hammer-y)) rotate(26deg);
-    animation-timing-function: cubic-bezier(0.62, 0, 0.88, 0.32);
+    opacity: 0;
+    transform: translate(var(--hammer-x), var(--hammer-y)) rotate(0deg);
   }
-  34%,
-  50% {
+  10% {
+    opacity: 1;
+    transform: translate(var(--hammer-x), var(--hammer-y)) rotate(0deg);
+  }
+  42% {
+    opacity: 1;
+    transform: translate(var(--hammer-x), var(--hammer-y)) rotate(11deg);
+    animation-timing-function: cubic-bezier(0.55, 0, 0.8, 0.35);
+  }
+  68%,
+  84% {
+    opacity: 1;
     transform: translate(var(--hammer-x), var(--hammer-y)) rotate(0deg);
     animation-timing-function: cubic-bezier(0.12, 0.78, 0.22, 1);
   }
-  68% {
-    transform: translate(
-      calc(var(--hammer-x) + 24px),
-      calc(var(--hammer-y) - 100px)
-    ) rotate(-15deg);
-    animation-timing-function: cubic-bezier(0.18, 0.82, 0.3, 1);
-  }
-  86% {
-    transform: translate(
-      calc(var(--hammer-x) + 140px),
-      calc(var(--hammer-y) - 220px)
-    ) rotate(-28deg);
-    animation-timing-function: ease-in;
-  }
   100% {
-    transform: translate(
-      calc(var(--hammer-x) + 190px),
-      calc(var(--hammer-y) - 320px)
-    ) rotate(-35deg);
+    opacity: 0;
+    transform: translate(var(--hammer-x), var(--hammer-y)) rotate(0deg);
   }
 }
 

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Desktop, type TaskbarApp } from '@/components/Desktop'
 import {
@@ -19,6 +19,10 @@ import { loadGraph } from '@/lib/editorStorage'
 import type { SavedGraph } from '@/lib/editorStorage'
 import type { CaseFlowNode, OperationFlowNode } from '@/types/editor'
 import styles from './DesktopPage.module.css'
+
+const WINDOW_MOTION_MS = 420
+type WindowMotion = 'idle' | 'minimizing' | 'restoring'
+type WindowMotionOrigin = 'desktop' | 'taskbar'
 
 /**
  * The base desktop screen — shown when no scenario is active.
@@ -83,6 +87,10 @@ export function DesktopPage() {
     () => new URLSearchParams(window.location.search).get('startWhack') === '1',
   )
   const [whackMinimized, setWhackMinimized] = useState(false)
+  const [whackMotion, setWhackMotion] = useState<WindowMotion>('idle')
+  const [whackMotionOrigin, setWhackMotionOrigin] = useState<WindowMotionOrigin>('desktop')
+  const whackMotionTimeoutRef = useRef<number | null>(null)
+  const whackLayerRef = useRef<HTMLDivElement | null>(null)
   // Local decision state — without the full game flow here, the user
   // can still preview the "Arrested" / "Released" lower-bar variants
   // by clicking the buttons in the previewed case window.
@@ -93,6 +101,66 @@ export function DesktopPage() {
   const [opCounters, setOpCounters] = useState(
     () => DEFAULT_OPERATION_V2_DATA.counters,
   )
+
+  const clearWhackMotionTimeout = () => {
+    if (whackMotionTimeoutRef.current === null) return
+    window.clearTimeout(whackMotionTimeoutRef.current)
+    whackMotionTimeoutRef.current = null
+  }
+
+  const restoreWhack = (origin: WindowMotionOrigin) => {
+    clearWhackMotionTimeout()
+    setWhackOpen(true)
+    setWhackMinimized(false)
+    setWhackMotionOrigin(origin)
+    setWhackMotion('restoring')
+    whackMotionTimeoutRef.current = window.setTimeout(() => {
+      setWhackMotion('idle')
+      whackMotionTimeoutRef.current = null
+    }, WINDOW_MOTION_MS)
+  }
+
+  const minimizeWhack = () => {
+    clearWhackMotionTimeout()
+    setWhackMotionOrigin('taskbar')
+    setWhackMotion('minimizing')
+    whackMotionTimeoutRef.current = window.setTimeout(() => {
+      setWhackMinimized(true)
+      setWhackMotion('idle')
+      whackMotionTimeoutRef.current = null
+    }, WINDOW_MOTION_MS)
+  }
+
+  useLayoutEffect(() => {
+    const layer = whackLayerRef.current
+    if (!layer || whackMotion === 'idle') return
+
+    const targetSelector = whackMotionOrigin === 'desktop'
+      ? '[data-spot="icon.whack"]'
+      : '[data-taskbar-app="whack"]'
+    const target = document.querySelector<HTMLElement>(targetSelector)
+    const windowElement = layer.firstElementChild as HTMLElement | null
+    const canvas = layer.closest<HTMLElement>('[data-scaled-stage]')
+    if (!target || !windowElement || !canvas) return
+
+    layer.style.animation = 'none'
+    const windowRect = windowElement.getBoundingClientRect()
+    const targetRect = target.getBoundingClientRect()
+    const canvasRect = canvas.getBoundingClientRect()
+    const stageScale = canvasRect.width / 1920 || 1
+    layer.style.setProperty(
+      '--window-taskbar-x',
+      `${(targetRect.left + targetRect.width / 2 - (windowRect.left + windowRect.width / 2)) / stageScale}px`,
+    )
+    layer.style.setProperty(
+      '--window-taskbar-y',
+      `${(targetRect.top + targetRect.height / 2 - (windowRect.top + windowRect.height / 2)) / stageScale}px`,
+    )
+    void layer.offsetWidth
+    layer.style.animation = ''
+  }, [whackMotion, whackMotionOrigin])
+
+  useEffect(() => () => clearWhackMotionTimeout(), [])
 
   const taskbarApps = useMemo<TaskbarApp[]>(() => {
     const apps: TaskbarApp[] = []
@@ -106,7 +174,7 @@ export function DesktopPage() {
       apps.push({
         id: 'whack',
         label: 'Mini Game',
-        onClick: () => setWhackMinimized(false),
+        onClick: () => restoreWhack('taskbar'),
       })
     }
     return apps
@@ -117,8 +185,7 @@ export function DesktopPage() {
       <Desktop
         onStartClick={() => navigate('/game')}
         onWhackClick={() => {
-          setWhackOpen(true)
-          setWhackMinimized(false)
+          restoreWhack('desktop')
         }}
         taskbarApps={taskbarApps}
       >
@@ -152,12 +219,31 @@ export function DesktopPage() {
             />
           </div>
         )}
-        {whackOpen && !whackMinimized && (
-          <div className={styles.caseLayer}>
+        {whackOpen && (
+          <div
+            ref={whackLayerRef}
+            className={[
+              styles.caseLayer,
+              whackMinimized ? styles.windowHidden : '',
+              whackMotion === 'minimizing'
+                ? styles.windowMinimizing
+                : whackMotion === 'restoring'
+                  ? styles.windowRestoring
+                  : '',
+            ].filter(Boolean).join(' ')}
+          >
             <WhackAMole
               draggable
-              onClose={() => setWhackOpen(false)}
-              onMinimizeChange={setWhackMinimized}
+              minimized={whackMinimized}
+              onClose={() => {
+                clearWhackMotionTimeout()
+                setWhackMotion('idle')
+                setWhackOpen(false)
+              }}
+              onMinimizeChange={(minimized) => {
+                if (minimized) minimizeWhack()
+                else restoreWhack('taskbar')
+              }}
             />
           </div>
         )}

@@ -33,3 +33,54 @@
 .caseLayer {
   z-index: 1;
 }
+
+.windowMinimizing {
+  animation: windowMinimizeToTaskbar 420ms cubic-bezier(.32, 0, .12, 1) forwards;
+  transform-origin: center;
+  pointer-events: none;
+}
+
+.windowRestoring {
+  animation: windowRestoreFromTaskbar 420ms cubic-bezier(.16, 1, .3, 1) both;
+  transform-origin: center;
+}
+
+.windowHidden {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+@keyframes windowMinimizeToTaskbar {
+  from {
+    opacity: 1;
+    scale: 1;
+    translate: 0 0;
+  }
+
+  to {
+    opacity: .15;
+    scale: .06;
+    translate: var(--window-taskbar-x, -680px) var(--window-taskbar-y, 500px);
+  }
+}
+
+@keyframes windowRestoreFromTaskbar {
+  from {
+    opacity: .15;
+    scale: .06;
+    translate: var(--window-taskbar-x, -680px) var(--window-taskbar-y, 500px);
+  }
+
+  to {
+    opacity: 1;
+    scale: 1;
+    translate: 0 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .windowMinimizing,
+  .windowRestoring {
+    animation-duration: 1ms;
+  }
+}
