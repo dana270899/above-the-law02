@@ -4,7 +4,6 @@ import type { PlayerProfile, RunScore } from '@/lib/scoring'
 import {
   buildLeaderboardDisplay,
   fetchLeaderboard,
-  fetchLeaderboardPhotoUrl,
   isLeaderboardConfigured,
   mergeLocalPlayer,
   publishLeaderboardEntry,
@@ -15,6 +14,27 @@ import { ScorePublishScreen } from '@/components/game/ScorePublishScreen/ScorePu
 import styles from './RankingPage.module.css'
 
 const publicationRequests = new Map<string, Promise<LeaderboardEntry>>()
+const RANKING_SKELETON_ROWS = 6
+
+async function preloadVisibleLeaderboardPhotos(entries: LeaderboardEntry[], currentPlayerId = '') {
+  const { visible } = buildLeaderboardDisplay(entries, currentPlayerId)
+  const photoUrls = [...new Set(visible.flatMap((entry) => entry.photoUrl ? [entry.photoUrl] : []))]
+  const results = await Promise.all(photoUrls.map((photoUrl) => new Promise<[string, boolean]>((resolve) => {
+    const image = new Image()
+    image.onload = () => {
+      void image.decode().then(
+        () => resolve([photoUrl, true]),
+        () => resolve([photoUrl, false]),
+      )
+    }
+    image.onerror = () => resolve([photoUrl, false])
+    image.src = photoUrl
+  })))
+  const failedUrls = new Set(results.filter(([, loaded]) => !loaded).map(([photoUrl]) => photoUrl))
+  return entries.map((entry) => entry.photoUrl && failedUrls.has(entry.photoUrl)
+    ? { ...entry, photoUrl: null }
+    : entry)
+}
 
 function publicationRequest(key: string, profile: PlayerProfile, run: RunScore) {
   const existing = publicationRequests.get(key)
@@ -36,11 +56,13 @@ export function RankingPage({
   run,
   entryMode = false,
   publicationKey,
+  onProfileChange,
 }: {
   profile: PlayerProfile
   run: RunScore
   entryMode?: boolean
   publicationKey?: string
+  onProfileChange?: (profile: PlayerProfile) => void
 }) {
   const navigate = useNavigate()
   const [entries, setEntries] = useState<LeaderboardEntry[]>([])
@@ -49,6 +71,8 @@ export function RankingPage({
   const [detailsOpen, setDetailsOpen] = useState(false)
   const [publicationProfile, setPublicationProfile] = useState<PlayerProfile | null>(entryMode ? profile : null)
   const rowsRef = useRef<HTMLDivElement | null>(null)
+  const scrollTrackRef = useRef<HTMLDivElement | null>(null)
+  const [scrollMetrics, setScrollMetrics] = useState({ top: 0, height: 0, atStart: true, atEnd: true })
   const effectiveProfile = publicationProfile ?? profile
 
   const localEntry = useMemo<LeaderboardEntry>(() => ({
@@ -68,7 +92,7 @@ export function RankingPage({
       try {
         setError('')
         if (entryMode) {
-          const remoteEntries = await fetchLeaderboard(10)
+          const remoteEntries = await preloadVisibleLeaderboardPhotos(await fetchLeaderboard(10))
           if (!active) return
           setEntries(remoteEntries)
           setStatus('ready')
@@ -80,10 +104,7 @@ export function RankingPage({
         }
         setStatus('publishing')
         const key = publicationKey ?? `${effectiveProfile.name}:${run.total}:${JSON.stringify(run.cases)}`
-        const remoteRequest = fetchLeaderboard().then((remoteEntries) => {
-          if (active) setEntries(remoteEntries)
-          return remoteEntries
-        })
+        const remoteRequest = fetchLeaderboard()
         const [remoteResult, publicationResult] = await Promise.allSettled([
           remoteRequest,
           publicationRequest(key, effectiveProfile, run),
@@ -93,15 +114,19 @@ export function RankingPage({
         if (!active) return
         if (remoteResult.status === 'rejected') {
           console.warn('The latest shared ranking could not be loaded.', remoteResult.reason)
-          setEntries([published])
+          const [preparedPublished] = await preloadVisibleLeaderboardPhotos([published], published.id)
+          if (!active) return
+          setEntries([preparedPublished])
           setError('Your score was saved, but previous rankings could not be loaded.')
           setStatus('history-error')
           return
         }
-        setEntries([
+        const nextEntries = await preloadVisibleLeaderboardPhotos([
           ...remoteResult.value.filter((entry) => entry.id !== published.id),
           published,
-        ])
+        ], published.id)
+        if (!active) return
+        setEntries(nextEntries)
         setStatus('published')
       } catch (reason) {
         if (!active) return
@@ -125,37 +150,62 @@ export function RankingPage({
       ? entries.find((entry) => entry.isCurrentPlayer)?.id ?? localEntry.id
       : localEntry.id
   const { visible: shown } = buildLeaderboardDisplay(withCurrentPlayer, currentPlayerId)
-  const visiblePhotoRequestKey = shown
-    .map((entry) => `${entry.id}:${entry.photoPath ?? ''}:${entry.photoUrl ? 'loaded' : 'pending'}`)
-    .join('|')
+
+  function syncScrollbar() {
+    const rows = rowsRef.current
+    const track = scrollTrackRef.current
+    if (!rows || !track) return
+    const maxScroll = Math.max(0, rows.scrollHeight - rows.clientHeight)
+    const height = maxScroll === 0
+      ? track.clientHeight
+      : Math.max(48, track.clientHeight * (rows.clientHeight / rows.scrollHeight))
+    const availableTrack = Math.max(0, track.clientHeight - height)
+    const top = maxScroll === 0 ? 0 : (rows.scrollTop / maxScroll) * availableTrack
+    setScrollMetrics({
+      top,
+      height,
+      atStart: rows.scrollTop <= 1,
+      atEnd: rows.scrollTop >= maxScroll - 1,
+    })
+  }
 
   useEffect(() => {
-    const pending = shown.filter((entry) => entry.photoPath && !entry.photoUrl)
-    if (pending.length === 0) return
-    let active = true
-
-    void Promise.all(pending.map(async (entry) => ({
-      id: entry.id,
-      photoUrl: await fetchLeaderboardPhotoUrl(entry.photoPath ?? null),
-    }))).then((photos) => {
-      if (!active) return
-      const photoById = new Map(photos.map((photo) => [photo.id, photo.photoUrl]))
-      setEntries((current) => current.map((entry) => {
-        const photoUrl = photoById.get(entry.id)
-        return photoUrl ? { ...entry, photoUrl } : entry
-      }))
-    })
-
-    return () => { active = false }
-  // Only restart when the visible rows or their photo state changes.
-  }, [visiblePhotoRequestKey])
+    const frame = window.requestAnimationFrame(syncScrollbar)
+    window.addEventListener('resize', syncScrollbar)
+    return () => {
+      window.cancelAnimationFrame(frame)
+      window.removeEventListener('resize', syncScrollbar)
+    }
+  }, [shown.length, status])
 
   if (!entryMode && !publicationProfile) {
-    return <ScorePublishScreen profile={profile} score={run.total} onPublish={setPublicationProfile} />
+    return (
+      <ScorePublishScreen
+        profile={profile}
+        score={run.total}
+        onPublish={(nextProfile) => {
+          onProfileChange?.(nextProfile)
+          setPublicationProfile(nextProfile)
+        }}
+      />
+    )
   }
 
   function scrollRows(direction: -1 | 1) {
-    rowsRef.current?.scrollBy({ top: direction * 188, behavior: 'smooth' })
+    rowsRef.current?.scrollBy({ top: direction * 94, behavior: 'smooth' })
+  }
+
+  function scrollFromTrack(clientY: number) {
+    const rows = rowsRef.current
+    const track = scrollTrackRef.current
+    if (!rows || !track) return
+    const maxScroll = Math.max(0, rows.scrollHeight - rows.clientHeight)
+    const availableTrack = Math.max(1, track.clientHeight - scrollMetrics.height)
+    const targetTop = clientY - track.getBoundingClientRect().top - (scrollMetrics.height / 2)
+    rows.scrollTo({
+      top: Math.max(0, Math.min(1, targetTop / availableTrack)) * maxScroll,
+      behavior: 'smooth',
+    })
   }
 
   return (
@@ -170,21 +220,10 @@ export function RankingPage({
           </h1>
 
           <div className={styles.board}>
-            <div className={styles.scrollbar}>
-              <button type="button" className={styles.scrollUp} onClick={() => scrollRows(-1)} aria-label="Scroll ranking up">
-                <img src={assetUrl('/images/case-window/arrow-forward.svg')} alt="" aria-hidden="true" />
-              </button>
-              <div className={styles.scrollTrack}>
-                <div className={styles.scrollThumb} />
-              </div>
-              <button type="button" className={styles.scrollDown} onClick={() => scrollRows(1)} aria-label="Scroll ranking down">
-                <img src={assetUrl('/images/case-window/arrow-forward.svg')} alt="" aria-hidden="true" />
-              </button>
-            </div>
-
             <div
               className={styles.rows}
               ref={rowsRef}
+              onScroll={syncScrollbar}
               aria-busy={status === 'loading' || status === 'publishing'}
             >
               {shown.map((entry) => (
@@ -210,7 +249,38 @@ export function RankingPage({
                   </span>
                 </article>
               ))}
+              {status === 'loading' && (
+                <div className={styles.skeletonRows} role="status" aria-label="Loading ranking">
+                  {Array.from({ length: RANKING_SKELETON_ROWS }, (_, index) => (
+                    <div className={`${styles.row} ${styles.skeletonRow}`} key={index} aria-hidden="true">
+                      <span className={`${styles.skeletonBlock} ${styles.skeletonRank}`} />
+                      <span className={`${styles.skeletonBlock} ${styles.skeletonPhoto}`} />
+                      <span className={`${styles.skeletonBlock} ${styles.skeletonName}`} />
+                      <span className={`${styles.skeletonBlock} ${styles.skeletonScore}`} />
+                    </div>
+                  ))}
+                </div>
+              )}
               {status === 'ready' && shown.length === 0 && <p className={styles.loading}>No saved results yet.</p>}
+            </div>
+
+            <div className={styles.scrollbar}>
+              <button type="button" className={styles.scrollUp} disabled={scrollMetrics.atStart} onClick={() => scrollRows(-1)} aria-label="Scroll ranking up">
+                <img src={assetUrl('/images/case-window/arrow-forward.svg')} alt="" aria-hidden="true" />
+              </button>
+              <div
+                className={styles.scrollTrack}
+                ref={scrollTrackRef}
+                onClick={(event) => scrollFromTrack(event.clientY)}
+              >
+                <div
+                  className={styles.scrollThumb}
+                  style={{ top: scrollMetrics.top, height: scrollMetrics.height }}
+                />
+              </div>
+              <button type="button" className={styles.scrollDown} disabled={scrollMetrics.atEnd} onClick={() => scrollRows(1)} aria-label="Scroll ranking down">
+                <img src={assetUrl('/images/case-window/arrow-forward.svg')} alt="" aria-hidden="true" />
+              </button>
             </div>
           </div>
         </section>

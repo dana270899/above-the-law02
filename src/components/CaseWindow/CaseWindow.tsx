@@ -222,6 +222,10 @@ type CaseWindowProps = {
    * builder can still pick a fallback image.
    */
   useCamera?: boolean
+  /** Captured session portrait shown after the automatic camera countdown. */
+  cameraPhotoPreviewUrl?: string | null
+  /** Play-mode callback fired once after the automatic camera capture. */
+  onCameraCapture?: (photo: Blob) => void
   /** Element-based tutorial highlight inside the case window. */
   highlightTargetId?: CaseWindowHighlightTarget
 }
@@ -241,6 +245,8 @@ export function CaseWindow({
   onTabSelect,
   onRowTrigger,
   useCamera = false,
+  cameraPhotoPreviewUrl,
+  onCameraCapture,
   highlightTargetId,
 }: CaseWindowProps) {
   const tabList: CaseTab[] = tabs ?? DEFAULT_CASE_TABS
@@ -684,7 +690,11 @@ export function CaseWindow({
                           so the builder can confirm the toggle is wired. */}
                       {useCamera ? (
                         <div className={styles.photo} data-spot="case.photo">
-                          <WebcamVisual fallbackPhotoUrl={data.photoUrl} />
+                          <WebcamVisual
+                            fallbackPhotoUrl={data.photoUrl}
+                            capturedPhotoUrl={cameraPhotoPreviewUrl}
+                            onCapture={onCameraCapture}
+                          />
                         </div>
                       ) : editable ? (
                         <label className={`${styles.photo} ${styles.photoEditWrap}`} htmlFor={photoInputId} data-spot="case.photo">
@@ -986,21 +996,40 @@ function PhotoVisual({ photoUrl }: { photoUrl: string }) {
  *  browser blocks the camera. */
 const WEBCAM_FILTER_ENABLED = false
 
-function WebcamVisual({ fallbackPhotoUrl }: { fallbackPhotoUrl: string }) {
+function WebcamVisual({
+  fallbackPhotoUrl,
+  capturedPhotoUrl,
+  onCapture,
+}: {
+  fallbackPhotoUrl: string
+  capturedPhotoUrl?: string | null
+  onCapture?: (photo: Blob) => void
+}) {
   const [errored, setErrored] = useState(false)
+  if (capturedPhotoUrl) return <PhotoVisual photoUrl={capturedPhotoUrl} />
   if (errored) return <PhotoVisual photoUrl={fallbackPhotoUrl} />
   if (WEBCAM_FILTER_ENABLED) {
     return <WebcamFilter onError={() => setErrored(true)} />
   }
-  return <RawWebcamVisual onError={() => setErrored(true)} />
+  return <RawWebcamVisual onError={() => setErrored(true)} onCapture={onCapture} />
 }
 
 /** Plain webcam feed — no shader, no segmentation. Stops the stream
  *  on unmount so the camera light goes off when the case closes. */
-function RawWebcamVisual({ onError }: { onError: () => void }) {
+function RawWebcamVisual({
+  onError,
+  onCapture,
+}: {
+  onError: () => void
+  onCapture?: (photo: Blob) => void
+}) {
   const videoRef = useRef<HTMLVideoElement | null>(null)
   const onErrorRef = useRef(onError)
+  const onCaptureRef = useRef(onCapture)
+  const capturedRef = useRef(false)
+  const [countdown, setCountdown] = useState<number | null>(null)
   useEffect(() => { onErrorRef.current = onError }, [onError])
+  useEffect(() => { onCaptureRef.current = onCapture }, [onCapture])
 
   useEffect(() => {
     let stream: MediaStream | null = null
@@ -1015,7 +1044,11 @@ function RawWebcamVisual({ onError }: { onError: () => void }) {
         const v = videoRef.current
         if (v) {
           v.srcObject = s
-          v.play().catch(() => { /* autoplay blocked — frames still arrive */ })
+          v.play()
+            .then(() => {
+              if (onCaptureRef.current) setCountdown(5)
+            })
+            .catch(() => { /* autoplay blocked — frames still arrive */ })
         }
       })
       .catch(() => onErrorRef.current())
@@ -1027,15 +1060,51 @@ function RawWebcamVisual({ onError }: { onError: () => void }) {
     }
   }, [])
 
+  useEffect(() => {
+    if (countdown == null || countdown <= 0) return
+    const timer = window.setTimeout(() => setCountdown((value) => (
+      value == null ? null : Math.max(0, value - 1)
+    )), 1000)
+    return () => window.clearTimeout(timer)
+  }, [countdown])
+
+  useEffect(() => {
+    if (countdown !== 0 || capturedRef.current || !onCaptureRef.current) return
+    const timer = window.setTimeout(() => {
+      const video = videoRef.current
+      if (!video?.videoWidth || !video.videoHeight || capturedRef.current) return
+      const canvas = document.createElement('canvas')
+      canvas.width = video.videoWidth
+      canvas.height = video.videoHeight
+      const context = canvas.getContext('2d')
+      if (!context) return
+      context.translate(canvas.width, 0)
+      context.scale(-1, 1)
+      context.drawImage(video, 0, 0, canvas.width, canvas.height)
+      capturedRef.current = true
+      canvas.toBlob((photo) => {
+        if (photo) onCaptureRef.current?.(photo)
+      }, 'image/jpeg', 0.9)
+    }, 650)
+    return () => window.clearTimeout(timer)
+  }, [countdown])
+
   return (
-    <video
-      ref={videoRef}
-      autoPlay
-      playsInline
-      muted
-      className={styles.photoImg}
-      style={{ transform: 'scaleX(-1)' }}
-    />
+    <>
+      <video
+        ref={videoRef}
+        autoPlay
+        playsInline
+        muted
+        className={styles.photoImg}
+        style={{ transform: 'scaleX(-1)' }}
+      />
+      {countdown != null && (
+        <div className={styles.cameraCapturePrompt} aria-live="polite">
+          {countdown > 0 ? countdown : 'Say cheese!'}
+        </div>
+      )}
+    </>
   )
 }
 
