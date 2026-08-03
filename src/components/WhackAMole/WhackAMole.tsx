@@ -53,7 +53,7 @@ const GRANDMAS: GrandmaSprite[] = [
 const LIFE_FULL = assetUrl('/images/mini-game/Life-full.svg')
 const LIFE_EMPTY = assetUrl('/images/mini-game/Life-empty.svg')
 const HAMMER = assetUrl('/images/mini-game/Hammer_animated_fast.gif')
-const BACKGROUND = assetUrl('/images/mini-game/game_bg.svg')
+const BACKGROUND = assetUrl('/images/mini-game/game_bg.png')
 const OUCH_SOUND = assetUrl('/sounds/Ouch01.mp3')
 
 export type WhackAMoleProps = {
@@ -92,6 +92,17 @@ export function WhackAMole({ onClose, onContinue, onMinimizeChange, minimized: c
   const hammerStrikeIdRef = useRef(0)
   const previousHoleRef = useRef<number | null>(null)
   const nextGrandmaRef = useRef(0)
+  const audioRef = useRef<HTMLAudioElement | null>(null)
+
+  useEffect(() => {
+    const audio = new Audio(OUCH_SOUND)
+    audio.preload = 'auto'
+    audioRef.current = audio
+
+    return () => {
+      audioRef.current = null
+    }
+  }, [])
 
   const clearTimers = useCallback(() => {
     if (showTimerRef.current !== null) {
@@ -276,41 +287,43 @@ export function WhackAMole({ onClose, onContinue, onMinimizeChange, minimized: c
       }
 
       setScore((s) => s + POINTS_PER_HIT)
-      const audio = new Audio(OUCH_SOUND)
       if (hitTimerRef.current !== null) {
         clearTimeout(hitTimerRef.current)
       }
       hitTimerRef.current = window.setTimeout(() => {
         if (!runningRef.current) return
-        audio.play().catch(() => { /* autoplay blocked — ignore */ })
+        const audio = audioRef.current
+        if (audio) {
+          try {
+            audio.currentTime = 0
+            void audio.play().catch(() => { /* autoplay blocked — ignore */ })
+          } catch {
+            // Sound is optional and must not interrupt the hit sequence.
+          }
+        }
         grandma.animate(
           [
             {
               opacity: 1,
-              filter: 'brightness(1) saturate(1)',
               transform: 'translate(-50%, 0) scale(1, 1)',
             },
             {
               opacity: 1,
-              filter: 'brightness(1) saturate(1)',
               transform: 'translate(-50%, -7px) scale(0.98, 1.03)',
               offset: 0.12,
             },
             {
               opacity: 1,
-              filter: 'brightness(1.28) saturate(1.25)',
               transform: 'translate(-54%, 9px) scale(1.18, 0.68)',
               offset: 0.34,
             },
             {
               opacity: 1,
-              filter: 'brightness(1.08) saturate(1.1)',
               transform: 'translate(-46%, 18px) scale(1.27, 0.3)',
               offset: 0.62,
             },
             {
               opacity: 0,
-              filter: 'brightness(1) saturate(1)',
               transform: 'translate(-50%, 24px) scale(1.32, 0.14)',
             },
           ],

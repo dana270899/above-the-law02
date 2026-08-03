@@ -110,7 +110,7 @@ const MINI_GAME_ASSETS: readonly GamePreloadAsset[] = [
   'Life-full.svg',
   'Life-empty.svg',
   'Hammer_animated_fast.gif',
-  'game_bg.svg',
+  'game_bg.png',
 ].map((filename) => asset('image', `/images/mini-game/${filename}`)).concat([
   asset('audio', '/sounds/Ouch01.mp3'),
 ])
