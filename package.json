@@ -5,11 +5,16 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm run build:game",
+    "dev:mini-game-test": "vite --config vite.minigame-test.config.ts",
+    "build": "npm run build:preview",
+    "build:preview": "npm run build:game && npm run build:mini-game-test",
     "build:game": "tsc -b && vite build --mode game && npm run verify:game-build",
+    "build:mini-game-test": "vite build --config vite.minigame-test.config.ts && npm run verify:mini-game-test-build",
     "test": "vitest run",
     "preview": "vite preview",
-    "verify:game-build": "node scripts/verify-game-build.mjs"
+    "preview:mini-game-test": "vite preview --config vite.minigame-test.config.ts",
+    "verify:game-build": "node scripts/verify-game-build.mjs",
+    "verify:mini-game-test-build": "node scripts/verify-mini-game-test-build.mjs"
   },
   "dependencies": {
     "@babel/core": "^7.29.0",

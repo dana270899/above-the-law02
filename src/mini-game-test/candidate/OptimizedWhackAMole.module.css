@@ -1,0 +1,384 @@
+.window {
+  box-sizing: border-box;
+  width: 1147px;
+  height: 796px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  border: 2px solid var(--black, #171717);
+  border-radius: 4px;
+  background: var(--white, #fff);
+  color: var(--black, #171717);
+  box-shadow: none;
+  font-family: var(--font-main, Arial, sans-serif);
+}
+
+.window,
+.window * {
+  box-sizing: border-box;
+}
+
+.draggable {
+  position: absolute;
+}
+
+.draggable .titleBar {
+  cursor: var(--cursor-hover-drag, move);
+  user-select: none;
+}
+
+.windowMinimized {
+  height: 44px;
+}
+
+.titleBar {
+  flex: 0 0 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid var(--black, #171717);
+  background: var(--white, #fff);
+}
+
+.title {
+  padding: 0 16px;
+  color: var(--grey, #6a6a6a);
+  font-size: 22px;
+  line-height: 28px;
+}
+
+.windowActions {
+  align-self: stretch;
+  display: flex;
+  align-items: stretch;
+}
+
+.minimizeIcon,
+.closeBtn {
+  width: 44px;
+  height: 44px;
+  margin: -2px 0 -2px -2px;
+  border: 2px solid var(--black, #171717);
+  padding: 0;
+}
+
+.minimizeIcon {
+  position: relative;
+  background: var(--yellow, #ffdc15);
+  cursor: var(--cursor-hover, pointer);
+}
+
+.minimizeIcon::before {
+  content: '';
+  position: absolute;
+  right: 10px;
+  bottom: 12px;
+  left: 10px;
+  height: 2px;
+  background: var(--black, #171717);
+}
+
+.closeBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--red, #f24b38);
+  color: var(--black, #171717);
+  cursor: var(--cursor-hover, pointer);
+  font: inherit;
+  font-size: 44px;
+  line-height: 1;
+  padding-bottom: 5px;
+}
+
+.board {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  overflow: hidden;
+  background: var(--white, #fff);
+}
+
+.background {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  pointer-events: none;
+  user-select: none;
+}
+
+.holes {
+  position: absolute;
+  z-index: 1;
+  top: 457px;
+  left: 101px;
+  width: 944px;
+  height: 138px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: end;
+  column-gap: 22px;
+}
+
+.hole {
+  position: relative;
+  height: 132px;
+  overflow: visible;
+  border: 0;
+  background: transparent;
+  cursor: inherit;
+  font: inherit;
+}
+
+.hole::after {
+  content: '';
+  position: absolute;
+  right: 20px;
+  bottom: 40px;
+  left: 20px;
+  height: 48px;
+  border: 2px solid var(--black, #171717);
+  border-radius: 50%;
+  background: var(--grey, #6a6a6a);
+}
+
+.grandma {
+  position: absolute;
+  z-index: 1;
+  bottom: 51px;
+  left: 50%;
+  width: 236px;
+  height: auto;
+  pointer-events: auto;
+  user-select: none;
+  transform: translate(-50%, 0) scale(1, 1);
+  transform-origin: 50% 100%;
+  animation: rise 180ms ease-out;
+  will-change: transform, opacity;
+}
+
+.impactFlash {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  bottom: 190px;
+  width: 84px;
+  height: 84px;
+  border: 5px solid var(--yellow, #ffdc15);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, 0) scale(0.25);
+  animation: impactFlash 220ms ease-out forwards;
+}
+
+.scoreBar,
+.scoreBarEnd {
+  position: absolute;
+  z-index: 2;
+  right: 36px;
+  bottom: 32px;
+  left: 36px;
+  min-height: 74px;
+  display: flex;
+  align-items: center;
+}
+
+.scoreBar {
+  justify-content: space-between;
+}
+
+.scoreBarEnd {
+  justify-content: center;
+}
+
+.score,
+.timer,
+.endMessage {
+  margin: 0;
+  font-size: 64px;
+  font-weight: 400;
+  line-height: 64px;
+}
+
+.timer {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.endMessage {
+  color: var(--red, #f24b38);
+  font-weight: 500;
+  text-align: center;
+}
+
+.lives {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.life,
+.lifeFlicker {
+  width: 64px;
+  height: 64px;
+  user-select: none;
+}
+
+.lifeFlicker {
+  animation: lifeFlicker 620ms steps(1, end);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  background: transparent;
+}
+
+.startTitle {
+  position: relative;
+  isolation: isolate;
+  margin: 0;
+  color: var(--yellow, #ffdc15);
+  font: 700 77.941px/1 var(--font-main, Arial, sans-serif);
+  white-space: nowrap;
+  transform: translateY(-48px);
+}
+
+.startTitle::before {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  color: transparent;
+  -webkit-text-stroke: 6px var(--black, #171717);
+  white-space: nowrap;
+}
+
+.startBtn,
+.continueBtn {
+  height: 74px;
+  border: 2px solid var(--black, #171717);
+  border-radius: 4px;
+  color: var(--white, #fff);
+  cursor: var(--cursor-hover, pointer);
+  font-family: inherit;
+}
+
+.startBtn {
+  min-width: 220px;
+  padding: 8px 28px 12px;
+  background: var(--green, #199e55);
+  font-size: 44px;
+  line-height: 44px;
+  transform: translateY(-48px);
+}
+
+.startBtn:disabled {
+  cursor: wait;
+  opacity: 0.72;
+}
+
+.loadError {
+  margin: -64px 0 0;
+  padding: 7px 13px;
+  border: 2px solid var(--black, #171717);
+  background: var(--white, #fff);
+  color: var(--red, #f24b38);
+  font-size: 24px;
+}
+
+.endActions {
+  display: flex;
+  gap: 18px;
+  transform: translateY(-48px);
+}
+
+.endActions .startBtn {
+  background: var(--red, #f24b38);
+  font-size: 34px;
+  line-height: 34px;
+  transform: none;
+}
+
+.continueBtn {
+  min-width: 360px;
+  padding: 8px 22px 12px;
+  background: var(--green, #199e55);
+  font-size: 34px;
+  line-height: 34px;
+}
+
+.hammer {
+  position: absolute;
+  z-index: 4;
+  top: 0;
+  left: 0;
+  width: 726px;
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+}
+
+:global(body).draggingCursor,
+:global(body).draggingCursor * {
+  cursor: var(--cursor-hover-drag, move) !important;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 46px) scale(1, 1);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1, 1);
+  }
+}
+
+@keyframes impactFlash {
+  from {
+    opacity: 0.95;
+    transform: translate(-50%, 0) scale(0.25);
+  }
+  to {
+    opacity: 0;
+    transform: translate(-50%, 0) scale(1.35);
+  }
+}
+
+@keyframes lifeFlicker {
+  0%,
+  20%,
+  40%,
+  60%,
+  80%,
+  100% {
+    opacity: 1;
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    opacity: 0.2;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grandma,
+  .impactFlash,
+  .lifeFlicker {
+    animation-duration: 1ms;
+  }
+}
