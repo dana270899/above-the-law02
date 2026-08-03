@@ -79,6 +79,19 @@
   flex-shrink: 0;
 }
 
+.eilatWindow .upperBar {
+  border-bottom-width: 0;
+}
+
+.eilatWindow .footerBar {
+  border-top-width: 0;
+}
+
+.eilatWindow > .screen {
+  border-top: 2px solid var(--black);
+  border-bottom: 2px solid var(--black);
+}
+
 .upperBarTitle {
   padding: 0 16px;
   font-family: var(--font-main);

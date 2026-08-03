@@ -121,6 +121,8 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: stretch;
+  overflow: clip;
   background: var(--white);
   border-left: 2px solid var(--black);
 }
@@ -129,9 +131,10 @@
   box-sizing: border-box;
   width: 40px;
   height: 40px;
-  padding: 0;
-  display: grid;
-  place-items: center;
+  padding: 6px 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: var(--light-yellow-100);
   border: 0;
   color: var(--black);
@@ -144,11 +147,6 @@
 
 .scrollbar button:last-child {
   border-top: 2px solid var(--black);
-}
-
-.scrollbar button:disabled {
-  opacity: 0.45;
-  cursor: var(--cursor-unavailable);
 }
 
 .scrollbar button img {
@@ -169,7 +167,7 @@
   position: relative;
   width: 100%;
   flex: 1;
-  background: var(--white);
+  background: var(--light-yellow-100);
   cursor: var(--cursor-hover);
 }
 
@@ -180,15 +178,18 @@
   background: var(--light-yellow-100);
   border-top: 2px solid var(--black);
   border-bottom: 2px solid var(--black);
-  pointer-events: none;
-  transition: top 80ms linear;
+  cursor: var(--cursor-hover-drag);
+}
+
+.scrollThumb:active {
+  cursor: var(--cursor-drag);
 }
 
 .rows {
   box-sizing: border-box;
-  width: 616.4px;
+  width: 624.4px;
   height: 534px;
-  margin: 38px;
+  margin: 38px 30px 38px 38px;
   padding: 0;
   display: flex;
   flex-direction: column;
@@ -202,11 +203,11 @@
 }
 
 .row {
-  width: 616.4px;
+  width: 624.4px;
   height: 64px;
   flex: 0 0 64px;
   display: grid;
-  grid-template-columns: 22px 64px 246.2px 206.2px;
+  grid-template-columns: 22px 64px 222.2px 238.2px;
   align-items: center;
   gap: 26px;
 }
@@ -264,7 +265,7 @@
 }
 
 .skeletonRows {
-  width: 616.4px;
+  width: 624.4px;
   display: flex;
   flex-direction: column;
   gap: 30px;
@@ -275,7 +276,8 @@
   box-sizing: border-box;
   display: block;
   overflow: hidden;
-  background: #f6fcff;
+  background: var(--white);
+  border: 1.6px solid var(--black);
   border-radius: 3.2px;
 }
 
@@ -283,9 +285,10 @@
   content: '';
   position: absolute;
   inset: 0;
-  transform: translateX(-100%);
-  background: linear-gradient(90deg, transparent, rgb(183 211 224 / 18%), transparent);
-  animation: rankingSkeletonShimmer 1.8s ease-in-out infinite;
+  background: var(--light-blue-200);
+  transform: scaleX(0);
+  transform-origin: left center;
+  animation: rankingSkeletonFill 1.5s ease-in-out infinite;
 }
 
 .skeletonRank {
@@ -297,8 +300,6 @@
 .skeletonPhoto {
   width: 64px;
   height: 64px;
-  background: #f6fcff;
-  border: 1.6px solid #dbe7ed;
   border-radius: 5.333px;
 }
 
@@ -306,18 +307,23 @@
 .skeletonScore {
   width: 100%;
   height: 64px;
-  border: 1.6px solid #dbe7ed;
 }
 
-@keyframes rankingSkeletonShimmer {
-  to {
-    transform: translateX(100%);
+@keyframes rankingSkeletonFill {
+  0% {
+    transform: scaleX(0);
+  }
+
+  80%,
+  100% {
+    transform: scaleX(1);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .skeletonBlock::after {
     animation: none;
+    transform: scaleX(0.45);
   }
 }
 

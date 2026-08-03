@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState, type MouseEvent as ReactMouseEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import type { PlayerProfile, RunScore } from '@/lib/scoring'
 import {
@@ -72,6 +72,7 @@ export function RankingPage({
   const [publicationProfile, setPublicationProfile] = useState<PlayerProfile | null>(entryMode ? profile : null)
   const rowsRef = useRef<HTMLDivElement | null>(null)
   const scrollTrackRef = useRef<HTMLDivElement | null>(null)
+  const thumbDragRef = useRef<{ startY: number; startScrollTop: number } | null>(null)
   const [scrollMetrics, setScrollMetrics] = useState({ top: 0, height: 0, atStart: true, atEnd: true })
   const effectiveProfile = publicationProfile ?? profile
 
@@ -151,7 +152,7 @@ export function RankingPage({
       : localEntry.id
   const { visible: shown } = buildLeaderboardDisplay(withCurrentPlayer, currentPlayerId)
 
-  function syncScrollbar() {
+  const syncScrollbar = useCallback(() => {
     const rows = rowsRef.current
     const track = scrollTrackRef.current
     if (!rows || !track) return
@@ -167,16 +168,47 @@ export function RankingPage({
       atStart: rows.scrollTop <= 1,
       atEnd: rows.scrollTop >= maxScroll - 1,
     })
-  }
+  }, [])
 
   useEffect(() => {
+    const rows = rowsRef.current
+    const track = scrollTrackRef.current
+    if (!rows || !track) return
     const frame = window.requestAnimationFrame(syncScrollbar)
-    window.addEventListener('resize', syncScrollbar)
+    const resizeObserver = new ResizeObserver(syncScrollbar)
+    resizeObserver.observe(rows)
+    resizeObserver.observe(track)
     return () => {
       window.cancelAnimationFrame(frame)
-      window.removeEventListener('resize', syncScrollbar)
+      resizeObserver.disconnect()
     }
-  }, [shown.length, status])
+  }, [shown.length, status, syncScrollbar])
+
+  useEffect(() => {
+    function onMove(event: MouseEvent) {
+      const drag = thumbDragRef.current
+      const rows = rowsRef.current
+      const track = scrollTrackRef.current
+      if (!drag || !rows || !track) return
+      const maxScroll = rows.scrollHeight - rows.clientHeight
+      const usableTrack = track.clientHeight - scrollMetrics.height
+      if (usableTrack <= 0 || maxScroll <= 0) return
+      const next = drag.startScrollTop + ((event.clientY - drag.startY) * maxScroll) / usableTrack
+      rows.scrollTop = Math.max(0, Math.min(maxScroll, next))
+      syncScrollbar()
+    }
+
+    function onUp() {
+      thumbDragRef.current = null
+    }
+
+    window.addEventListener('mousemove', onMove)
+    window.addEventListener('mouseup', onUp)
+    return () => {
+      window.removeEventListener('mousemove', onMove)
+      window.removeEventListener('mouseup', onUp)
+    }
+  }, [scrollMetrics.height, syncScrollbar])
 
   if (!entryMode && !publicationProfile) {
     return (
@@ -192,20 +224,30 @@ export function RankingPage({
   }
 
   function scrollRows(direction: -1 | 1) {
-    rowsRef.current?.scrollBy({ top: direction * 94, behavior: 'smooth' })
+    const rows = rowsRef.current
+    if (!rows) return
+    const delta = direction * Math.max(120, rows.clientHeight * 0.4)
+    rows.scrollTop = Math.max(0, Math.min(rows.scrollHeight - rows.clientHeight, rows.scrollTop + delta))
+    syncScrollbar()
   }
 
-  function scrollFromTrack(clientY: number) {
+  function scrollFromTrack(event: ReactMouseEvent<HTMLDivElement>) {
+    if (event.target !== event.currentTarget) return
     const rows = rowsRef.current
-    const track = scrollTrackRef.current
-    if (!rows || !track) return
-    const maxScroll = Math.max(0, rows.scrollHeight - rows.clientHeight)
-    const availableTrack = Math.max(1, track.clientHeight - scrollMetrics.height)
-    const targetTop = clientY - track.getBoundingClientRect().top - (scrollMetrics.height / 2)
-    rows.scrollTo({
-      top: Math.max(0, Math.min(1, targetTop / availableTrack)) * maxScroll,
-      behavior: 'smooth',
-    })
+    if (!rows) return
+    const clickY = event.clientY - event.currentTarget.getBoundingClientRect().top
+    const direction = clickY < scrollMetrics.top ? -1 : 1
+    const delta = direction * rows.clientHeight * 0.85
+    rows.scrollTop = Math.max(0, Math.min(rows.scrollHeight - rows.clientHeight, rows.scrollTop + delta))
+    syncScrollbar()
+  }
+
+  function startThumbDrag(event: ReactMouseEvent<HTMLDivElement>) {
+    const rows = rowsRef.current
+    if (!rows) return
+    thumbDragRef.current = { startY: event.clientY, startScrollTop: rows.scrollTop }
+    event.preventDefault()
+    event.stopPropagation()
   }
 
   return (
@@ -265,21 +307,24 @@ export function RankingPage({
             </div>
 
             <div className={styles.scrollbar}>
-              <button type="button" className={styles.scrollUp} disabled={scrollMetrics.atStart} onClick={() => scrollRows(-1)} aria-label="Scroll ranking up">
+              <button type="button" className={styles.scrollUp} onClick={() => scrollRows(-1)} aria-label="Scroll ranking up">
                 <img src={assetUrl('/images/case-window/arrow-forward.svg')} alt="" aria-hidden="true" />
               </button>
               <div
                 className={styles.scrollTrack}
                 ref={scrollTrackRef}
-                onClick={(event) => scrollFromTrack(event.clientY)}
+                onMouseDown={scrollFromTrack}
               >
                 <div
                   className={styles.scrollThumb}
                   style={{ top: scrollMetrics.top, height: scrollMetrics.height }}
+                  onMouseDown={startThumbDrag}
+                  role="scrollbar"
+                  aria-orientation="vertical"
                 />
               </div>
-              <button type="button" className={styles.scrollDown} disabled={scrollMetrics.atEnd} onClick={() => scrollRows(1)} aria-label="Scroll ranking down">
-                <img src={assetUrl('/images/case-window/arrow-forward.svg')} alt="" aria-hidden="true" />
+              <button type="button" className={styles.scrollDown} onClick={() => scrollRows(1)} aria-label="Scroll ranking down">
+                <img src={assetUrl('/images/case-window/arrow-forward-alt.svg')} alt="" aria-hidden="true" />
               </button>
             </div>
           </div>

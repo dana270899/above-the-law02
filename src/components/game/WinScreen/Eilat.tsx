@@ -101,7 +101,7 @@ export function Eilat({
   const animationRef = useRef<ReturnType<typeof animate> | null>(null)
   const chairAnimationRef = useRef<ReturnType<typeof animate> | null>(null)
   const computerAnimations = useRef<ReturnType<typeof animate>[]>([])
-  const playerIsDragging = useRef(false)
+  const playerIsControlling = useRef(false)
   const chairsWereTouching = useRef(false)
   const plasticHitPlayers = useRef<HTMLAudioElement[]>([])
   const plasticHitTimers = useRef<ReturnType<typeof setTimeout>[]>([])
@@ -160,7 +160,7 @@ export function Eilat({
                 damping: 11,
                 mass: 1.25,
                 onComplete: () => {
-                  if (playerIsDragging.current) runComputerHit()
+                  if (playerIsControlling.current) runComputerHit()
                 },
               }),
               animate(computerChairRotation, 0, {
@@ -207,126 +207,10 @@ export function Eilat({
     ]
   }
 
-  useEffect(() => {
-    let collisionFrame = 0
-
-    plasticHitPlayers.current = PLASTIC_HIT_SOUNDS.map((source) => {
-      const audio = new Audio(source)
-      audio.preload = 'auto'
-      audio.volume = 0.75
-      audio.load()
-      return audio
-    })
-
-    const transformedChairShape = (
-      composition: HTMLDivElement,
-      handAngle: number,
-      chairAngle: number,
-      mirrored: boolean,
-    ) => {
-      const bounds = composition.getBoundingClientRect()
-      const scale = bounds.width / 1118.291
-      const originX = mirrored ? bounds.right : bounds.left
-      const direction = mirrored ? -1 : 1
-      const grip = { x: 722.19, y: 584.01 }
-      const shoulder = { x: 1118.291, y: 1133.039 }
-
-      return CHAIR_COLLISION_SHAPE.map(([x, y]) => {
-        const chairMoved = rotatePoint({ x, y }, grip, chairAngle)
-        const handMoved = rotatePoint(chairMoved, shoulder, handAngle)
-        return {
-          x: originX + handMoved.x * scale * direction,
-          y: bounds.top + handMoved.y * scale,
-        }
-      })
-    }
-
-    const detectChairCollision = () => {
-      if (playerIsDragging.current && compositionRef.current && computerCompositionRef.current) {
-        const player = transformedChairShape(
-          compositionRef.current, rotation.get(), chairRotation.get(), false,
-        )
-        const computer = transformedChairShape(
-          computerCompositionRef.current,
-          computerRotation.get(),
-          computerChairRotation.get(),
-          true,
-        )
-        const touching = polygonsTouch(player, computer)
-
-        if (touching && !chairsWereTouching.current) playPlasticHit()
-        chairsWereTouching.current = touching
-      } else {
-        chairsWereTouching.current = false
-      }
-
-      collisionFrame = requestAnimationFrame(detectChairCollision)
-    }
-
-    const stopOnGlobalRelease = () => {
-      if (!playerIsDragging.current) return
-      playerIsDragging.current = false
-      stopComputerHit()
-    }
-
-    window.addEventListener('pointerup', stopOnGlobalRelease)
-    window.addEventListener('pointercancel', stopOnGlobalRelease)
-    window.addEventListener('blur', stopOnGlobalRelease)
-    collisionFrame = requestAnimationFrame(detectChairCollision)
-
-    return () => {
-      window.removeEventListener('pointerup', stopOnGlobalRelease)
-      window.removeEventListener('pointercancel', stopOnGlobalRelease)
-      window.removeEventListener('blur', stopOnGlobalRelease)
-      cancelAnimationFrame(collisionFrame)
-      computerAnimations.current.forEach((animation) => animation.stop())
-      plasticHitTimers.current.forEach(clearTimeout)
-      plasticHitTimers.current = []
-      plasticHitPlayers.current.forEach((audio) => {
-        audio.pause()
-        audio.removeAttribute('src')
-        audio.load()
-      })
-      plasticHitPlayers.current = []
-    }
-  }, [])
-
-  const handlePointerDown = (event: PointerEvent<HTMLDivElement>) => {
-    animationRef.current?.stop()
-    chairAnimationRef.current?.stop()
-    playerIsDragging.current = true
-    chairsWereTouching.current = false
-    runComputerHit()
-    event.currentTarget.setPointerCapture(event.pointerId)
-    const current = rotation.get()
-    dragState.current = {
-      offset: current - pointerAngle(event),
-      angle: current,
-      time: performance.now(),
-      velocity: 0,
-    }
-  }
-
-  const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
-    if (!event.currentTarget.hasPointerCapture(event.pointerId)) return
-
-    const now = performance.now()
-    const next = Math.max(-44, Math.min(34, pointerAngle(event) + dragState.current.offset))
-    const elapsed = Math.max(now - dragState.current.time, 1)
-    dragState.current.velocity = ((next - dragState.current.angle) / elapsed) * 1000
-    dragState.current.angle = next
-    dragState.current.time = now
-    rotation.set(next)
-    // The chair trails the hand slightly, as a weighted object would.
-    chairRotation.set(Math.max(-50, Math.min(50, -dragState.current.velocity * 0.16)))
-  }
-
-  const handlePointerUp = (event: PointerEvent<HTMLDivElement>) => {
-    playerIsDragging.current = false
+  const releasePlayerControl = () => {
+    if (!playerIsControlling.current) return
+    playerIsControlling.current = false
     stopComputerHit()
-    if (event.currentTarget.hasPointerCapture(event.pointerId)) {
-      event.currentTarget.releasePointerCapture(event.pointerId)
-    }
 
     const impactAngle = Math.max(
       -44,
@@ -356,13 +240,119 @@ export function Eilat({
       damping: 5,
       mass: 1.8,
     })
+  }
 
+  useEffect(() => {
+    let collisionFrame = 0
+
+    plasticHitPlayers.current = PLASTIC_HIT_SOUNDS.map((source) => {
+      const audio = new Audio(source)
+      audio.preload = 'auto'
+      audio.volume = 1
+      audio.load()
+      return audio
+    })
+
+    const transformedChairShape = (
+      composition: HTMLDivElement,
+      handAngle: number,
+      chairAngle: number,
+      mirrored: boolean,
+    ) => {
+      const bounds = composition.getBoundingClientRect()
+      const scale = bounds.width / 1118.291
+      const originX = mirrored ? bounds.right : bounds.left
+      const direction = mirrored ? -1 : 1
+      const grip = { x: 722.19, y: 584.01 }
+      const shoulder = { x: 1118.291, y: 1133.039 }
+
+      return CHAIR_COLLISION_SHAPE.map(([x, y]) => {
+        const chairMoved = rotatePoint({ x, y }, grip, chairAngle)
+        const handMoved = rotatePoint(chairMoved, shoulder, handAngle)
+        return {
+          x: originX + handMoved.x * scale * direction,
+          y: bounds.top + handMoved.y * scale,
+        }
+      })
+    }
+
+    const detectChairCollision = () => {
+      if (playerIsControlling.current && compositionRef.current && computerCompositionRef.current) {
+        const player = transformedChairShape(
+          compositionRef.current, rotation.get(), chairRotation.get(), false,
+        )
+        const computer = transformedChairShape(
+          computerCompositionRef.current,
+          computerRotation.get(),
+          computerChairRotation.get(),
+          true,
+        )
+        const touching = polygonsTouch(player, computer)
+
+        if (touching && !chairsWereTouching.current) playPlasticHit()
+        chairsWereTouching.current = touching
+      } else {
+        chairsWereTouching.current = false
+      }
+
+      collisionFrame = requestAnimationFrame(detectChairCollision)
+    }
+
+    window.addEventListener('blur', releasePlayerControl)
+    collisionFrame = requestAnimationFrame(detectChairCollision)
+
+    return () => {
+      window.removeEventListener('blur', releasePlayerControl)
+      cancelAnimationFrame(collisionFrame)
+      computerAnimations.current.forEach((animation) => animation.stop())
+      plasticHitTimers.current.forEach(clearTimeout)
+      plasticHitTimers.current = []
+      plasticHitPlayers.current.forEach((audio) => {
+        audio.pause()
+        audio.removeAttribute('src')
+        audio.load()
+      })
+      plasticHitPlayers.current = []
+    }
+  }, [])
+
+  const handlePointerEnter = (event: PointerEvent<HTMLDivElement>) => {
+    animationRef.current?.stop()
+    chairAnimationRef.current?.stop()
+    playerIsControlling.current = true
+    chairsWereTouching.current = false
+    runComputerHit()
+    const current = rotation.get()
+    dragState.current = {
+      offset: current - pointerAngle(event),
+      angle: current,
+      time: performance.now(),
+      velocity: 0,
+    }
+  }
+
+  const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
+    if (!playerIsControlling.current) handlePointerEnter(event)
+
+    const now = performance.now()
+    const next = Math.max(-44, Math.min(34, pointerAngle(event) + dragState.current.offset))
+    const elapsed = Math.max(now - dragState.current.time, 1)
+    dragState.current.velocity = ((next - dragState.current.angle) / elapsed) * 1000
+    dragState.current.angle = next
+    dragState.current.time = now
+    rotation.set(next)
+    // The chair trails the hand slightly, as a weighted object would.
+    chairRotation.set(Math.max(-50, Math.min(50, -dragState.current.velocity * 0.16)))
   }
 
   return (
     <div
       className={[styles.screen, className].filter(Boolean).join(' ')}
       data-node="win-eilat"
+      onPointerEnter={handlePointerEnter}
+      onPointerMove={handlePointerMove}
+      onPointerLeave={releasePlayerControl}
+      onPointerCancel={releasePlayerControl}
     >
       <img
         className={styles.background}
@@ -376,10 +366,6 @@ export function Eilat({
         <motion.div
           className={styles.movingGroup}
           style={{ rotate: rotation }}
-          onPointerDown={handlePointerDown}
-          onPointerMove={handlePointerMove}
-          onPointerUp={handlePointerUp}
-          onPointerCancel={handlePointerUp}
         >
           <img
             className={styles.arm}

@@ -101,7 +101,12 @@ export function WinScreenComponent({
   }
   const output = WINDOWED_VARIANTS.has(resolvedVariant) ? inner : (
     <div
-      className={[styles.window, styles.framedWindowInner, className].filter(Boolean).join(' ')}
+      className={[
+        styles.window,
+        styles.framedWindowInner,
+        resolvedVariant === 'eilat' ? styles.eilatWindow : '',
+        className,
+      ].filter(Boolean).join(' ')}
       data-node={`win-${resolvedVariant}`}
     >
       <div className={styles.upperBar}>

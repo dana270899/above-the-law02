@@ -5,6 +5,12 @@
   overflow: hidden;
   background: #b3e6fe;
   user-select: none;
+  touch-action: none;
+  cursor: none;
+}
+
+.screen * {
+  cursor: none;
 }
 
 .background {
@@ -49,11 +55,6 @@
 .chair {
   pointer-events: auto;
   touch-action: none;
-  cursor: grab;
-}
-
-.chair:active {
-  cursor: grabbing;
 }
 
 .computerChair {
