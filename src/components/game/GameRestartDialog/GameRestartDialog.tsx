@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import styles from './GameRestartDialog.module.css'
 
-const COUNTDOWN_SECONDS = 120
+const COUNTDOWN_SECONDS = 60
 const DEFAULT_IDLE_MS = 90 * 1000
 
 interface GameRestartDialogProps {

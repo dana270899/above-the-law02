@@ -4,7 +4,7 @@
   z-index: 1000;
   display: grid;
   place-items: center;
-  background: rgb(23 23 23 / 22%);
+  background: transparent;
 }
 
 .dialog {
@@ -15,19 +15,18 @@
   overflow: visible;
   color: var(--black);
   background: var(--white);
-  border: 2px solid var(--black);
+  border: 2px solid var(--grey);
   border-radius: 4px;
 }
 
-/* Structural grey backing frame: 8px reveal on the right/bottom with
-   its own 2px black outside stroke, matching Messages/Cases/Win. */
+/* Offset outline: 8px reveal on the right/bottom without a grey fill. */
 .dialog::before {
   position: absolute;
   inset: 0 -8px -8px 0;
   z-index: -1;
   content: '';
-  background: var(--grey);
-  border: 2px solid var(--black);
+  background: transparent;
+  border: 2px solid var(--grey);
   border-radius: 4px;
   pointer-events: none;
 }

@@ -67,7 +67,7 @@ function CasesIllustration() {
   )
 }
 
-/* ---- Operations (red / blue siren) ---- */
+/* ---- Operations (alternating siren frames) ---- */
 function OperationsIllustration({ attention = false }: { attention?: boolean }) {
   return (
     <div className={`${styles.illu} ${attention ? styles.operationAttention : ''}`}>
@@ -75,7 +75,7 @@ function OperationsIllustration({ attention = false }: { attention?: boolean }) 
       {attention && (
         <img
           className={styles.operationSirenBlue}
-          src={`${A}/Operations_Illustration_Blue.svg`}
+          src={`${A}/Operations_Illustration02.svg`}
           alt=""
         />
       )}

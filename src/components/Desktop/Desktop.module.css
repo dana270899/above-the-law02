@@ -125,8 +125,7 @@
   height: 100%;
 }
 
-/* The linked Figma component exposes red and blue siren variants. Once
-   Operations unlocks, alternate those exact exports until the player's
+/* Once Operations unlocks, alternate the supplied siren exports until the player's
    first click acknowledges the newly available app. */
 .operationSirenBlue {
   position: absolute;

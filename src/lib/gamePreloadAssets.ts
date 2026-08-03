@@ -63,7 +63,7 @@ const CASE_ASSETS: readonly GamePreloadAsset[] = [
 const DESKTOP_ASSETS: readonly GamePreloadAsset[] = [
   'Cases_Illustration.svg',
   'Operations_Illustration.svg',
-  'Operations_Illustration_Blue.svg',
+  'Operations_Illustration02.svg',
   'Trash_Illustration_S.svg',
   'Whack_Illustration.svg',
 ].map((filename) => asset('image', `/images/desktop/${filename}`)).concat([
