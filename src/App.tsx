@@ -10,6 +10,7 @@ import { useGameScale } from '@/hooks/useGameScale'
 import { assetUrl, routerBasename } from '@/lib/paths'
 import { caseNumberForOrder } from '@/lib/caseOrder'
 import { RankingPage } from '@/components/game/RankingPage/RankingPage'
+import { WhackAMole } from '@/components/WhackAMole'
 import type { PlayerProfile, RunScore } from '@/lib/scoring'
 
 const RANKING_START_PROFILE: PlayerProfile = {
@@ -64,6 +65,25 @@ export default function App() {
           }
         />
         <Route path="/desktop" element={<DesktopPage />} />
+        <Route
+          path="/whack-preview"
+          element={
+            <WinScreenStage>
+              <div
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  background: 'var(--light-yellow-100)',
+                }}
+              >
+                <WhackAMole onClose={() => undefined} />
+              </div>
+            </WinScreenStage>
+          }
+        />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/game" element={<GameSessionRoute />} />
         <Route path="/credits" element={<CreditsPage />} />
