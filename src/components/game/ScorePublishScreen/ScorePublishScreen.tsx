@@ -11,16 +11,18 @@ interface ScorePublishScreenProps {
 }
 
 export function ScorePublishScreen({ profile, score, onPublish }: ScorePublishScreenProps) {
+  const hasInitialPhoto = !!profile.photo && !!profile.photoPreviewUrl
   const videoRef = useRef<HTMLVideoElement | null>(null)
   const streamRef = useRef<MediaStream | null>(null)
   const [name, setName] = useState(profile.name)
-  const [countdown, setCountdown] = useState(5)
-  const [capturedPhoto, setCapturedPhoto] = useState<Blob | null>(null)
-  const [capturedPreviewUrl, setCapturedPreviewUrl] = useState<string | null>(null)
+  const [countdown, setCountdown] = useState(hasInitialPhoto ? 0 : 5)
+  const [capturedPhoto, setCapturedPhoto] = useState<Blob | null>(profile.photo ?? null)
+  const [capturedPreviewUrl, setCapturedPreviewUrl] = useState<string | null>(profile.photoPreviewUrl ?? null)
   const [cameraReady, setCameraReady] = useState(false)
-  const [photoReady, setPhotoReady] = useState(false)
+  const [photoReady, setPhotoReady] = useState(hasInitialPhoto)
 
   useEffect(() => {
+    if (hasInitialPhoto) return
     let active = true
     void requestCameraStream().then((stream) => {
       if (!active) {
@@ -42,7 +44,7 @@ export function ScorePublishScreen({ profile, score, onPublish }: ScorePublishSc
       stopCameraStream(streamRef.current)
       streamRef.current = null
     }
-  }, [])
+  }, [hasInitialPhoto])
 
   useEffect(() => {
     if (!cameraReady || countdown <= 0) return
@@ -99,6 +101,17 @@ export function ScorePublishScreen({ profile, score, onPublish }: ScorePublishSc
     } catch {
       // Leave both publishing actions unavailable until a new photo is captured.
     }
+  }
+
+  function publishWithoutPhoto() {
+    if (capturedPreviewUrl?.startsWith('blob:')) URL.revokeObjectURL(capturedPreviewUrl)
+    setCapturedPhoto(null)
+    setCapturedPreviewUrl(null)
+    onPublish({
+      name: name.trim(),
+      photo: null,
+      photoPreviewUrl: null,
+    })
   }
 
   return (
@@ -166,12 +179,8 @@ export function ScorePublishScreen({ profile, score, onPublish }: ScorePublishSc
           <button
             type="button"
             className={`${styles.publishButton} ${styles.publishWithoutImage}`}
-            disabled={!name.trim() || !profile.photo || !profile.photoPreviewUrl}
-            onClick={() => onPublish({
-              name: name.trim(),
-              photo: profile.photo,
-              photoPreviewUrl: profile.photoPreviewUrl,
-            })}
+            disabled={!name.trim()}
+            onClick={publishWithoutPhoto}
           >
             Publish without my image
           </button>

@@ -715,6 +715,21 @@
   display: block;
 }
 
+.cameraCapturePrompt {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--white);
+  font-family: var(--font-main);
+  font-size: 38px;
+  font-weight: 700;
+  text-align: center;
+  -webkit-text-stroke: 4px var(--black);
+  paint-order: stroke fill;
+  pointer-events: none;
+}
+
 
 
 /* Editable photo: input is invisible but covers the photo box */

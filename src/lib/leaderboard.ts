@@ -134,15 +134,10 @@ export function buildLeaderboardDisplay(
   return { ranked, visible, currentPlayer }
 }
 
-export async function fetchLeaderboardPhotoUrl(path: string | null): Promise<string | null> {
-  if (!path || !url || !key) return null
-  const response = await fetch(`${url}/storage/v1/object/sign/leaderboard-photos/${path}`, {
-    method: 'POST', headers: { ...headers(), 'Content-Type': 'application/json' }, body: JSON.stringify({ expiresIn: 3600 }),
-  })
-  if (!response.ok) return null
-  const data = await response.json() as { signedURL?: string; signedUrl?: string }
-  const signed = data.signedURL ?? data.signedUrl
-  return signed ? `${url}/storage/v1${signed}` : null
+export function getLeaderboardPhotoPublicUrl(path: string | null): string | null {
+  if (!path || !url) return null
+  const encodedPath = path.split('/').map(encodeURIComponent).join('/')
+  return `${url}/storage/v1/object/public/leaderboard-photos/${encodedPath}`
 }
 
 export async function fetchLeaderboard(
@@ -188,7 +183,7 @@ export async function fetchLeaderboard(
       const mapped = rows.map((row) => ({
         id: String(row.id),
         playerName: String(row.player_name),
-        photoUrl: null,
+        photoUrl: getLeaderboardPhotoPublicUrl(typeof row.photo_path === 'string' ? row.photo_path : null),
         photoPath: typeof row.photo_path === 'string' ? row.photo_path : null,
         score: Number(row.score),
         won: Boolean(row.won),
@@ -236,7 +231,7 @@ export async function publishLeaderboardEntry(args: { playerName: string; photo?
   if (!response.ok) throw await responseError(response, 'Could not publish your score.')
   const [row] = await response.json() as Array<Record<string, unknown>>
   return {
-    id: String(row.id), playerName: String(row.player_name), photoUrl: null, photoPath,
+    id: String(row.id), playerName: String(row.player_name), photoUrl: getLeaderboardPhotoPublicUrl(photoPath), photoPath,
     score: Number(row.score), won: Boolean(row.won),
     caseBreakdown: (row.case_breakdown ?? []) as CaseScoreBreakdown[], createdAt: String(row.created_at),
     isCurrentPlayer: true,

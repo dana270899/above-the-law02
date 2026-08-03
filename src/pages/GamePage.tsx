@@ -124,6 +124,23 @@ export function GamePage() {
   const scaleRef = useGameScale()
   const publicationKeyRef = useRef(crypto.randomUUID())
   const [playerProfile, setPlayerProfile] = useState<PlayerProfile>({ name: 'Officer', photo: null, photoPreviewUrl: null })
+  const [capturedRankingPhoto, setCapturedRankingPhoto] = useState<{ photo: Blob; photoPreviewUrl: string } | null>(null)
+  const captureRankingPhoto = useCallback((photo: Blob) => {
+    const photoPreviewUrl = URL.createObjectURL(photo)
+    setCapturedRankingPhoto({ photo, photoPreviewUrl })
+  }, [])
+  useEffect(() => {
+    const photoPreviewUrl = capturedRankingPhoto?.photoPreviewUrl
+    return () => {
+      if (photoPreviewUrl?.startsWith('blob:')) URL.revokeObjectURL(photoPreviewUrl)
+    }
+  }, [capturedRankingPhoto?.photoPreviewUrl])
+  const updateRankingProfile = useCallback((profile: PlayerProfile) => {
+    setPlayerProfile(profile)
+    setCapturedRankingPhoto(profile.photo && profile.photoPreviewUrl
+      ? { photo: profile.photo, photoPreviewUrl: profile.photoPreviewUrl }
+      : null)
+  }, [])
   const [scoreByCase, setScoreByCase] = useState<Record<string, CaseScoreBreakdown>>({})
   const showRestartPreview = import.meta.env.DEV
     && new URLSearchParams(window.location.search).get('restartPreview') === '1'
@@ -1365,7 +1382,10 @@ export function GamePage() {
   }
 
   if (currentNode?.type === 'ranking') {
-    return <div ref={scaleRef} className={styles.canvas} data-scaled-stage><RankingPage profile={playerProfile} run={runScore} publicationKey={publicationKeyRef.current} /></div>
+    const rankingProfile = capturedRankingPhoto
+      ? { ...playerProfile, ...capturedRankingPhoto }
+      : playerProfile
+    return <div ref={scaleRef} className={styles.canvas} data-scaled-stage><RankingPage profile={rankingProfile} run={runScore} publicationKey={publicationKeyRef.current} onProfileChange={updateRankingProfile} /></div>
   }
 
   // Walker is on a win-result — keep the desktop visible behind the
@@ -1526,6 +1546,8 @@ export function GamePage() {
             }}
             onRowTrigger={onRowTrigger}
             useCamera={!!activeCaseNode?.data.useCamera}
+            cameraPhotoPreviewUrl={activeCaseNode?.data.useCamera ? capturedRankingPhoto?.photoPreviewUrl : null}
+            onCameraCapture={activeCaseNode?.data.useCamera ? captureRankingPhoto : undefined}
             highlightTargetId={caseWindowHighlightTarget}
           />
         </div>

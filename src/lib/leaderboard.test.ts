@@ -3,9 +3,11 @@ import { buildRunScore } from './scoring'
 import {
   buildLeaderboardDisplay,
   fetchLeaderboard,
+  getLeaderboardPhotoPublicUrl,
   getProfilePhotoUploadFormat,
   leaderboardInsertPayload,
   mergeLocalPlayer,
+  publishLeaderboardEntry,
   type LeaderboardEntry,
 } from './leaderboard'
 
@@ -55,6 +57,11 @@ describe('leaderboard profile photos', () => {
   it('requires SVG profile art to be rasterized before upload', () => {
     expect(getProfilePhotoUploadFormat('image/svg+xml')).toBeNull()
   })
+
+  it('builds stable public Storage URLs for leaderboard portraits', () => {
+    expect(getLeaderboardPhotoPublicUrl('profiles/player portrait.png'))
+      .toContain('/storage/v1/object/public/leaderboard-photos/profiles/player%20portrait.png')
+  })
 })
 
 describe('leaderboard history loading', () => {
@@ -100,6 +107,33 @@ describe('leaderboard history loading', () => {
 })
 
 describe('leaderboard publishing', () => {
+  it('does not upload to Storage when the player publishes without a photo', async () => {
+    const fetchMock = vi.fn().mockResolvedValue(new Response(JSON.stringify([{
+      id: 'no-photo-player',
+      player_name: 'Dana',
+      photo_path: null,
+      score: 0,
+      won: false,
+      case_breakdown: [],
+      created_at: '2026-08-03T00:00:00Z',
+    }]), {
+      status: 201,
+      headers: { 'Content-Type': 'application/json' },
+    }))
+    vi.stubGlobal('fetch', fetchMock)
+
+    await publishLeaderboardEntry({
+      playerName: 'Dana',
+      photo: null,
+      run: buildRunScore([], 600),
+    })
+
+    expect(fetchMock).toHaveBeenCalledTimes(1)
+    expect(String(fetchMock.mock.calls[0][0])).toContain('/rest/v1/leaderboard_entries')
+    expect(String(fetchMock.mock.calls[0][0])).not.toContain('/storage/v1/object/')
+    expect(JSON.parse(String(fetchMock.mock.calls[0][1]?.body))).toMatchObject({ photo_path: null })
+  })
+
   it('publishes the final score including flow points while keeping mini-game points separate', () => {
     const cases = [{
       caseId: 'case-1', title: 'Case 1', important: false, attempt: 1 as const,
