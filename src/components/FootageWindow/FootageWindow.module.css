@@ -7,16 +7,43 @@
    ============================================================ */
 
 .window {
-  width: 842px;
-  background: var(--white);
+  position: relative;
+  display: inline-flex;
+  align-items: flex-start;
+  width: fit-content;
+  background: var(--grey);
   border: 2px solid var(--black);
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  overflow: clip;
+  border-radius: 4px;
+  padding: 0 8px 8px 0;
+  overflow: hidden;
   font-family: var(--font-main);
   color: var(--black);
   max-width: 1888px;
+}
+
+/* Match the Messages/Cases frame structure: a real grey outer wrapper and
+   a separate white inner surface. The outer border supplies the top/left
+   stroke; this foreground layer supplies the inner right/bottom stroke. */
+.windowSurface {
+  position: relative;
+  display: flex;
+  width: 842px;
+  flex-direction: column;
+  align-items: stretch;
+  background: var(--white);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.windowSurface::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  border-right: 2px solid var(--black);
+  border-bottom: 2px solid var(--black);
+  border-radius: 0 0 4px;
+  pointer-events: none;
 }
 
 /* Draggable variant: window is absolute-positioned + title bar is a drag handle. */
@@ -27,11 +54,6 @@
 .draggable .upperBar {
   cursor: var(--cursor-hover-drag);
   user-select: none;
-}
-
-/* When minimized only the title bar shows. */
-.windowMinimized .sketch {
-  display: none;
 }
 
 /* ─── Window upper bar (title + chrome) ─────────────── */
@@ -77,8 +99,6 @@
 
 .chromeBtn img { display: block; width: 100%; height: 100%; }
 
-.chromeExpand   { background: var(--green);  padding: 6px 7px; }
-.chromeMinimize { background: var(--yellow); padding: 8px; }
 .chromeClose    { background: var(--red);    padding: 8px; }
 
 /* ─── Sketch: the CCTV footage content area ─────────── */

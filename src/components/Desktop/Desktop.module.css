@@ -125,6 +125,45 @@
   height: 100%;
 }
 
+/* The linked Figma component exposes red and blue siren variants. Once
+   Operations unlocks, alternate those exact exports until the player's
+   first click acknowledges the newly available app. */
+.operationSirenBlue {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+.operationAttention .operationSirenRed {
+  animation: operation-siren-red 800ms steps(1, end) infinite;
+}
+
+.operationAttention .operationSirenBlue {
+  animation: operation-siren-blue 800ms steps(1, end) infinite;
+}
+
+@keyframes operation-siren-red {
+  0%, 49.999% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+@keyframes operation-siren-blue {
+  0%, 49.999% { opacity: 0; }
+  50%, 100% { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .operationAttention .operationSirenRed {
+    animation: none;
+    opacity: 1;
+  }
+
+  .operationAttention .operationSirenBlue {
+    animation: none;
+    opacity: 0;
+  }
+}
+
 /* Vertical flip wrapper (Rulebook cover layers) */
 .flipY {
   position: absolute;

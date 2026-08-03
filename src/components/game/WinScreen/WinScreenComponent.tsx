@@ -59,7 +59,7 @@ export function WinScreenComponent({
   const resolvedVariant = variant ?? 'graffiti'
   const passThroughProps = {
     ...rest,
-    className,
+    className: [styles.framedWindowInner, className].filter(Boolean).join(' '),
     onComplete,
     winTitle,
     winFooterText,
@@ -101,7 +101,7 @@ export function WinScreenComponent({
   }
   const output = WINDOWED_VARIANTS.has(resolvedVariant) ? inner : (
     <div
-      className={[styles.window, className].filter(Boolean).join(' ')}
+      className={[styles.window, styles.framedWindowInner, className].filter(Boolean).join(' ')}
       data-node={`win-${resolvedVariant}`}
     >
       <div className={styles.upperBar}>
@@ -133,7 +133,7 @@ export function WinScreenComponent({
             onComplete?.()
           }}
         >
-          {winCtaLabel}
+          <span className={styles.footerCtaLabel}>{winCtaLabel}</span>
         </button>
       </div>
     </div>
@@ -141,5 +141,9 @@ export function WinScreenComponent({
   // Wrap in a pop-in container so every variant gets the same entrance
   // animation when the walker reaches a new win-result. The variant's
   // own className (passed through via `rest`) is unchanged.
-  return <div className={styles.popWrapper}>{output}</div>
+  return (
+    <div className={styles.popWrapper}>
+      <div className={styles.greyFrame}>{output}</div>
+    </div>
+  )
 }

@@ -14,7 +14,7 @@
   background: var(--white);
   border: 2px solid var(--black);
   border-radius: 4px;
-  overflow: hidden;
+  overflow: visible;
   display: flex;
   flex-direction: column;
 }
@@ -167,20 +167,17 @@
   pointer-events: auto;
   transform: translateX(-50%);
   outline: 0 !important;
-  box-shadow: none;
 }
 
 .handButton:focus,
 .handButton:focus-visible {
   outline: 0 !important;
-  box-shadow: none;
 }
 
 .hand {
   position: static;
   width: 100%;
   height: 100%;
-  filter: drop-shadow(0 3px 0 rgba(23, 23, 23, 0.18));
 }
 
 .cursor {
@@ -238,6 +235,11 @@
 
 .footerCta:hover {
   filter: brightness(1.05);
+}
+
+.footerCtaLabel {
+  display: inline-block;
+  transform: translateY(2px);
 }
 
 .debug .cuttingPreview {

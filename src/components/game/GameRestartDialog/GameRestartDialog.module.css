@@ -8,13 +8,28 @@
 }
 
 .dialog {
+  position: relative;
+  isolation: isolate;
   width: 419px;
   height: 368px;
-  overflow: hidden;
+  overflow: visible;
   color: var(--black);
   background: var(--white);
   border: 2px solid var(--black);
-  border-radius: 2px;
+  border-radius: 4px;
+}
+
+/* Structural grey backing frame: 8px reveal on the right/bottom with
+   its own 2px black outside stroke, matching Messages/Cases/Win. */
+.dialog::before {
+  position: absolute;
+  inset: 0 -8px -8px 0;
+  z-index: -1;
+  content: '';
+  background: var(--grey);
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  pointer-events: none;
 }
 
 .titleBar {
@@ -35,53 +50,20 @@
 
 .windowControls {
   display: flex;
-  height: 40px;
+  height: 100%;
 }
 
 .windowControls button {
   position: relative;
   width: 40px;
-  height: 40px;
+  height: 100%;
   flex: 0 0 40px;
-  margin-left: -2px;
-  border: 2px solid var(--black);
-}
-
-.expand { background: var(--green); }
-.minimize { background: var(--yellow); }
-.close { background: var(--red); }
-
-.expand span::before,
-.expand span::after {
-  position: absolute;
-  width: 9px;
-  height: 9px;
-  content: '';
-}
-
-.expand span::before {
-  top: 9px;
-  right: 9px;
-  border-top: 2px solid var(--black);
-  border-right: 2px solid var(--black);
-}
-
-.expand span::after {
-  bottom: 9px;
-  left: 9px;
-  border-bottom: 2px solid var(--black);
+  margin: 0;
+  border: 0;
   border-left: 2px solid var(--black);
 }
 
-.minimize span::after {
-  position: absolute;
-  right: 9px;
-  bottom: 9px;
-  left: 9px;
-  height: 2px;
-  content: '';
-  background: var(--black);
-}
+.close { background: var(--red); }
 
 .close span::before,
 .close span::after {

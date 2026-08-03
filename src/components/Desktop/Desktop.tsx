@@ -30,6 +30,8 @@ export type DesktopProps = {
   onRulebookClick?: () => void
   onCasesClick?: () => void
   onOperationClick?: () => void
+  /** Flashes the unlocked Operation siren between its two Figma states. */
+  operationAttention?: boolean
   /** Kept on the props for backwards compatibility — the icon now
    *  always renders at full color and is always clickable. The parent
    *  reacts to clicks based on its own lock state (e.g. opening a
@@ -65,11 +67,18 @@ function CasesIllustration() {
   )
 }
 
-/* ---- Operations (red siren) ---- */
-function OperationsIllustration() {
+/* ---- Operations (red / blue siren) ---- */
+function OperationsIllustration({ attention = false }: { attention?: boolean }) {
   return (
-    <div className={styles.illu}>
-      <img src={`${A}/Operations_Illustration.svg`} alt="" />
+    <div className={`${styles.illu} ${attention ? styles.operationAttention : ''}`}>
+      <img className={styles.operationSirenRed} src={`${A}/Operations_Illustration.svg`} alt="" />
+      {attention && (
+        <img
+          className={styles.operationSirenBlue}
+          src={`${A}/Operations_Illustration_Blue.svg`}
+          alt=""
+        />
+      )}
     </div>
   )
 }
@@ -128,6 +137,7 @@ export function Desktop({
   onStartClick,
   onCasesClick,
   onOperationClick,
+  operationAttention = false,
   operationLocked = false,
   onTrashClick,
   onWhackClick,
@@ -162,7 +172,9 @@ export function Desktop({
             className={`${styles.appIcon} ${styles.operationIcon}`}
             onClick={onOperationClick}
           >
-            <div data-spot="icon.operation" className={styles.iconBox}><OperationsIllustration /></div>
+            <div data-spot="icon.operation" className={styles.iconBox}>
+              <OperationsIllustration attention={operationAttention} />
+            </div>
             <span className={styles.appLabel}>Operation</span>
           </button>
           <button type="button" className={styles.appIcon} onClick={onWhackClick}>

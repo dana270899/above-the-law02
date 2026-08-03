@@ -9,15 +9,10 @@ import type { BossMessageProps } from '@/components/game/BossMessage/BossMessage
  * the message (clicks the link button, etc.). The editor passes
  * nothing here — preview is non-interactive.
  *
- * `onReplayVoice` is voice-specific: tapping the mic icon re-plays
- * the audio clip from the start instead of advancing. The flow
- * advances automatically when the audio finishes. Without this
- * callback the mic falls back to `onAdvance`.
  */
 export function messageDataToBossProps(
   data: MessageNodeData,
   onAdvance?: () => void,
-  onReplayVoice?: () => void,
   resolvedPhotoUrl?: string,
 ): BossMessageProps {
   const photoUrl = resolvedPhotoUrl || data.photoUrl || undefined
@@ -37,7 +32,6 @@ export function messageDataToBossProps(
       // preserved on the node so nothing is lost.
       return {
         type: 'voice',
-        onPlay: onReplayVoice ?? onAdvance,
         duration: data.voiceDuration,
         photoUrl,
       }

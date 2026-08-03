@@ -4,6 +4,50 @@
   height: 100%;
 }
 
+/* Shared Win Screen frame. The original Win window is a separate clipped
+   child inside this rounded grey frame. Grey exists only in the authored
+   8px right/bottom reveal, matching the Cases frame structure. */
+.greyFrame {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: inline-flex;
+  align-items: flex-start;
+  width: fit-content;
+  height: fit-content;
+  padding: 0 8px 8px 0;
+  background: var(--grey);
+  border-radius: 4px;
+  overflow: visible;
+  isolation: isolate;
+}
+
+/* One continuous outer stroke around the new grey frame. */
+.greyFrame::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+/* Restore each original Win case as the inner frame. The more-specific
+   selector overrides the variants' old absolute centering; the outer frame
+   now owns centering. Clipping keeps header/artwork/footer colors inside the
+   original rounded corners. */
+.greyFrame > .framedWindowInner {
+  position: relative;
+  top: auto;
+  left: auto;
+  transform: none;
+  flex: none;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
 .window {
   position: absolute;
   top: 50%;
@@ -18,7 +62,7 @@
   background: var(--white);
   border: 2px solid var(--black);
   border-radius: 4px;
-  overflow: hidden;
+  overflow: visible;
   display: flex;
   flex-direction: column;
 }
@@ -140,4 +184,9 @@
 
 .footerCta:hover {
   filter: brightness(1.05);
+}
+
+.footerCtaLabel {
+  display: inline-block;
+  transform: translateY(2px);
 }

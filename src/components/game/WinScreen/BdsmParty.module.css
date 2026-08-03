@@ -12,7 +12,7 @@
   background: var(--white);
   border: 2px solid var(--black);
   border-radius: 4px;
-  overflow: hidden;
+  overflow: visible;
   display: flex;
   flex-direction: column;
   user-select: none;
@@ -99,15 +99,6 @@
   width: min(54%, 780px);
   aspect-ratio: 1042 / 628;
   transform: translate(-50%, -50%);
-}
-
-.envelopeShadow {
-  position: absolute;
-  inset: 4% -1% -2%;
-  background: rgba(30, 30, 30, 0.05);
-  filter: blur(10px);
-  transform: translateY(6%);
-  z-index: 0;
 }
 
 .backFlap,
@@ -304,4 +295,9 @@
 
 .footerCta:hover {
   filter: brightness(1.05);
+}
+
+.footerCtaLabel {
+  display: inline-block;
+  transform: translateY(2px);
 }

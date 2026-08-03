@@ -65,7 +65,7 @@ export function MessageNode({ id, data }: NodeProps<MessageFlowNode>) {
       {/* Live preview of the actual in-game design */}
       <div className={`${styles.previewBox} ${isLink ? styles.previewBoxLink : ''} ${(uploadedPhotoUrl || data.photoUrl) ? styles.previewBoxPhoto : ''}`}>
         <div className={styles.previewScale}>
-          <BossMessage {...messageDataToBossProps(data, undefined, undefined, uploadedPhotoUrl)} />
+          <BossMessage {...messageDataToBossProps(data, undefined, uploadedPhotoUrl)} />
         </div>
       </div>
 

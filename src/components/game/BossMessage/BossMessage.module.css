@@ -229,13 +229,17 @@
 }
 .voiceTrack {
   position: absolute;
-  left: 29px;  top: 33px;
-  width: 294px; height: 5px;
+  left: 56px;  top: 33px;
+  width: 267px; height: 5px;
+  /* Figma measures 267×5px as the fill and places the 2px stroke
+     outside it. The global border-box rule would otherwise consume
+     four of those five fill pixels. */
+  box-sizing: content-box;
   background: var(--grey);
   border: 2px solid var(--black);
   border-radius: 60px;
 }
-.voiceMicBtn {
+.voiceMic {
   position: absolute;
   left: 0; top: 0;
   width: 64px; height: 64px;
@@ -252,9 +256,11 @@
   position: absolute;
   /* `left` is animated below — keep this as the starting frame so
      the playhead has a valid position before the animation kicks in. */
-  left: 70px;
+  left: 82px;
   top: 25px;
   width: 5px; height: 21px;
+  /* Keep the yellow 5×21px core intact and paint the stroke outside. */
+  box-sizing: content-box;
   background: var(--yellow);
   border: 2px solid var(--black);
   border-radius: 60px;
@@ -265,8 +271,8 @@
 }
 
 @keyframes voicePlayheadProgress {
-  /* Start right after the mic button (mic ends at x=64, +6px breathing room). */
-  from { left: 70px; }
+  /* Figma's authored starting position. */
+  from { left: 82px; }
   /* End at the right edge of the 294px-wide track that starts at x=29,
      minus the playhead's own 5px width so it lands cleanly on the line. */
   to   { left: 318px; }

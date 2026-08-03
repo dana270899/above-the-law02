@@ -139,7 +139,6 @@ export const DEFAULT_OPERATION_V2_DATA: OperationWindowV2Data = {
 type OperationWindowV2Props = {
   data?: OperationWindowV2Data
   onClose?: () => void
-  onExpand?: () => void
   onMinimizeChange?: (minimized: boolean) => void
   onChangeCounter?: (key: OperationItemKey, value: number) => void
   onStartOperation?: () => void
@@ -167,7 +166,6 @@ const FLY_DURATION_MS = 600
 export function OperationWindowV2({
   data = DEFAULT_OPERATION_V2_DATA,
   onClose,
-  onExpand,
   onMinimizeChange,
   onChangeCounter,
   onStartOperation,
@@ -324,14 +322,6 @@ export function OperationWindowV2({
       <div className={styles.upperBar} onMouseDown={onTitleMouseDown}>
         <div className={styles.upperBarTitle}>{data.title}</div>
         <div className={styles.upperBarBtns}>
-          <button
-            type="button"
-            className={`${styles.chromeBtn} ${styles.chromeExpand}`}
-            aria-label="Expand"
-            onClick={onExpand}
-          >
-            <img src={`${CASE_ICONS}/expand.svg`} alt="" />
-          </button>
           <button
             type="button"
             className={`${styles.chromeBtn} ${styles.chromeMinimize}`}

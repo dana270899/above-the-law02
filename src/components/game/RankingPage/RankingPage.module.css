@@ -324,6 +324,7 @@
   display: block;
   width: 540.28px;
   height: 268.493px;
+  transform: scaleX(-1);
 }
 
 .ctas {

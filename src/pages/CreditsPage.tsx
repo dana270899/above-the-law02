@@ -73,7 +73,7 @@ export function CreditsPage() {
         <button
           type="button"
           className={styles.returnButton}
-          onClick={() => navigate('/game')}
+          onClick={() => navigate('/')}
         >
           Return to game
         </button>

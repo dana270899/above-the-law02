@@ -12,7 +12,7 @@
   background: var(--white);
   border: 2px solid var(--black);
   border-radius: 4px;
-  overflow: hidden;
+  overflow: visible;
   display: flex;
   flex-direction: column;
   user-select: none;
@@ -145,14 +145,6 @@
   transform-origin: center;
 }
 
-.fallingPizza {
-  filter: drop-shadow(0 5px 0 rgba(23, 23, 23, 0.12));
-}
-
-.fallingFight {
-  filter: drop-shadow(0 5px 0 rgba(244, 63, 56, 0.12));
-}
-
 .police {
   left: 0;
   top: 443px;
@@ -170,16 +162,12 @@
 }
 
 .policeCollect {
-  filter:
-    drop-shadow(0 0 0 var(--green))
-    brightness(1.08);
+  filter: brightness(1.08);
 }
 
 .policeHit {
   animation: car-hit 180ms linear;
-  filter:
-    drop-shadow(0 0 0 var(--red))
-    brightness(0.98);
+  filter: brightness(0.98);
 }
 
 @keyframes car-hit {
@@ -238,4 +226,9 @@
 
 .footerCta:hover {
   filter: brightness(1.05);
+}
+
+.footerCtaLabel {
+  display: inline-block;
+  transform: translateY(2px);
 }

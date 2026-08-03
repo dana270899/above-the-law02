@@ -1,4 +1,6 @@
 .window {
+  position: relative;
+  isolation: isolate;
   width: 1147px;
   height: 796px;
   background: var(--white);
@@ -8,8 +10,19 @@
   display: flex;
   flex-direction: column;
   font-family: var(--font-main);
-  overflow: hidden;
+  overflow: visible;
   box-shadow: none;
+}
+
+.window::before {
+  content: '';
+  position: absolute;
+  inset: 0 -8px -8px 0;
+  z-index: -1;
+  background: var(--grey);
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  pointer-events: none;
 }
 
 .windowRunning {
@@ -36,6 +49,8 @@
   justify-content: space-between;
   background: var(--white);
   border-bottom: 2px solid var(--black);
+  overflow: hidden;
+  border-radius: 2px 2px 0 0;
 }
 
 .title {
@@ -52,7 +67,6 @@
   align-self: stretch;
 }
 
-.expandIcon,
 .minimizeIcon,
 .closeBtn {
   width: 44px;
@@ -62,33 +76,6 @@
   margin-left: -2px;
   border: 2px solid var(--black);
   padding: 0;
-}
-
-.expandIcon {
-  position: relative;
-  background: var(--green);
-}
-
-.expandIcon::before,
-.expandIcon::after {
-  content: '';
-  position: absolute;
-  width: 11px;
-  height: 11px;
-  border-color: var(--black);
-  border-style: solid;
-}
-
-.expandIcon::before {
-  top: 9px;
-  right: 9px;
-  border-width: 2px 2px 0 0;
-}
-
-.expandIcon::after {
-  bottom: 9px;
-  left: 9px;
-  border-width: 0 0 2px 2px;
 }
 
 .minimizeIcon {
@@ -136,7 +123,6 @@
   background-position: center top;
   background-repeat: no-repeat;
   background-size: cover;
-  filter: grayscale(1);
 }
 
 .holes {

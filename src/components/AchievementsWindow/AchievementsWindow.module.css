@@ -43,6 +43,10 @@
   font-size: 48px;
   font-weight: 700;
   line-height: normal;
+  /* A 4px centered glyph stroke, repainted with the fill on top,
+     leaves the Figma-accurate 2px stroke entirely outside the text. */
+  -webkit-text-stroke: 4px var(--black);
+  paint-order: stroke fill;
   white-space: nowrap;
   pointer-events: none;
   animation: pointsPopup 1400ms ease-out both;
@@ -166,7 +170,8 @@
   font-weight: 700;
   margin: 0;
   white-space: nowrap;
-  -webkit-text-stroke: 2px var(--black);
+  /* Preserve the yellow glyph and expose a full 2px outside stroke. */
+  -webkit-text-stroke: 4px var(--black);
   paint-order: stroke fill;
 }
 

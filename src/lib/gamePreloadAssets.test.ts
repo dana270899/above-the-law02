@@ -180,10 +180,10 @@ describe('assetsForFlowNode', () => {
     const miniGame = flowNode('miniGame', { label: 'Whack' })
     const ranking = flowNode('ranking', { title: 'Ranking' })
 
-    expect(sources(miniGame)).toContain('/images/mini-game/game_bg.svg')
+    expect(sources(miniGame)).toContain('/images/mini-game/game_bg.png')
     expect(sources(miniGame)).toContain('/sounds/Ouch01.mp3')
     expect(sources(ranking)).toContain('/images/ranking-board/Boss on Crocodile.svg')
-    expect(sources(ranking)).not.toContain('/images/mini-game/game_bg.svg')
+    expect(sources(ranking)).not.toContain('/images/mini-game/game_bg.png')
   })
 })
 
