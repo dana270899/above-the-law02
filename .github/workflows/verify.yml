@@ -25,6 +25,9 @@ jobs:
         run: npm ci
 
       - name: Test
+        env:
+          VITE_SUPABASE_URL: https://example.supabase.co
+          VITE_SUPABASE_PUBLISHABLE_KEY: ci-test-key
         run: npm test
 
       - name: Build and verify public boundary
