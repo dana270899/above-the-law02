@@ -426,7 +426,6 @@ export function WhackAMole({ onClose, onContinue, onMinimizeChange, minimized: c
       <div className={styles.titleBar} onMouseDown={handleTitleMouseDown}>
         <span className={styles.title}>Mini Game</span>
         <div className={styles.windowActions}>
-          <span className={styles.expandIcon} aria-hidden="true" />
           <button
             type="button"
             className={styles.minimizeIcon}

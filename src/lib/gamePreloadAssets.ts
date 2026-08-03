@@ -50,7 +50,6 @@ function uniqueAssets(assets: readonly GamePreloadAsset[]): GamePreloadAsset[] {
 }
 
 const CASE_ASSETS: readonly GamePreloadAsset[] = [
-  'expand.svg',
   'minimize.svg',
   'close.svg',
   'arrow-forward.svg',
@@ -64,10 +63,12 @@ const CASE_ASSETS: readonly GamePreloadAsset[] = [
 const DESKTOP_ASSETS: readonly GamePreloadAsset[] = [
   'Cases_Illustration.svg',
   'Operations_Illustration.svg',
+  'Operations_Illustration_Blue.svg',
   'Trash_Illustration_S.svg',
   'Whack_Illustration.svg',
 ].map((filename) => asset('image', `/images/desktop/${filename}`)).concat([
   asset('image', '/images/Logo.svg'),
+  asset('image', '/images/operation-window/lock.svg'),
 ])
 
 const LOGIN_ASSETS: readonly GamePreloadAsset[] = [

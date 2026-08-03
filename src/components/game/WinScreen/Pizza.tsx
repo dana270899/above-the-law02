@@ -334,7 +334,7 @@ export function Pizza({
             onComplete?.()
           }}
         >
-          {winCtaLabel}
+          <span className={styles.footerCtaLabel}>{winCtaLabel}</span>
         </button>
       </div>
     </div>

@@ -170,6 +170,7 @@ export function GamePage() {
   const [miniGameOpen, setMiniGameOpen] = useState(false)
   const [miniGameMinimized, setMiniGameMinimized] = useState(false)
   const [miniGameScoringSession, setMiniGameScoringSession] = useState(false)
+  const [miniGameLockedScreenOpen, setMiniGameLockedScreenOpen] = useState(false)
   const [miniGamePoints, setMiniGamePoints] = useState(0)
   const [flowPoints, setFlowPoints] = useState(0)
   const miniGameContinueRef = useRef<(() => void) | null>(null)
@@ -236,6 +237,7 @@ export function GamePage() {
   const [operationUnlocked, setOperationUnlocked] = useState(
     () => !!startParams.startOperationId,
   )
+  const [operationUnlockAcknowledged, setOperationUnlockAcknowledged] = useState(false)
   const [operationWindowOpen, setOperationWindowOpen] = useState(false)
   const [operationWindowMinimized, setOperationWindowMinimized] = useState(false)
   const [operationWindowMotion, setOperationWindowMotion] = useState<WindowMotion>('idle')
@@ -742,6 +744,16 @@ export function GamePage() {
     }, WINDOW_MOTION_MS)
   }
 
+  const handleOperationIconClick = () => {
+    if (operationUnlocked) {
+      setOperationUnlockAcknowledged(true)
+      openOperationWindow()
+      return
+    }
+    setForegroundDesktopApp('operation')
+    setOperationLockedScreenOpen(true)
+  }
+
   const minimizeOperationWindow = () => {
     if (operationWindowMotionTimeoutRef.current != null) {
       window.clearTimeout(operationWindowMotionTimeoutRef.current)
@@ -1192,22 +1204,8 @@ export function GamePage() {
   )
   const totalScore = runScore.total
 
-  const openCasualMiniGame = () => {
-    miniGameContinueRef.current = null
-    miniGameContinueOnCloseRef.current = false
-    setMiniGameScoringSession(false)
-    setMiniGameOpen(true)
-    setMiniGameMinimized(false)
-    setMiniGameMotionOrigin('desktop')
-    setMiniGameMotion('restoring')
-    if (miniGameMotionTimeoutRef.current != null) window.clearTimeout(miniGameMotionTimeoutRef.current)
-    miniGameMotionTimeoutRef.current = window.setTimeout(() => {
-      setMiniGameMotion('idle')
-      miniGameMotionTimeoutRef.current = null
-    }, WINDOW_MOTION_MS)
-  }
-
   const openScoringMiniGame = (onContinue: () => void, continueOnClose = false) => {
+    setMiniGameLockedScreenOpen(false)
     miniGameContinueRef.current = onContinue
     miniGameContinueOnCloseRef.current = continueOnClose
     setMiniGameScoringSession(true)
@@ -1303,6 +1301,21 @@ export function GamePage() {
       setMiniGameMotion('idle')
       miniGameMotionTimeoutRef.current = null
     }, WINDOW_MOTION_MS)
+  }
+
+  const handleMiniGameIconClick = () => {
+    const availableInFlow = miniGameScoringSession || currentNode?.type === 'miniGame'
+    if (!availableInFlow) {
+      setMiniGameLockedScreenOpen(true)
+      return
+    }
+
+    if (miniGameOpen) {
+      restoreMiniGame()
+      return
+    }
+
+    openScoringMiniGame(advance, true)
   }
 
   const taskbarApps = useMemo<TaskbarApp[]>(() => {
@@ -1417,16 +1430,10 @@ export function GamePage() {
         <div ref={scaleRef} className={styles.canvas} data-scaled-stage>
           <Desktop
             onCasesClick={openCaseWindow}
-            onOperationClick={() => {
-              if (operationUnlocked) {
-                openOperationWindow()
-              } else {
-                setForegroundDesktopApp('operation')
-                setOperationLockedScreenOpen(true)
-              }
-            }}
+            onOperationClick={handleOperationIconClick}
+            operationAttention={operationUnlocked && !operationUnlockAcknowledged}
             onStartClick={() => setVolumeControlVisible((v) => !v)}
-            onWhackClick={openCasualMiniGame}
+            onWhackClick={handleMiniGameIconClick}
           >
             <WinScreenStop
               variant={winImage}
@@ -1471,16 +1478,10 @@ export function GamePage() {
     <div ref={scaleRef} className={styles.canvas} data-scaled-stage>
     <Desktop
       onCasesClick={openCaseWindow}
-      onOperationClick={() => {
-        if (operationUnlocked) {
-          openOperationWindow()
-        } else {
-          setForegroundDesktopApp('operation')
-          setOperationLockedScreenOpen(true)
-        }
-      }}
+      onOperationClick={handleOperationIconClick}
+      operationAttention={operationUnlocked && !operationUnlockAcknowledged}
       onStartClick={() => setVolumeControlVisible((v) => !v)}
-      onWhackClick={openCasualMiniGame}
+      onWhackClick={handleMiniGameIconClick}
       taskbarApps={taskbarApps}
       tutorialOverlay={(() => {
         if (!activeTutorialMsg || caseWindowHighlightTarget) return null
@@ -1654,6 +1655,14 @@ export function GamePage() {
               caseWindowOpen && !caseWindowMinimized ? 'cases' : null,
             )
           }}
+        />
+      )}
+
+      {miniGameLockedScreenOpen && (
+        <OperationLockedScreen
+          windowTitle="Mini Game"
+          message={<>No time for games.<br />Get back to work!</>}
+          onClose={() => setMiniGameLockedScreenOpen(false)}
         />
       )}
 
@@ -1912,21 +1921,15 @@ function BossMessageSlot({
     }
   }, [data.photoCustomId])
 
-  // Voice clip playback. The audio plays on mount; the flow auto-advances
-  // when the clip finishes; the mic icon (see `replayVoice` below) restarts
-  // the clip from t=0. `data.content` holds the URL (e.g. "/sounds/angry01.mp3").
+  // Voice clip playback. The audio plays once on mount and the flow
+  // auto-advances when it finishes. `data.content` holds the URL
+  // (e.g. "/sounds/angry01.mp3").
   //
   // We keep a ref to the latest `onAdvance` so the `ended` listener always
   // calls the current closure — the parent passes a fresh function every
   // render, but the audio effect only re-mounts when the source changes.
-  const audioRef = useRef<HTMLAudioElement | null>(null)
   const onAdvanceRef = useRef(onAdvance)
   useEffect(() => { onAdvanceRef.current = onAdvance }, [onAdvance])
-
-  // Incremented on every playback start (initial mount + replay) — passed
-  // through to BossMessage as `playKey` so the playhead element remounts
-  // and its CSS animation restarts from the left edge of the track.
-  const [playKey, setPlayKey] = useState(0)
 
   useEffect(() => {
     if (data.messageType !== 'voice') return
@@ -1958,11 +1961,9 @@ function BossMessageSlot({
     }
 
     const audio = new Audio(assetUrl(src))
-    audioRef.current = audio
     audio.addEventListener('ended', finish)
     audio.addEventListener('error', scheduleFallback)
     audio.play().catch(scheduleFallback)
-    setPlayKey((k) => k + 1)            // sync playhead with the new playback
 
     return () => {
       if (timer != null) window.clearTimeout(timer)
@@ -1970,20 +1971,8 @@ function BossMessageSlot({
       audio.removeEventListener('error', scheduleFallback)
       audio.pause()
       audio.src = ''
-      audioRef.current = null
     }
   }, [data.messageType, data.content, data.voiceDuration])
-
-  // Mic-icon handler for voice messages: restart playback from the
-  // beginning. Falls back to onAdvance if there is no audio loaded
-  // (empty content, fetch failed, etc.) so the player isn't stuck.
-  const replayVoice = () => {
-    const audio = audioRef.current
-    if (!audio) { onAdvance(); return }
-    audio.currentTime = 0
-    audio.play().catch(() => { /* ignore — mic click should never throw */ })
-    setPlayKey((k) => k + 1)            // re-trigger the playhead animation
-  }
 
   const onClick = () => {
     if ((data.messageType === 'link' || data.messageType === 'photo') && data.buttonLinkType === 'url' && data.buttonUrl) {
@@ -2135,8 +2124,7 @@ function BossMessageSlot({
       } : undefined}
     >
       <BossMessage
-        {...messageDataToBossProps(data, onClick, replayVoice, messagePhotoUrl)}
-        {...(data.messageType === 'voice' ? { playKey } : {})}
+        {...messageDataToBossProps(data, onClick, messagePhotoUrl)}
       />
     </div>
   )

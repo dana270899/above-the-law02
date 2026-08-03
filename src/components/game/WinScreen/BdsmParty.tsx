@@ -190,7 +190,6 @@ export function BdsmParty({
           draggable={false}
         />
         <div className={styles.stage}>
-          <div className={styles.envelopeShadow} />
           <img
             className={styles.envelopeBg}
             src={ENVELOPE_BG_SRC}
@@ -249,7 +248,7 @@ export function BdsmParty({
             onComplete?.()
           }}
         >
-          {winCtaLabel}
+          <span className={styles.footerCtaLabel}>{winCtaLabel}</span>
         </button>
       </div>
     </div>

@@ -87,12 +87,6 @@ export function GameRestartDialog({
         <header className={styles.titleBar}>
           <h2 id="game-restart-title">Game restart</h2>
           <div className={styles.windowControls}>
-            <button className={styles.expand} type="button" aria-label="Keep playing" onClick={stayInGame}>
-              <span aria-hidden="true" />
-            </button>
-            <button className={styles.minimize} type="button" aria-label="Minimize" onClick={stayInGame}>
-              <span aria-hidden="true" />
-            </button>
             <button className={styles.close} type="button" aria-label="Close" onClick={stayInGame}>
               <span aria-hidden="true" />
             </button>

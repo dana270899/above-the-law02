@@ -524,15 +524,13 @@ export function CaseWindow({
       data-case-highlight={highlightTargetId}
       style={positionStyle}
     >
+      <div className={styles.windowSurface}>
       {/* Window head: upper bar + body row. In Figma this whole block
           has height 800px (the footer sits outside it). */}
       <div className={styles.windowHead}>
         <div className={styles.upperBar} onMouseDown={onTitleMouseDown}>
           <div className={styles.upperBarTitle}>Cases</div>
           <div className={styles.upperBarBtns}>
-            <button type="button" className={`${styles.chromeBtn} ${styles.chromeExpand}`} aria-label="Expand">
-              <img src={`${A}/expand.svg`} alt="" />
-            </button>
             <button
               type="button"
               className={`${styles.chromeBtn} ${styles.chromeMinimize}`}
@@ -941,6 +939,7 @@ export function CaseWindow({
           </div>
         </div>
       )}
+      </div>
     </div>
 
     {/* Footage overlay — appears above the case window when a suspicion

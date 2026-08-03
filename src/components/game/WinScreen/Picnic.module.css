@@ -12,7 +12,7 @@
   background: var(--white);
   border: 2px solid var(--black);
   border-radius: 4px;
-  overflow: hidden;
+  overflow: visible;
   display: flex;
   flex-direction: column;
   user-select: none;
@@ -203,4 +203,9 @@
 
 .footerCta:hover {
   filter: brightness(1.05);
+}
+
+.footerCtaLabel {
+  display: inline-block;
+  transform: translateY(2px);
 }

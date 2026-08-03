@@ -14,8 +14,7 @@ import styles from './OperationWindow.module.css'
 
    Pixel-perfect implementation of the Figma "Operation Window"
    symbol (node 315:14495), 1054×734. Title bar mirrors
-   CaseWindow / FootageWindow (green expand / yellow minimize
-   / red close).
+   CaseWindow / FootageWindow (yellow minimize / red close).
 
    The body has two regions:
      • Toggle grid (3 cols × 2 rows, 5 items): Minister of
@@ -140,7 +139,6 @@ export const DEFAULT_OPERATION_DATA: OperationWindowData = {
 type OperationWindowProps = {
   data?: OperationWindowData
   onClose?: () => void
-  onExpand?: () => void
   onMinimizeChange?: (minimized: boolean) => void
   onToggle?: (key: ToggleKey, on: boolean) => void
   onStartOperation?: () => void
@@ -152,7 +150,6 @@ type OperationWindowProps = {
 export function OperationWindow({
   data = DEFAULT_OPERATION_DATA,
   onClose,
-  onExpand,
   onMinimizeChange,
   onToggle,
   onStartOperation,
@@ -250,14 +247,6 @@ export function OperationWindow({
       <div className={styles.upperBar} onMouseDown={onTitleMouseDown}>
         <div className={styles.upperBarTitle}>{data.title}</div>
         <div className={styles.upperBarBtns}>
-          <button
-            type="button"
-            className={`${styles.chromeBtn} ${styles.chromeExpand}`}
-            aria-label="Expand"
-            onClick={onExpand}
-          >
-            <img src={`${CASE_ICONS}/expand.svg`} alt="" />
-          </button>
           <button
             type="button"
             className={`${styles.chromeBtn} ${styles.chromeMinimize}`}

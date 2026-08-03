@@ -8,6 +8,8 @@
    ============================================================ */
 
 .window {
+  position: relative;
+  isolation: isolate;
   width: 1180px;
   max-width: 1888px;
   max-height: 995px;
@@ -17,9 +19,32 @@
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  overflow: clip;
+  overflow: visible;
   font-family: var(--font-main);
   color: var(--black);
+}
+
+.window::before {
+  content: '';
+  position: absolute;
+  inset: 0 -8px -8px 0;
+  z-index: -1;
+  background: var(--grey);
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+/* Foreground inner stroke between the white window and grey frame. */
+.window::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  border-right: 2px solid var(--black);
+  border-bottom: 2px solid var(--black);
+  border-radius: 0 0 4px;
+  pointer-events: none;
 }
 
 .draggable { position: absolute; }
@@ -74,7 +99,6 @@
 
 .chromeBtn img { display: block; width: 100%; height: 100%; }
 
-.chromeExpand   { background: var(--green);  padding: 6px 7px; }
 .chromeMinimize { background: var(--yellow); padding: 8px; }
 .chromeClose    { background: var(--red);    padding: 8px; }
 
@@ -86,6 +110,9 @@
   align-items: center;
   justify-content: center;
   padding: 40px;
+  /* Keep the original Operation surface opaque. The grey backing layer is
+     only the 8px right/bottom frame and must never show through the body. */
+  background: var(--white);
   overflow: clip;
   width: 100%;
 }

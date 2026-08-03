@@ -1,4 +1,9 @@
+import type { ReactNode } from 'react'
+import { assetUrl } from '@/lib/paths'
 import styles from './OperationLockedScreen.module.css'
+
+const CASE_ICONS = assetUrl('/images/case-window')
+const OPERATION_ASSETS = assetUrl('/images/operation-window')
 
 /* ════════════════════════════════════════════════════
    OperationLockedScreen
@@ -13,9 +18,17 @@ export type OperationLockedScreenProps = {
   /** Called when the user dismisses the screen (close button or
    *  backdrop click). */
   onClose: () => void
+  /** Title-bar label. Defaults to the original Operation variant. */
+  windowTitle?: string
+  /** Locked-state explanation shown below the heading. */
+  message?: ReactNode
 }
 
-export function OperationLockedScreen({ onClose }: OperationLockedScreenProps) {
+export function OperationLockedScreen({
+  onClose,
+  windowTitle = 'Operation',
+  message = "You'll know when it's time for operations. Until then, back to work!",
+}: OperationLockedScreenProps) {
   return (
     <div
       className={styles.backdrop}
@@ -29,68 +42,30 @@ export function OperationLockedScreen({ onClose }: OperationLockedScreenProps) {
         aria-modal="true"
         aria-labelledby="op-locked-title"
       >
-        <button
-          type="button"
-          className={styles.closeBtn}
-          onClick={onClose}
-          aria-label="Close"
-        >
-          ×
-        </button>
+        <div className={styles.cardSurface}>
+          <header className={styles.titleBar}>
+            <span className={styles.windowTitle}>{windowTitle}</span>
+            <button
+              type="button"
+              className={styles.closeBtn}
+              onClick={onClose}
+              aria-label="Close"
+            >
+              <img src={`${CASE_ICONS}/close.svg`} alt="" />
+            </button>
+          </header>
 
-        <LockIcon />
-
-        <h2 id="op-locked-title" className={styles.title}>
-          Operation locked
-        </h2>
-        <p className={styles.body}>
-          You can't launch an operation yet. Keep reviewing cases — the
-          boss will let you know when it's time.
-        </p>
-
-        <button
-          type="button"
-          className={styles.okBtn}
-          onClick={onClose}
-        >
-          OK
-        </button>
+          <div className={styles.content}>
+            <div className={styles.lockBadge} aria-hidden="true">
+              <img src={`${OPERATION_ASSETS}/lock.svg`} alt="" />
+            </div>
+            <div className={styles.message}>
+              <h2 id="op-locked-title" className={styles.title}>Locked</h2>
+              <p className={styles.body}>{message}</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  )
-}
-
-/* Padlock icon — inline so we don't rely on extra asset files. */
-function LockIcon() {
-  return (
-    <svg
-      className={styles.icon}
-      viewBox="0 0 64 64"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-    >
-      {/* Shackle */}
-      <path
-        d="M20 28 V20 a12 12 0 0 1 24 0 V28"
-        fill="none"
-        stroke="#171717"
-        strokeWidth="5"
-        strokeLinecap="round"
-      />
-      {/* Body */}
-      <rect
-        x="12"
-        y="28"
-        width="40"
-        height="30"
-        rx="5"
-        fill="#ffd400"
-        stroke="#171717"
-        strokeWidth="3"
-      />
-      {/* Keyhole */}
-      <circle cx="32" cy="40" r="4" fill="#171717" />
-      <rect x="30" y="40" width="4" height="10" fill="#171717" />
-    </svg>
   )
 }

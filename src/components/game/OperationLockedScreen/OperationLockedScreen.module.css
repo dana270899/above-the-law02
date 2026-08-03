@@ -14,66 +14,145 @@
 
 .card {
   position: relative;
-  background: #fffdf3;
-  border: 2px solid #171717;
-  border-radius: 8px;
-  padding: 32px 36px 28px;
-  width: min(420px, 80vw);
-  box-shadow: 6px 6px 0 rgba(0, 0, 0, 0.18);
+  width: 367px;
+  height: 280px;
+  padding: 0 8px 8px 0;
+  background: var(--grey);
+  border: 0;
+  border-radius: 4px;
+  overflow: visible;
+  font-family: var(--font-main);
+}
+
+/* Match the Cases frame: this is the outer stroke around the grey layer. */
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+.cardSurface {
+  position: relative;
   display: flex;
+  width: 100%;
+  height: 100%;
   flex-direction: column;
+  align-items: stretch;
+  background: var(--white);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+/* Inner stroke separating the white dialog from the grey right/bottom
+   border. It stays above the content so no fill can cover it. */
+.cardSurface::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  border-right: 2px solid var(--black);
+  border-bottom: 2px solid var(--black);
+  border-radius: 0 0 4px;
+  pointer-events: none;
+}
+
+.titleBar {
+  width: 100%;
+  height: 40px;
+  flex: 0 0 40px;
+  display: flex;
   align-items: center;
-  text-align: center;
-  font-family: 'ArbelHagilda', sans-serif;
+  justify-content: space-between;
+  background: var(--white);
+  border-bottom: 2px solid var(--black);
+  overflow: clip;
+}
+
+.windowTitle {
+  padding: 0 16px;
+  color: var(--grey);
+  font-size: 22px;
+  line-height: 28px;
+  white-space: nowrap;
 }
 
 .closeBtn {
-  position: absolute;
-  top: 6px;
-  right: 12px;
-  background: transparent;
-  border: none;
-  font-size: 28px;
-  line-height: 1;
-  color: #171717;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  background: var(--red);
+  border: 0;
+  border-left: 2px solid var(--black);
   cursor: var(--cursor-hover);
-  padding: 2px 6px;
-}
-.closeBtn:hover {
-  color: #555;
 }
 
-.icon {
-  width: 96px;
-  height: 96px;
-  margin-bottom: 14px;
+.closeBtn img {
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+
+.content {
+  width: 100%;
+  height: 232px;
+  flex: 0 0 232px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 32px 40px 40px;
+  background: var(--white);
+  overflow: clip;
+}
+
+.lockBadge {
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  background: var(--red);
+  border: 0;
+  outline: 2px solid var(--black);
+  outline-offset: -2px;
+  border-radius: 4px;
+}
+
+.lockBadge img {
+  display: block;
+  width: 32px;
+  height: 32px;
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  color: var(--black);
+  text-align: center;
 }
 
 .title {
-  font-family: 'ArbelHagilda', sans-serif;
-  font-size: 28px;
+  width: 279px;
+  font: inherit;
+  font-size: 32px;
+  line-height: 30px;
   font-weight: 400;
-  margin: 0 0 10px;
-  color: #171717;
 }
 
 .body {
-  font-size: 16px;
-  line-height: 22px;
-  color: #444;
-  margin: 0 0 22px;
-}
-
-.okBtn {
-  font-family: 'ArbelHagilda', sans-serif;
-  background: #2f9e63;
-  color: #fff;
-  border: 2px solid #171717;
-  border-radius: 4px;
-  padding: 8px 28px;
+  width: 225px;
   font-size: 18px;
-  cursor: var(--cursor-hover);
-}
-.okBtn:hover {
-  filter: brightness(1.05);
+  line-height: 18px;
 }

@@ -1,0 +1,80 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<rect width="120" height="120" fill="white"/>
+<g id="Elements">
+<path d="M-1044 -443C-1044 -444.105 -1043.1 -445 -1042 -445H1141C1142.1 -445 1143 -444.105 1143 -443V3429C1143 3430.1 1142.1 3431 1141 3431H-1042C-1043.1 3431 -1044 3430.1 -1044 3429V-443Z" fill="white"/>
+<path d="M-1042 -445V-425H1141V-445V-465H-1042V-445ZM1143 -443H1123V3429H1143H1163V-443H1143ZM1141 3431V3411H-1042V3431V3451H1141V3431ZM-1044 3429H-1024V-443H-1044H-1064V3429H-1044ZM-1042 3431V3411C-1032.06 3411 -1024 3419.06 -1024 3429H-1044H-1064C-1064 3441.15 -1054.15 3451 -1042 3451V3431ZM1143 3429H1123C1123 3419.06 1131.06 3411 1141 3411V3431V3451C1153.15 3451 1163 3441.15 1163 3429H1143ZM1141 -445V-425C1131.06 -425 1123 -433.058 1123 -443H1143H1163C1163 -455.151 1153.15 -465 1141 -465V-445ZM-1042 -445V-465C-1054.15 -465 -1064 -455.15 -1064 -443H-1044H-1024C-1024 -433.059 -1032.06 -425 -1042 -425V-445Z" fill="black" fill-opacity="0.1"/>
+<g id="Operations_Interaction">
+<rect x="-19.5" y="-159.5" width="159" height="299" rx="4.5" stroke="#9747FF" stroke-dasharray="10 5"/>
+<g id="Property 1=Variant2">
+<g id="Operations_Illustration" clip-path="url(#clip0_140_112)">
+<g id="Rectangle 14">
+<path d="M26.3998 93.8H93.6C100.117 93.8 105.4 99.083 105.4 105.6V118.4C105.4 118.731 105.131 119 104.8 119H15.1996C14.8684 119 14.6 118.731 14.6 118.4V105.6C14.6001 99.083 19.883 93.8002 26.3998 93.8Z" fill="#FFF0AC"/>
+<path d="M26.3998 93.8H93.6C100.117 93.8 105.4 99.083 105.4 105.6V118.4C105.4 118.731 105.131 119 104.8 119H15.1996C14.8684 119 14.6 118.731 14.6 118.4V105.6C14.6001 99.083 19.883 93.8002 26.3998 93.8Z" fill="url(#pattern0_140_112)" fill-opacity="0.4"/>
+<path d="M26.3998 93.8H93.6C100.117 93.8 105.4 99.083 105.4 105.6V118.4C105.4 118.731 105.131 119 104.8 119H15.1996C14.8684 119 14.6 118.731 14.6 118.4V105.6C14.6001 99.083 19.883 93.8002 26.3998 93.8Z" stroke="#171717" stroke-width="2"/>
+</g>
+<g id="Rectangle 15">
+<path d="M91.7998 33.8V99.2004C91.7996 105.717 86.5168 111 80 111H40.7998C34.2831 111 29.0002 105.717 29 99.2004V33.8H91.7998Z" fill="#FFA63A"/>
+<path d="M91.7998 33.8V99.2004C91.7996 105.717 86.5168 111 80 111H40.7998C34.2831 111 29.0002 105.717 29 99.2004V33.8H91.7998Z" fill="url(#pattern1_140_112)" fill-opacity="0.3" style="mix-blend-mode:luminosity"/>
+<path d="M91.7998 33.8V99.2004C91.7996 105.717 86.5168 111 80 111H40.7998C34.2831 111 29.0002 105.717 29 99.2004V33.8H91.7998Z" stroke="#171717" stroke-width="2"/>
+</g>
+<g id="Ellipse 7">
+<path d="M60.4004 25C69.0817 25 76.9256 25.9779 82.6475 27.5479C85.5136 28.3343 87.7988 29.2563 89.3828 30.2461C91.0064 31.2607 91.687 32.2133 91.7861 32.9863C91.7953 33.0576 91.7998 33.129 91.7998 33.2002C91.7997 33.7541 91.5149 34.4054 90.7295 35.1416C89.9433 35.8784 88.7382 36.6174 87.126 37.3164C81.5189 39.7474 71.688 41.4004 60.4004 41.4004C49.1126 41.4004 39.281 39.7474 33.6738 37.3164C32.0617 36.6175 30.8574 35.8784 30.0713 35.1416C29.2857 34.4053 29.0001 33.7542 29 33.2002C29 33.129 29.0045 33.0575 29.0137 32.9863C29.1128 32.2133 29.7934 31.2607 31.417 30.2461C33.001 29.2563 35.2863 28.3343 38.1523 27.5479C43.8743 25.9778 51.7189 25 60.4004 25Z" fill="#FF8800"/>
+<path d="M60.4004 25C69.0817 25 76.9256 25.9779 82.6475 27.5479C85.5136 28.3343 87.7988 29.2563 89.3828 30.2461C91.0064 31.2607 91.687 32.2133 91.7861 32.9863C91.7953 33.0576 91.7998 33.129 91.7998 33.2002C91.7997 33.7541 91.5149 34.4054 90.7295 35.1416C89.9433 35.8784 88.7382 36.6174 87.126 37.3164C81.5189 39.7474 71.688 41.4004 60.4004 41.4004C49.1126 41.4004 39.281 39.7474 33.6738 37.3164C32.0617 36.6175 30.8574 35.8784 30.0713 35.1416C29.2857 34.4053 29.0001 33.7542 29 33.2002C29 33.129 29.0045 33.0575 29.0137 32.9863C29.1128 32.2133 29.7934 31.2607 31.417 30.2461C33.001 29.2563 35.2863 28.3343 38.1523 27.5479C43.8743 25.9778 51.7189 25 60.4004 25Z" fill="url(#pattern2_140_112)" fill-opacity="0.1"/>
+<path d="M60.4004 25C69.0817 25 76.9256 25.9779 82.6475 27.5479C85.5136 28.3343 87.7988 29.2563 89.3828 30.2461C91.0064 31.2607 91.687 32.2133 91.7861 32.9863C91.7953 33.0576 91.7998 33.129 91.7998 33.2002C91.7997 33.7541 91.5149 34.4054 90.7295 35.1416C89.9433 35.8784 88.7382 36.6174 87.126 37.3164C81.5189 39.7474 71.688 41.4004 60.4004 41.4004C49.1126 41.4004 39.281 39.7474 33.6738 37.3164C32.0617 36.6175 30.8574 35.8784 30.0713 35.1416C29.2857 34.4053 29.0001 33.7542 29 33.2002C29 33.129 29.0045 33.0575 29.0137 32.9863C29.1128 32.2133 29.7934 31.2607 31.417 30.2461C33.001 29.2563 35.2863 28.3343 38.1523 27.5479C43.8743 25.9778 51.7189 25 60.4004 25Z" stroke="#171717" stroke-width="2"/>
+</g>
+<g id="Rectangle 16">
+<path d="M91.7998 93.8V99.2004C91.7996 105.717 86.5168 111 80 111H40.7998C34.2831 111 29.0002 105.717 29 99.2004V93.8H91.7998Z" fill="#EB332E" fill-opacity="0.16"/>
+<path d="M91.7998 93.8V99.2004C91.7996 105.717 86.5168 111 80 111H40.7998C34.2831 111 29.0002 105.717 29 99.2004V93.8H91.7998Z" fill="url(#pattern3_140_112)" fill-opacity="0.2" style="mix-blend-mode:luminosity"/>
+<path d="M91.7998 93.8V99.2004C91.7996 105.717 86.5168 111 80 111H40.7998C34.2831 111 29.0002 105.717 29 99.2004V93.8H91.7998Z" stroke="#171717" stroke-width="2"/>
+</g>
+<path id="Line 7" d="M23.2 58.3999H6.39995" stroke="#171717" stroke-width="2" stroke-linecap="round"/>
+<path id="Line 8" d="M112.8 58.3999H96" stroke="#171717" stroke-width="2" stroke-linecap="round"/>
+<path id="Line 9" d="M107.879 12.8L95.9999 24.6794" stroke="#171717" stroke-width="2" stroke-linecap="round"/>
+<path id="Line 11" d="M12.8 12.8L24.6794 24.6794" stroke="#171717" stroke-width="2" stroke-linecap="round"/>
+<path id="Line 10" d="M60 1.59985L60 19.1999" stroke="#171717" stroke-width="2" stroke-linecap="round"/>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<clipPath id="clip0_140_112">
+<rect width="120" height="120" fill="white"/>
+</clipPath>
+<pattern id="pattern0_140_112" patternUnits="userSpaceOnUse" patternTransform="matrix(348 0 0 696 13.6 92.8)" preserveAspectRatio="none" viewBox="0 0 174 348" width="1" height="1">
+<use xlink:href="#pattern0_140_112_inner" transform="translate(-174 0)"/>
+<g id="pattern0_140_112_inner">
+<g id="Property 1=Variant2_2">
+<rect width="174" height="174" fill="#FFF04F"/>
+<g id="vintage-comic-style-dots-texture 1">
+<rect width="174" height="174" style="mix-blend-mode:color-burn"/>
+</g>
+</g>
+</g>
+<use xlink:href="#pattern0_140_112_inner" transform="translate(-87 174)"/>
+<use xlink:href="#pattern0_140_112_inner" transform="translate(87 174)"/>
+</pattern><pattern id="pattern1_140_112" patternUnits="userSpaceOnUse" patternTransform="matrix(348 0 0 696 28 32.8)" preserveAspectRatio="none" viewBox="0 0 174 348" width="1" height="1">
+<use xlink:href="#pattern1_140_112_inner" transform="translate(-174 0)"/>
+<g id="pattern1_140_112_inner">
+<g id="Property 1=Default">
+<rect width="174" height="174" fill="white"/>
+<rect id="vintage-comic-style-dots-texture 1_2" width="174" height="174"/>
+</g>
+</g>
+<use xlink:href="#pattern1_140_112_inner" transform="translate(-87 174)"/>
+<use xlink:href="#pattern1_140_112_inner" transform="translate(87 174)"/>
+</pattern><pattern id="pattern2_140_112" patternUnits="userSpaceOnUse" patternTransform="matrix(348 0 0 348 28 24)" preserveAspectRatio="none" viewBox="0 0 174 174" width="1" height="1">
+<g id="pattern2_140_112_inner">
+<g id="Property 1=Default">
+<rect width="174" height="174" fill="white"/>
+<rect id="vintage-comic-style-dots-texture 1_2" width="174" height="174"/>
+</g>
+</g>
+</pattern><pattern id="pattern3_140_112" patternUnits="userSpaceOnUse" patternTransform="matrix(208.8 0 0 208.8 28 92.8)" preserveAspectRatio="none" viewBox="0 0 174 174" width="1" height="1">
+<g id="pattern3_140_112_inner">
+<g id="Property 1=Default">
+<rect width="174" height="174" fill="white"/>
+<rect id="vintage-comic-style-dots-texture 1_2" width="174" height="174"/>
+</g>
+</g>
+</pattern></defs>
+</svg>

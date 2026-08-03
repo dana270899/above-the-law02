@@ -419,7 +419,7 @@ export function PunchingDummyClick({
             onComplete?.()
           }}
         >
-          {winCtaLabel}
+          <span className={styles.footerCtaLabel}>{winCtaLabel}</span>
         </button>
       </div>
     </div>

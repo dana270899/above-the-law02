@@ -19,15 +19,10 @@ type Common = {
 
 type VoiceProps = Common & {
   type: 'voice'
-  onPlay?: () => void
   /** Optional subtitle rendered below the voice track. */
   subtitle?: string
   /** Voice clip length in seconds — drives the playhead animation. */
   duration?: number
-  /** Bump this to restart the playhead animation from the beginning
-   *  (used when the player taps the mic to replay the clip). Acts as
-   *  a React `key` on the playhead so it remounts. */
-  playKey?: number
 }
 
 type TextProps = Common & {
@@ -80,20 +75,12 @@ export function BossMessage(props: BossMessageProps) {
               <>
                 <div className={styles.voice}>
                   <div className={styles.voiceTrack} />
-                  <button
-                    type="button"
-                    className={styles.voiceMicBtn}
-                    aria-label="Play voice message"
-                    onClick={(props as VoiceProps).onPlay}
-                  >
+                  <div className={styles.voiceMic}>
                     <img src={assetUrl('/images/boss/mic.svg')} alt="" className={styles.voiceMicIcon} />
-                  </button>
+                  </div>
                   {/* Yellow playhead — CSS animates `left` from start of
-                      track to end over `--voice-duration` seconds. The
-                      `key` prop forces a remount on each replay so the
-                      animation restarts from the beginning. */}
+                      track to end over `--voice-duration` seconds. */}
                   <div
-                    key={(props as VoiceProps).playKey ?? 0}
                     className={styles.voicePlayhead}
                     style={{
                       ['--voice-duration' as string]:

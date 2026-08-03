@@ -47,17 +47,73 @@
   min-height: 0;
 }
 
+/* The original window keeps its existing flat structure. V2 turns
+   this element into the exact nested inner window from Figma. */
+.windowSurface {
+  display: contents;
+}
+
 /* CaseWindowV2 — Figma 578:25827 fixed window geometry. Figma strokes
    render inside the authored dimensions, so structural borders use
    outlines/inset shadows to avoid shrinking their content boxes. */
 .caseWindowV2 {
+  position: relative;
   width: 1152px;
-  height: 898px;
+  height: 906px;
   border: 0;
-  outline: 2px solid var(--black);
+  outline: 0;
+  box-shadow: none;
+  border-radius: 4px;
+  padding: 0 8px 8px 0;
+  background: var(--grey);
+  overflow: visible;
+}
+
+/* Figma 955:71355 has a complete outer stroke around the grey frame.
+   Keep it above the inner Case Window so the white/sidebar layers cannot
+   cover the shared left edge. The top/left strokes overlap the inner frame
+   at the same coordinates, so they remain one crisp 2px line. */
+.caseWindowV2::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+.caseWindowV2 .windowSurface {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  align-items: stretch;
+  background: var(--white);
+  outline: 0;
+  border-radius: 4px;
+  overflow: clip;
+}
+
+/* Keep the inner right/bottom frame above the body and footer fills.
+   An inset shadow sat behind those children and disappeared in places. */
+.caseWindowV2 .windowSurface::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  border-right: 2px solid var(--black);
+  border-bottom: 2px solid var(--black);
+  border-radius: 0 0 4px;
+  pointer-events: none;
 }
 
 .caseWindowV2.windowMinimized {
+  height: auto;
+}
+
+.caseWindowV2.windowMinimized .windowSurface {
   height: auto;
 }
 
@@ -68,8 +124,28 @@
 
 .caseWindowV2 .upperBar {
   height: 40px;
-  border-bottom: 0;
-  box-shadow: inset 0 -2px var(--black);
+  border: 2px solid var(--black);
+  box-shadow: none;
+}
+
+.caseWindowV2 .upperBarBtns {
+  height: 40px;
+  margin: -2px -2px -2px 0;
+  align-self: auto;
+}
+
+/* Each Figma control is a complete 40px bordered square. The -2px
+   overlap keeps shared dividers at one stroke instead of two. */
+.caseWindowV2 .chromeBtn {
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  border: 2px solid var(--black);
+  margin-right: -2px;
+}
+
+.caseWindowV2 .chromeClose {
+  margin-right: 0;
 }
 
 .caseWindowV2 .bodyRow {
@@ -215,7 +291,6 @@
 
 .chromeBtn img { display: block; width: 100%; height: 100%; }
 
-.chromeExpand   { background: var(--green); padding: 6px 7px; }
 .chromeMinimize { background: var(--yellow); padding: 8px; }
 .chromeClose    { background: var(--red);    padding: 8px; }
 
@@ -983,7 +1058,9 @@
 .caseWindowV2 [data-spot='case.suspicions'] .attachBtn {
   width: 203px;
   min-height: 44px;
+  margin-right: 8px;
   padding: 6px 16px;
+  justify-self: end;
   justify-content: space-between;
   border-radius: 3px;
   font-size: 22px;

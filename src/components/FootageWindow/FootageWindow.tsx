@@ -20,8 +20,8 @@ import styles from './FootageWindow.module.css'
      - "Footage_window_jewish_violence" (node 450:10818) → 'jewish-violence'
      - "Footage_indecent_exposure"      (node 486:20465) → 'indecent-exposure'
 
-   The chrome title bar mirrors CaseWindow (green expand / yellow
-   minimize / red close) and uses the same icon SVGs from
+   The chrome title bar contains only a red close control and uses
+   the same icon SVGs from
    /images/case-window/.
 
    The body (the "sketch") is a single 842×474 SVG export per variant
@@ -84,8 +84,6 @@ type FootageWindowProps = {
   /** Which sketch body to render. Defaults to 'graffiti'. */
   variant?: FootageVariant
   onClose?: () => void
-  onExpand?: () => void
-  onMinimizeChange?: (minimized: boolean) => void
   /** When true, the window becomes absolute-positioned and draggable by its title bar. */
   draggable?: boolean
   className?: string
@@ -95,12 +93,9 @@ export function FootageWindow({
   data = DEFAULT_FOOTAGE_DATA,
   variant = 'graffiti',
   onClose,
-  onExpand,
-  onMinimizeChange,
   draggable = false,
   className,
 }: FootageWindowProps) {
-  const [minimized, setMinimized] = useState(false)
   const [title] = useState(
     () => `footage #${Math.floor(10_000_000 + Math.random() * 90_000_000)}`,
   )
@@ -113,13 +108,6 @@ export function FootageWindow({
     startX: number; startY: number; originX: number; originY: number
   } | null>(null)
   const windowRef = useRef<HTMLDivElement | null>(null)
-
-  function handleMinimize() {
-    setMinimized((m) => {
-      onMinimizeChange?.(!m)
-      return !m
-    })
-  }
 
   /* --- Drag (only when draggable) -------------------- */
   function onTitleMouseDown(e: ReactMouseEvent<HTMLDivElement>) {
@@ -198,13 +186,13 @@ export function FootageWindow({
 
   const playVideo = useCallback(() => {
     const video = videoRef.current
-    if (!video || !isVideoVariant || minimized) return
+    if (!video || !isVideoVariant) return
     video.muted = !soundEnabled
     video.volume = soundEnabled ? 1 : 0
     video.play().catch(() => {
       /* Some browsers still require an extra user gesture for audible media. */
     })
-  }, [isVideoVariant, minimized, soundEnabled])
+  }, [isVideoVariant, soundEnabled])
 
   useEffect(() => {
     if (!isVideoVariant) {
@@ -214,12 +202,6 @@ export function FootageWindow({
 
     const video = videoRef.current
     if (!video) return
-
-    if (minimized) {
-      video.pause()
-      releaseAudioDuck()
-      return
-    }
 
     applyAudioDuck()
     playVideo()
@@ -235,7 +217,7 @@ export function FootageWindow({
       window.removeEventListener('keydown', retryPlay)
       releaseAudioDuck()
     }
-  }, [applyAudioDuck, isVideoVariant, minimized, playVideo, releaseAudioDuck])
+  }, [applyAudioDuck, isVideoVariant, playVideo, releaseAudioDuck])
 
   function handleVideoStopped() {
     releaseAudioDuck()
@@ -247,61 +229,46 @@ export function FootageWindow({
       className={[
         styles.window,
         draggable ? styles.draggable : '',
-        minimized ? styles.windowMinimized : '',
         className,
       ].filter(Boolean).join(' ')}
       style={positionStyle}
     >
-      {/* Title bar */}
-      <div className={styles.upperBar} onMouseDown={onTitleMouseDown}>
-        <div className={styles.upperBarTitle}>{title}</div>
-        <div className={styles.upperBarBtns}>
-          <button
-            type="button"
-            className={`${styles.chromeBtn} ${styles.chromeExpand}`}
-            aria-label="Expand"
-            onClick={onExpand}
-          >
-            <img src={`${CASE_ICONS}/expand.svg`} alt="" />
-          </button>
-          <button
-            type="button"
-            className={`${styles.chromeBtn} ${styles.chromeMinimize}`}
-            aria-label={minimized ? 'Restore' : 'Minimize'}
-            onClick={handleMinimize}
-          >
-            <img src={`${CASE_ICONS}/minimize.svg`} alt="" />
-          </button>
-          <button
-            type="button"
-            className={`${styles.chromeBtn} ${styles.chromeClose}`}
-            aria-label="Close"
-            onClick={onClose}
-          >
-            <img src={`${CASE_ICONS}/close.svg`} alt="" />
-          </button>
+      <div className={styles.windowSurface}>
+        {/* Title bar */}
+        <div className={styles.upperBar} onMouseDown={onTitleMouseDown}>
+          <div className={styles.upperBarTitle}>{title}</div>
+          <div className={styles.upperBarBtns}>
+            <button
+              type="button"
+              className={`${styles.chromeBtn} ${styles.chromeClose}`}
+              aria-label="Close"
+              onClick={onClose}
+            >
+              <img src={`${CASE_ICONS}/close.svg`} alt="" />
+            </button>
+          </div>
         </div>
-      </div>
 
-      {/* Sketch — the CCTV footage scene. One 842×474 SVG per static
-          variant, or a looping `<video>` for live-footage variants. */}
-      <div className={styles.sketch}>
-        {isVideoVariant ? (
-          <video
-            ref={videoRef}
-            className={styles.sketchImg}
-            src={VARIANT_SRC[variant]}
-            autoPlay
-            loop
-            muted={!soundEnabled}
-            playsInline
-            onCanPlay={playVideo}
-            onPause={handleVideoStopped}
-            onEnded={handleVideoStopped}
-          />
-        ) : (
-          <img className={styles.sketchImg} src={VARIANT_SRC[variant]} alt="" />
-        )}
+        {/* Sketch — the CCTV footage scene. One 842×474 SVG per static
+            variant, or a looping `<video>` for live-footage variants. */}
+        <div className={styles.sketch}>
+          {isVideoVariant ? (
+            <video
+              ref={videoRef}
+              className={styles.sketchImg}
+              src={VARIANT_SRC[variant]}
+              autoPlay
+              loop
+              muted={!soundEnabled}
+              playsInline
+              onCanPlay={playVideo}
+              onPause={handleVideoStopped}
+              onEnded={handleVideoStopped}
+            />
+          ) : (
+            <img className={styles.sketchImg} src={VARIANT_SRC[variant]} alt="" />
+          )}
+        </div>
       </div>
     </div>
   )
