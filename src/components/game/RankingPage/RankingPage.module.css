@@ -213,7 +213,7 @@
 }
 
 .rank {
-  font-size: 40px;
+  font-size: 32px;
   font-weight: 400;
   line-height: 64px;
   text-align: center;
@@ -262,6 +262,14 @@
 .currentRow .playerName,
 .currentRow .playerScore {
   background: var(--yellow);
+}
+
+.playerNameText {
+  min-width: 0;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .skeletonRows {

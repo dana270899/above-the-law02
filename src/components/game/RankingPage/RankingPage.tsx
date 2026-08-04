@@ -93,7 +93,7 @@ export function RankingPage({
       try {
         setError('')
         if (entryMode) {
-          const remoteEntries = await preloadVisibleLeaderboardPhotos(await fetchLeaderboard(10))
+          const remoteEntries = await preloadVisibleLeaderboardPhotos(await fetchLeaderboard())
           if (!active) return
           setEntries(remoteEntries)
           setStatus('ready')
@@ -150,7 +150,11 @@ export function RankingPage({
     : hasPublishedEntry
       ? entries.find((entry) => entry.isCurrentPlayer)?.id ?? localEntry.id
       : localEntry.id
-  const { visible: shown } = buildLeaderboardDisplay(withCurrentPlayer, currentPlayerId)
+  const { visible: shown } = buildLeaderboardDisplay(
+    withCurrentPlayer,
+    currentPlayerId,
+    entryMode ? withCurrentPlayer.length : 10,
+  )
   const isRankingLoading = status === 'loading' || status === 'publishing'
 
   const syncScrollbar = useCallback(() => {
@@ -298,7 +302,9 @@ export function RankingPage({
                         />
                       )}
                     </span>
-                    <span className={styles.playerName}>{entry.playerName}</span>
+                    <span className={styles.playerName} title={entry.playerName}>
+                      <span className={styles.playerNameText}>{entry.playerName}</span>
+                    </span>
                     <span className={styles.playerScore}>
                       {entry.score.toLocaleString('en-US')} points
                     </span>

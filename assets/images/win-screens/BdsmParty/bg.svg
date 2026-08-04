@@ -8,10 +8,9 @@
 <clipPath id="clip0_672_40127">
 <rect width="1920" height="1080" fill="white"/>
 </clipPath>
-<pattern id="pattern0_672_40127" patternUnits="userSpaceOnUse" patternTransform="matrix(463.75 0 0 463.75 -44 -56)" preserveAspectRatio="none" viewBox="0 0 1855 1855" width="1" height="1">
+<pattern id="pattern0_672_40127" patternUnits="userSpaceOnUse" patternTransform="matrix(649.25 0 0 649.25 692.375 215.875)" preserveAspectRatio="none" viewBox="0 0 1855 1855" width="1" height="1">
 <g id="pattern0_672_40127_inner">
 <g clip-path="url(#clip1_672_40127)">
-<rect width="1855" height="1855" fill="white"/>
 <g clip-path="url(#clip2_672_40127)">
 <path d="M355.128 1149.3C356.245 1153.51 354.561 1157.7 350.295 1159.09C346.633 1160.28 342.967 1158.25 341.821 1154.47L355.14 1149.3L355.128 1149.3Z" fill="#171717"/>
 <path d="M285.158 1176.49C286.314 1180.72 284.674 1184.88 280.326 1186.28C276.683 1187.44 273.022 1185.43 271.84 1181.67L285.158 1176.49Z" fill="#171717"/>

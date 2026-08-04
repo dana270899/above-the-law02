@@ -129,16 +129,19 @@
 }
 
 .policeHit {
-  animation: car-hit 180ms linear;
+  animation: car-hit 280ms linear;
   filter: brightness(0.98);
 }
 
 @keyframes car-hit {
-  0% { transform: translateX(var(--car-x)); }
-  25% { transform: translateX(calc(var(--car-x) - 10px)); }
-  50% { transform: translateX(calc(var(--car-x) + 10px)); }
-  75% { transform: translateX(calc(var(--car-x) - 5px)); }
-  100% { transform: translateX(var(--car-x)); }
+  0%, 100% { transform: translate(var(--car-x), 0); }
+  12.5% { transform: translate(calc(var(--car-x) - 12px), -2px); }
+  25% { transform: translate(calc(var(--car-x) + 12px), 2px); }
+  37.5% { transform: translate(calc(var(--car-x) - 10px), 1px); }
+  50% { transform: translate(calc(var(--car-x) + 10px), -2px); }
+  62.5% { transform: translate(calc(var(--car-x) - 7px), 2px); }
+  75% { transform: translate(calc(var(--car-x) + 7px), -1px); }
+  87.5% { transform: translate(calc(var(--car-x) - 3px), 1px); }
 }
 
 .debug .fallingItem,

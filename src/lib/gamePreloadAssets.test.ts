@@ -151,6 +151,7 @@ describe('assetsForFlowNode', () => {
       kind: 'image',
       src: '/images/win-screens/Pizza/Police.svg',
     })
+    expect(result).toContainEqual({ kind: 'audio', src: '/sounds/Burp.mp3' })
     expect(sources(node)).not.toContain('/images/win-screens/Pizza/bg.svg')
     expect(sources(node)).not.toContain('/sounds/notification.mp3')
   })

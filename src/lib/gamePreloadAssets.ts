@@ -236,6 +236,7 @@ function winAssets(node: Extract<GameFlowNode, { type: 'result' }>): GamePreload
         asset('image', '/images/win-screens/Pizza/Fight.svg'),
         asset('image', '/images/win-screens/Pizza/Pizza.svg'),
         asset('image', '/images/win-screens/Pizza/Police.svg'),
+        asset('audio', '/sounds/Burp.mp3'),
       )
       break
 

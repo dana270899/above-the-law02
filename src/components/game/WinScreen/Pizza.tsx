@@ -13,6 +13,7 @@ const ASSET_ROOT = assetUrl('/images/win-screens/Pizza')
 const FIGHT_SRC = `${ASSET_ROOT}/Fight.svg`
 const PIZZA_SRC = `${ASSET_ROOT}/Pizza.svg`
 const POLICE_SRC = `${ASSET_ROOT}/Police.svg`
+const BURP_SOUND_SRC = assetUrl('/sounds/Burp.mp3')
 const DEFAULT_WIN_TITLE = 'Win'
 const DEFAULT_WIN_FOOTER_TEXT = 'Winning is so good'
 const DEFAULT_WIN_CTA_LABEL = 'Love this job, next case!'
@@ -81,6 +82,13 @@ export function Pizza({
   const scoreRef = useRef(0)
   const hitsRef = useRef(0)
   const feedbackTimeoutRef = useRef<number | null>(null)
+  const burpAudioRef = useRef<HTMLAudioElement | null>(null)
+
+  function playBurpSound() {
+    const source = burpAudioRef.current
+    const audio = source ? source.cloneNode(true) as HTMLAudioElement : new Audio(BURP_SOUND_SRC)
+    audio.play().catch(() => { /* Audio may be blocked before a user gesture. */ })
+  }
 
   function setLiveCarX(nextX: number) {
     const clampedX = Math.max(0, Math.min(DESIGN_WIDTH - CAR_WIDTH, nextX))
@@ -102,7 +110,7 @@ export function Pizza({
     feedbackTimeoutRef.current = window.setTimeout(() => {
       setCarFeedback(null)
       feedbackTimeoutRef.current = null
-    }, 220)
+    }, type === 'hit' ? 280 : 220)
   }
 
   function spawnItem(): FallingItem {
@@ -125,6 +133,11 @@ export function Pizza({
   }
 
   useEffect(() => {
+    const burpAudio = new Audio(BURP_SOUND_SRC)
+    burpAudio.preload = 'auto'
+    burpAudio.load()
+    burpAudioRef.current = burpAudio
+
     let rafId = 0
     let lastTime = performance.now()
     let nextSpawnAt = lastTime + 220
@@ -173,6 +186,7 @@ export function Pizza({
           if (nextItem.kind === 'pizza') {
             nextScore += 1
             feedback = 'collect'
+            playBurpSound()
           } else {
             nextHits += 1
             feedback = 'hit'
@@ -204,6 +218,7 @@ export function Pizza({
       if (feedbackTimeoutRef.current) {
         window.clearTimeout(feedbackTimeoutRef.current)
       }
+      burpAudioRef.current = null
     }
   }, [])
 

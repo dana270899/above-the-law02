@@ -38,6 +38,16 @@ describe('leaderboard display', () => {
     expect(display.visible[display.visible.length - 1]).toMatchObject({ id: 'p12', rank: 12 })
   })
 
+  it('can show the complete saved ranking when the page requests every row', () => {
+    const rows = Array.from({ length: 19 }, (_, index) => (
+      entry(`p${index + 1}`, 190 - index, `2026-01-${String(index + 1).padStart(2, '0')}T00:00:00Z`)
+    ))
+
+    const display = buildLeaderboardDisplay(rows, '', rows.length)
+
+    expect(display.visible).toHaveLength(19)
+  })
+
   it('keeps a declined/offline player as a local-only ranked row', () => {
     const local = entry('local-player', 150, '2026-01-03T00:00:00Z', true)
     const merged = mergeLocalPlayer([entry('public', 200, '2026-01-01T00:00:00Z')], local)
