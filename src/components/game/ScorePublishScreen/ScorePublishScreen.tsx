@@ -6,11 +6,20 @@ import styles from './ScorePublishScreen.module.css'
 
 interface ScorePublishScreenProps {
   profile: PlayerProfile
+  fallbackProfile?: PlayerProfile
   score: number
   onPublish: (profile: PlayerProfile) => void
 }
 
-export function ScorePublishScreen({ profile, score, onPublish }: ScorePublishScreenProps) {
+export function profileWithFallbackPhoto(name: string, fallbackProfile?: PlayerProfile): PlayerProfile {
+  return {
+    name: name.trim(),
+    photo: fallbackProfile?.photo ?? null,
+    photoPreviewUrl: fallbackProfile?.photoPreviewUrl ?? null,
+  }
+}
+
+export function ScorePublishScreen({ profile, fallbackProfile, score, onPublish }: ScorePublishScreenProps) {
   const hasInitialPhoto = !!profile.photo && !!profile.photoPreviewUrl
   const videoRef = useRef<HTMLVideoElement | null>(null)
   const streamRef = useRef<MediaStream | null>(null)
@@ -104,14 +113,16 @@ export function ScorePublishScreen({ profile, score, onPublish }: ScorePublishSc
   }
 
   function publishWithoutPhoto() {
-    if (capturedPreviewUrl?.startsWith('blob:')) URL.revokeObjectURL(capturedPreviewUrl)
-    setCapturedPhoto(null)
-    setCapturedPreviewUrl(null)
-    onPublish({
-      name: name.trim(),
-      photo: null,
-      photoPreviewUrl: null,
-    })
+    const nextProfile = profileWithFallbackPhoto(name, fallbackProfile)
+    if (
+      capturedPreviewUrl?.startsWith('blob:')
+      && capturedPreviewUrl !== nextProfile.photoPreviewUrl
+    ) {
+      URL.revokeObjectURL(capturedPreviewUrl)
+    }
+    setCapturedPhoto(nextProfile.photo ?? null)
+    setCapturedPreviewUrl(nextProfile.photoPreviewUrl ?? null)
+    onPublish(nextProfile)
   }
 
   return (

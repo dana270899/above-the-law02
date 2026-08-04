@@ -128,7 +128,7 @@ export default function App() {
         />
         <Route
           path="/win/pizza"
-          element={<WinScreenStage><WinScreenComponent variant="pizza" /></WinScreenStage>}
+          element={<WinScreenStage><WinScreenComponent variant="pizza" muteAudio={new URLSearchParams(window.location.search).get('muteAudio') === '1'} /></WinScreenStage>}
         />
         <Route
           path="/win/picnic"

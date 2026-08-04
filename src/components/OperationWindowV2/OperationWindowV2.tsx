@@ -365,6 +365,7 @@ export function OperationWindowV2({
                 {ITEM_KEYS.map((key) => (
                   <ItemCell
                     key={key}
+                    itemKey={key}
                     label={ITEM_LABELS[key]}
                     illustrationSrc={`${ASSETS}/${ITEM_ILLUSTRATIONS[key]}`}
                     value={data.counters[key] ?? 0}
@@ -447,6 +448,7 @@ function FlyGhost({ anim }: { anim: FlyAnim }) {
 /* ─── Sub-components ─────────────────────────────── */
 
 type ItemCellProps = {
+  itemKey: OperationItemKey
   label: string
   illustrationSrc: string
   value: number
@@ -457,6 +459,7 @@ type ItemCellProps = {
 }
 
 function ItemCell({
+  itemKey,
   label,
   illustrationSrc,
   value,
@@ -467,7 +470,7 @@ function ItemCell({
 }: ItemCellProps) {
   return (
     <div className={styles.itemCell}>
-      <div ref={tileRef} className={styles.illustration}>
+      <div ref={tileRef} className={styles.illustration} data-item={itemKey}>
         <img src={illustrationSrc} alt={label} />
       </div>
 

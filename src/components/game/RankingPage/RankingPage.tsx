@@ -53,12 +53,14 @@ function publicationRequest(key: string, profile: PlayerProfile, run: RunScore) 
 
 export function RankingPage({
   profile,
+  fallbackProfile,
   run,
   entryMode = false,
   publicationKey,
   onProfileChange,
 }: {
   profile: PlayerProfile
+  fallbackProfile?: PlayerProfile
   run: RunScore
   entryMode?: boolean
   publicationKey?: string
@@ -219,6 +221,7 @@ export function RankingPage({
     return (
       <ScorePublishScreen
         profile={profile}
+        fallbackProfile={fallbackProfile}
         score={run.total}
         onPublish={(nextProfile) => {
           onProfileChange?.(nextProfile)

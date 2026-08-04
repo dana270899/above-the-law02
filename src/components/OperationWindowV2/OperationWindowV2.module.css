@@ -220,6 +220,14 @@
   height: 100%;
 }
 
+/* Forces.svg has a fractional antialiased edge that can expose a thin
+   strip of the tile background. A tiny overscan keeps it flush to the
+   frame without changing the visible illustration size. */
+.illustration[data-item='forces'] img {
+  transform: scale(1.02);
+  transform-origin: center;
+}
+
 /* Quantity stepper — yellow buttons either side of a number.
    Per Figma node 575:23989, the stepper reads as one rounded
    black stroke with two vertical dividers inside.

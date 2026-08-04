@@ -55,6 +55,7 @@ export interface PizzaProps {
   winFooterText?: string
   winCtaLabel?: string
   debug?: boolean
+  muteAudio?: boolean
 }
 
 export function Pizza({
@@ -66,6 +67,7 @@ export function Pizza({
   winFooterText = DEFAULT_WIN_FOOTER_TEXT,
   winCtaLabel = DEFAULT_WIN_CTA_LABEL,
   debug = false,
+  muteAudio = false,
 }: PizzaProps = {}) {
   const { src: bgSrc, label, handleError } = useWinScreenBackground({
     variant: 'pizza',
@@ -85,6 +87,7 @@ export function Pizza({
   const burpAudioRef = useRef<HTMLAudioElement | null>(null)
 
   function playBurpSound() {
+    if (muteAudio) return
     const source = burpAudioRef.current
     const audio = source ? source.cloneNode(true) as HTMLAudioElement : new Audio(BURP_SOUND_SRC)
     audio.play().catch(() => { /* Audio may be blocked before a user gesture. */ })
@@ -110,7 +113,7 @@ export function Pizza({
     feedbackTimeoutRef.current = window.setTimeout(() => {
       setCarFeedback(null)
       feedbackTimeoutRef.current = null
-    }, type === 'hit' ? 280 : 220)
+    }, type === 'hit' ? 360 : 220)
   }
 
   function spawnItem(): FallingItem {
@@ -133,10 +136,12 @@ export function Pizza({
   }
 
   useEffect(() => {
-    const burpAudio = new Audio(BURP_SOUND_SRC)
-    burpAudio.preload = 'auto'
-    burpAudio.load()
-    burpAudioRef.current = burpAudio
+    if (!muteAudio) {
+      const burpAudio = new Audio(BURP_SOUND_SRC)
+      burpAudio.preload = 'auto'
+      burpAudio.load()
+      burpAudioRef.current = burpAudio
+    }
 
     let rafId = 0
     let lastTime = performance.now()
@@ -220,7 +225,7 @@ export function Pizza({
       }
       burpAudioRef.current = null
     }
-  }, [])
+  }, [muteAudio])
 
   const carStyle = {
     '--car-x': `${carX}px`,
@@ -287,17 +292,21 @@ export function Pizza({
             />
           )
         })}
-        <img
+        <div
           className={[
             styles.police,
             carFeedback === 'collect' ? styles.policeCollect : '',
             carFeedback === 'hit' ? styles.policeHit : '',
           ].filter(Boolean).join(' ')}
-          src={POLICE_SRC}
-          alt=""
-          draggable={false}
           style={carStyle}
-        />
+        >
+          <img
+            className={styles.policeArt}
+            src={POLICE_SRC}
+            alt=""
+            draggable={false}
+          />
+        </div>
       </div>
       <div className={styles.footerBar}>
         <p className={styles.footerText}>{winFooterText}</p>

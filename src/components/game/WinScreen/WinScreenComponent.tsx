@@ -34,6 +34,7 @@ export interface WinScreenComponentProps {
   winFooterText?: string
   winCtaLabel?: string
   debug?: boolean
+  muteAudio?: boolean
 }
 
 const DEFAULT_WIN_TITLE = 'Win'
@@ -54,6 +55,7 @@ export function WinScreenComponent({
   winTitle = DEFAULT_WIN_TITLE,
   winFooterText = DEFAULT_WIN_FOOTER_TEXT,
   winCtaLabel = DEFAULT_WIN_CTA_LABEL,
+  muteAudio = false,
   ...rest
 }: WinScreenComponentProps) {
   const resolvedVariant = variant ?? 'graffiti'
@@ -87,7 +89,7 @@ export function WinScreenComponent({
       inner = <BdsmParty {...passThroughProps} />
       break
     case 'pizza':
-      inner = <Pizza {...passThroughProps} />
+      inner = <Pizza {...passThroughProps} muteAudio={muteAudio} />
       break
     case 'picnic':
       inner = <Picnic {...passThroughProps} />

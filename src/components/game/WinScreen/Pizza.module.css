@@ -121,27 +121,33 @@
   touch-action: none;
   pointer-events: none;
   transform: translateX(var(--car-x));
+}
+
+.policeArt {
+  display: block;
+  width: 100%;
+  height: auto;
   transition: filter 120ms ease;
 }
 
-.policeCollect {
+.policeCollect .policeArt {
   filter: brightness(1.08);
 }
 
-.policeHit {
-  animation: car-hit 280ms linear;
+.policeHit .policeArt {
+  animation: car-hit 360ms linear;
   filter: brightness(0.98);
 }
 
 @keyframes car-hit {
-  0%, 100% { transform: translate(var(--car-x), 0); }
-  12.5% { transform: translate(calc(var(--car-x) - 12px), -2px); }
-  25% { transform: translate(calc(var(--car-x) + 12px), 2px); }
-  37.5% { transform: translate(calc(var(--car-x) - 10px), 1px); }
-  50% { transform: translate(calc(var(--car-x) + 10px), -2px); }
-  62.5% { transform: translate(calc(var(--car-x) - 7px), 2px); }
-  75% { transform: translate(calc(var(--car-x) + 7px), -1px); }
-  87.5% { transform: translate(calc(var(--car-x) - 3px), 1px); }
+  0%, 100% { transform: translate(0, 0); }
+  12.5% { transform: translate(-18px, -4px) rotate(-1deg); }
+  25% { transform: translate(18px, 4px) rotate(1deg); }
+  37.5% { transform: translate(-15px, 3px) rotate(-0.8deg); }
+  50% { transform: translate(15px, -3px) rotate(0.8deg); }
+  62.5% { transform: translate(-10px, 3px) rotate(-0.5deg); }
+  75% { transform: translate(10px, -2px) rotate(0.5deg); }
+  87.5% { transform: translate(-5px, 1px); }
 }
 
 .debug .fallingItem,

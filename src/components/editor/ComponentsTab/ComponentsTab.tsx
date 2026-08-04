@@ -557,7 +557,7 @@ function WinScreenPreview({ option }: { option: WinScreenOption }) {
       )}
       <div className={styles.desktopFrame}>
         <iframe
-          src={appPath(`/win/${option.variant}`)}
+          src={appPath(`/win/${option.variant}${option.variant === 'pizza' ? '?muteAudio=1' : ''}`)}
           title={`${option.label} win screen preview`}
         />
       </div>

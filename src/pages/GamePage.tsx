@@ -732,7 +732,7 @@ export function GamePage() {
   // Defensive: callers wired into DOM `onClick` may pass an event as the
   // first arg — guard against non-string values so a click event never
   // ends up stored as `viewCaseId`.
-  const openCaseWindow = (targetCaseId?: string) => {
+  const openCaseWindow = (targetCaseId?: string, replayOpeningAnimation = false) => {
     if (caseWindowMotionTimeoutRef.current != null) {
       window.clearTimeout(caseWindowMotionTimeoutRef.current)
       caseWindowMotionTimeoutRef.current = null
@@ -752,11 +752,20 @@ export function GamePage() {
     setCaseWindowMinimized(false)
     setForegroundDesktopApp('cases')
 
-    // Tutorial messages sometimes select the next case while the Cases
-    // window is already visible. In that situation, update the content in
-    // place instead of replaying the restore animation (which looks like
-    // the same window opens twice).
-    if (caseWindowOpen && !caseWindowMinimized) {
+    // The first-case tutorial references case 861 twice: its initial
+    // announcement opens the window, then a later instruction points to
+    // that same case before handing control to it. Do not replay the
+    // animation when the requested case is already the visible one.
+    const sameCaseAlreadyVisible =
+      caseWindowOpen
+      && !caseWindowMinimized
+      && typeof targetCaseId === 'string'
+      && targetCaseId === activeCaseId
+    if (
+      caseWindowOpen
+      && !caseWindowMinimized
+      && (!replayOpeningAnimation || sameCaseAlreadyVisible)
+    ) {
       setCaseWindowMotion('idle')
       return
     }
@@ -767,6 +776,12 @@ export function GamePage() {
       setCaseWindowMotion('idle')
       caseWindowMotionTimeoutRef.current = null
     }, WINDOW_MOTION_MS)
+  }
+
+  // A case opened by a boss message should feel like a newly launched
+  // window even if the Cases app was already mounted behind that message.
+  const openCaseWindowFromMessage = (targetCaseId?: string) => {
+    openCaseWindow(targetCaseId, true)
   }
 
   const minimizeCaseWindow = () => {
@@ -1485,7 +1500,7 @@ export function GamePage() {
     const rankingProfile = capturedRankingPhoto
       ? { ...playerProfile, ...capturedRankingPhoto }
       : playerProfile
-    return <div ref={scaleRef} className={styles.canvas} data-scaled-stage><RankingPage profile={rankingProfile} run={runScore} publicationKey={publicationKeyRef.current} onProfileChange={updateRankingProfile} /></div>
+    return <div ref={scaleRef} className={styles.canvas} data-scaled-stage><RankingPage profile={rankingProfile} fallbackProfile={playerProfile} run={runScore} publicationKey={publicationKeyRef.current} onProfileChange={updateRankingProfile} /></div>
   }
 
   // Walker is on a win-result — keep the desktop visible behind the
@@ -1708,7 +1723,15 @@ export function GamePage() {
                   ))
                 }
                 closeWindow()
-                if (operationNode) advance()
+                if (operationNode) {
+                  // Completing an operation closes the app for good instead
+                  // of leaving its desktop icon able to reopen the finished
+                  // planner. A later operation node unlocks it again through
+                  // the operation-node effect above.
+                  setOperationUnlocked(false)
+                  setOperationUnlockAcknowledged(false)
+                  advance()
+                }
               }}
               onClose={closeWindow}
               onMinimizeChange={(minimized) => {
@@ -1852,7 +1875,7 @@ export function GamePage() {
                   : rest
               })
             }}
-            onOpenCases={openCaseWindow}
+            onOpenCases={openCaseWindowFromMessage}
             onUnlockOperation={() => setOperationUnlocked(true)}
             onOpenAchievements={() => setAchievementsOpen(true)}
             onOpenMiniGame={(onContinue) => {
@@ -1875,7 +1898,7 @@ export function GamePage() {
               flushPendingIncorrectChoice()
               advance()
             }}
-            onOpenCases={openCaseWindow}
+            onOpenCases={openCaseWindowFromMessage}
             onUnlockOperation={() => setOperationUnlocked(true)}
             onOpenAchievements={() => setAchievementsOpen(true)}
             onOpenMiniGame={(onContinue) => {

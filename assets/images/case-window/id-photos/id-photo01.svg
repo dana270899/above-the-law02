@@ -1,7 +1,7 @@
 <svg width="264" height="264" viewBox="0 0 264 264" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g clip-path="url(#clip0_595_20967)">
 <rect width="264" height="264" rx="3.47368" fill="#E1F5FF"/>
-<rect width="264" height="264" rx="3.47368" fill="url(#pattern0_595_20967)" fill-opacity="0.5" style="mix-blend-mode:darken"/>
+<rect width="264" height="264" rx="3.47368" fill="url(#pattern0_595_20967)" fill-opacity="0.2" style="mix-blend-mode:darken"/>
 <rect x="111" y="143.032" width="42" height="41" fill="#FFA4A4" stroke="#171717" stroke-width="2"/>
 <mask id="path-431-inside-1_595_20967" fill="white">
 <path d="M194.31 165.603C209.226 165.603 222.15 175.865 225.347 190.436C234.745 233.275 252.523 317.982 249.7 333.469C247.66 344.664 244.373 353.373 241.761 359.047C239.523 363.91 234.524 366.603 229.171 366.603H31.1238C27.4552 366.603 23.9478 365.212 22.1945 361.989C19.7333 357.466 16.3101 348.921 13.4933 333.469C9.78788 313.142 27.8597 231.298 37.5665 189.875C40.9199 175.566 53.7096 165.603 68.4064 165.603H194.31Z"/>

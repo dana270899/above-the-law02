@@ -1,8 +1,8 @@
 <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <g clip-path="url(#clip0_68_424)">
-<path d="M1.59961 16.2002H118.4C118.731 16.2004 119 16.4687 119 16.7998V118.4C119 118.732 118.732 119 118.4 119H1.59961C1.26849 119 1.00011 118.732 1 118.4V16.7998C1.00021 16.4687 1.26854 16.2004 1.59961 16.2002Z" fill="#B3E6FE"/>
-<path d="M1.59961 16.2002H118.4C118.731 16.2004 119 16.4687 119 16.7998V118.4C119 118.732 118.732 119 118.4 119H1.59961C1.26849 119 1.00011 118.732 1 118.4V16.7998C1.00021 16.4687 1.26854 16.2004 1.59961 16.2002Z" fill="url(#pattern0_68_424)" fill-opacity="0.1"/>
-<path d="M1.59961 16.2002H118.4C118.731 16.2004 119 16.4687 119 16.7998V118.4C119 118.732 118.732 119 118.4 119H1.59961C1.26849 119 1.00011 118.732 1 118.4V16.7998C1.00021 16.4687 1.26854 16.2004 1.59961 16.2002Z" stroke="#171717" stroke-width="2"/>
+<path d="M1.59961 16.2002H118.4C118.731 16.2004 119 16.4687 119 16.7998V118.4C119 118.732 118.732 119 118.4 119H1.59961C1.26848 119 1.00011 118.732 1 118.4V16.7998C1.00021 16.4687 1.26854 16.2004 1.59961 16.2002Z" fill="#B3E6FE"/>
+<path d="M1.59961 16.2002H118.4C118.731 16.2004 119 16.4687 119 16.7998V118.4C119 118.732 118.732 119 118.4 119H1.59961C1.26848 119 1.00011 118.732 1 118.4V16.7998C1.00021 16.4687 1.26854 16.2004 1.59961 16.2002Z" fill="url(#pattern0_68_424)" fill-opacity="0.1"/>
+<path d="M1.59961 16.2002H118.4C118.731 16.2004 119 16.4687 119 16.7998V118.4C119 118.732 118.732 119 118.4 119H1.59961C1.26848 119 1.00011 118.732 1 118.4V16.7998C1.00021 16.4687 1.26854 16.2004 1.59961 16.2002Z" stroke="#171717" stroke-width="2"/>
 <path d="M11.7998 34.7031V119H1.59961C1.26848 119 1.0001 118.732 1 118.4V18.5029L11.7998 34.7031Z" fill="#7ACDF3"/>
 <path d="M11.7998 34.7031V119H1.59961C1.26848 119 1.0001 118.732 1 118.4V18.5029L11.7998 34.7031Z" fill="url(#pattern2_68_424)" fill-opacity="0.2" style="mix-blend-mode:darken"/>
 <path d="M11.7998 34.7031V119H1.59961C1.26848 119 1.0001 118.732 1 118.4V18.5029L11.7998 34.7031Z" stroke="#171717" stroke-width="2"/>
@@ -25,17 +25,17 @@
 <clipPath id="clip0_68_424">
 <rect width="120" height="120" fill="white"/>
 </clipPath>
-<pattern id="pattern0_68_424" patternUnits="userSpaceOnUse" patternTransform="matrix(348 0 0 348 0 15.2002)" preserveAspectRatio="none" viewBox="0 0 174 174" width="1" height="1">
+<pattern id="pattern0_68_424" patternUnits="userSpaceOnUse" patternTransform="matrix(435 0 0 435 0 15.2002)" preserveAspectRatio="none" viewBox="0 0 174 174" width="1" height="1">
 <g id="pattern0_68_424_inner">
 <rect width="174" height="174" fill="white"/>
 <rect width="174" height="174" fill="url(#pattern1_68_424)"/>
 </g>
-</pattern><pattern id="pattern2_68_424" patternUnits="userSpaceOnUse" patternTransform="matrix(348 0 0 348 0 15.9701)" preserveAspectRatio="none" viewBox="0 0 174 174" width="1" height="1">
+</pattern><pattern id="pattern2_68_424" patternUnits="userSpaceOnUse" patternTransform="matrix(435 0 0 435 0 15.9701)" preserveAspectRatio="none" viewBox="0 0 174 174" width="1" height="1">
 <g id="pattern2_68_424_inner">
 <rect width="174" height="174" fill="white"/>
 <rect width="174" height="174" fill="url(#pattern3_68_424)"/>
 </g>
-</pattern><pattern id="pattern4_68_424" patternUnits="userSpaceOnUse" patternTransform="matrix(348 0 0 348 11.2 34.4001)" preserveAspectRatio="none" viewBox="0 0 174 174" width="1" height="1">
+</pattern><pattern id="pattern4_68_424" patternUnits="userSpaceOnUse" patternTransform="matrix(435 0 0 435 11.2 34.4001)" preserveAspectRatio="none" viewBox="0 0 174 174" width="1" height="1">
 <g id="pattern4_68_424_inner">
 <rect width="174" height="174" fill="white"/>
 <rect width="174" height="174" fill="url(#pattern5_68_424)"/>

@@ -1,6 +1,6 @@
-.screen{position:relative;width:1920px;height:1080px;overflow:hidden;background:var(--light-yellow-100)}
-.screen::before{content:'';position:absolute;inset:0;background-image:url('../../../../assets/images/vintage-comic-style-dots-texture.jpg');background-size:348px 348px;opacity:.04;mix-blend-mode:darken;pointer-events:none}
-.bar{position:absolute;left:-1px;width:1922px;height:118px;background:var(--light-blue-200);overflow:hidden}
+.screen{position:relative;width:1920px;height:1080px;overflow:hidden;background-color:var(--light-yellow-100);background-image:url('../../../../assets/images/bg.svg');background-position:center;background-size:100% 100%;background-repeat:no-repeat}
+.screen::before{content:none}
+.bar{display:none}
 .bar::before{content:'';position:absolute;inset:0;background-image:url('../../../../assets/images/vintage-comic-style-dots-texture.jpg');background-size:348px 348px;opacity:.1;mix-blend-mode:multiply}
 .barTop{top:0;border-bottom:2px solid var(--black)}
 .barBottom{bottom:0;border-top:2px solid var(--black)}
