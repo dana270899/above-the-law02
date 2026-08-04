@@ -26,6 +26,8 @@ const RANKING_START_RUN: RunScore = {
   cases: [],
 }
 
+const RANKING_PREVIEW_PHOTO = new Blob([], { type: 'image/jpeg' })
+
 /** Standalone /win/* routes — scale the 1920×1080 canvas to fit the
  *  viewport, same as the live game. Used by the editor Components
  *  tab to preview each win screen inside an iframe. */
@@ -88,7 +90,7 @@ export default function App() {
         <Route path="/game" element={<GameSessionRoute />} />
         <Route path="/credits" element={<CreditsPage />} />
         <Route path="/editor" element={<EditorPage />} />
-        <Route path="/ranking-preview" element={<WinScreenStage><RankingPage profile={{ name: 'Dana Officer', photo: null, photoPreviewUrl: assetUrl('/images/login-screen/Flower.svg') }} run={{ total: 280, target: 600, won: false, cases: [
+        <Route path="/ranking-preview" element={<WinScreenStage><RankingPage profile={{ name: 'Dana Officer', photo: RANKING_PREVIEW_PHOTO, photoPreviewUrl: assetUrl('/images/login-screen/Flower.svg') }} run={{ total: 1000, target: 600, won: false, cases: [
           { caseId: caseNumberForOrder(1), title: 'Case 1', important: false, attempt: 2, correct: true, basePoints: 50, speedPoints: 18, elapsedSeconds: 76, totalPoints: 68 },
           { caseId: caseNumberForOrder(2), title: 'Case 2', important: false, attempt: 1, correct: true, basePoints: 100, speedPoints: 34, elapsedSeconds: 39, totalPoints: 134 },
           { caseId: caseNumberForOrder(3), title: 'Case 3', important: true, attempt: 1, correct: true, basePoints: 200, speedPoints: 42, elapsedSeconds: 18, totalPoints: 242 },

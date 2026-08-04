@@ -20,7 +20,6 @@ export function LoginScreen({ onLogin }: LoginScreenProps = {}) {
   const [value, setValue] = useState('')
   const [photo, setPhoto] = useState<Blob | null>(null)
   const [photoPreviewUrl, setPhotoPreviewUrl] = useState<string | null>(null)
-  const [photoHasBuiltInBorder, setPhotoHasBuiltInBorder] = useState(false)
   const [photoPickerOpen, setPhotoPickerOpen] = useState(false)
 
   function requestLoginCameraPermission() {
@@ -42,13 +41,11 @@ export function LoginScreen({ onLogin }: LoginScreenProps = {}) {
     if (!path) {
       setPhoto(null)
       setPhotoPreviewUrl(null)
-      setPhotoHasBuiltInBorder(false)
       setPhotoPickerOpen(false)
       return
     }
     const src = assetUrl(path)
     setPhotoPreviewUrl(src)
-    setPhotoHasBuiltInBorder(true)
     try {
       const response = await fetch(src)
       setPhoto(await response.blob())
@@ -92,7 +89,7 @@ export function LoginScreen({ onLogin }: LoginScreenProps = {}) {
         <form className={styles.fields} onSubmit={handleLogin}>
           <button
             type="button"
-            className={`${styles.photoPicker} ${photoHasBuiltInBorder ? styles.photoPickerBuiltInBorder : ''}`}
+            className={styles.photoPicker}
             onClick={() => {
               setPhotoPickerOpen(true)
               void requestLoginCameraPermission()

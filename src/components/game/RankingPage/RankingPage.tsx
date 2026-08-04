@@ -351,14 +351,14 @@ export function RankingPage({
               className={styles.playAgain}
               onClick={() => navigate('/game')}
             >
-              {entryMode ? 'Start game' : 'Play again'}
+              <span className={styles.ctaLabel}>{entryMode ? 'Start game' : 'Play again'}</span>
             </button>
             <button
               type="button"
               className={styles.credits}
               onClick={() => navigate('/credits')}
             >
-              About &amp; Credits
+              <span className={styles.ctaLabel}>About &amp; Credits</span>
             </button>
           </div>
         </section>

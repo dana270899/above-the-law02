@@ -79,6 +79,7 @@
   background: #e1f5ff;
   overflow: hidden;
   flex: 0 0 auto;
+  cursor: none;
 }
 
 .windowBg {
@@ -117,15 +118,10 @@
   top: var(--car-y);
   width: var(--car-width);
   z-index: 5;
-  cursor: grab;
   touch-action: none;
-  pointer-events: auto;
+  pointer-events: none;
   transform: translateX(var(--car-x));
   transition: filter 120ms ease;
-}
-
-.police:active {
-  cursor: grabbing;
 }
 
 .policeCollect {

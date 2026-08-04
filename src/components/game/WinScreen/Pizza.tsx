@@ -45,11 +45,6 @@ interface FallingItem {
   spin: number
 }
 
-type DragState = {
-  pointerId: number
-  pointerOffsetX: number
-}
-
 export interface PizzaProps {
   className?: string
   src?: string
@@ -82,7 +77,6 @@ export function Pizza({
   const screenRef = useRef<HTMLDivElement | null>(null)
   const carXRef = useRef(CAR_START_X)
   const fallingItemsRef = useRef<FallingItem[]>([])
-  const dragRef = useRef<DragState | null>(null)
   const nextItemIdRef = useRef(0)
   const scoreRef = useRef(0)
   const hitsRef = useRef(0)
@@ -126,40 +120,9 @@ export function Pizza({
     }
   }
 
-  function startCarDrag(e: PointerEvent<HTMLImageElement>) {
-    e.preventDefault()
-    e.stopPropagation()
-    const designX = screenClientXToDesignX(e.clientX)
-    dragRef.current = {
-      pointerId: e.pointerId,
-      pointerOffsetX: designX - carXRef.current,
-    }
-    e.currentTarget.setPointerCapture(e.pointerId)
+  function followPointer(e: PointerEvent<HTMLDivElement>) {
+    setLiveCarX(screenClientXToDesignX(e.clientX) - CAR_WIDTH / 2)
   }
-
-  useEffect(() => {
-    function onPointerMove(e: globalThis.PointerEvent) {
-      const drag = dragRef.current
-      if (!drag || drag.pointerId !== e.pointerId) return
-      const designX = screenClientXToDesignX(e.clientX)
-      setLiveCarX(designX - drag.pointerOffsetX)
-    }
-
-    function onPointerUp(e: globalThis.PointerEvent) {
-      if (dragRef.current?.pointerId !== e.pointerId) return
-      dragRef.current = null
-    }
-
-    window.addEventListener('pointermove', onPointerMove)
-    window.addEventListener('pointerup', onPointerUp)
-    window.addEventListener('pointercancel', onPointerUp)
-    return () => {
-      window.removeEventListener('pointermove', onPointerMove)
-      window.removeEventListener('pointerup', onPointerUp)
-      window.removeEventListener('pointercancel', onPointerUp)
-      dragRef.current = null
-    }
-  }, [])
 
   useEffect(() => {
     let rafId = 0
@@ -275,7 +238,12 @@ export function Pizza({
           </button>
         </div>
       </div>
-      <div className={styles.screen} ref={screenRef} data-win-content>
+      <div
+        className={styles.screen}
+        ref={screenRef}
+        data-win-content
+        onPointerMove={followPointer}
+      >
         <img
           className={styles.windowBg}
           src={bgSrc}
@@ -314,7 +282,6 @@ export function Pizza({
           alt=""
           draggable={false}
           style={carStyle}
-          onPointerDown={startCarDrag}
         />
       </div>
       <div className={styles.footerBar}>

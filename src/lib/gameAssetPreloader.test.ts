@@ -54,4 +54,24 @@ describe('GameAssetPreloader', () => {
     for (const resolve of releases.values()) resolve()
     await Promise.all([firstAudio, secondAudio, urgentImage])
   })
+
+  it('pins a decoded critical image outside the bounded retained cache', async () => {
+    const loader = vi.fn(async (asset: GamePreloadAsset) => ({ src: asset.src }))
+    const preloader = new GameAssetPreloader({
+      loader,
+      retainedLimit: 1,
+      schedule: (run) => run(),
+    })
+
+    await preloader.preloadAndRetain(image('/images/win-screens/Pizza/Police.svg'), 0)
+    await preloader.preload(image('/images/one.svg'))
+    await preloader.preload(image('/images/two.svg'))
+
+    expect(preloader.hasLoaded('/images/win-screens/Pizza/Police.svg')).toBe(true)
+    expect(preloader.hasRetained('/images/win-screens/Pizza/Police.svg')).toBe(true)
+    expect(loader).toHaveBeenCalledWith(
+      expect.objectContaining({ src: expect.stringContaining('/images/win-screens/Pizza/Police.svg') }),
+      0,
+    )
+  })
 })

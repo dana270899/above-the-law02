@@ -1,6 +1,6 @@
 import type { GamePreloadAsset } from './gamePreloadAssets'
 
-export type GameAssetLoader = (asset: GamePreloadAsset) => Promise<unknown>
+export type GameAssetLoader = (asset: GamePreloadAsset, priority?: number) => Promise<unknown>
 
 type QueueItem = {
   asset: GamePreloadAsset
@@ -41,6 +41,8 @@ export class GameAssetPreloader {
   private readonly inFlight = new Map<string, QueueItem>()
   private readonly queued = new Map<string, QueueItem>()
   private readonly retained = new Map<string, unknown>()
+  private readonly pinnedKeys = new Set<string>()
+  private readonly pinned = new Map<string, unknown>()
   private activeCount = 0
   private activeMediaCount = 0
   private nextOrder = 0
@@ -94,9 +96,41 @@ export class GameAssetPreloader {
     }
   }
 
+  /**
+   * Preload, decode, and permanently retain an important image for this game
+   * session. This is reserved for expensive assets that must not be evicted by
+   * the normal bounded speculative cache.
+   */
+  preloadAndRetain(asset: GamePreloadAsset, priority = 0): Promise<void> {
+    const key = canonicalAssetKey(asset.src)
+    if (!key) return Promise.resolve()
+    this.pinnedKeys.add(key)
+
+    const retainedResource = this.retained.get(key)
+    if (retainedResource != null) {
+      this.retained.delete(key)
+      this.pinned.set(key, retainedResource)
+      return Promise.resolve()
+    }
+    if (this.pinned.has(key)) return Promise.resolve()
+
+    // A URL may have finished loading before it was marked as critical and
+    // subsequently fallen out of the bounded cache. Reload it in that rare
+    // case so the decoded resource can be pinned.
+    if (this.ready.has(key) && !this.inFlight.has(key) && !this.queued.has(key)) {
+      this.ready.delete(key)
+    }
+    return this.preload(asset, priority)
+  }
+
   hasLoaded(src: string): boolean {
     const key = canonicalAssetKey(src)
     return !!key && this.ready.has(key)
+  }
+
+  hasRetained(src: string): boolean {
+    const key = canonicalAssetKey(src)
+    return !!key && (this.pinned.has(key) || this.retained.has(key))
   }
 
   private requestPump(priority: number) {
@@ -118,7 +152,7 @@ export class GameAssetPreloader {
       this.activeCount++
       if (isMedia) this.activeMediaCount++
 
-      void this.loader(item.asset)
+      void this.loader(item.asset, item.priority)
         .then((resource) => {
           this.ready.add(item.key)
           this.retain(item.key, resource)
@@ -153,7 +187,12 @@ export class GameAssetPreloader {
   }
 
   private retain(key: string, resource: unknown) {
-    if (resource == null || this.retainedLimit === 0) return
+    if (resource == null) return
+    if (this.pinnedKeys.has(key)) {
+      this.pinned.set(key, resource)
+      return
+    }
+    if (this.retainedLimit === 0) return
     this.retained.delete(key)
     this.retained.set(key, resource)
     while (this.retained.size > this.retainedLimit) {
@@ -197,15 +236,15 @@ function scheduleBrowserWork(run: () => void, priority: number) {
   window.setTimeout(run, priority === 1 ? 0 : 80)
 }
 
-async function loadBrowserAsset(asset: GamePreloadAsset): Promise<unknown> {
-  if (asset.kind === 'image') return loadImage(asset.src)
+async function loadBrowserAsset(asset: GamePreloadAsset, priority = 1): Promise<unknown> {
+  if (asset.kind === 'image') return loadImage(asset.src, priority)
   return loadMedia(asset.kind, asset.src)
 }
 
-async function loadImage(src: string): Promise<HTMLImageElement> {
+async function loadImage(src: string, priority: number): Promise<HTMLImageElement> {
   const image = new Image()
   image.decoding = 'async'
-  if ('fetchPriority' in image) image.fetchPriority = 'low'
+  if ('fetchPriority' in image) image.fetchPriority = priority <= 0 ? 'high' : 'low'
 
   await new Promise<void>((resolve, reject) => {
     image.onload = () => resolve()

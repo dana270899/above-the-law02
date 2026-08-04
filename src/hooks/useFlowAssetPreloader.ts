@@ -34,6 +34,11 @@ function kindOrder(asset: GamePreloadAsset): number {
   return 2
 }
 
+function isPizzaPoliceAsset(asset: GamePreloadAsset): boolean {
+  return asset.kind === 'image'
+    && asset.src.split(/[?#]/, 1)[0].endsWith('/images/win-screens/Pizza/Police.svg')
+}
+
 /**
  * Warms the current graph frontier. The planner follows saved connections,
  * so reordering or rewiring the editor graph automatically changes what is
@@ -79,7 +84,18 @@ export function useFlowAssetPreloader({
           reducedSpeculation && planned.distance > 0 && asset.kind === 'video'
         ))
         .sort((a, b) => kindOrder(a) - kindOrder(b))
-      gameAssetPreloader.preloadMany(assets, Math.min(planned.distance, 2))
+      const regularAssets: GamePreloadAsset[] = []
+      for (const asset of assets) {
+        if (isPizzaPoliceAsset(asset)) {
+          void gameAssetPreloader.preloadAndRetain(asset, 0).catch(() => {
+            // The screen's own <img> remains the fallback if speculative
+            // loading fails because the connection disappears.
+          })
+        } else {
+          regularAssets.push(asset)
+        }
+      }
+      gameAssetPreloader.preloadMany(regularAssets, Math.min(planned.distance, 2))
     }
   }, [currentNodeId, nodes, plan, reducedSpeculation])
 }

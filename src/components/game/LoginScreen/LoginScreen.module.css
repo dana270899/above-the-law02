@@ -13,7 +13,6 @@
 .divider{width:2px;height:227px;margin-top:17.785px;background:var(--black);border-radius:2px;flex:0 0 auto}
 .fields{width:298px;height:212px;margin-top:25.285px;display:flex;flex-direction:column;gap:24px}
 .photoPicker{box-sizing:border-box;width:140px;height:140px;padding:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--light-blue-200);border:2px solid var(--black);border-radius:4px;overflow:hidden;cursor:var(--cursor-hover);font-family:var(--font-main);font-size:16px;line-height:18px;color:var(--black)}
-.photoPickerBuiltInBorder{border:0}
 .photoIcon{width:48px;height:48px;display:block}
 .photoPreview{width:100%;height:100%;object-fit:cover;display:block}
 .row{display:flex;width:298px;height:48px;gap:10px}
@@ -34,4 +33,5 @@
 .photoChoice{position:relative;box-sizing:border-box;width:156px;height:156px;padding:8px;background:transparent;border:0;border-radius:8px;overflow:hidden;cursor:var(--cursor-hover)}
 .photoAssetChoice{background:transparent;box-shadow:none}
 .photoChoice img{display:block;width:100%;height:100%;margin:0;object-fit:contain}
+.photoAssetChoice img{box-sizing:border-box;border:2px solid var(--black);border-radius:4px}
 .photoChoice:hover,.photoChoice:focus-visible{background:var(--yellow);box-shadow:inset 0 0 0 2px var(--black);outline:0}
