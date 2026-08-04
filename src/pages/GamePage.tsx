@@ -161,17 +161,20 @@ export function GamePage() {
   const caseAttemptRef = useRef<Record<string, 1 | 2>>({})
 
   // ?startCase / ?startOperation / ?startResult let local preview links
-  // drop the player straight onto the matching node. ?startWhack=1 is also
-  // supported by the public game build as a focused mini-game test URL.
+  // drop the player straight onto the matching node. ?startWhack=1 and
+  // ?startPizza=1 are also supported by the public game build as focused
+  // test URLs for those interactive screens.
   const startParams = useMemo(() => {
     const params = new URLSearchParams(window.location.search)
     const startMiniGame = params.get('startWhack') === '1'
+    const startPizza = params.get('startPizza') === '1'
     if (!import.meta.env.DEV) {
       return {
         startCaseId: null,
         startOperationId: null,
         startResultId: null,
         startMiniGame,
+        startPizza,
       }
     }
 
@@ -180,6 +183,7 @@ export function GamePage() {
       startOperationId: params.get('startOperation')?.trim() || null,
       startResultId:    params.get('startResult')?.trim()    || null,
       startMiniGame,
+      startPizza,
     }
   }, [])
 
@@ -366,8 +370,20 @@ export function GamePage() {
   useEffect(() => {
     if (didStartJumpRef.current) return
     if (nodes.length === 0) return
-    const { startCaseId, startOperationId, startResultId, startMiniGame } = startParams
-    if (!startCaseId && !startOperationId && !startResultId && !startMiniGame) return
+    const {
+      startCaseId,
+      startOperationId,
+      startResultId,
+      startMiniGame,
+      startPizza,
+    } = startParams
+    if (
+      !startCaseId
+      && !startOperationId
+      && !startResultId
+      && !startMiniGame
+      && !startPizza
+    ) return
     let target: GameFlowNode | undefined
     if (startCaseId) {
       target = nodes.find(
@@ -383,6 +399,12 @@ export function GamePage() {
       )
     } else if (startMiniGame) {
       target = nodes.find((n) => n.type === 'miniGame')
+    } else if (startPizza) {
+      target = nodes.find(
+        (n): n is ResultFlowNode => n.type === 'result'
+          && n.data.resultType === 'win'
+          && n.data.winImage === 'pizza',
+      )
     }
     if (target) {
       goTo(target.id)
