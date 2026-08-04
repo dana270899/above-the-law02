@@ -161,18 +161,25 @@ export function GamePage() {
   const caseAttemptRef = useRef<Record<string, 1 | 2>>({})
 
   // ?startCase / ?startOperation / ?startResult let local preview links
-  // drop the player straight onto the matching node. The graph's earlier
-  // nodes are skipped, but downstream transitions still run normally.
+  // drop the player straight onto the matching node. ?startWhack=1 is also
+  // supported by the public game build as a focused mini-game test URL.
   const startParams = useMemo(() => {
+    const params = new URLSearchParams(window.location.search)
+    const startMiniGame = params.get('startWhack') === '1'
     if (!import.meta.env.DEV) {
-      return { startCaseId: null, startOperationId: null, startResultId: null }
+      return {
+        startCaseId: null,
+        startOperationId: null,
+        startResultId: null,
+        startMiniGame,
+      }
     }
 
-    const params = new URLSearchParams(window.location.search)
     return {
       startCaseId:      params.get('startCase')?.trim()      || null,
       startOperationId: params.get('startOperation')?.trim() || null,
       startResultId:    params.get('startResult')?.trim()    || null,
+      startMiniGame,
     }
   }, [])
 
@@ -359,8 +366,8 @@ export function GamePage() {
   useEffect(() => {
     if (didStartJumpRef.current) return
     if (nodes.length === 0) return
-    const { startCaseId, startOperationId, startResultId } = startParams
-    if (!startCaseId && !startOperationId && !startResultId) return
+    const { startCaseId, startOperationId, startResultId, startMiniGame } = startParams
+    if (!startCaseId && !startOperationId && !startResultId && !startMiniGame) return
     let target: GameFlowNode | undefined
     if (startCaseId) {
       target = nodes.find(
@@ -374,6 +381,8 @@ export function GamePage() {
       target = nodes.find(
         (n): n is ResultFlowNode => n.type === 'result' && n.id === startResultId,
       )
+    } else if (startMiniGame) {
+      target = nodes.find((n) => n.type === 'miniGame')
     }
     if (target) {
       goTo(target.id)
