@@ -160,21 +160,19 @@ export function GamePage() {
   const caseTimersRef = useRef<CaseTimers>({})
   const caseAttemptRef = useRef<Record<string, 1 | 2>>({})
 
-  // ?startCase / ?startOperation lets the editor's "Play from this
-  // case" / "Preview this operation" links drop the player straight
-  // onto the matching node — the walker jumps there on mount, and
-  // the relevant window auto-opens. The graph's earlier nodes are
-  // skipped (login etc.), but every downstream transition runs the
-  // same as a normal `/game` session.
+  // ?startCase / ?startOperation / ?startResult let local preview links
+  // drop the player straight onto the matching node. The graph's earlier
+  // nodes are skipped, but downstream transitions still run normally.
   const startParams = useMemo(() => {
     if (!import.meta.env.DEV) {
-      return { startCaseId: null, startOperationId: null }
+      return { startCaseId: null, startOperationId: null, startResultId: null }
     }
 
     const params = new URLSearchParams(window.location.search)
     return {
       startCaseId:      params.get('startCase')?.trim()      || null,
       startOperationId: params.get('startOperation')?.trim() || null,
+      startResultId:    params.get('startResult')?.trim()    || null,
     }
   }, [])
 
@@ -361,8 +359,8 @@ export function GamePage() {
   useEffect(() => {
     if (didStartJumpRef.current) return
     if (nodes.length === 0) return
-    const { startCaseId, startOperationId } = startParams
-    if (!startCaseId && !startOperationId) return
+    const { startCaseId, startOperationId, startResultId } = startParams
+    if (!startCaseId && !startOperationId && !startResultId) return
     let target: GameFlowNode | undefined
     if (startCaseId) {
       target = nodes.find(
@@ -371,6 +369,10 @@ export function GamePage() {
     } else if (startOperationId) {
       target = nodes.find(
         (n): n is OperationFlowNode => n.type === 'operation' && n.data.operationId === startOperationId,
+      )
+    } else if (startResultId) {
+      target = nodes.find(
+        (n): n is ResultFlowNode => n.type === 'result' && n.id === startResultId,
       )
     }
     if (target) {

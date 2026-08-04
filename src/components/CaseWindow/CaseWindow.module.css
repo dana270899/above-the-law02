@@ -58,7 +58,7 @@
    outlines/inset shadows to avoid shrinking their content boxes. */
 .caseWindowV2 {
   position: relative;
-  width: 1152px;
+  width: 1186px;
   height: 906px;
   border: 0;
   outline: 0;
@@ -827,9 +827,23 @@
   order: 2;
 }
 
+/* Shared Figma column geometry for Suspicion and Criminal Record.
+   Headers distribute 24px gaps between their labels; data rows reserve
+   16px after the disclosure arrow and 28px between content columns. */
+.caseWindowV2 [data-spot='case.suspicions'],
+.caseWindowV2 [data-spot='case.criminalRecord'] {
+  --case-subject-column: 286px;
+  --case-date-column: 120px;
+  --case-end-column: 203px;
+  --case-table-width: 801px;
+  --case-row-width: 753px;
+  --case-header-columns: 24px 24px var(--case-subject-column) 20px var(--case-date-column) 28px var(--case-end-column);
+  --case-row-columns: 24px 16px var(--case-subject-column) 24px var(--case-date-column) 32px var(--case-end-column);
+}
+
 /* CaseWindowV2 — Figma 767:55761 criminal-record states. */
 .caseWindowV2 [data-spot='case.criminalRecord'] .recordTable {
-  width: 785px;
+  width: var(--case-table-width);
   max-width: 100%;
   padding: 16px 24px 24px;
   gap: 8px;
@@ -841,9 +855,9 @@
 
 .caseWindowV2 [data-spot='case.criminalRecord']
   .recordTable:has(.recordRowMain:not(.recordRowMainEditable)) .recordTableHeader {
-  grid-template-columns: 24px 16px 286px 1fr 120px 1fr 120px;
+  grid-template-columns: var(--case-header-columns);
   column-gap: 0;
-  width: 737px;
+  width: var(--case-row-width);
   max-width: 100%;
 }
 
@@ -877,7 +891,7 @@
 
 .caseWindowV2 [data-spot='case.criminalRecord']
   .recordRowMain:not(.recordRowMainEditable) {
-  grid-template-columns: 24px 16px 286px 1fr 120px 1fr 120px;
+  grid-template-columns: var(--case-row-columns);
   column-gap: 0;
   width: 705px;
   max-width: 100%;
@@ -907,11 +921,12 @@
   grid-column: 7;
   grid-row: 1;
   justify-self: start;
-  max-width: 120px;
+  margin-left: 0;
+  max-width: var(--case-end-column);
 }
 
 .caseWindowV2 [data-spot='case.criminalRecord'] .recordRow {
-  width: 737px;
+  width: var(--case-row-width);
   max-width: 100%;
   padding: 24px 16px 16px;
   border: 0;
@@ -940,7 +955,7 @@
 }
 
 .caseWindowV2 [data-spot='case.criminalRecord'] .recordTable:has(.emptyRow) {
-  width: 785px;
+  width: var(--case-table-width);
   max-width: 100%;
   min-height: 60px;
   padding: 24px 24px 16px;
@@ -964,7 +979,7 @@
    The editor keeps its denser editable grid so every saved field remains
    available; these rules apply the new design to the player-facing row. */
 .caseWindowV2 [data-spot='case.suspicions'] .recordTable {
-  width: 785px;
+  width: var(--case-table-width);
   max-width: 100%;
   padding: 16px 24px 24px;
   gap: 8px;
@@ -975,10 +990,10 @@
 }
 
 .caseWindowV2 [data-spot='case.suspicions'] .susTableHeader:not(.susTableHeaderEditable) {
-  grid-template-columns: 24px 24px 286px 24px 120px 24px 203px;
+  grid-template-columns: var(--case-header-columns);
   column-gap: 0;
   padding: 0 16px;
-  width: 737px;
+  width: var(--case-row-width);
   max-width: 100%;
 }
 
@@ -1014,7 +1029,7 @@
 
 .caseWindowV2 [data-spot='case.suspicions']
   .susRowMain:not(.susRowMainEditable) {
-  grid-template-columns: 24px 16px 286px 28px 120px 28px 203px;
+  grid-template-columns: var(--case-row-columns);
   column-gap: 0;
   width: 705px;
   max-width: 100%;
@@ -1050,7 +1065,7 @@
 .caseWindowV2 [data-spot='case.suspicions'] .recordRow {
   background: var(--light-blue-100);
   padding: 16px;
-  width: 737px;
+  width: var(--case-row-width);
   max-width: 100%;
   border: 0;
   outline: 2px solid var(--black);
@@ -1071,11 +1086,14 @@
 }
 
 .caseWindowV2 [data-spot='case.suspicions'] .attachBtn {
-  width: 203px;
+  box-sizing: border-box;
+  width: var(--case-end-column);
+  max-width: var(--case-end-column);
+  min-width: 0;
   min-height: 44px;
-  margin-right: 8px;
+  margin-right: 0;
   padding: 6px 16px;
-  justify-self: end;
+  justify-self: stretch;
   justify-content: space-between;
   border-radius: 3px;
   font-size: 22px;

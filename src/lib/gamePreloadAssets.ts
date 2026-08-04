@@ -101,7 +101,10 @@ const ACHIEVEMENTS_ASSETS: readonly GamePreloadAsset[] = [
   'shield-win.svg',
   'chevron-fill.svg',
   'chevron-new.svg',
-].map((filename) => asset('image', `/images/achievements/${filename}`))
+].map((filename) => asset('image', `/images/achievements/${filename}`)).concat([
+  asset('audio', '/sounds/winning points.mp3'),
+  asset('audio', '/sounds/losing points.mp3'),
+])
 
 const MINI_GAME_ASSETS: readonly GamePreloadAsset[] = [
   'Grandma01_default.svg',

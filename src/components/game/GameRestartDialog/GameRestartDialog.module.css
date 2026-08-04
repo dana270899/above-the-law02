@@ -7,28 +7,27 @@
   background: transparent;
 }
 
-.dialog {
+.frame {
   position: relative;
-  isolation: isolate;
-  width: 419px;
-  height: 368px;
-  overflow: visible;
-  color: var(--black);
-  background: var(--white);
-  border: 2px solid var(--grey);
+  display: inline-flex;
+  align-items: flex-start;
+  padding: 0 8px 8px 0;
+  overflow: hidden;
+  background: var(--grey);
+  border: 2px solid var(--black);
   border-radius: 4px;
 }
 
-/* Offset outline: 8px reveal on the right/bottom without a grey fill. */
-.dialog::before {
-  position: absolute;
-  inset: 0 -8px -8px 0;
-  z-index: -1;
-  content: '';
-  background: transparent;
-  border: 2px solid var(--grey);
+.dialog {
+  position: relative;
+  width: 419px;
+  height: 368px;
+  overflow: hidden;
+  color: var(--black);
+  background: var(--white);
+  border-right: 2px solid var(--black);
+  border-bottom: 2px solid var(--black);
   border-radius: 4px;
-  pointer-events: none;
 }
 
 .titleBar {

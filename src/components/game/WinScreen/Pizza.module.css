@@ -92,39 +92,6 @@
   user-select: none;
 }
 
-.hud {
-  position: absolute;
-  left: 20px;
-  top: 20px;
-  z-index: 8;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  pointer-events: none;
-}
-
-.hudItem {
-  min-width: 72px;
-  height: 44px;
-  padding: 5px 12px 7px 8px;
-  border: 2px solid var(--black);
-  border-radius: 4px;
-  background: var(--white);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--grey);
-  font-family: var(--font-main);
-  font-size: 22px;
-  line-height: 1;
-}
-
-.hudItem img {
-  width: 32px;
-  height: 32px;
-  object-fit: contain;
-}
-
 .fallingItem,
 .police {
   position: absolute;
@@ -147,8 +114,8 @@
 
 .police {
   left: 0;
-  top: 443px;
-  width: 658px;
+  top: var(--car-y);
+  width: var(--car-width);
   z-index: 5;
   cursor: grab;
   touch-action: none;

@@ -22,6 +22,8 @@ let hasFlickeredInThisSession = false
    ============================================================ */
 
 const A = assetUrl('/images/achievements')
+const WINNING_POINTS_SOUND = assetUrl('/sounds/winning points.mp3')
+const LOSING_POINTS_SOUND = assetUrl('/sounds/losing points.mp3')
 const RANK_COUNT = 6
 const ENTRY_FLICKER_INTERVAL_MS = 300
 const ENTRY_FLICKER_TICKS = 6
@@ -79,6 +81,21 @@ export function AchievementsWindow({
   const [suppressFillTransition, setSuppressFillTransition] =
     useState(startsFlickering)
   const wasLoopingRef = useRef(loopEntryFlicker)
+
+  useEffect(() => {
+    if (!pointPopup) return
+    const isLoss = pointPopup.kind === 'lose'
+      || (pointPopup.kind == null && pointPopup.points < 0)
+    const audio = new Audio(isLoss ? LOSING_POINTS_SOUND : WINNING_POINTS_SOUND)
+    audio.volume = 0.75
+    audio.play().catch(() => { /* autoplay blocked — ignore */ })
+
+    return () => {
+      audio.pause()
+      audio.removeAttribute('src')
+      audio.load()
+    }
+  }, [pointPopup])
 
   useEffect(() => {
     if (playEntryFlicker && !forceEntryFlicker) {

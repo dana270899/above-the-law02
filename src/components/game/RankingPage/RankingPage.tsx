@@ -151,6 +151,7 @@ export function RankingPage({
       ? entries.find((entry) => entry.isCurrentPlayer)?.id ?? localEntry.id
       : localEntry.id
   const { visible: shown } = buildLeaderboardDisplay(withCurrentPlayer, currentPlayerId)
+  const isRankingLoading = status === 'loading' || status === 'publishing'
 
   const syncScrollbar = useCallback(() => {
     const rows = rowsRef.current
@@ -266,32 +267,9 @@ export function RankingPage({
               className={styles.rows}
               ref={rowsRef}
               onScroll={syncScrollbar}
-              aria-busy={status === 'loading' || status === 'publishing'}
+              aria-busy={isRankingLoading}
             >
-              {shown.map((entry) => (
-                <article
-                  key={entry.id}
-                  className={`${styles.row} ${entry.isCurrentPlayer ? styles.currentRow : ''}`}
-                >
-                  <span className={styles.rank}>{entry.rank}</span>
-                  <span className={styles.playerPhoto}>
-                    {entry.photoUrl ? (
-                      <img src={entry.photoUrl} alt="" />
-                    ) : (
-                      <img
-                        src={assetUrl('/images/Player.svg')}
-                        alt=""
-                        className={styles.defaultPlayerPhoto}
-                      />
-                    )}
-                  </span>
-                  <span className={styles.playerName}>{entry.playerName}</span>
-                  <span className={styles.playerScore}>
-                    {entry.score.toLocaleString('en-US')} points
-                  </span>
-                </article>
-              ))}
-              {status === 'loading' && (
+              {isRankingLoading ? (
                 <div className={styles.skeletonRows} role="status" aria-label="Loading ranking">
                   {Array.from({ length: RANKING_SKELETON_ROWS }, (_, index) => (
                     <div className={`${styles.row} ${styles.skeletonRow}`} key={index} aria-hidden="true">
@@ -302,6 +280,30 @@ export function RankingPage({
                     </div>
                   ))}
                 </div>
+              ) : (
+                shown.map((entry) => (
+                  <article
+                    key={entry.id}
+                    className={`${styles.row} ${entry.isCurrentPlayer ? styles.currentRow : ''}`}
+                  >
+                    <span className={styles.rank}>{entry.rank}</span>
+                    <span className={styles.playerPhoto}>
+                      {entry.photoUrl ? (
+                        <img src={entry.photoUrl} alt="" />
+                      ) : (
+                        <img
+                          src={assetUrl('/images/Player.svg')}
+                          alt=""
+                          className={styles.defaultPlayerPhoto}
+                        />
+                      )}
+                    </span>
+                    <span className={styles.playerName}>{entry.playerName}</span>
+                    <span className={styles.playerScore}>
+                      {entry.score.toLocaleString('en-US')} points
+                    </span>
+                  </article>
+                ))
               )}
               {status === 'ready' && shown.length === 0 && <p className={styles.loading}>No saved results yet.</p>}
             </div>

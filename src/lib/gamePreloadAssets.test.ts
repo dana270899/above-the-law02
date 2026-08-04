@@ -172,6 +172,8 @@ describe('assetsForFlowNode', () => {
     expect(sources(node)).toContain('/images/win-screens/KippahCutting/Kippah_left_03.svg')
     expect(sources(node)).toContain('/images/win-screens/KippahCutting/Cursor02_Scissors02.svg')
     expect(sources(node)).toContain('/sounds/Scissors.mp3')
+    expect(sources(node)).toContain('/sounds/winning points.mp3')
+    expect(sources(node)).toContain('/sounds/losing points.mp3')
     expect(sources(node)).not.toContain('/images/win-screens/WinScreen_KippahCutting.png')
     expect(sources(node)).not.toContain('/sounds/notification.mp3')
   })

@@ -18,10 +18,15 @@ const DEFAULT_WIN_FOOTER_TEXT = 'Winning is so good'
 const DEFAULT_WIN_CTA_LABEL = 'Love this job, next case!'
 const DESIGN_WIDTH = 1440
 const DESIGN_HEIGHT = 810
-const CAR_WIDTH = 658
-const CAR_HEIGHT = 299
-const CAR_Y = 443
-const CAR_START_X = 704
+const CAR_SCALE = 0.9
+const CAR_ORIGINAL_WIDTH = 658
+const CAR_ORIGINAL_HEIGHT = 299
+const CAR_ORIGINAL_Y = 443
+const CAR_ORIGINAL_START_X = 704
+const CAR_WIDTH = CAR_ORIGINAL_WIDTH * CAR_SCALE
+const CAR_HEIGHT = CAR_ORIGINAL_HEIGHT * CAR_SCALE
+const CAR_Y = CAR_ORIGINAL_Y + (CAR_ORIGINAL_HEIGHT - CAR_HEIGHT) / 2
+const CAR_START_X = CAR_ORIGINAL_START_X + (CAR_ORIGINAL_WIDTH - CAR_WIDTH) / 2
 const PIZZA_SIZE = 122
 const FIGHT_SIZE = 158
 const SPAWN_MIN_MS = 520
@@ -73,8 +78,6 @@ export function Pizza({
   })
   const [carX, setCarX] = useState(CAR_START_X)
   const [fallingItems, setFallingItems] = useState<FallingItem[]>([])
-  const [score, setScore] = useState(0)
-  const [hits, setHits] = useState(0)
   const [carFeedback, setCarFeedback] = useState<'collect' | 'hit' | null>(null)
   const screenRef = useRef<HTMLDivElement | null>(null)
   const carXRef = useRef(CAR_START_X)
@@ -175,10 +178,10 @@ export function Pizza({
       }
 
       const carRect = {
-        left: carXRef.current + 70,
-        right: carXRef.current + CAR_WIDTH - 54,
-        top: CAR_Y + 42,
-        bottom: CAR_Y + CAR_HEIGHT - 18,
+        left: carXRef.current + 70 * CAR_SCALE,
+        right: carXRef.current + CAR_WIDTH - 54 * CAR_SCALE,
+        top: CAR_Y + 42 * CAR_SCALE,
+        bottom: CAR_Y + CAR_HEIGHT - 18 * CAR_SCALE,
       }
       let nextScore = scoreRef.current
       let nextHits = hitsRef.current
@@ -221,11 +224,9 @@ export function Pizza({
 
       if (nextScore !== scoreRef.current) {
         scoreRef.current = nextScore
-        setScore(nextScore)
       }
       if (nextHits !== hitsRef.current) {
         hitsRef.current = nextHits
-        setHits(nextHits)
       }
       if (feedback) triggerCarFeedback(feedback)
 
@@ -245,6 +246,8 @@ export function Pizza({
 
   const carStyle = {
     '--car-x': `${carX}px`,
+    '--car-y': `${CAR_Y}px`,
+    '--car-width': `${CAR_WIDTH}px`,
   } as CSSProperties
 
   return (
@@ -280,16 +283,6 @@ export function Pizza({
           draggable={false}
           onError={handleError}
         />
-        <div className={styles.hud} aria-label={`Pizzas ${score}, fights ${hits}`}>
-          <span className={styles.hudItem}>
-            <img src={PIZZA_SRC} alt="" draggable={false} />
-            {score}
-          </span>
-          <span className={styles.hudItem}>
-            <img src={FIGHT_SRC} alt="" draggable={false} />
-            {hits}
-          </span>
-        </div>
         {fallingItems.map((item) => {
           const style = {
             '--item-x': `${item.x}px`,
