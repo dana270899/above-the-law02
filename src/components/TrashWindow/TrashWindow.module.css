@@ -1,0 +1,269 @@
+.window {
+  box-sizing: border-box;
+  position: relative;
+  isolation: isolate;
+  width: 1008px;
+  height: 648px;
+  padding: 0 8px 8px 0;
+  overflow: visible;
+  border: 0;
+  border-radius: 4px;
+  background: var(--grey);
+  color: var(--black);
+  font-family: var(--font-main);
+}
+
+.window::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+.windowSurface {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  align-items: stretch;
+  overflow: hidden;
+  border-radius: 4px;
+  background: var(--white);
+}
+
+.windowSurface::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  border-right: 2px solid var(--black);
+  border-bottom: 2px solid var(--black);
+  border-radius: 0 0 4px;
+  pointer-events: none;
+}
+
+.draggable {
+  position: absolute;
+}
+
+.draggable .upperBar {
+  cursor: var(--cursor-hover-drag);
+  user-select: none;
+}
+
+.upperBar {
+  box-sizing: border-box;
+  width: 100%;
+  height: 40px;
+  flex: 0 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+  border: 2px solid var(--black);
+  background: var(--white);
+}
+
+.title {
+  padding: 0 16px;
+  color: var(--grey);
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 28px;
+  white-space: nowrap;
+}
+
+.controls {
+  height: 40px;
+  margin: -2px -2px -2px 0;
+  align-self: auto;
+  display: flex;
+  align-items: stretch;
+}
+
+.control {
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 7px;
+  overflow: hidden;
+  border: 2px solid var(--black);
+  margin-right: -2px;
+  background: var(--white);
+  cursor: var(--cursor-hover);
+}
+
+.control img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.minimize { background: var(--yellow); padding: 8px; }
+.close { margin-right: 0; background: var(--red); padding: 8px; }
+
+.body {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 0;
+  flex: 1 1 auto;
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+  padding: 40px 40px 40px 32px;
+  overflow: hidden;
+  background: var(--white);
+}
+
+.caseFile {
+  width: 200px;
+  flex: 0 0 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  overflow: hidden;
+}
+
+.caseIcon {
+  display: block;
+  width: 120px;
+  height: 120px;
+  flex: 0 0 120px;
+}
+
+.photoFile {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: var(--cursor-hover);
+}
+
+.photoIconSlot {
+  width: 120px;
+  height: 120px;
+  flex: 0 0 120px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.trashPhoto {
+  display: block;
+  width: 121.165px;
+  height: 104px;
+  flex: 0 0 104px;
+}
+
+.fileName {
+  width: 200px;
+  color: var(--black);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.photoWindow {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 60;
+  width: max-content;
+  height: max-content;
+  padding: 0 8px 8px 0;
+  transform: translate(-50%, -50%);
+  border-radius: 4px;
+  background: var(--grey);
+}
+
+.photoWindow::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border: 2px solid var(--black);
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+.photoWindowSurface {
+  position: relative;
+  width: max-content;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 4px;
+  background: var(--white);
+}
+
+.photoWindowSurface::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border-right: 2px solid var(--black);
+  border-bottom: 2px solid var(--black);
+  border-radius: 0 0 4px;
+  pointer-events: none;
+}
+
+.photoWindowBar {
+  box-sizing: border-box;
+  width: 100%;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 2px solid var(--black);
+  background: var(--white);
+}
+
+.photoWindowBar > span {
+  padding: 0 16px;
+  color: var(--grey);
+  font-size: 22px;
+  line-height: 28px;
+  white-space: nowrap;
+}
+
+.photoWindowClose {
+  box-sizing: border-box;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  margin: -2px -2px -2px 0;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 2px solid var(--black);
+  background: var(--red);
+  cursor: var(--cursor-hover);
+}
+
+.photoWindowClose img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.fullPhoto {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: none;
+}

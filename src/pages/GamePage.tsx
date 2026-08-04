@@ -33,6 +33,7 @@ import { TutorialSpotlight } from '@/components/game/TutorialSpotlight'
 import { OperationLockedScreen } from '@/components/game/OperationLockedScreen'
 import { AchievementsWindow, type CaseOutcome } from '@/components/AchievementsWindow'
 import { WhackAMole } from '@/components/WhackAMole'
+import { TrashWindow } from '@/components/TrashWindow/TrashWindow'
 import { useGameFlow } from '@/hooks/useGameFlow'
 import { useFlowAssetPreloader } from '@/hooks/useFlowAssetPreloader'
 import { useGameScale } from '@/hooks/useGameScale'
@@ -194,6 +195,13 @@ export function GamePage() {
     () => !!startParams.startCaseId,
   )
   const [miniGameOpen, setMiniGameOpen] = useState(false)
+  const [trashWindowOpen, setTrashWindowOpen] = useState(false)
+  const [trashWindowMinimized, setTrashWindowMinimized] = useState(false)
+  const [trashWindowMotion, setTrashWindowMotion] = useState<WindowMotion>('idle')
+  const [trashWindowMotionOrigin, setTrashWindowMotionOrigin] =
+    useState<WindowMotionOrigin>('desktop')
+  const trashWindowMotionTimeoutRef = useRef<number | null>(null)
+  const trashWindowLayerRef = useRef<HTMLDivElement | null>(null)
   const [miniGameMinimized, setMiniGameMinimized] = useState(false)
   const [miniGameScoringSession, setMiniGameScoringSession] = useState(false)
   const [miniGameLockedScreenOpen, setMiniGameLockedScreenOpen] = useState(false)
@@ -290,7 +298,7 @@ export function GamePage() {
   useLayoutEffect(() => {
     const setFlightPath = (
       layer: HTMLDivElement | null,
-      appId: 'cases' | 'operation' | 'whack',
+      appId: 'cases' | 'operation' | 'whack' | 'trash',
       motion: WindowMotion,
       origin: WindowMotionOrigin,
     ) => {
@@ -342,6 +350,12 @@ export function GamePage() {
       miniGameMotion,
       miniGameMotionOrigin,
     )
+    setFlightPath(
+      trashWindowLayerRef.current,
+      'trash',
+      trashWindowMotion,
+      trashWindowMotionOrigin,
+    )
   }, [
     caseWindowMotion,
     caseWindowMotionOrigin,
@@ -349,6 +363,8 @@ export function GamePage() {
     operationWindowMotionOrigin,
     miniGameMotion,
     miniGameMotionOrigin,
+    trashWindowMotion,
+    trashWindowMotionOrigin,
   ])
 
   // Look up the single bgMusic settings node from the saved graph (if any).
@@ -422,6 +438,9 @@ export function GamePage() {
       }
       if (miniGameMotionTimeoutRef.current != null) {
         window.clearTimeout(miniGameMotionTimeoutRef.current)
+      }
+      if (trashWindowMotionTimeoutRef.current != null) {
+        window.clearTimeout(trashWindowMotionTimeoutRef.current)
       }
     }
   }, [])
@@ -1368,6 +1387,47 @@ export function GamePage() {
     openScoringMiniGame(advance, true)
   }
 
+  const openTrashWindow = () => {
+    if (trashWindowMotionTimeoutRef.current != null) {
+      window.clearTimeout(trashWindowMotionTimeoutRef.current)
+    }
+    setTrashWindowOpen(true)
+    setTrashWindowMinimized(false)
+    setTrashWindowMotionOrigin('desktop')
+    setTrashWindowMotion('restoring')
+    trashWindowMotionTimeoutRef.current = window.setTimeout(() => {
+      setTrashWindowMotion('idle')
+      trashWindowMotionTimeoutRef.current = null
+    }, WINDOW_MOTION_MS)
+  }
+
+  const restoreTrashWindow = () => {
+    if (trashWindowMotionTimeoutRef.current != null) {
+      window.clearTimeout(trashWindowMotionTimeoutRef.current)
+    }
+    setTrashWindowOpen(true)
+    setTrashWindowMinimized(false)
+    setTrashWindowMotionOrigin('taskbar')
+    setTrashWindowMotion('restoring')
+    trashWindowMotionTimeoutRef.current = window.setTimeout(() => {
+      setTrashWindowMotion('idle')
+      trashWindowMotionTimeoutRef.current = null
+    }, WINDOW_MOTION_MS)
+  }
+
+  const minimizeTrashWindow = () => {
+    if (trashWindowMotionTimeoutRef.current != null) {
+      window.clearTimeout(trashWindowMotionTimeoutRef.current)
+    }
+    setTrashWindowMotionOrigin('taskbar')
+    setTrashWindowMotion('minimizing')
+    trashWindowMotionTimeoutRef.current = window.setTimeout(() => {
+      setTrashWindowMinimized(true)
+      setTrashWindowMotion('idle')
+      trashWindowMotionTimeoutRef.current = null
+    }, WINDOW_MOTION_MS)
+  }
+
   const taskbarApps = useMemo<TaskbarApp[]>(() => {
     const apps: TaskbarApp[] = []
     if (caseWindowOpen && activeCaseData) {
@@ -1391,8 +1451,15 @@ export function GamePage() {
         onClick: restoreMiniGame,
       })
     }
+    if (trashWindowOpen) {
+      apps.push({
+        id: 'trash',
+        label: 'Trash',
+        onClick: restoreTrashWindow,
+      })
+    }
     return apps
-  }, [activeCaseData, caseWindowOpen, miniGameOpen, operationWindowOpen, miniGameMinimized])
+  }, [activeCaseData, caseWindowOpen, miniGameOpen, operationWindowOpen, miniGameMinimized, trashWindowOpen])
 
   // While the flow sits on a login node, render the LoginScreen as a
   // full-screen step. Submitting follows the node's outgoing edge.
@@ -1535,6 +1602,7 @@ export function GamePage() {
       operationAttention={operationUnlocked && !operationUnlockAcknowledged}
       onStartClick={() => setVolumeControlVisible((v) => !v)}
       onWhackClick={handleMiniGameIconClick}
+      onTrashClick={openTrashWindow}
       taskbarApps={taskbarApps}
       tutorialOverlay={(() => {
         if (!activeTutorialMsg || caseWindowHighlightTarget) return null
@@ -1695,6 +1763,35 @@ export function GamePage() {
               else restoreMiniGame()
             }}
             minimized={miniGameMinimized}
+          />
+        </div>
+      )}
+
+      {trashWindowOpen && (
+        <div
+          ref={trashWindowLayerRef}
+          className={[
+            styles.caseLayer,
+            trashWindowMinimized ? styles.windowHidden : '',
+            trashWindowMotion === 'minimizing'
+              ? styles.windowMinimizing
+              : trashWindowMotion === 'restoring'
+                ? styles.windowRestoring
+                : '',
+          ].filter(Boolean).join(' ')}
+        >
+          <TrashWindow
+            draggable
+            onMinimize={minimizeTrashWindow}
+            onClose={() => {
+              if (trashWindowMotionTimeoutRef.current != null) {
+                window.clearTimeout(trashWindowMotionTimeoutRef.current)
+                trashWindowMotionTimeoutRef.current = null
+              }
+              setTrashWindowMotion('idle')
+              setTrashWindowOpen(false)
+              setTrashWindowMinimized(false)
+            }}
           />
         </div>
       )}

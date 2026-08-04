@@ -57,6 +57,13 @@ const VARIANT_SRC: Record<FootageVariant, string> = {
 
 /** Variants whose source is a `<video>` rather than a static image. */
 const VIDEO_VARIANTS = new Set<FootageVariant>(['graffiti-video'])
+const GRAFFITI_VIDEO_GAIN = 1.5
+
+type VideoAudioGraph = {
+  context: AudioContext
+  source: MediaElementAudioSourceNode
+  gain: GainNode
+}
 
 export type FootageWindowData = {
   /** Legacy title value. The displayed title is generated per window. */
@@ -101,6 +108,7 @@ export function FootageWindow({
   )
   const videoRef = useRef<HTMLVideoElement | null>(null)
   const isDuckingRef = useRef(false)
+  const videoAudioGraphRef = useRef<VideoAudioGraph | null>(null)
 
   // Drag position. `null` = centered (initial). After first drag, becomes {x,y}.
   const [pos, setPos] = useState<{ x: number; y: number } | null>(null)
@@ -184,15 +192,54 @@ export function FootageWindow({
     pushBgMusicDuck()
   }, [soundEnabled])
 
+  const boostVideoAudio = useCallback(() => {
+    const video = videoRef.current
+    if (!video || !soundEnabled) return
+
+    let graph = videoAudioGraphRef.current
+    if (!graph) {
+      const AudioContextClass = window.AudioContext
+        ?? (window as Window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext
+      if (!AudioContextClass) return
+      try {
+        const context = new AudioContextClass()
+        const source = context.createMediaElementSource(video)
+        const gain = context.createGain()
+        gain.gain.value = GRAFFITI_VIDEO_GAIN
+        source.connect(gain)
+        gain.connect(context.destination)
+        graph = { context, source, gain }
+        videoAudioGraphRef.current = graph
+      } catch {
+        // Keep native full-volume playback as the fallback when Web Audio is
+        // unavailable or the browser refuses to create a media source.
+        return
+      }
+    }
+    void graph.context.resume().catch(() => {
+      // The pointer/keyboard retry below resumes it after a user gesture.
+    })
+  }, [soundEnabled])
+
   const playVideo = useCallback(() => {
     const video = videoRef.current
     if (!video || !isVideoVariant) return
     video.muted = !soundEnabled
     video.volume = soundEnabled ? 1 : 0
+    boostVideoAudio()
     video.play().catch(() => {
       /* Some browsers still require an extra user gesture for audible media. */
     })
-  }, [isVideoVariant, soundEnabled])
+  }, [boostVideoAudio, isVideoVariant, soundEnabled])
+
+  useEffect(() => () => {
+    const graph = videoAudioGraphRef.current
+    if (!graph) return
+    graph.source.disconnect()
+    graph.gain.disconnect()
+    void graph.context.close()
+    videoAudioGraphRef.current = null
+  }, [])
 
   useEffect(() => {
     if (!isVideoVariant) {

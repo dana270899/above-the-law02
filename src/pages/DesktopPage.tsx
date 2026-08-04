@@ -14,6 +14,7 @@ import {
 } from '@/components/OperationWindowV2'
 import { WhackAMole } from '@/components/WhackAMole'
 import { AchievementsWindow } from '@/components/AchievementsWindow'
+import { TrashWindow } from '@/components/TrashWindow/TrashWindow'
 import { useGameScale } from '@/hooks/useGameScale'
 import { loadGraph } from '@/lib/editorStorage'
 import type { SavedGraph } from '@/lib/editorStorage'
@@ -86,6 +87,12 @@ export function DesktopPage() {
   const [whackOpen, setWhackOpen] = useState(
     () => new URLSearchParams(window.location.search).get('startWhack') === '1',
   )
+  const [trashOpen, setTrashOpen] = useState(false)
+  const [trashMinimized, setTrashMinimized] = useState(false)
+  const [trashMotion, setTrashMotion] = useState<WindowMotion>('idle')
+  const [trashMotionOrigin, setTrashMotionOrigin] = useState<WindowMotionOrigin>('desktop')
+  const trashMotionTimeoutRef = useRef<number | null>(null)
+  const trashLayerRef = useRef<HTMLDivElement | null>(null)
   const [whackMinimized, setWhackMinimized] = useState(false)
   const [whackMotion, setWhackMotion] = useState<WindowMotion>('idle')
   const [whackMotionOrigin, setWhackMotionOrigin] = useState<WindowMotionOrigin>('desktop')
@@ -131,36 +138,76 @@ export function DesktopPage() {
     }, WINDOW_MOTION_MS)
   }
 
+  const clearTrashMotionTimeout = () => {
+    if (trashMotionTimeoutRef.current === null) return
+    window.clearTimeout(trashMotionTimeoutRef.current)
+    trashMotionTimeoutRef.current = null
+  }
+
+  const restoreTrash = (origin: WindowMotionOrigin) => {
+    clearTrashMotionTimeout()
+    setTrashOpen(true)
+    setTrashMinimized(false)
+    setTrashMotionOrigin(origin)
+    setTrashMotion('restoring')
+    trashMotionTimeoutRef.current = window.setTimeout(() => {
+      setTrashMotion('idle')
+      trashMotionTimeoutRef.current = null
+    }, WINDOW_MOTION_MS)
+  }
+
+  const minimizeTrash = () => {
+    clearTrashMotionTimeout()
+    setTrashMotionOrigin('taskbar')
+    setTrashMotion('minimizing')
+    trashMotionTimeoutRef.current = window.setTimeout(() => {
+      setTrashMinimized(true)
+      setTrashMotion('idle')
+      trashMotionTimeoutRef.current = null
+    }, WINDOW_MOTION_MS)
+  }
+
   useLayoutEffect(() => {
-    const layer = whackLayerRef.current
-    if (!layer || whackMotion === 'idle') return
+    const setFlightPath = (
+      layer: HTMLDivElement | null,
+      appId: 'whack' | 'trash',
+      motion: WindowMotion,
+      origin: WindowMotionOrigin,
+    ) => {
+      if (!layer || motion === 'idle') return
+      const targetSelector = origin === 'desktop'
+        ? `[data-spot="icon.${appId}"]`
+        : `[data-taskbar-app="${appId}"]`
+      const target = document.querySelector<HTMLElement>(targetSelector)
+      const windowElement = layer.firstElementChild as HTMLElement | null
+      const canvas = layer.closest<HTMLElement>('[data-scaled-stage]')
+      if (!target || !windowElement || !canvas) return
 
-    const targetSelector = whackMotionOrigin === 'desktop'
-      ? '[data-spot="icon.whack"]'
-      : '[data-taskbar-app="whack"]'
-    const target = document.querySelector<HTMLElement>(targetSelector)
-    const windowElement = layer.firstElementChild as HTMLElement | null
-    const canvas = layer.closest<HTMLElement>('[data-scaled-stage]')
-    if (!target || !windowElement || !canvas) return
+      layer.style.animation = 'none'
+      const windowRect = windowElement.getBoundingClientRect()
+      const targetRect = target.getBoundingClientRect()
+      const canvasRect = canvas.getBoundingClientRect()
+      const stageScale = canvasRect.width / 1920 || 1
+      layer.style.setProperty(
+        '--window-taskbar-x',
+        `${(targetRect.left + targetRect.width / 2 - (windowRect.left + windowRect.width / 2)) / stageScale}px`,
+      )
+      layer.style.setProperty(
+        '--window-taskbar-y',
+        `${(targetRect.top + targetRect.height / 2 - (windowRect.top + windowRect.height / 2)) / stageScale}px`,
+      )
+      void layer.offsetWidth
+      layer.style.animation = ''
+    }
 
-    layer.style.animation = 'none'
-    const windowRect = windowElement.getBoundingClientRect()
-    const targetRect = target.getBoundingClientRect()
-    const canvasRect = canvas.getBoundingClientRect()
-    const stageScale = canvasRect.width / 1920 || 1
-    layer.style.setProperty(
-      '--window-taskbar-x',
-      `${(targetRect.left + targetRect.width / 2 - (windowRect.left + windowRect.width / 2)) / stageScale}px`,
-    )
-    layer.style.setProperty(
-      '--window-taskbar-y',
-      `${(targetRect.top + targetRect.height / 2 - (windowRect.top + windowRect.height / 2)) / stageScale}px`,
-    )
-    void layer.offsetWidth
-    layer.style.animation = ''
-  }, [whackMotion, whackMotionOrigin])
+    setFlightPath(whackLayerRef.current, 'whack', whackMotion, whackMotionOrigin)
+    setFlightPath(trashLayerRef.current, 'trash', trashMotion, trashMotionOrigin)
+  }, [trashMotion, trashMotionOrigin, whackMotion, whackMotionOrigin])
 
-  useEffect(() => () => clearWhackMotionTimeout(), [])
+  useEffect(() => () => {
+    clearWhackMotionTimeout()
+    clearTrashMotionTimeout()
+  }, [])
 
   const taskbarApps = useMemo<TaskbarApp[]>(() => {
     const apps: TaskbarApp[] = []
@@ -177,8 +224,15 @@ export function DesktopPage() {
         onClick: () => restoreWhack('taskbar'),
       })
     }
+    if (trashOpen) {
+      apps.push({
+        id: 'trash',
+        label: 'Trash',
+        onClick: () => restoreTrash('taskbar'),
+      })
+    }
     return apps
-  }, [closed, operationClosed, startCase, startOperation, whackOpen])
+  }, [closed, operationClosed, startCase, startOperation, trashOpen, whackOpen])
 
   return (
     <div ref={scaleRef} className={styles.canvas} data-scaled-stage>
@@ -187,6 +241,7 @@ export function DesktopPage() {
         onWhackClick={() => {
           restoreWhack('desktop')
         }}
+        onTrashClick={() => restoreTrash('desktop')}
         taskbarApps={taskbarApps}
       >
         <div className={styles.achievementsLayer}>
@@ -243,6 +298,31 @@ export function DesktopPage() {
               onMinimizeChange={(minimized) => {
                 if (minimized) minimizeWhack()
                 else restoreWhack('taskbar')
+              }}
+            />
+          </div>
+        )}
+        {trashOpen && (
+          <div
+            ref={trashLayerRef}
+            className={[
+              styles.caseLayer,
+              trashMinimized ? styles.windowHidden : '',
+              trashMotion === 'minimizing'
+                ? styles.windowMinimizing
+                : trashMotion === 'restoring'
+                  ? styles.windowRestoring
+                  : '',
+            ].filter(Boolean).join(' ')}
+          >
+            <TrashWindow
+              draggable
+              onMinimize={minimizeTrash}
+              onClose={() => {
+                clearTrashMotionTimeout()
+                setTrashMotion('idle')
+                setTrashOpen(false)
+                setTrashMinimized(false)
               }}
             />
           </div>
