@@ -1,0 +1,2772 @@
+{
+  "id": "2026-08-05T03-42-03Z",
+  "name": "Final Presentation",
+  "createdAt": "2026-08-05T03:42:03.080Z",
+  "auto": false,
+  "filename": "2026-08-05T03-42-03Z-final-presentation.json",
+  "graph": {
+    "nodes": [
+      {
+        "id": "login",
+        "type": "login",
+        "position": {
+          "x": 1176.812813289036,
+          "y": -3625.024152266563
+        },
+        "data": {
+          "nodeType": "login",
+          "label": "Login Screen"
+        },
+        "measured": {
+          "width": 180,
+          "height": 88
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "case-1779636506164",
+        "type": "case",
+        "position": {
+          "x": 1075.5534265572066,
+          "y": 3423.722334569918
+        },
+        "data": {
+          "nodeType": "case",
+          "caseId": "861",
+          "title": "Case 1",
+          "order": 1,
+          "hasOperation": false,
+          "window": {
+            "caseId": "861",
+            "createdAt": "12/06/2026 22:34 PM",
+            "statusLabel": "Open",
+            "statusColor": "green",
+            "photoUrl": "/images/case-window/id-photos/id-photo01.svg",
+            "fullName": "Guy Shpak",
+            "idNo": "41346678",
+            "dob": "10/12/1976",
+            "sex": "Male",
+            "nationality": "Israeli",
+            "religion": "Jewish",
+            "religionColor": "green",
+            "address": "Herzl 21, Tel Aviv",
+            "criminalRecord": [
+              {
+                "id": "c1782203242317",
+                "text": "Illegal Gathering",
+                "date": "22/08/2020",
+                "status": "Convicted",
+                "statusColor": "red",
+                "details": "Attended an illegal hugging festival."
+              }
+            ],
+            "suspicions": [
+              {
+                "id": "s1",
+                "subject": "Indecent exposure",
+                "status": "Low",
+                "statusColor": "yellow",
+                "date": "08/02/2026",
+                "fileUrl": "",
+                "details": "The suspect appears to have shared more of themselves with the public than legally permitted.",
+                "fileFootageVariant": "indecent-exposure"
+              }
+            ],
+            "arrestLabel": "Arrest",
+            "releaseLabel": "Release"
+          }
+        },
+        "measured": {
+          "width": 325,
+          "height": 195
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "case-1780165634534",
+        "type": "case",
+        "position": {
+          "x": -1370.731376821949,
+          "y": -1360.5868713659008
+        },
+        "data": {
+          "nodeType": "case",
+          "caseId": "863",
+          "title": "Case 3",
+          "order": 3,
+          "hasOperation": true,
+          "window": {
+            "caseId": "863",
+            "createdAt": "27/06/2026 09:18 AM",
+            "statusLabel": "Open",
+            "statusColor": "green",
+            "photoUrl": "/images/case-window/id-photos/id-photo03.svg",
+            "fullName": "Adam Mahmud",
+            "idNo": "12345678",
+            "dob": "10/12/1988",
+            "sex": "Male",
+            "nationality": "Israel",
+            "religion": "Muslim",
+            "religionColor": "red",
+            "address": "Khatser 5, Lod",
+            "criminalRecord": [],
+            "suspicions": [
+              {
+                "id": "s1",
+                "subject": "Palestinian flag graffiti",
+                "status": "Urgent",
+                "statusColor": "red",
+                "date": "08/02/2026",
+                "fileUrl": "",
+                "details": "Subject suspected in a large-scale security incident involving Palestinian flag graffiti on a municipal building wall.\n\nIt looks like him but we are not sure.",
+                "fileFootageVariant": "graffiti-video"
+              }
+            ],
+            "arrestLabel": "Arrest",
+            "releaseLabel": "Release"
+          },
+          "isImportant": true
+        },
+        "measured": {
+          "width": 325,
+          "height": 222
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "case-1780220269508",
+        "type": "case",
+        "position": {
+          "x": -18.32591910052483,
+          "y": -1330.679793713448
+        },
+        "data": {
+          "nodeType": "case",
+          "caseId": "862",
+          "title": "Case 2",
+          "order": 2,
+          "hasOperation": false,
+          "window": {
+            "caseId": "862",
+            "createdAt": "18/06/2026 16:47 PM",
+            "statusLabel": "Open",
+            "statusColor": "green",
+            "photoUrl": "/images/case-window/id-photos/id-photo02.svg",
+            "fullName": "Nathan Goldman",
+            "idNo": "98765432",
+            "dob": "18/11/1990",
+            "sex": "Male",
+            "nationality": "Israeli",
+            "religion": "Jewish",
+            "religionColor": "green",
+            "address": "HaBima 8, Tel Aviv, Israel",
+            "criminalRecord": [
+              {
+                "id": "c1780220751115",
+                "text": "Domestic violence",
+                "date": "10/09/2025",
+                "status": "Convicted",
+                "details": "Convicted of domestic violence against his wife"
+              }
+            ],
+            "suspicions": [
+              {
+                "id": "s1",
+                "subject": "Domestic violence",
+                "status": "Low",
+                "statusColor": "yellow",
+                "date": "08/02/2026",
+                "fileUrl": "",
+                "details": "His wife claims he assaulted her. The suspect suggests she is exaggerating the incident.\n\nBut who knows with these women? Could be true, could be a story.",
+                "fileFootageVariant": "jewish-violence"
+              }
+            ],
+            "arrestLabel": "Arrest",
+            "releaseLabel": "Release"
+          },
+          "isImportant": false,
+          "firstAttemptPoints": 100,
+          "secondAttemptPoints": 50
+        },
+        "measured": {
+          "width": 325,
+          "height": 195
+        },
+        "selected": true,
+        "dragging": false
+      },
+      {
+        "id": "message-9",
+        "type": "message",
+        "position": {
+          "x": 1125.7368322768368,
+          "y": 4463.778122823913
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "here’s a gift card for your hard work",
+          "buttonLabel": "Get the coupon",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 50,
+          "locationY": 50
+        },
+        "measured": {
+          "width": 290,
+          "height": 545
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "tut-msg-welcome",
+        "type": "message",
+        "position": {
+          "x": 1093.871625009618,
+          "y": -3369.7873724320225
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "Welcome to your new role as Police Chief!",
+          "buttonLabel": "Next",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 80,
+          "locationY": 20,
+          "isTutorial": false
+        },
+        "measured": {
+          "width": 290,
+          "height": 545
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "tut-msg-learn",
+        "type": "message",
+        "position": {
+          "x": 1073.655491481039,
+          "y": -2783.1157268935813
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "I’m sure you’ll quickly learn how things work around here.",
+          "buttonLabel": "Next",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 20,
+          "locationY": 50,
+          "isTutorial": false
+        },
+        "measured": {
+          "width": 290,
+          "height": 545
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "tut-msg-rewards",
+        "type": "message",
+        "position": {
+          "x": 1097.7233511054155,
+          "y": -2200.360797311912
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "Show me you're on the right side, and the promotion is yours ;)",
+          "buttonLabel": "Next",
+          "buttonLinkType": "achievements",
+          "buttonUrl": "",
+          "locationX": 65,
+          "locationY": 40,
+          "isTutorial": true,
+          "spotlightTargetId": "rank.window"
+        },
+        "measured": {
+          "width": 290,
+          "height": 635
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "tut-msg-start",
+        "type": "message",
+        "position": {
+          "x": 1082.6442866808525,
+          "y": 1122.2610577893668
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "Let’s start with a simple case.",
+          "buttonLabel": "Open case",
+          "buttonLinkType": "newCase",
+          "buttonUrl": "",
+          "targetCaseId": "861",
+          "locationX": 80,
+          "locationY": 20
+        },
+        "measured": {
+          "width": 290,
+          "height": 592
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "tut-msg-details",
+        "type": "message",
+        "position": {
+          "x": 1134.3099476694538,
+          "y": 1992.3490839113365
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "First you read the details, but quickly, we work fast here!",
+          "buttonLabel": "Next",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 20,
+          "locationY": 25,
+          "isTutorial": true,
+          "spotlightTargetId": "case.identity"
+        },
+        "measured": {
+          "width": 290,
+          "height": 635
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "tut-msg-check",
+        "type": "message",
+        "position": {
+          "x": 1115.0668848119776,
+          "y": 2756.349083911336
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "Review the case and check for any prior criminal record",
+          "buttonLabel": "Got it",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 20,
+          "locationY": 40,
+          "isTutorial": true,
+          "spotlightTargetId": "case.records"
+        },
+        "measured": {
+          "width": 290,
+          "height": 635
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "tut-trig-expand",
+        "type": "trigger",
+        "position": {
+          "x": 1500,
+          "y": 2922
+        },
+        "data": {
+          "nodeType": "trigger",
+          "triggerType": "expandRow",
+          "targetRowId": "s1",
+          "delaySeconds": 0
+        },
+        "measured": {
+          "width": 220,
+          "height": 168
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "tut-msg-attachment",
+        "type": "message",
+        "position": {
+          "x": 1470.1537679680916,
+          "y": 3176.194242789733
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "We have some photos of the incident. Don't forget to wash your eyes afterward..",
+          "buttonLabel": "Got it",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 70,
+          "locationY": 30,
+          "isTutorial": true,
+          "spotlightTargetId": "case.suspicion.attachment"
+        },
+        "measured": {
+          "width": 290,
+          "height": 635
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "tut-trig-attach",
+        "type": "trigger",
+        "position": {
+          "x": 1824,
+          "y": 2899.5
+        },
+        "data": {
+          "nodeType": "trigger",
+          "triggerType": "attachmentRow",
+          "targetRowId": "s1",
+          "delaySeconds": 0
+        },
+        "measured": {
+          "width": 220,
+          "height": 168
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "tut-msg-decide",
+        "type": "message",
+        "position": {
+          "x": 1796,
+          "y": 3172
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "These hippies have no God...\nDecide if to arrest or release",
+          "buttonLabel": "Got it",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 20,
+          "locationY": 80,
+          "isTutorial": false,
+          "spotlightTargetId": "case.arrest"
+        },
+        "measured": {
+          "width": 290,
+          "height": 545
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "tut-trig-arrest-retry",
+        "type": "trigger",
+        "position": {
+          "x": 705.888098054004,
+          "y": 2557.9232404759655
+        },
+        "data": {
+          "nodeType": "trigger",
+          "triggerType": "arrest",
+          "retry": true
+        },
+        "measured": {
+          "width": 230,
+          "height": 170
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "tut-msg-anotherchance",
+        "type": "message",
+        "position": {
+          "x": 735.9054808521628,
+          "y": 2832.76642065421
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "voice",
+          "content": "/sounds/angry01.mp3",
+          "subtitle": "",
+          "buttonLabel": "",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 50,
+          "locationY": 50,
+          "subtitles": []
+        },
+        "measured": {
+          "width": 290,
+          "height": 593
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "tut-msg-goodjob",
+        "type": "message",
+        "position": {
+          "x": 1110.533710400677,
+          "y": 3748.25891674786
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "that's the spirit! don't overthink it, we don't have time for bulshit ^.^",
+          "buttonLabel": "Got it",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 70,
+          "locationY": 20
+        },
+        "measured": {
+          "width": 290,
+          "height": 545
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "tut-result-891-win",
+        "type": "result",
+        "position": {
+          "x": 1183.8005200024652,
+          "y": 5141.19895241979
+        },
+        "data": {
+          "nodeType": "result",
+          "resultType": "win",
+          "caseId": "861",
+          "label": "Case 861 — Released (correct)",
+          "winImage": "punching-dummy-click",
+          "winSound": "hashem-itbarach"
+        },
+        "measured": {
+          "width": 235,
+          "height": 336
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "tut-msg-newcase",
+        "type": "message",
+        "position": {
+          "x": 48.69255663672425,
+          "y": -2050.7475940301483
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "got you a new case my friend ^_^",
+          "buttonLabel": "Open case",
+          "buttonLinkType": "newCase",
+          "buttonUrl": "",
+          "targetCaseId": "862",
+          "locationX": 80,
+          "locationY": 20
+        },
+        "measured": {
+          "width": 290,
+          "height": 592
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "trigger-1780766666579",
+        "type": "trigger",
+        "position": {
+          "x": 424.33231002432683,
+          "y": -1204.2308386542495
+        },
+        "data": {
+          "nodeType": "trigger",
+          "triggerType": "attachmentRow",
+          "targetRowId": "s1",
+          "delaySeconds": 0.8
+        },
+        "measured": {
+          "width": 220,
+          "height": 168
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "message-10",
+        "type": "message",
+        "position": {
+          "x": 423.5162705633501,
+          "y": -968.8318488107441
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "ouch! anyways... decide quickly",
+          "buttonLabel": "Got it",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 20,
+          "locationY": 20
+        },
+        "measured": {
+          "width": 290,
+          "height": 545
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "message-11",
+        "type": "message",
+        "position": {
+          "x": -359.73178117600867,
+          "y": -1007.0640450387078
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "voice",
+          "content": "/sounds/angry01.mp3",
+          "buttonLabel": "Continue",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 50,
+          "locationY": 50,
+          "subtitles": []
+        },
+        "measured": {
+          "width": 290,
+          "height": 593
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "operation-1780953719956",
+        "type": "operation",
+        "position": {
+          "x": -1674.7478002703274,
+          "y": 102.19080820939381
+        },
+        "data": {
+          "nodeType": "operation",
+          "operationId": "op-1",
+          "title": "Operation 1",
+          "window": {
+            "title": "Operation",
+            "footerText": "Start operation",
+            "ctaLabel": "Arrest Arab",
+            "toggles": {
+              "boss": true,
+              "forces": true,
+              "dogs": true,
+              "press": true,
+              "blindfold": true
+            },
+            "itemSounds": {
+              "boss": "/sounds/Minister sound.mp3",
+              "forces": "/sounds/Forces.mp3",
+              "dogs": "/sounds/Dog.mp3",
+              "press": "/sounds/Press.mp3",
+              "blindfold": "/sounds/Rope.mp3"
+            }
+          }
+        },
+        "measured": {
+          "width": 307,
+          "height": 130
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "message-12",
+        "type": "message",
+        "position": {
+          "x": -1685.6416184736827,
+          "y": -1118.3217738363849
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "I knew I had picked the right person ♡♡♡",
+          "buttonLabel": "Next",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 20,
+          "locationY": 20
+        },
+        "measured": {
+          "width": 290,
+          "height": 545
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "message-13",
+        "type": "message",
+        "position": {
+          "x": -1264.2999425164464,
+          "y": -1114.4914248207256
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "voice",
+          "content": "/sounds/angry02.wav",
+          "buttonLabel": "Continue",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 50,
+          "locationY": 50,
+          "subtitles": [],
+          "voiceDuration": 12
+        },
+        "measured": {
+          "width": 290,
+          "height": 593
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "message-14",
+        "type": "message",
+        "position": {
+          "x": 14.941106759275158,
+          "y": -473.7105836014555
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "Congrats!! You have won a Kippah Cutting workshop",
+          "buttonLabel": "Claim reward",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 80,
+          "locationY": 20
+        },
+        "measured": {
+          "width": 290,
+          "height": 545
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "result-win-1780988106070",
+        "type": "result",
+        "position": {
+          "x": 94.45309101965981,
+          "y": 98.12968446671067
+        },
+        "data": {
+          "nodeType": "result",
+          "resultType": "win",
+          "caseId": "862",
+          "label": "Win 2",
+          "winSound": "hashem-itbarach",
+          "winImage": "kippah-cutting-workshop",
+          "winFooterText": "Winning is so fun",
+          "winCtaLabel": "I was born to be a cop!"
+        },
+        "measured": {
+          "width": 235,
+          "height": 336
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "message-16",
+        "type": "message",
+        "position": {
+          "x": -1417.3420372579017,
+          "y": -1918.8406433134578
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "Oh boy, what a case I’ve got for you!",
+          "buttonLabel": "Open case",
+          "buttonLinkType": "case",
+          "buttonUrl": "",
+          "locationX": 50,
+          "locationY": 50
+        },
+        "measured": {
+          "width": 290,
+          "height": 545
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "result-win-1780988357022",
+        "type": "result",
+        "position": {
+          "x": -1575.471774939078,
+          "y": 322.0680461260951
+        },
+        "data": {
+          "nodeType": "result",
+          "resultType": "win",
+          "caseId": "863",
+          "label": "Win 3",
+          "winImage": "graffiti",
+          "winTitle": "News",
+          "winFooterText": "Congratulations, you're making headlines",
+          "winCtaLabel": "My mom's gonna be so proud!",
+          "winSound": "hashem-itbarach"
+        },
+        "measured": {
+          "width": 235,
+          "height": 336
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "trigger-1780992110265",
+        "type": "trigger",
+        "position": {
+          "x": -933.3026032109566,
+          "y": -1367.4297583300283
+        },
+        "data": {
+          "nodeType": "trigger",
+          "triggerType": "expandRow",
+          "targetRowId": "s1",
+          "delaySeconds": 1
+        },
+        "measured": {
+          "width": 220,
+          "height": 168
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "message-18",
+        "type": "message",
+        "position": {
+          "x": -926.5296406000869,
+          "y": -1121.321295394662
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "Does it really matter if it was him?\nHe's probably guilty of something anyway!",
+          "buttonLabel": "Got it",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 20,
+          "locationY": 80
+        },
+        "measured": {
+          "width": 290,
+          "height": 545
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "message-19",
+        "type": "message",
+        "position": {
+          "x": -1681.5906782757481,
+          "y": -516.3049617307349
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "Don’t forget the operation!! I'm so exciteddd",
+          "buttonLabel": "Next",
+          "buttonLinkType": "operation",
+          "buttonUrl": "",
+          "locationX": 60,
+          "locationY": 50
+        },
+        "measured": {
+          "width": 290,
+          "height": 545
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "bgMusic-1781005819499",
+        "type": "bgMusic",
+        "position": {
+          "x": 1707.1791907631587,
+          "y": -3624.421324073964
+        },
+        "data": {
+          "nodeType": "bgMusic",
+          "src": "falafel",
+          "volume": 0.16
+        },
+        "measured": {
+          "width": 317,
+          "height": 135
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "case-1781506742927",
+        "type": "case",
+        "position": {
+          "x": -7404.060596032096,
+          "y": -1869.609345102809
+        },
+        "data": {
+          "nodeType": "case",
+          "caseId": "867",
+          "title": "Case 7",
+          "order": 7,
+          "hasOperation": false,
+          "useCamera": true,
+          "window": {
+            "caseId": "867",
+            "createdAt": "31/07/2026 20:33 PM",
+            "statusLabel": "Open",
+            "statusColor": "green",
+            "photoUrl": "",
+            "fullName": "Israel Israeli",
+            "idNo": "21345668",
+            "dob": "10/12/2000",
+            "sex": "Anarchist",
+            "nationality": "Traitor",
+            "religion": "Leftie",
+            "religionColor": "red",
+            "address": "Ya'akov Fichman St 18, Holon",
+            "criminalRecord": [],
+            "suspicions": [
+              {
+                "id": "s1",
+                "subject": "Terror-Related Activity",
+                "status": "Urgent",
+                "statusColor": "red",
+                "date": "08/02/2026",
+                "fileUrl": "",
+                "details": "Reportedly visited an exhibition and viewed an installation expressing criticism of the police."
+              }
+            ],
+            "arrestLabel": "Arrest",
+            "releaseLabel": "Release",
+            "sexColor": "red",
+            "nationalityColor": "red"
+          },
+          "isImportant": true
+        },
+        "measured": {
+          "width": 325,
+          "height": 222
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "message-21",
+        "type": "message",
+        "position": {
+          "x": -6996.700301501241,
+          "y": -1817.2801939875574
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "a leftie!! you know what to do!",
+          "buttonLabel": "Got it",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 80,
+          "locationY": 20
+        },
+        "measured": {
+          "width": 290,
+          "height": 545
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "message-22",
+        "type": "message",
+        "position": {
+          "x": 1597.774416792713,
+          "y": -1556.598649631055
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "You'll find the Rulebook on your desktop, but it doesn’t really matter",
+          "buttonLabel": "Continue",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 35,
+          "locationY": 20,
+          "isTutorial": true,
+          "spotlightTargetId": "icon.rulebook"
+        },
+        "measured": {
+          "width": 290,
+          "height": 635
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "message-23",
+        "type": "message",
+        "position": {
+          "x": 1101.8773667664257,
+          "y": -1012.7573803911024
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "Your job is to review cases and decide whether to arrest or release. Easy peasy!",
+          "buttonLabel": "Continue",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 35,
+          "locationY": 20,
+          "isTutorial": true,
+          "spotlightTargetId": "icon.cases"
+        },
+        "measured": {
+          "width": 290,
+          "height": 635
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "message-24",
+        "type": "message",
+        "position": {
+          "x": 1099.6779372923802,
+          "y": -256.9201888854212
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "This is the operations area. It’s my favorite! You’ll see why when the time comes.",
+          "buttonLabel": "Continue",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 35,
+          "locationY": 30,
+          "isTutorial": true,
+          "spotlightTargetId": "icon.operation"
+        },
+        "measured": {
+          "width": 290,
+          "height": 635
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "message-25",
+        "type": "message",
+        "position": {
+          "x": 1110.2174815509193,
+          "y": 418.42689005203323
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "Trash is trash, but I like putting it to good use, you know.",
+          "buttonLabel": "Continue",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 35,
+          "locationY": 80,
+          "isTutorial": true,
+          "spotlightTargetId": "icon.trash"
+        },
+        "measured": {
+          "width": 290,
+          "height": 635
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "message-27",
+        "type": "message",
+        "position": {
+          "x": 692.9034854355092,
+          "y": 3506.6963644551915
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "you are wasting police resources!!!\nI'll give you another chance",
+          "buttonLabel": "I will try again",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 80,
+          "locationY": 20
+        },
+        "measured": {
+          "width": 290,
+          "height": 545
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "message-28",
+        "type": "message",
+        "position": {
+          "x": -351.44777794205174,
+          "y": -350.8779969921525
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "I thought you understood! Those lesbian journalists are going to eat us alive",
+          "buttonLabel": "Sorry",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 80,
+          "locationY": 20
+        },
+        "measured": {
+          "width": 290,
+          "height": 545
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "message-29",
+        "type": "message",
+        "position": {
+          "x": -1260.5970744046172,
+          "y": -298.8419652537747
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "I told you it was important @$#%*!!!!!\nI want you to execute the operation",
+          "buttonLabel": "Got it",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 80,
+          "locationY": 30
+        },
+        "measured": {
+          "width": 290,
+          "height": 545
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "message-31",
+        "type": "message",
+        "position": {
+          "x": 18.238162624090165,
+          "y": -1001.855699994028
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "Good job! Now those lesbian journalists won't bother us",
+          "buttonLabel": "Thanks",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 50,
+          "locationY": 50
+        },
+        "measured": {
+          "width": 290,
+          "height": 545
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "result-win-1782311964781",
+        "type": "result",
+        "position": {
+          "x": -1642.120518856404,
+          "y": 1831.1244421068461
+        },
+        "data": {
+          "nodeType": "result",
+          "resultType": "win",
+          "caseId": "863",
+          "label": "Win 4",
+          "winImage": "bdsm-party",
+          "winTitle": "Win",
+          "winFooterText": "Sometimes dreams come true",
+          "winCtaLabel": "I love cakes and knots!",
+          "winSound": "hashem-itbarach"
+        },
+        "measured": {
+          "width": 235,
+          "height": 336
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "message-32",
+        "type": "message",
+        "position": {
+          "x": -1586.0080866574724,
+          "y": 710.470032612302
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "you didn't think I'd forget to take care of you, did you?",
+          "buttonLabel": "Continue",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 20,
+          "locationY": 30
+        },
+        "measured": {
+          "width": 290,
+          "height": 545
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "message-33",
+        "type": "message",
+        "position": {
+          "x": -1588.4179685368852,
+          "y": 1232.8453157072295
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": " You're invited to a special party ^.^",
+          "buttonLabel": "Continue",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 40,
+          "locationY": 60
+        },
+        "measured": {
+          "width": 290,
+          "height": 545
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "case-1783174291135",
+        "type": "case",
+        "position": {
+          "x": -2932.392176754366,
+          "y": -1207.9260128737533
+        },
+        "data": {
+          "nodeType": "case",
+          "caseId": "864",
+          "title": "Case 4",
+          "order": 4,
+          "hasOperation": false,
+          "window": {
+            "caseId": "864",
+            "createdAt": "05/07/2026 13:26 PM",
+            "statusLabel": "Open",
+            "statusColor": "green",
+            "photoUrl": "/images/case-window/id-photos/id-photo04.svg",
+            "fullName": "Ortal Malka ",
+            "idNo": "12345678",
+            "dob": "12/11/2008",
+            "sex": "Female",
+            "sexColor": "black",
+            "nationality": "Israeli",
+            "nationalityColor": "black",
+            "religion": "Jewish",
+            "religionColor": "green",
+            "address": "Trumpeldor 40, Petah Tikva",
+            "criminalRecord": [],
+            "criminalRecordEmptyText": "No criminal record.",
+            "extraChips": [],
+            "suspicions": [
+              {
+                "id": "s1",
+                "subject": "Vandalism",
+                "status": "low",
+                "statusColor": "yellow",
+                "date": "08/02/2026",
+                "fileUrl": "",
+                "details": "A group of teenagers is suspected of causing significant damage to a public bus.\nWitnesses described the incident as \"complete chaos.\"",
+                "fileFootageVariant": "teens"
+              }
+            ],
+            "arrestLabel": "Arrest",
+            "releaseLabel": "Release"
+          }
+        },
+        "measured": {
+          "width": 325,
+          "height": 195
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "message-34",
+        "type": "message",
+        "position": {
+          "x": -2929.8695237782317,
+          "y": -1791.5218557739443
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "new case! finish it quickly so we can go to lunch",
+          "buttonLabel": "Open case",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 80,
+          "locationY": 20
+        },
+        "measured": {
+          "width": 290,
+          "height": 545
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "trigger-1783175960515",
+        "type": "trigger",
+        "position": {
+          "x": -2455.6526868556202,
+          "y": -1109.97778502751
+        },
+        "data": {
+          "nodeType": "trigger",
+          "triggerType": "expandRow",
+          "delaySeconds": 0.4
+        },
+        "measured": {
+          "width": 220,
+          "height": 168
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "message-35",
+        "type": "message",
+        "position": {
+          "x": -2478.566054274806,
+          "y": -870.1881542518228
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "come on, who wasn't a teenager once?",
+          "buttonLabel": "Ok",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 20,
+          "locationY": 50
+        },
+        "measured": {
+          "width": 290,
+          "height": 545
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "message-36",
+        "type": "message",
+        "position": {
+          "x": -3264.6022872137273,
+          "y": -344.0846368466804
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "poor little princes",
+          "buttonLabel": "Continue",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 50,
+          "locationY": 50
+        },
+        "measured": {
+          "width": 290,
+          "height": 545
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "message-37",
+        "type": "message",
+        "position": {
+          "x": -2858.5828730722405,
+          "y": -889.8212510240874
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "poor little princes",
+          "buttonLabel": "Continue",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 60,
+          "locationY": 80
+        },
+        "measured": {
+          "width": 290,
+          "height": 545
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "message-38",
+        "type": "message",
+        "position": {
+          "x": -3220.3230401654846,
+          "y": 287.56883023576233
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "you have no mercy. You ruined their future.",
+          "buttonLabel": "Continue",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 50,
+          "locationY": 50
+        },
+        "measured": {
+          "width": 290,
+          "height": 545
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "message-39",
+        "type": "message",
+        "position": {
+          "x": -2854.852163200258,
+          "y": -326.93740224025777
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "I’m glad you thought about their future.",
+          "buttonLabel": "Continue",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 40,
+          "locationY": 40
+        },
+        "measured": {
+          "width": 290,
+          "height": 545
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "case-1784873163332",
+        "type": "case",
+        "position": {
+          "x": -4359.20729961221,
+          "y": -1405.9685167766938
+        },
+        "data": {
+          "nodeType": "case",
+          "caseId": "865",
+          "title": "Case 5",
+          "order": 5,
+          "hasOperation": false,
+          "window": {
+            "caseId": "865",
+            "createdAt": "13/07/2026 18:05 PM",
+            "statusLabel": "Open",
+            "statusColor": "green",
+            "photoUrl": "/images/case-window/id-photos/id-photo05.svg",
+            "fullName": "Hamudi Abu Hamud",
+            "idNo": "20689632",
+            "dob": "06/11/1985",
+            "sex": "Male",
+            "sexColor": "black",
+            "nationality": "Israeli",
+            "nationalityColor": "black",
+            "religion": "Muslim",
+            "religionColor": "red",
+            "address": "Ha-Hagana St 10, Ramla",
+            "criminalRecord": [],
+            "criminalRecordEmptyText": "No criminal record yet.",
+            "extraChips": [],
+            "suspicions": [
+              {
+                "id": "s1",
+                "subject": "Domestic violence",
+                "status": "Urgent",
+                "statusColor": "green",
+                "date": "08/02/2026",
+                "fileUrl": "",
+                "details": "His wife’s family reports that he assaulted her and tried to kill her, but there is no evidence.",
+                "fileFootageVariant": "arab-violence"
+              }
+            ],
+            "arrestLabel": "Arrest",
+            "releaseLabel": "Release"
+          },
+          "isImportant": false
+        },
+        "measured": {
+          "width": 325,
+          "height": 195
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "trigger-1784874300580",
+        "type": "trigger",
+        "position": {
+          "x": -3929.892969550021,
+          "y": -1180.1327094920691
+        },
+        "data": {
+          "nodeType": "trigger",
+          "triggerType": "attachmentRow",
+          "targetRowId": "s1",
+          "delaySeconds": 0.8
+        },
+        "measured": {
+          "width": 220,
+          "height": 168
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "message-40",
+        "type": "message",
+        "position": {
+          "x": -3809.950175051247,
+          "y": -885.0713104678557
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "Wrap this up fast, we’ve got more important cases waiting",
+          "buttonLabel": "Got it",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 20,
+          "locationY": 20
+        },
+        "measured": {
+          "width": 290,
+          "height": 545
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "message-41",
+        "type": "message",
+        "position": {
+          "x": -4692.967518517486,
+          "y": -393.94054340764455
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "stop wasting resources!",
+          "buttonLabel": "Sorry",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 70,
+          "locationY": 70
+        },
+        "measured": {
+          "width": 290,
+          "height": 545
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "message-42",
+        "type": "message",
+        "position": {
+          "x": -4688.4858675577925,
+          "y": -1065.1825775403222
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "voice",
+          "content": "/sounds/angry01.mp3",
+          "buttonLabel": "Continue",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 50,
+          "locationY": 50
+        },
+        "measured": {
+          "width": 290,
+          "height": 593
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "message-43",
+        "type": "message",
+        "position": {
+          "x": -4690.370442986729,
+          "y": 154.29460249992866
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "let them kill each other! It’s in their culture",
+          "buttonLabel": "Got it",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 40,
+          "locationY": 40
+        },
+        "measured": {
+          "width": 290,
+          "height": 545
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "message-44",
+        "type": "message",
+        "position": {
+          "x": -4285.829360978578,
+          "y": -1085.6597420706516
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "great, let them kill each other! It’s in their culture!",
+          "buttonLabel": "Great",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 70,
+          "locationY": 70
+        },
+        "measured": {
+          "width": 290,
+          "height": 545
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "message-45",
+        "type": "message",
+        "position": {
+          "x": -4278.96652018092,
+          "y": -447.7427871035196
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "Take your babe on a romantic picnic to Baruch Goldstein's tomb. It's on me!",
+          "buttonLabel": "Continue",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 40,
+          "locationY": 40
+        },
+        "measured": {
+          "width": 290,
+          "height": 545
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "result-win-1784877414889",
+        "type": "result",
+        "position": {
+          "x": -4257.176459203369,
+          "y": 148.531516542356
+        },
+        "data": {
+          "nodeType": "result",
+          "resultType": "win",
+          "caseId": "865",
+          "label": "Win 5",
+          "winImage": "picnic",
+          "winTitle": "Win",
+          "winFooterText": "So romantic",
+          "winCtaLabel": "Back to work!",
+          "winSound": "hashem-itbarach"
+        },
+        "measured": {
+          "width": 235,
+          "height": 336
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "message-46",
+        "type": "message",
+        "position": {
+          "x": -3244.3976935935807,
+          "y": -941.34478010933
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "voice",
+          "content": "/sounds/angry01.mp3",
+          "buttonLabel": "Continue",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 50,
+          "locationY": 50
+        },
+        "measured": {
+          "width": 290,
+          "height": 593
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "result-win-1784877674028",
+        "type": "result",
+        "position": {
+          "x": -2858.7908304022935,
+          "y": 444.1694723132035
+        },
+        "data": {
+          "nodeType": "result",
+          "resultType": "win",
+          "caseId": "864",
+          "label": "Win 6",
+          "winImage": "eilat",
+          "winTitle": "Win",
+          "winFooterText": "Success looks good on me",
+          "winCtaLabel": "Next mission!",
+          "winSound": "hashem-itbarach"
+        },
+        "measured": {
+          "width": 235,
+          "height": 336
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "message-case-7-announcement",
+        "type": "message",
+        "position": {
+          "x": -7371.817370065009,
+          "y": -2473.6325329323117
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "New important case!",
+          "buttonLabel": "Open case",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 50,
+          "locationY": 50
+        },
+        "selected": false,
+        "dragging": false,
+        "measured": {
+          "width": 290,
+          "height": 545
+        }
+      },
+      {
+        "id": "ranking-final-pending-case-7",
+        "type": "ranking",
+        "position": {
+          "x": -7453.938160290277,
+          "y": -1382.2498272392065
+        },
+        "data": {
+          "nodeType": "ranking",
+          "title": "Final Ranking (connect after Case 7)",
+          "winningTarget": 600,
+          "normalFirstPoints": 100,
+          "normalSecondPoints": 50,
+          "importantFirstPoints": 200,
+          "importantSecondPoints": 100
+        },
+        "selected": false,
+        "dragging": false,
+        "measured": {
+          "width": 325,
+          "height": 68
+        }
+      },
+      {
+        "id": "global-scoring",
+        "type": "scoring",
+        "position": {
+          "x": 1706.5927591728193,
+          "y": -3432.4945369205807
+        },
+        "data": {
+          "nodeType": "scoring",
+          "title": "Global Points",
+          "winningTarget": 600,
+          "normalFirstPoints": 100,
+          "normalSecondPoints": 50,
+          "importantFirstPoints": 200,
+          "importantSecondPoints": 100,
+          "speedBonusEnabled": true,
+          "speedTimeLimitSeconds": 120,
+          "speedMaxBonus": 50
+        },
+        "measured": {
+          "width": 285,
+          "height": 191
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "case-1785011742640",
+        "type": "case",
+        "position": {
+          "x": -5755.8143579657035,
+          "y": -1537.849906386991
+        },
+        "data": {
+          "nodeType": "case",
+          "caseId": "866",
+          "title": "Case 6",
+          "order": 6,
+          "hasOperation": false,
+          "isImportant": true,
+          "window": {
+            "caseId": "866",
+            "createdAt": "24/07/2026 11:52 AM",
+            "statusLabel": "Open",
+            "statusColor": "green",
+            "photoUrl": "/images/case-window/id-photos/id-photo06.svg",
+            "fullName": "Ofek Tsadik",
+            "idNo": "20851365",
+            "dob": "28/11/2010",
+            "sex": "Male",
+            "sexColor": "black",
+            "nationality": "Israeli",
+            "nationalityColor": "black",
+            "religion": "Jewish",
+            "religionColor": "green",
+            "address": "HaAtsmaut St 63, Petah Tikva",
+            "criminalRecord": [
+              {
+                "id": "c1785526565412",
+                "text": "Theft & Assault",
+                "date": "22/12/2025",
+                "status": "Released",
+                "statusColor": "green",
+                "details": "Previously convicted for participating in a street fight.\n\nPromised not to do it again."
+              }
+            ],
+            "criminalRecordEmptyText": "No criminal record yet.",
+            "extraChips": [],
+            "suspicions": [
+              {
+                "id": "s1",
+                "subject": "Vandalism",
+                "status": "Urgent",
+                "statusColor": "red",
+                "date": "08/02/2026",
+                "fileUrl": "",
+                "details": "A group of teenagers is suspected of vandalizing a pizzeria with fake snow spray and harassing customers. \n\nA witness may have seen a knife. Or several.",
+                "fileFootageVariant": "teens-2"
+              }
+            ],
+            "arrestLabel": "Arrest",
+            "releaseLabel": "Release"
+          },
+          "arrestContinuesWithoutDecision": true
+        },
+        "measured": {
+          "width": 325,
+          "height": 222
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "message-47",
+        "type": "message",
+        "position": {
+          "x": -4343.677361893851,
+          "y": -2096.3439120124112
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "new easy case for you my friend",
+          "buttonLabel": "Open case",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 80,
+          "locationY": 20
+        },
+        "measured": {
+          "width": 290,
+          "height": 545
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "message-48",
+        "type": "message",
+        "position": {
+          "x": -5710.91099741802,
+          "y": -2168.895976450373
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "new easy case, finish quickly",
+          "buttonLabel": "Continue",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 80,
+          "locationY": 20
+        },
+        "measured": {
+          "width": 290,
+          "height": 545
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "message-49",
+        "type": "message",
+        "position": {
+          "x": -5224.868393216611,
+          "y": -1206.3573017385218
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "think of their future",
+          "buttonLabel": "Yes sir",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 20,
+          "locationY": 40
+        },
+        "measured": {
+          "width": 290,
+          "height": 545
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "trigger-1785051287112",
+        "type": "trigger",
+        "position": {
+          "x": -5312.150706579308,
+          "y": -1483.8071948989636
+        },
+        "data": {
+          "nodeType": "trigger",
+          "triggerType": "expandRow",
+          "targetRowId": "s1",
+          "delaySeconds": 0.2
+        },
+        "measured": {
+          "width": 220,
+          "height": 168
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "message-51",
+        "type": "message",
+        "position": {
+          "x": -6005.739803059136,
+          "y": -1084.5164795133815
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "Let him enjoy Yom HaAtzmaut. We've got leftists to deal with!",
+          "buttonLabel": "Sure",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 20,
+          "locationY": 40
+        },
+        "measured": {
+          "width": 290,
+          "height": 545
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "message-52",
+        "type": "message",
+        "position": {
+          "x": -5870.248835366304,
+          "y": 287.1148358377903
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "photo",
+          "content": "great, now the press is going wild over this!!",
+          "buttonLabel": "Oh no",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 80,
+          "locationY": 40,
+          "photoUrl": "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzMxIiBoZWlnaHQ9IjE2MCIgdmlld0JveD0iMCAwIDMzMSAxNjAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMzEiIGhlaWdodD0iMTYwIiByeD0iNCIgZmlsbD0iI0Y2RkNGRiIvPgo8cGF0aCBkPSJNMjYuMzI5OCAyMi41OTk1SDE4Ljg5MTRWMzIuNTA2M0MxOC44OTE0IDMyLjc2OTYgMTguNjkzOSAzMyAxOC4zNjQ4IDMzSDE2LjgxNzlDMTYuNDg4OCAzMyAxNi4yOTEzIDMyLjc2OTYgMTYuMjkxMyAzMi41MDYzVjEzLjIxOTNDMTYuMjkxMyAxMi45NTYgMTYuNDg4OCAxMi42OTI3IDE2LjgxNzkgMTIuNjkyN0gxOC4zNjQ4QzE4LjY5MzkgMTIuNjkyNyAxOC44OTE0IDEyLjk1NiAxOC44OTE0IDEzLjIxOTNWMjAuMjI5OEgyNi4zMjk4VjEzLjIxOTNDMjYuMzI5OCAxMi45NTYgMjYuNTI3MiAxMi42OTI3IDI2Ljg1NjQgMTIuNjkyN0gyOC40MDMzQzI4LjczMjQgMTIuNjkyNyAyOC45Mjk5IDEyLjk1NiAyOC45Mjk5IDEzLjIxOTNWMzIuNTA2M0MyOC45Mjk5IDMyLjc2OTYgMjguNzMyNCAzMyAyOC40MDMzIDMzSDI2Ljg1NjRDMjYuNTI3MiAzMyAyNi4zMjk4IDMyLjc2OTYgMjYuMzI5OCAzMi41MDYzVjIyLjU5OTVaTTQ0LjY5NDcgMzIuNDczNFYzMS44MTUxQzQzLjUwOTggMzIuNzAzOCA0MS43NjU0IDMzLjMyOTEgNDAuMDIxMSAzMy4zMjkxQzM3LjIyMzUgMzMuMzI5MSAzNC42NTYyIDMxLjkxMzkgMzQuNTI0NiAyOC42ODg0QzM0LjM5MjkgMjUuMzMxMyAzNy40NTM4IDIzLjUyMTEgNDEuMDA4NSAyMy41MjExSDQ0LjYyODlWMjIuNDY3OEM0NC42Mjg5IDE5LjE0MzYgNDIuNTIyNCAxOS42MzczIDM3Ljk0NzUgMTkuNjM3M0MzNy41NTI2IDE5LjYzNzMgMzcuMzIyMiAxOS40Mzk4IDM3LjMyMjIgMTkuMDQ0OVYxOC4xMjMzQzM3LjMyMjIgMTcuNzI4NCAzNy41NTI2IDE3LjUzMDkgMzcuOTQ3NSAxNy40OThDMzkuMTk4MiAxNy4zOTkyIDQwLjI4NDQgMTcuMzMzNCA0MS4yNzE4IDE3LjMzMzRDNDUuMzIwMSAxNy4zMzM0IDQ3LjA5NzQgMTguNDg1NCA0Ny4wOTc0IDIzLjM1NjVWMzIuNDczNEM0Ny4wOTc0IDMyLjc2OTYgNDYuODk5OSAzMyA0Ni41NzA3IDMzSDQ1LjIyMTNDNDQuOTU4IDMzIDQ0LjY5NDcgMzIuNzY5NiA0NC42OTQ3IDMyLjQ3MzRaTTQ0LjY2MTggMjkuMzc5NlYyNS41OTQ2SDQxLjA0MTRDMzguMzc1NCAyNS41OTQ2IDM2Ljg2MTQgMjYuODQ1MyAzNi45OTMxIDI4Ljc1NDJDMzcuMTI0NyAzMC40MzI4IDM4LjQ3NDEgMzEuMTI0IDQwLjE1MjcgMzEuMTI0QzQxLjgzMTMgMzEuMTI0IDQzLjc3MzEgMzAuNDMyOCA0NC42NjE4IDI5LjM3OTZaTTYwLjA2NDggMTQuNzMzM0M1Ny44OTI2IDE0LjczMzMgNTUuOTUwNyAxNi4zMTMxIDU1Ljk1MDcgMTguMjU1VjI3LjUwMzVDNTUuOTUwNyAyOS40NDU0IDU3Ljg5MjYgMzEuMDU4MSA2MC4wNjQ4IDMxLjA1ODFDNjEuMzgxMyAzMS4wNTgxIDYyLjczMDggMzAuMzk5OSA2My41ODY1IDI5LjQ0NTRDNjMuODgyNyAyOS4xMTYzIDY0LjI0NDggMjkuMTE2MyA2NC41NDEgMjkuMzc5Nkw2NS4xOTkzIDI5LjkwNjJDNjUuNDk1NSAzMC4xNjk1IDY1LjQ5NTUgMzAuNTY0NCA2NS4yOTggMzAuODI3N0M2My43NTExIDMyLjgzNTQgNjEuNjExNyAzMy40Mjc5IDU5Ljk5OSAzMy40Mjc5QzU2LjM0NTcgMzMuNDI3OSA1My4zNTA2IDMwLjc2MTkgNTMuMzUwNiAyNy40NzA2VjE4LjI4NzlDNTMuMzUwNiAxNC45OTY2IDU2LjM0NTcgMTIuMzYzNSA1OS45OTkgMTIuMzYzNUM2MS42MTE3IDEyLjM2MzUgNjMuNzUxMSAxMi45NTYgNjUuMjk4IDE0Ljk2MzdDNjUuNDk1NSAxNS4yMjcgNjUuNDk1NSAxNS42MjE5IDY1LjE5OTMgMTUuODg1Mkw2NC41NDEgMTYuNDExOEM2NC4yNDQ4IDE2LjY3NTIgNjMuODgyNyAxNi42NzUyIDYzLjU4NjUgMTYuMzQ2QzYyLjczMDggMTUuMzkxNSA2MS4zODEzIDE0LjczMzMgNjAuMDY0OCAxNC43MzMzWk03MC41NjY5IDI3LjM3MTlWMjMuMTI2MUM3MC41NjY5IDE5LjgzNDggNzMuMzY0NSAxNy4yMDE4IDc2Ljk1MiAxNy4yMDE4QzgwLjQwNzkgMTcuMjAxOCA4My4yMDU1IDE5LjgzNDggODMuMjA1NSAyMy4xMjYxVjI3LjM3MTlDODMuMjA1NSAzMC42NjMyIDgwLjQwNzkgMzMuMzI5MSA3Ni45NTIgMzMuMzI5MUM3My4zNjQ1IDMzLjMyOTEgNzAuNTY2OSAzMC42NjMyIDcwLjU2NjkgMjcuMzcxOVpNNzYuODg2MiAzMS4wNTgxQzc4LjkyNjggMzEuMDU4MSA4MC42MzgzIDI5LjQ0NTQgODAuNjM4MyAyNy41MzY0VjIyLjk5NDRDODAuNjM4MyAyMS4wNTI2IDc4LjkyNjggMTkuNDcyOCA3Ni44ODYyIDE5LjQ3MjhDNzQuODQ1NiAxOS40NzI4IDczLjE2NyAyMS4wNTI2IDczLjE2NyAyMi45OTQ0VjI3LjUzNjRDNzMuMTY3IDI5LjQ0NTQgNzQuODQ1NiAzMS4wNTgxIDc2Ljg4NjIgMzEuMDU4MVpNOTguNzYzOCAzMi41MDYzVjMxLjY4MzVDOTcuMTE4MiAzMi42NzA5IDk1LjE3NjMgMzMuMjk2MiA5My40NjQ4IDMzLjI5NjJDOTAuNzk4OSAzMy4yOTYyIDg4LjYyNjYgMzEuNzQ5MyA4OC42MjY2IDI3LjQ3MDZWMTguMDI0NkM4OC42MjY2IDE3LjcyODQgODguODI0MSAxNy40OTggODkuMTIwMyAxNy40OThIOTAuNzAwMUM5MC45NjM0IDE3LjQ5OCA5MS4xOTM4IDE3LjcyODQgOTEuMTkzOCAxOC4wMjQ2VjI4LjA2M0M5MS4xOTM4IDMwLjE2OTUgOTIuMzQ1OCAzMC44NjA3IDkzLjgyNjkgMzAuODYwN0M5NS40Mzk2IDMwLjg2MDcgOTcuMzgxNSAzMC4xMDM3IDk4LjYzMjIgMjkuMzEzN1YxOC4wMjQ2Qzk4LjYzMjIgMTcuNzI4NCA5OC44OTU1IDE3LjQ5OCA5OS4xNTg4IDE3LjQ5OEgxMDAuNzA2QzEwMS4wMzUgMTcuNDk4IDEwMS4xNjYgMTcuNzI4NCAxMDEuMTY2IDE4LjAyNDZWMzIuNTA2M0MxMDEuMTY2IDMyLjc2OTYgMTAwLjk2OSAzMyAxMDAuNjQgMzNIOTkuMjkwNEM5OC45NjEzIDMzIDk4Ljc2MzggMzIuNzY5NiA5OC43NjM4IDMyLjUwNjNaTTExMC4xMzcgMTcuOTkxN1YxOC44MTQ1QzExMS45MTQgMTcuODI3MSAxMTMuODIzIDE3LjE2ODggMTE1LjUzNSAxNy4xNjg4QzExOC4yIDE3LjE2ODggMTIwLjI3NCAxOC42ODI4IDEyMC4yNzQgMjIuOTYxNVYzMi40NzM0QzEyMC4yNzQgMzIuNzY5NiAxMjAuMDc3IDMzIDExOS43OCAzM0gxMTguMkMxMTcuOTM3IDMzIDExNy43MDcgMzIuNzY5NiAxMTcuNzA3IDMyLjQ3MzRWMjIuNDM0OUMxMTcuNzA3IDIwLjMyODUgMTE2LjU1NSAxOS42MDQ0IDExNS4wNzQgMTkuNjA0NEMxMTMuNTI3IDE5LjYwNDQgMTExLjYxOCAyMC4zOTQzIDExMC4yNjggMjEuMTg0MlYzMi40NzM0QzExMC4yNjggMzIuNzY5NiAxMTAuMDA1IDMzIDEwOS43NDIgMzNIMTA4LjE5NUMxMDcuODY2IDMzIDEwNy43MzQgMzIuNzY5NiAxMDcuNzM0IDMyLjQ3MzRWMTcuOTkxN0MxMDcuNzM0IDE3LjcyODQgMTA3LjkzMiAxNy40OTggMTA4LjI2MSAxNy40OThIMTA5LjYxQzEwOS45MzkgMTcuNDk4IDExMC4xMzcgMTcuNzI4NCAxMTAuMTM3IDE3Ljk5MTdaTTEzMC40NjIgMTkuNzM2MVYyNi4yNTI4QzEzMC40NjIgMzAuNTY0NCAxMzEuOTc2IDMwLjc2MTkgMTM2Ljg4IDMwLjc2MTlDMTM3LjI3NSAzMC43NjE5IDEzNy41MDYgMzAuOTU5NCAxMzcuNTA2IDMxLjM1NDNWMzIuMzc0N0MxMzcuNTA2IDMyLjc2OTYgMTM3LjI3NSAzMyAxMzYuODggMzNIMTM1Ljk1OUMxMzEuMzE4IDMzIDEyNy44NjIgMzIuMzA4OCAxMjcuODYyIDI3LjA0MjdWMTkuNzM2MUgxMjUuNzIzQzEyNS40MjYgMTkuNzM2MSAxMjUuMTk2IDE5LjUzODYgMTI1LjE5NiAxOS4yMDk1VjE3Ljk5MTdDMTI1LjE5NiAxNy43Mjg0IDEyNS40MjYgMTcuNDk4IDEyNS43MjMgMTcuNDk4SDEyNy44NjJWMTEuMjc3NEMxMjcuODYyIDEwLjk4MTIgMTI4LjEyNSAxMC43NTA4IDEyOC4zODkgMTAuNzUwOEgxMjkuOTM2QzEzMC4yNjUgMTAuNzUwOCAxMzAuNDYyIDEwLjk4MTIgMTMwLjQ2MiAxMS4yNzc0VjE3LjQ5OEgxMzUuMzk5QzEzNS42OTUgMTcuNDk4IDEzNS45MjYgMTcuNzI4NCAxMzUuOTI2IDE3Ljk5MTdWMTkuMjA5NUMxMzUuOTI2IDE5LjUzODYgMTM1LjY5NSAxOS43MzYxIDEzNS4zOTkgMTkuNzM2MUgxMzAuNDYyWk0xNDcuMjc4IDE4LjE4OTFWMjAuOTUzOEMxNDguNTI4IDE4LjI4NzkgMTUwLjcwMSAxNy40OTggMTUzLjIwMiAxNy40OThIMTUzLjk1OUMxNTQuMzU0IDE3LjQ5OCAxNTQuNTg0IDE3LjY5NTUgMTU0LjU4NCAxOC4wOTA0VjE5LjI3NTNDMTU0LjU4NCAxOS42NzAyIDE1NC4zNTQgMTkuODM0OCAxNTMuOTU5IDE5LjgzNDhIMTUzLjIwMkMxNDkuNjQ3IDE5LjgzNDggMTQ4LjI2NSAyMi4wMDcxIDE0Ny4yNzggMjMuNDIyM1YzMC43NjE5SDE1MS4zOTJDMTUxLjY4OCAzMC43NjE5IDE1MS45MTggMzAuOTkyMyAxNTEuOTE4IDMxLjI4ODVWMzIuNDczNEMxNTEuOTE4IDMyLjc2OTYgMTUxLjY4OCAzMyAxNTEuMzkyIDMzSDE0Mi42MzdDMTQyLjM0MSAzMyAxNDIuMTEgMzIuNzY5NiAxNDIuMTEgMzIuNDczNFYzMS4yODg1QzE0Mi4xMSAzMC45OTIzIDE0Mi4zNDEgMzAuNzYxOSAxNDIuNjM3IDMwLjc2MTlIMTQ0Ljk3NFYxOS43MzYxSDE0Mi42MzdDMTQyLjM0MSAxOS43MzYxIDE0Mi4xMSAxOS41MDU3IDE0Mi4xMSAxOS4yMDk1VjE3Ljk5MTdDMTQyLjExIDE3LjY5NTUgMTQyLjM0MSAxNy40OTggMTQyLjYzNyAxNy40OThIMTQ2LjU4NkMxNDYuOTQ4IDE3LjQ5OCAxNDcuMjc4IDE3LjgyNzEgMTQ3LjI3OCAxOC4xODkxWk0xNjkuMTgzIDMzLjMyOTFWMzEuNzgyMkMxNjcuNTcgMzIuODAyNSAxNjYuMDIzIDMzLjI5NjIgMTY0LjAxNiAzMy4yOTYyQzE2MS4zNSAzMy4yOTYyIDE1OS4xNzcgMzEuNzQ5MyAxNTkuMTc3IDI3LjQ3MDZWMTguMDI0NkMxNTkuMTc3IDE3LjcyODQgMTU5LjM3NSAxNy40OTggMTU5LjY3MSAxNy40OThIMTYxLjI1MUMxNjEuNTE0IDE3LjQ5OCAxNjEuNzQ1IDE3LjcyODQgMTYxLjc0NSAxOC4wMjQ2VjI4LjA2M0MxNjEuNzQ1IDMwLjE2OTUgMTYyLjg5NyAzMC44NjA3IDE2NC4zNzggMzAuODYwN0MxNjYuMTIyIDMwLjg2MDcgMTY3Ljk5OCAzMC4xMzY2IDE2OS4xODMgMjkuMzEzN1YxOC4wMjQ2QzE2OS4xODMgMTcuNzI4NCAxNjkuNDQ2IDE3LjQ5OCAxNjkuNzEgMTcuNDk4SDE3MS4yODlDMTcxLjYxOSAxNy40OTggMTcxLjc1IDE3LjcyODQgMTcxLjc1IDE4LjAyNDZWMzMuNzg5OUMxNzEuNzUgMzkuMDU2IDE2OC4yOTQgMzkuNzQ3MiAxNjMuNjg3IDM5Ljc0NzJIMTYyLjUzNUMxNjIuMTQgMzkuNzQ3MiAxNjEuOTA5IDM5LjUxNjggMTYxLjkwOSAzOS4xMjE4VjM4LjEzNDRDMTYxLjkwOSAzNy43Mzk1IDE2Mi4xNCAzNy41NDIgMTYyLjUzNSAzNy41NDJDMTY3LjY2OSAzNy41NDIgMTY5LjE4MyAzNy4yMTI5IDE2OS4xODMgMzMuMzI5MVoiIGZpbGw9IiMxNzE3MTciLz4KPGNpcmNsZSBjeD0iMTg5LjA0OSIgY3k9IjI4Ljg0NDEiIHI9IjcuOTU2OTkiIGZpbGw9IiNCM0U2RkUiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMS45ODkyNSIvPgo8bWFzayBpZD0icGF0aC00LWluc2lkZS0xXzg5Ml81OTMzOCIgZmlsbD0id2hpdGUiPgo8cGF0aCBkPSJNMTMgNDVIMzE2VjE0N0gxM1Y0NVoiLz4KPC9tYXNrPgo8cGF0aCBkPSJNMTMgNDVWNDdIMzE2VjQ1VjQzSDEzVjQ1Wk0zMTYgMTQ3VjE0NUgxM1YxNDdWMTQ5SDMxNlYxNDdaIiBmaWxsPSJibGFjayIgbWFzaz0idXJsKCNwYXRoLTQtaW5zaWRlLTFfODkyXzU5MzM4KSIvPgo8cmVjdCB4PSIxNCIgeT0iNTYiIHdpZHRoPSIxMjAiIGhlaWdodD0iODAiIHJ4PSIxIiBmaWxsPSIjRTFGNUZGIiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjIiLz4KPHBhdGggZD0iTTI0LjU3MDggOTMuOTkxOUMxNy4zOTUxIDk5LjY4MTMgMjIuNDQ3IDEwNi40NjUgMjcuNDAxMiAxMTAuMzk3QzI4Ljg2NDcgMTExLjU1OCAyOS41NTIyIDExMy40NjMgMjkuMzUxMSAxMTUuMzJDMjcuNjc2OSAxMzAuNzg0IDUxLjYxNDMgMTMzLjE3NSA1OC44OTQzIDEyNi4xMDNDNjYuNjM2NSAxMTguNTgxIDc1LjU4MjIgMTI1LjUwNyA4NS40NzU4IDEyMS40NzRDOTEuMTUzNCAxMTkuMTYgOTQuMjYxMSAxMTEuNjI5IDk0Ljc2NjQgMTA4LjQ1NkM5Ni43NDc2IDk2LjAxNyA4NS40NzU4IDk4LjMzMTIgODUuNDc1OCA4Ny4zMzg0Qzg1LjQ3NTggNjcuMjEyOCA3MS43OTc5IDgzLjU3NzcgNjguNDQzIDcwLjI3MDZDNjUuMDg4MSA1Ni45NjM1IDM5Ljc5NyA2NC4xOTU2IDQxLjMxNDIgNzMuODc0MkM0Mi44MzE1IDgzLjU1MjcgMzUuMTUxOCA4NS42MDI3IDI0LjU3MDggOTMuOTkxOVoiIGZpbGw9IiNGNDNGMzgiIHN0cm9rZT0iIzE3MTcxNyIgc3Ryb2tlLXdpZHRoPSIyIi8+CjxwYXRoIGQ9Ik0xMTkuNDA5IDc0Ljg1NDNDMTE5LjA4OSA3NC4zODIzIDExOC40NDcgNzQuMjU4OCAxMTcuOTc1IDc0LjU3ODZMMTAwLjk5OSA4Ni4wNzhMMTAzLjkzMiA5MC40MDgyTDEyMC45MDkgNzguOTA4OEMxMjEuMzgxIDc4LjU4OSAxMjEuNTA0IDc3Ljk0NzIgMTIxLjE4NCA3Ny40NzUyTDExOS40MDkgNzQuODU0M1oiIGZpbGw9IiM4RThBN0YiIHN0cm9rZT0iIzE3MTcxNyIgc3Ryb2tlLXdpZHRoPSIyIi8+CjxwYXRoIGQ9Ik0xMDIuMDExIDg2LjA1MTdDMTAxLjY5NiA4NS41ODcyIDEwMS4wNjEgODUuNDcyNCAxMDAuNjA0IDg1Ljc5NzJMNzYuODA0MyAxMDIuN0M3Ni41ODcgMTAyLjg1NCA3Ni41NjU3IDEwMy4xNjkgNzYuNzYwMSAxMDMuMzUxQzc5LjkyMiAxMDYuMzE0IDg0LjcxNDQgMTA2LjY5MiA4OC4zMDIxIDEwNC4yNjJMMTA1LjMgOTIuNzQ3OUMxMDUuNzcyIDkyLjQyODIgMTA1Ljg5NSA5MS43ODY0IDEwNS41NzYgOTEuMzE0M0wxMDIuMDExIDg2LjA1MTdaIiBmaWxsPSIjQjZCNkI2IiBzdHJva2U9IiMxNzE3MTciIHN0cm9rZS13aWR0aD0iMiIvPgo8cmVjdCB4PSIxNDYiIHk9IjcwIiB3aWR0aD0iNTkiIGhlaWdodD0iMyIgZmlsbD0iI0Y0M0YzOCIvPgo8cGF0aCBkPSJNMTUxLjg1MiA2Ni44NDJMMTUwLjg4IDcwLjY1OEMxNTAuODI2IDcwLjg3NCAxNTAuNjgyIDcwLjk4MiAxNTAuNDMgNzAuOTgySDE0OS40NzZDMTQ5LjExNiA3MC45ODIgMTQ4Ljk1NCA3MC43MyAxNDkuMDQ0IDcwLjM4OEwxNTEuNzA4IDYwLjI5QzE1MS43OCA1OS45ODQgMTUyLjAxNCA1OS44NTggMTUyLjI4NCA1OS44NThIMTUzLjMyOEMxNTMuNTk4IDU5Ljg1OCAxNTMuODE0IDU5Ljk4NCAxNTMuOTA0IDYwLjI5TDE1Ni42MDQgNzAuNDA2QzE1Ni42OTQgNzAuNzQ4IDE1Ni41MzIgNzEgMTU2LjE3MiA3MUgxNTUuMjE4QzE1NC45NjYgNzEgMTU0LjgyMiA3MC44OTIgMTU0Ljc2OCA3MC42NzZMMTUzLjc3OCA2Ni44NDJIMTUxLjg1MlpNMTUzLjAyMiA2My4xN0wxNTIuODc4IDYyLjIxNkgxNTIuNzM0TDE1Mi41OSA2My4xN0wxNTIuMjEyIDY1LjEzMkgxNTMuMzgyTDE1My4wMjIgNjMuMTdaTTE2NC4wNTMgNzEuMDM2VjcwLjU4NkMxNjMuNjIxIDcxIDE2Mi45MzcgNzEuMTYyIDE2Mi4zNzkgNzEuMTYyQzE2MC40MzUgNzEuMTYyIDE1OC44ODcgNjkuNjg2IDE1OC44ODcgNjcuODMyVjY1LjY3MkMxNTguODg3IDYzLjgxOCAxNjAuNDM1IDYyLjMyNCAxNjIuMzc5IDYyLjMyNEMxNjMuMDgxIDYyLjMyNCAxNjMuODE5IDYyLjU5NCAxNjQuMzU5IDYzLjExNkwxNjQuNDQ5IDYyLjgxQzE2NC40ODUgNjIuNjEyIDE2NC42NDcgNjIuNTA0IDE2NC44NjMgNjIuNTA0SDE2NS42MDFDMTY1Ljc4MSA2Mi41MDQgMTY1LjkyNSA2Mi42NjYgMTY1LjkyNSA2Mi44NjRWNzEuMDlDMTY1LjkyNSA3NC4wMjQgMTY0LjA1MyA3NC40MiAxNjEuNDk3IDc0LjQySDE2MC43OTVDMTYwLjU3OSA3NC40MiAxNjAuNDE3IDc0LjI1OCAxNjAuNDE3IDc0LjAyNFY3My4xNDJDMTYwLjQxNyA3Mi45MDggMTYwLjU3OSA3Mi43NDYgMTYwLjc5NSA3Mi43NDZDMTYzLjQwNSA3Mi43NDYgMTY0LjA1MyA3Mi42NzQgMTY0LjA1MyA3MS4wMzZaTTE2Mi40NTEgNjkuNDM0QzE2My4zMTUgNjkuNDM0IDE2NC4wMzUgNjguNzg2IDE2NC4wODkgNjcuOTc2VjY1LjU0NkMxNjQuMDM1IDY0Ljc1NCAxNjMuMzE1IDY0LjA4OCAxNjIuNDUxIDY0LjA4OEMxNjEuNTUxIDY0LjA4OCAxNjAuNzc3IDY0Ljc5IDE2MC43NzcgNjUuNlY2Ny45MjJDMTYwLjc3NyA2OC43NSAxNjEuNTUxIDY5LjQzNCAxNjIuNDUxIDY5LjQzNFpNMTcwLjY5IDYyLjUyMkMxNzEuMzIgNjIuNDY4IDE3Mi4wNzYgNjIuNDMyIDE3Mi41NjIgNjIuNDMyQzE3NC44NjYgNjIuNDMyIDE3NS44NzQgNjMuMDI2IDE3NS44NzQgNjUuNzhWNzAuNjRDMTc1Ljg3NCA3MC44MzggMTc1LjczIDcxIDE3NS41NSA3MUgxNzQuNTk2QzE3NC4zOCA3MSAxNzQuMjU0IDcwLjkyOCAxNzQuMjE4IDcwLjY5NEwxNzQuMTY0IDcwLjMzNEMxNzMuNTE2IDcwLjkyOCAxNzIuNzI0IDcxLjEyNiAxNzEuODk2IDcxLjEyNkMxNzAuMzQ4IDcxLjEyNiAxNjguOTA4IDcwLjExOCAxNjguOTA4IDY4LjM5QzE2OC45MDggNjYuNTE4IDE3MC41MjggNjUuNiAxNzIuNDcyIDY1LjZIMTc0LjAyVjY1LjM0OEMxNzQuMDIgNjQuMjY4IDE3My40OCA2NC4xNzggMTcyLjI5MiA2NC4xNzhIMTcwLjY5QzE3MC40NzQgNjQuMTc4IDE3MC4zMTIgNjQuMDE2IDE3MC4zMTIgNjMuNzgyVjYyLjkxOEMxNzAuMzEyIDYyLjcwMiAxNzAuNDc0IDYyLjU0IDE3MC42OSA2Mi41MjJaTTE3NC4wMzggNjguNzE0VjY3LjEzSDE3Mi40OUMxNzEuMzc0IDY3LjEzIDE3MC43MDggNjcuNTI2IDE3MC43MDggNjguM0MxNzAuNzA4IDY5LjExIDE3MS4zNTYgNjkuNDcgMTcyLjEzIDY5LjQ3QzE3Mi43OTYgNjkuNDcgMTczLjU1MiA2OS4yIDE3NC4wMzggNjguNzE0Wk0xODAuNTU0IDU5Ljc4NkMxODAuNTU0IDU5LjAzIDE4MS4xNDggNTguNDE4IDE4MS45MjIgNTguNDE4QzE4Mi42NzggNTguNDE4IDE4My4yOSA1OS4wMyAxODMuMjkgNTkuNzg2QzE4My4yOSA2MC41NDIgMTgyLjY3OCA2MS4xNTQgMTgxLjkyMiA2MS4xNTRDMTgxLjE0OCA2MS4xNTQgMTgwLjU1NCA2MC41NDIgMTgwLjU1NCA1OS43ODZaTTE4MS4zNDYgNjQuMTc4SDE4MC4zMDJDMTgwLjEwNCA2NC4xNzggMTc5Ljk2IDY0LjAzNCAxNzkuOTYgNjMuODU0VjYyLjgyOEMxNzkuOTYgNjIuNjQ4IDE4MC4xMjIgNjIuNTA0IDE4MC4zMiA2Mi41MDRIMTgyLjQwOEMxODIuODc2IDYyLjUwNCAxODMuMjM2IDYyLjg2NCAxODMuMjM2IDYzLjMzMlY2OS4zMjZIMTg1LjM5NkMxODUuNTc2IDY5LjMyNiAxODUuNzM4IDY5LjQ3IDE4NS43MzggNjkuNjVWNzAuNjc2QzE4NS43MzggNzAuODU2IDE4NS41OTQgNzEgMTg1LjM5NiA3MUgxNzkuMTVDMTc4Ljk1MiA3MSAxNzguODA4IDcwLjg1NiAxNzguODA4IDcwLjY3NlY2OS42NUMxNzguODA4IDY5LjQ3IDE3OC45NyA2OS4zMjYgMTc5LjE2OCA2OS4zMjZIMTgxLjM0NlY2NC4xNzhaTTE5MC43MjUgNjQuOTg4VjcwLjY0QzE5MC43MjUgNzAuODM4IDE5MC41ODEgNzEgMTkwLjQwMSA3MUgxODkuMDY5QzE4OC44ODkgNzEgMTg4Ljc0NSA3MC44MzggMTg4Ljc0NSA3MC42NFY2Mi44NjRDMTg4Ljc0NSA2Mi42NjYgMTg4Ljg4OSA2Mi41MDQgMTg5LjA2OSA2Mi41MDRIMTkwLjE0OUMxOTAuMzY1IDYyLjUwNCAxOTAuNTA5IDYyLjU5NCAxOTAuNTYzIDYyLjc5MkwxOTAuNjM1IDYzLjE3QzE5MS41MzUgNjIuNjY2IDE5Mi40NTMgNjIuMzYgMTkzLjI2MyA2Mi4zNkMxOTQuNzIxIDYyLjM2IDE5NS44MzcgNjMuMzE0IDE5NS44MzcgNjUuNjE4VjcwLjY0QzE5NS44MzcgNzAuODM4IDE5NS42OTMgNzEgMTk1LjUxMyA3MUgxOTQuMjM1QzE5NC4wNTUgNzEgMTkzLjkxMSA3MC44MzggMTkzLjkxMSA3MC42NFY2NS4zODRDMTkzLjkxMSA2NC41MDIgMTkzLjQ5NyA2NC4yMTQgMTkyLjkzOSA2NC4yMTRDMTkyLjI3MyA2NC4yMTQgMTkxLjM5MSA2NC41OTIgMTkwLjcyNSA2NC45ODhaTTE5OC44NzEgNjQuMzIyQzE5OC44NzEgNjMuNTMgMTk5LjUwMSA2Mi45IDIwMC4yOTMgNjIuOUMyMDEuMDg1IDYyLjkgMjAxLjcxNSA2My41MyAyMDEuNzE1IDY0LjMyMkMyMDEuNzE1IDY1LjA3OCAyMDEuMDg1IDY1Ljc0NCAyMDAuMjkzIDY1Ljc0NEMxOTkuNTAxIDY1Ljc0NCAxOTguODcxIDY1LjA3OCAxOTguODcxIDY0LjMyMlpNMTk4Ljg3MSA2OS43NEMxOTguODcxIDY4Ljk0OCAxOTkuNTAxIDY4LjMxOCAyMDAuMjkzIDY4LjMxOEMyMDEuMDg1IDY4LjMxOCAyMDEuNzE1IDY4Ljk0OCAyMDEuNzE1IDY5Ljc0QzIwMS43MTUgNzAuNTMyIDIwMS4wODUgNzEuMTYyIDIwMC4yOTMgNzEuMTYyQzE5OS41MDEgNzEuMTYyIDE5OC44NzEgNzAuNTMyIDE5OC44NzEgNjkuNzRaIiBmaWxsPSJibGFjayIvPgo8cGF0aCBkPSJNMTUzLjc5NiA4NC40MjRWOTMuNjIyQzE1My43OTYgOTMuODU2IDE1My42MzQgOTQgMTUzLjQxOCA5NEgxNTIuNTM2QzE1Mi4zMiA5NCAxNTIuMTU4IDkzLjgzOCAxNTIuMTU4IDkzLjYyMlY4NC40MjRIMTQ5Ljg3MkMxNDkuNjU2IDg0LjQyNCAxNDkuNDk0IDg0LjI2MiAxNDkuNDk0IDg0LjA0NlY4My4yNzJDMTQ5LjQ5NCA4My4wNTYgMTQ5LjY1NiA4Mi44OTQgMTQ5Ljg3MiA4Mi44OTRIMTU2LjE1NEMxNTYuMzcgODIuODk0IDE1Ni41MzIgODMuMDU2IDE1Ni41MzIgODMuMjcyVjg0LjA0NkMxNTYuNTMyIDg0LjI2MiAxNTYuMzcgODQuNDI0IDE1Ni4xNTQgODQuNDI0SDE1My43OTZaTTE2NS4xNDQgOTMuNjIyVjg4LjI1OEMxNjUuMTQ0IDg3LjIzMiAxNjQuNTg2IDg2LjkwOCAxNjMuODY2IDg2LjkwOEMxNjMuMDU2IDg2LjkwOCAxNjIuMTIgODcuMjg2IDE2MS40NzIgODcuNjY0VjkzLjYwNEMxNjEuNDcyIDkzLjgzOCAxNjEuMzEgOTQgMTYxLjA5NCA5NEgxNjAuMTU4QzE1OS45NDIgOTQgMTU5Ljc4IDkzLjgzOCAxNTkuNzggOTMuNjIyVjgyLjNDMTU5Ljc4IDgyLjA4NCAxNTkuOTQyIDgxLjkyMiAxNjAuMTU4IDgxLjkyMkgxNjEuMDk0QzE2MS4zMSA4MS45MjIgMTYxLjQ3MiA4Mi4wODQgMTYxLjQ3MiA4Mi4zMThWODYuMDhDMTYyLjMgODUuNjEyIDE2My4yMTggODUuMzYgMTY0LjEgODUuMzZDMTY1LjU3NiA4NS4zNiAxNjYuNzgyIDg2LjIyNCAxNjYuNzgyIDg4LjU4MlY5My42MDRDMTY2Ljc4MiA5My44MzggMTY2LjYyIDk0IDE2Ni40MDQgOTRIMTY1LjUyMkMxNjUuMzA2IDk0IDE2NS4xNDQgOTMuODM4IDE2NS4xNDQgOTMuNjIyWk0xNzEuMDYyIDg4LjU0NlY4OC45OTZIMTc0Ljc4OFY4OC41NDZDMTc0Ljc4OCA4Ny41NzQgMTczLjk0MiA4Ni43ODIgMTcyLjkxNiA4Ni43ODJDMTcxLjkwOCA4Ni43ODIgMTcxLjA2MiA4Ny41NzQgMTcxLjA2MiA4OC41NDZaTTE3NS41OCA5MC4zNjRIMTcxLjA0NFY5MC43NkMxNzEuMDQ0IDkyLjQzNCAxNzEuOTggOTIuNjMyIDE3NC41MTggOTIuNjMyQzE3NC43NTIgOTIuNjMyIDE3NC45MTQgOTIuODEyIDE3NC45MTQgOTMuMDQ2VjkzLjU4NkMxNzQuOTE0IDkzLjgyIDE3NC43NTIgOTQgMTc0LjUxOCA5NEgxNzMuODUyQzE3MS4zMzIgOTQgMTY5LjUzMiA5My42MDQgMTY5LjUzMiA5MC42MTZWODguNjU0QzE2OS41MzIgODYuODE4IDE3MS4wMjYgODUuMzYgMTcyLjg4IDg1LjM2QzE3NC43ODggODUuMzYgMTc2LjMzNiA4Ni44MTggMTc2LjMzNiA4OC42NTRWODkuNjA4QzE3Ni4zMzYgOTAuMDIyIDE3NS45OTQgOTAuMzY0IDE3NS41OCA5MC4zNjRaTTE4NS4xMTIgOTcuMjIyVjg1LjlDMTg1LjExMiA4NS42ODQgMTg1LjI3NCA4NS41MjIgMTg1LjQ5IDg1LjUyMkgxODYuMjY0QzE4Ni40MDggODUuNTIyIDE4Ni41MTYgODUuNjEyIDE4Ni41MzQgODUuNzU2TDE4Ni41ODggODYuMTdDMTg3LjA1NiA4NS42MyAxODcuODMgODUuMzQyIDE4OC42NCA4NS4zNDJDMTkwLjU0OCA4NS4zNDIgMTkyLjA3OCA4Ni44MTggMTkyLjA3OCA4OC42MzZWOTAuODg2QzE5Mi4wNzggOTIuNzA0IDE5MC41NDggOTQuMTYyIDE4OC42NCA5NC4xNjJDMTg3Ljk1NiA5NC4xNjIgMTg3LjI3MiA5My45ODIgMTg2LjczMiA5My42NThWOTcuMjIyQzE4Ni43MzIgOTcuNDM4IDE4Ni41NyA5Ny42IDE4Ni4zNTQgOTcuNkgxODUuNDlDMTg1LjI3NCA5Ny42IDE4NS4xMTIgOTcuNDM4IDE4NS4xMTIgOTcuMjIyWk0xODYuNjk2IDg4LjQ3NFY5MS4wM0MxODYuNzUgOTEuOTY2IDE4Ny41NzggOTIuNzA0IDE4OC41ODYgOTIuNzA0QzE4OS42MTIgOTIuNzA0IDE5MC40OTQgOTEuOTMgMTkwLjQ5NCA5MC45NThWODguNTQ2QzE5MC40OTQgODcuNjEgMTg5LjYxMiA4Ni44IDE4OC41ODYgODYuOEMxODcuNTc4IDg2LjggMTg2Ljc1IDg3LjU1NiAxODYuNjk2IDg4LjQ3NFpNMTk0LjgyNyA5MC44ODZWODguNjM2QzE5NC44MjcgODYuODE4IDE5Ni4zNTcgODUuMzYgMTk4LjMzNyA4NS4zNkMyMDAuMjQ1IDg1LjM2IDIwMS43NzUgODYuODE4IDIwMS43NzUgODguNjM2VjkwLjg4NkMyMDEuNzc1IDkyLjcwNCAyMDAuMjQ1IDk0LjE4IDE5OC4zMzcgOTQuMThDMTk2LjM1NyA5NC4xOCAxOTQuODI3IDkyLjcwNCAxOTQuODI3IDkwLjg4NlpNMTk4LjMwMSA5Mi43MjJDMTk5LjMwOSA5Mi43MjIgMjAwLjE3MyA5MS45MTIgMjAwLjE3MyA5MC45NzZWODguNTY0QzIwMC4xNzMgODcuNjEgMTk5LjMwOSA4Ni44MTggMTk4LjMwMSA4Ni44MThDMTk3LjI5MyA4Ni44MTggMTk2LjQ0NyA4Ny42MSAxOTYuNDQ3IDg4LjU2NFY5MC45NzZDMTk2LjQ0NyA5MS45MTIgMTk3LjI5MyA5Mi43MjIgMTk4LjMwMSA5Mi43MjJaTTIwOC45NTIgODIuNjA2VjkyLjU2SDIxMS4xODRDMjExLjQgOTIuNTYgMjExLjU2MiA5Mi43MDQgMjExLjU2MiA5Mi45MzhWOTMuNjA0QzIxMS41NjIgOTMuODIgMjExLjQgOTQgMjExLjE4NCA5NEgyMDUuMDgyQzIwNC44NjYgOTQgMjA0LjcwNCA5My44MiAyMDQuNzA0IDkzLjYwNFY5Mi45MzhDMjA0LjcwNCA5Mi43MDQgMjA0Ljg2NiA5Mi41NiAyMDUuMDgyIDkyLjU2SDIwNy4zNVY4My4zNjJIMjA2LjI4OEMyMDYuMDcyIDgzLjM2MiAyMDUuOTEgODMuMTgyIDIwNS45MSA4Mi45NjZWODIuM0MyMDUuOTEgODIuMDY2IDIwNi4wNzIgODEuOTIyIDIwNi4yODggODEuOTIySDIwOC4yNjhDMjA4LjY0NiA4MS45MjIgMjA4Ljk1MiA4Mi4yMjggMjA4Ljk1MiA4Mi42MDZaTTIxNi4yMjUgODIuODk0QzIxNi4yMjUgODIuMjEgMjE2Ljc4MyA4MS42NTIgMjE3LjQ2NyA4MS42NTJDMjE4LjE1MSA4MS42NTIgMjE4LjcwOSA4Mi4yMSAyMTguNzA5IDgyLjg5NEMyMTguNzA5IDgzLjU3OCAyMTguMTUxIDg0LjEzNiAyMTcuNDY3IDg0LjEzNkMyMTYuNzgzIDg0LjEzNiAyMTYuMjI1IDgzLjU3OCAyMTYuMjI1IDgyLjg5NFpNMjE4LjY1NSA4Ni4yMDZWOTIuNTZIMjIwLjg4N0MyMjEuMTAzIDkyLjU2IDIyMS4yNjUgOTIuNzA0IDIyMS4yNjUgOTIuOTM4VjkzLjYwNEMyMjEuMjY1IDkzLjgyIDIyMS4xMDMgOTQgMjIwLjg4NyA5NEgyMTQuNzg1QzIxNC41NjkgOTQgMjE0LjQwNyA5My44MiAyMTQuNDA3IDkzLjYwNFY5Mi45MzhDMjE0LjQwNyA5Mi43MDQgMjE0LjU2OSA5Mi41NiAyMTQuNzg1IDkyLjU2SDIxNy4wNTNWODYuOTYySDIxNS45OTFDMjE1Ljc3NSA4Ni45NjIgMjE1LjYxMyA4Ni43ODIgMjE1LjYxMyA4Ni41NjZWODUuOUMyMTUuNjEzIDg1LjY2NiAyMTUuNzc1IDg1LjUyMiAyMTUuOTkxIDg1LjUyMkgyMTcuOTcxQzIxOC4zNDkgODUuNTIyIDIxOC42NTUgODUuODI4IDIxOC42NTUgODYuMjA2Wk0yMjcuNDQgOTIuNzIyQzIyOC4wNyA5Mi43MjIgMjI4LjcgOTIuNDE2IDIyOS4wNiA5MS45M0MyMjkuMjQgOTEuNjc4IDIyOS41MjggOTEuNjk2IDIyOS42OSA5MS44NEwyMzAuMDUgOTIuMTQ2QzIzMC4yNjYgOTIuMzI2IDIzMC4yODQgOTIuNTk2IDIzMC4xNCA5Mi43OTRDMjI5LjM0OCA5My44NzQgMjI4LjIxNCA5NC4yMzQgMjI3LjM2OCA5NC4yMzRDMjI1LjQ2IDk0LjIzNCAyMjMuOTMgOTIuNzU4IDIyMy45MyA5MC45NFY4OC42MzZDMjIzLjkzIDg2LjgxOCAyMjUuNDYgODUuMzYgMjI3LjM2OCA4NS4zNkMyMjguMjE0IDg1LjM2IDIyOS4zNDggODUuNzIgMjMwLjE0IDg2LjhDMjMwLjI4NCA4Ni45OTggMjMwLjI2NiA4Ny4yNjggMjMwLjA1IDg3LjQ0OEwyMjkuNjkgODcuNzU0QzIyOS41MjggODcuODk4IDIyOS4yNCA4Ny45MTYgMjI5LjA2IDg3LjY2NEMyMjguNyA4Ny4xNzggMjI4LjA3IDg2Ljg1NCAyMjcuNDQgODYuODU0QzIyNi40MzIgODYuODU0IDIyNS41NSA4Ny42NDYgMjI1LjU1IDg4LjYxOFY5MC45NThDMjI1LjU1IDkxLjkxMiAyMjYuNDMyIDkyLjcyMiAyMjcuNDQgOTIuNzIyWk0yMzQuNTAxIDg4LjU0NlY4OC45OTZIMjM4LjIyN1Y4OC41NDZDMjM4LjIyNyA4Ny41NzQgMjM3LjM4MSA4Ni43ODIgMjM2LjM1NSA4Ni43ODJDMjM1LjM0NyA4Ni43ODIgMjM0LjUwMSA4Ny41NzQgMjM0LjUwMSA4OC41NDZaTTIzOS4wMTkgOTAuMzY0SDIzNC40ODNWOTAuNzZDMjM0LjQ4MyA5Mi40MzQgMjM1LjQxOSA5Mi42MzIgMjM3Ljk1NyA5Mi42MzJDMjM4LjE5MSA5Mi42MzIgMjM4LjM1MyA5Mi44MTIgMjM4LjM1MyA5My4wNDZWOTMuNTg2QzIzOC4zNTMgOTMuODIgMjM4LjE5MSA5NCAyMzcuOTU3IDk0SDIzNy4yOTFDMjM0Ljc3MSA5NCAyMzIuOTcxIDkzLjYwNCAyMzIuOTcxIDkwLjYxNlY4OC42NTRDMjMyLjk3MSA4Ni44MTggMjM0LjQ2NSA4NS4zNiAyMzYuMzE5IDg1LjM2QzIzOC4yMjcgODUuMzYgMjM5Ljc3NSA4Ni44MTggMjM5Ljc3NSA4OC42NTRWODkuNjA4QzIzOS43NzUgOTAuMDIyIDIzOS40MzMgOTAuMzY0IDIzOS4wMTkgOTAuMzY0Wk0yNTQuOTc4IDgyLjNWOTMuNjIyQzI1NC45NzggOTMuODM4IDI1NC44MTYgOTQgMjU0LjYgOTRIMjUzLjg4QzI1My43MzYgOTQgMjUzLjY0NiA5My45MSAyNTMuNjEgOTMuNzY2TDI1My41MDIgOTMuMzUyQzI1My4wMzQgOTMuODkyIDI1Mi4yNiA5NC4xOCAyNTEuNDUgOTQuMThDMjQ5LjU0MiA5NC4xOCAyNDguMDEyIDkyLjcwNCAyNDguMDEyIDkwLjg4NlY4OC42MzZDMjQ4LjAxMiA4Ni44MTggMjQ5LjU0MiA4NS4zNiAyNTEuNDUgODUuMzZDMjUyLjEzNCA4NS4zNiAyNTIuODE4IDg1LjU0IDI1My4zNTggODUuODY0VjgyLjNDMjUzLjM1OCA4Mi4wODQgMjUzLjUyIDgxLjkyMiAyNTMuNzM2IDgxLjkyMkgyNTQuNkMyNTQuODE2IDgxLjkyMiAyNTQuOTc4IDgyLjA4NCAyNTQuOTc4IDgyLjNaTTI1My4zOTQgOTEuMDQ4Vjg4LjQ5MkMyNTMuMzQgODcuNTU2IDI1Mi41MTIgODYuODE4IDI1MS41MDQgODYuODE4QzI1MC40NzggODYuODE4IDI0OS41OTYgODcuNTkyIDI0OS41OTYgODguNTY0VjkwLjk3NkMyNDkuNTk2IDkxLjkxMiAyNTAuNDc4IDkyLjcyMiAyNTEuNTA0IDkyLjcyMkMyNTIuNTEyIDkyLjcyMiAyNTMuMzQgOTEuOTY2IDI1My4zOTQgOTEuMDQ4Wk0yNTguMjY2IDkwLjg4NlY4OC42MzZDMjU4LjI2NiA4Ni44MTggMjU5Ljc5NiA4NS4zNiAyNjEuNzc2IDg1LjM2QzI2My42ODQgODUuMzYgMjY1LjIxNCA4Ni44MTggMjY1LjIxNCA4OC42MzZWOTAuODg2QzI2NS4yMTQgOTIuNzA0IDI2My42ODQgOTQuMTggMjYxLjc3NiA5NC4xOEMyNTkuNzk2IDk0LjE4IDI1OC4yNjYgOTIuNzA0IDI1OC4yNjYgOTAuODg2Wk0yNjEuNzQgOTIuNzIyQzI2Mi43NDggOTIuNzIyIDI2My42MTIgOTEuOTEyIDI2My42MTIgOTAuOTc2Vjg4LjU2NEMyNjMuNjEyIDg3LjYxIDI2Mi43NDggODYuODE4IDI2MS43NCA4Ni44MThDMjYwLjczMiA4Ni44MTggMjU5Ljg4NiA4Ny42MSAyNTkuODg2IDg4LjU2NFY5MC45NzZDMjU5Ljg4NiA5MS45MTIgMjYwLjczMiA5Mi43MjIgMjYxLjc0IDkyLjcyMlpNMjY5Ljc2MyA4OC41NDZWODguOTk2SDI3My40ODlWODguNTQ2QzI3My40ODkgODcuNTc0IDI3Mi42NDMgODYuNzgyIDI3MS42MTcgODYuNzgyQzI3MC42MDkgODYuNzgyIDI2OS43NjMgODcuNTc0IDI2OS43NjMgODguNTQ2Wk0yNzQuMjgxIDkwLjM2NEgyNjkuNzQ1VjkwLjc2QzI2OS43NDUgOTIuNDM0IDI3MC42ODEgOTIuNjMyIDI3My4yMTkgOTIuNjMyQzI3My40NTMgOTIuNjMyIDI3My42MTUgOTIuODEyIDI3My42MTUgOTMuMDQ2VjkzLjU4NkMyNzMuNjE1IDkzLjgyIDI3My40NTMgOTQgMjczLjIxOSA5NEgyNzIuNTUzQzI3MC4wMzMgOTQgMjY4LjIzMyA5My42MDQgMjY4LjIzMyA5MC42MTZWODguNjU0QzI2OC4yMzMgODYuODE4IDI2OS43MjcgODUuMzYgMjcxLjU4MSA4NS4zNkMyNzMuNDg5IDg1LjM2IDI3NS4wMzcgODYuODE4IDI3NS4wMzcgODguNjU0Vjg5LjYwOEMyNzUuMDM3IDkwLjAyMiAyNzQuNjk1IDkwLjM2NCAyNzQuMjgxIDkwLjM2NFpNMjc4LjI4MiA5My43M0MyNzguMDMgOTMuNjU4IDI3Ny45MjIgOTMuNTE0IDI3Ny45NzYgOTMuMjYyTDI3OC4xMDIgOTIuNzIyQzI3OC4xNTYgOTIuNDcgMjc4LjMzNiA5Mi40MTYgMjc4LjYwNiA5Mi40N0MyNzkuNTI0IDkyLjY1IDI4MC40NzggOTIuODQ4IDI4MS4xOTggOTIuODQ4QzI4Mi4yMDYgOTIuODQ4IDI4Mi45OTggOTIuNTc4IDI4My4xMDYgOTEuOTEyQzI4My4yMzIgOTEuMTc0IDI4Mi40MDQgOTAuODUgMjgxLjAxOCA5MC40NzJDMjc4LjM5IDg5Ljc1MiAyNzcuNTI2IDg4Ljg4OCAyNzcuNjg4IDg3LjUzOEMyNzcuODUgODYuMjI0IDI3OC45ODQgODUuMzQyIDI4MC45NjQgODUuMzQyQzI4MS44MSA4NS4zNDIgMjgyLjc2NCA4NS40ODYgMjgzLjg2MiA4NS44MjhDMjg0LjA5NiA4NS45IDI4NC4yMDQgODYuMDQ0IDI4NC4xNSA4Ni4yOTZMMjg0LjAyNCA4Ni44MzZDMjgzLjk3IDg3LjA4OCAyODMuNzkgODcuMTYgMjgzLjQ4NCA4Ny4wN0MyODIuNTg0IDg2LjgzNiAyODEuNzIgODYuNjc0IDI4MS4wMTggODYuNjc0QzI4MC4wMSA4Ni42NzQgMjc5LjM2MiA4Ni45OCAyNzkuMjU0IDg3LjY0NkMyNzkuMTI4IDg4LjM4NCAyNzkuOTU2IDg4LjcwOCAyODEuMzQyIDg5LjA4NkMyODQuMDQyIDg5LjgwNiAyODQuODE2IDkwLjYxNiAyODQuNjkgOTIuMDJDMjg0LjU2NCA5My4zMzQgMjgzLjM0IDk0LjIxNiAyODEuMjg4IDk0LjIxNkMyODAuNDA2IDk0LjIxNiAyNzkuNDE2IDk0LjA3MiAyNzguMjgyIDkzLjczWk0yODguMTYyIDg1LjUyMkgyODkuMDA4QzI4OS4xODggODUuNTIyIDI4OS4yOTYgODUuNTc2IDI4OS4zMzIgODUuNzU2TDI4OS40NCA4Ni4yNkMyOTAuMzU4IDg1Ljc1NiAyOTEuMzY2IDg1LjQzMiAyOTIuMjY2IDg1LjQzMkMyOTMuNjcgODUuNDMyIDI5NC43NjggODYuMjYgMjk0Ljc2OCA4OC42VjkzLjYwNEMyOTQuNzY4IDkzLjgzOCAyOTQuNjA2IDk0IDI5NC4zOSA5NEgyOTMuNTA4QzI5My4yOTIgOTQgMjkzLjEzIDkzLjgzOCAyOTMuMTMgOTMuNjIyVjg4LjMzQzI5My4xMyA4Ny4zMDQgMjkyLjU5IDg2Ljk2MiAyOTEuODcgODYuOTYyQzI5MS4wOTYgODYuOTYyIDI5MC4xNDIgODcuMzU4IDI4OS40NzYgODcuNzU0VjkzLjYwNEMyODkuNDc2IDkzLjgzOCAyODkuMzE0IDk0IDI4OS4wOTggOTRIMjg4LjE2MkMyODcuOTQ2IDk0IDI4Ny43ODQgOTMuODM4IDI4Ny43ODQgOTMuNjIyVjg1LjlDMjg3Ljc4NCA4NS42ODQgMjg3Ljk0NiA4NS41MjIgMjg4LjE2MiA4NS41MjJaTTI5Ny45MSA4OC40MDJWODMuODNDMjk3LjkxIDgzLjYxNCAyOTguMDcyIDgzLjQzNCAyOTguMzA2IDgzLjQzNEgyOTkuMTM0QzI5OS4zNSA4My40MzQgMjk5LjUzIDgzLjYxNCAyOTkuNTMgODMuODNWODguNDAyQzI5OS41MyA4OC42IDI5OS4zNSA4OC43OCAyOTkuMTM0IDg4Ljc4SDI5OC4zMDZDMjk4LjA3MiA4OC43OCAyOTcuOTEgODguNiAyOTcuOTEgODguNDAyWk0zMDUuNDc2IDgyLjNWODUuNTIySDMwNy45OTZDMzA4LjIxMiA4NS41MjIgMzA4LjM3NCA4NS43MDIgMzA4LjM3NCA4NS45MThWODYuNTg0QzMwOC4zNzQgODYuODE4IDMwOC4yMTIgODYuOTYyIDMwNy45OTYgODYuOTYySDMwNS40NzZWOTAuNTk4QzMwNS40NzYgOTIuNTA2IDMwNi4yODYgOTIuNTYgMzA4Ljc4OCA5Mi41NkMzMDkuMDIyIDkyLjU2IDMwOS4yMiA5Mi43NTggMzA5LjIyIDkyLjk5MlY5My41NjhDMzA5LjIyIDkzLjgwMiAzMDkuMDIyIDk0IDMwOC43ODggOTRIMzA4LjI2NkMzMDUuNzQ2IDk0IDMwMy44NTYgOTMuODAyIDMwMy44NTYgOTAuNzQyVjg2Ljk2MkgzMDIuODEyQzMwMi41OTYgODYuOTYyIDMwMi40MzQgODYuODE4IDMwMi40MzQgODYuNTg0Vjg1LjkxOEMzMDIuNDM0IDg1LjcwMiAzMDIuNTk2IDg1LjUyMiAzMDIuODEyIDg1LjUyMkgzMDMuODU2VjgyLjNDMzAzLjg1NiA4Mi4wODQgMzA0LjAxOCA4MS45MjIgMzA0LjIzNCA4MS45MjJIMzA1LjA5OEMzMDUuMzE0IDgxLjkyMiAzMDUuNDc2IDgyLjA4NCAzMDUuNDc2IDgyLjNaTTE1NC42NiAxMTIuMTI2VjExMS4zODhDMTU0LjEyIDExMS45NDYgMTUzLjM4MiAxMTIuMTYyIDE1Mi42MDggMTEyLjE2MkMxNTAuNyAxMTIuMTYyIDE0OS4xNyAxMTAuNzA0IDE0OS4xNyAxMDguODg2VjEwNi42MzZDMTQ5LjE3IDEwNC44MTggMTUwLjcgMTAzLjM0MiAxNTIuNjA4IDEwMy4zNDJDMTUzLjQxOCAxMDMuMzQyIDE1NC4xOTIgMTAzLjYzIDE1NC42NiAxMDQuMTdMMTU0Ljc2OCAxMDMuNzU2QzE1NC43ODYgMTAzLjYxMiAxNTQuODk0IDEwMy41MjIgMTU1LjAzOCAxMDMuNTIySDE1NS43MjJDMTU1LjkzOCAxMDMuNTIyIDE1Ni4xMTggMTAzLjY4NCAxNTYuMTE4IDEwMy45VjExMi4yN0MxNTYuMTE4IDExNS4xNjggMTU0LjIyOCAxMTUuNTY0IDE1MS42OSAxMTUuNTY0SDE1MS4xNjhDMTUwLjkzNCAxMTUuNTY0IDE1MC43MzYgMTE1LjM2NiAxNTAuNzM2IDExNS4xMzJWMTE0LjU1NkMxNTAuNzM2IDExNC4zMjIgMTUwLjkzNCAxMTQuMTI0IDE1MS4xNjggMTE0LjEyNEMxNTMuNzQyIDExNC4xMjQgMTU0LjY2IDExMy45NjIgMTU0LjY2IDExMi4xMjZaTTE1NC40OTggMTA5LjAzVjEwNi40NzRDMTU0LjQ0NCAxMDUuNTU2IDE1My42MzQgMTA0LjggMTUyLjY0NCAxMDQuOEMxNTEuNjM2IDEwNC44IDE1MC43NzIgMTA1LjYxIDE1MC43NzIgMTA2LjU0NlYxMDguOTU4QzE1MC43NzIgMTA5LjkzIDE1MS42MzYgMTEwLjcwNCAxNTIuNjQ0IDExMC43MDRDMTUzLjYzNCAxMTAuNzA0IDE1NC40NDQgMTA5Ljk2NiAxNTQuNDk4IDEwOS4wM1pNMTYxLjEzNSAxMDAuODk0QzE2MS4xMzUgMTAwLjIxIDE2MS42OTMgOTkuNjUyIDE2Mi4zNzcgOTkuNjUyQzE2My4wNjEgOTkuNjUyIDE2My42MTkgMTAwLjIxIDE2My42MTkgMTAwLjg5NEMxNjMuNjE5IDEwMS41NzggMTYzLjA2MSAxMDIuMTM2IDE2Mi4zNzcgMTAyLjEzNkMxNjEuNjkzIDEwMi4xMzYgMTYxLjEzNSAxMDEuNTc4IDE2MS4xMzUgMTAwLjg5NFpNMTYzLjU2NSAxMDQuMjA2VjExMC41NkgxNjUuNzk3QzE2Ni4wMTMgMTEwLjU2IDE2Ni4xNzUgMTEwLjcwNCAxNjYuMTc1IDExMC45MzhWMTExLjYwNEMxNjYuMTc1IDExMS44MiAxNjYuMDEzIDExMiAxNjUuNzk3IDExMkgxNTkuNjk1QzE1OS40NzkgMTEyIDE1OS4zMTcgMTExLjgyIDE1OS4zMTcgMTExLjYwNFYxMTAuOTM4QzE1OS4zMTcgMTEwLjcwNCAxNTkuNDc5IDExMC41NiAxNTkuNjk1IDExMC41NkgxNjEuOTYzVjEwNC45NjJIMTYwLjkwMUMxNjAuNjg1IDEwNC45NjIgMTYwLjUyMyAxMDQuNzgyIDE2MC41MjMgMTA0LjU2NlYxMDMuOUMxNjAuNTIzIDEwMy42NjYgMTYwLjY4NSAxMDMuNTIyIDE2MC45MDEgMTAzLjUyMkgxNjIuODgxQzE2My4yNTkgMTAzLjUyMiAxNjMuNTY1IDEwMy44MjggMTYzLjU2NSAxMDQuMjA2Wk0xNzUuODA2IDEwMy45NzJMMTczLjA1MiAxMTEuNzQ4QzE3Mi45OCAxMTEuOTQ2IDE3Mi44NTQgMTEyIDE3Mi42OTIgMTEySDE3MS44MjhDMTcxLjY2NiAxMTIgMTcxLjU0IDExMS45NDYgMTcxLjQ2OCAxMTEuNzQ4TDE2OC42NzggMTAzLjk3MkMxNjguNTg4IDEwMy43MiAxNjguNzE0IDEwMy41MjIgMTY5LjAwMiAxMDMuNTIySDE2OS44ODRDMTcwLjE1NCAxMDMuNTIyIDE3MC4yOTggMTAzLjY4NCAxNzAuMzUyIDEwMy44ODJMMTcyLjIwNiAxMDkuNzg2SDE3Mi4yNzhMMTc0LjEzMiAxMDMuODgyQzE3NC4xODYgMTAzLjY4NCAxNzQuMzMgMTAzLjUyMiAxNzQuNiAxMDMuNTIySDE3NS40ODJDMTc1Ljc3IDEwMy41MjIgMTc1Ljg5NiAxMDMuNzIgMTc1LjgwNiAxMDMuOTcyWk0xNzkuOTM5IDEwNi41NDZWMTA2Ljk5NkgxODMuNjY1VjEwNi41NDZDMTgzLjY2NSAxMDUuNTc0IDE4Mi44MTkgMTA0Ljc4MiAxODEuNzkzIDEwNC43ODJDMTgwLjc4NSAxMDQuNzgyIDE3OS45MzkgMTA1LjU3NCAxNzkuOTM5IDEwNi41NDZaTTE4NC40NTcgMTA4LjM2NEgxNzkuOTIxVjEwOC43NkMxNzkuOTIxIDExMC40MzQgMTgwLjg1NyAxMTAuNjMyIDE4My4zOTUgMTEwLjYzMkMxODMuNjI5IDExMC42MzIgMTgzLjc5MSAxMTAuODEyIDE4My43OTEgMTExLjA0NlYxMTEuNTg2QzE4My43OTEgMTExLjgyIDE4My42MjkgMTEyIDE4My4zOTUgMTEySDE4Mi43MjlDMTgwLjIwOSAxMTIgMTc4LjQwOSAxMTEuNjA0IDE3OC40MDkgMTA4LjYxNlYxMDYuNjU0QzE3OC40MDkgMTA0LjgxOCAxNzkuOTAzIDEwMy4zNiAxODEuNzU3IDEwMy4zNkMxODMuNjY1IDEwMy4zNiAxODUuMjEzIDEwNC44MTggMTg1LjIxMyAxMDYuNjU0VjEwNy42MDhDMTg1LjIxMyAxMDguMDIyIDE4NC44NzEgMTA4LjM2NCAxODQuNDU3IDEwOC4zNjRaTTE5OC44MzEgMTA5Ljg3NlYxMDguMDU4SDE5Ny4wMzFDMTk1LjcxNyAxMDguMDU4IDE5NC45MjUgMTA4LjU4IDE5NC45OTcgMTA5LjU1MkMxOTUuMDUxIDExMC40MTYgMTk1LjczNSAxMTAuNzU4IDE5Ni41NDUgMTEwLjc1OEMxOTcuMzU1IDExMC43NTggMTk4LjMwOSAxMTAuMzk4IDE5OC44MzEgMTA5Ljg3NlpNMTk5LjA4MyAxMTEuNzY2TDE5OC45NzUgMTExLjM1MkMxOTguMjkxIDExMS44NzQgMTk3LjM3MyAxMTIuMTYyIDE5Ni40OTEgMTEyLjE2MkMxOTQuOTc5IDExMi4xNjIgMTkzLjU1NyAxMTEuMzUyIDE5My40ODUgMTA5LjU4OEMxOTMuNDEzIDEwNy42OTggMTk1LjA1MSAxMDYuNzQ0IDE5Ny4wMTMgMTA2Ljc0NEgxOTguODEzVjEwNi4yNzZDMTk4LjgxMyAxMDQuOTk4IDE5OC4xODMgMTA0Ljg5IDE5Ni44MzMgMTA0Ljg5SDE5NS4zMzlDMTk1LjEwNSAxMDQuODcyIDE5NC45NDMgMTA0LjcxIDE5NC45NDMgMTA0LjQ3NlYxMDMuOTM2QzE5NC45NDMgMTAzLjcwMiAxOTUuMTA1IDEwMy41NCAxOTUuMzM5IDEwMy41MjJDMTk1Ljk2OSAxMDMuNDY4IDE5Ni41OTkgMTAzLjQ1IDE5Ny4xMDMgMTAzLjQ1QzE5OS4zNzEgMTAzLjQ1IDIwMC4zNzkgMTA0LjAyNiAyMDAuMzc5IDEwNi43NDRWMTExLjYyMkMyMDAuMzc5IDExMS44MzggMjAwLjE5OSAxMTIgMTk5Ljk4MyAxMTJIMTk5LjM1M0MxOTkuMjA5IDExMiAxOTkuMTE5IDExMS45MjggMTk5LjA4MyAxMTEuNzY2Wk0yMTQuODIxIDExMkgyMDkuNTI5QzIwOS4zMTMgMTEyIDIwOS4xNTEgMTExLjgyIDIwOS4xNTEgMTExLjYwNFYxMTAuOTM4QzIwOS4xNTEgMTEwLjcwNCAyMDkuMzEzIDExMC41NiAyMDkuNTI5IDExMC41NkgyMTAuNjYzVjEwNC45NjJIMjA5LjUyOUMyMDkuMzEzIDEwNC45NjIgMjA5LjE1MSAxMDQuOCAyMDkuMTUxIDEwNC41ODRWMTAzLjlDMjA5LjE1MSAxMDMuNjg0IDIwOS4zMTMgMTAzLjUyMiAyMDkuNTI5IDEwMy41MjJIMjEwLjY2M1YxMDMuMjE2QzIxMC42NjMgMTAwLjI0NiAyMTIuNTUzIDk5LjkyMiAyMTUuMDkxIDk5LjkyMkgyMTUuNjEzQzIxNS44NDcgOTkuOTIyIDIxNi4wNDUgMTAwLjEyIDIxNi4wNDUgMTAwLjM1NFYxMDAuOTNDMjE2LjA0NSAxMDEuMTY0IDIxNS44NDcgMTAxLjM2MiAyMTUuNjEzIDEwMS4zNjJDMjEzLjAyMSAxMDEuMzYyIDIxMi4yNDcgMTAxLjQxNiAyMTIuMzAxIDEwMy41MjJIMjE0LjgyMUMyMTUuMDM3IDEwMy41MjIgMjE1LjE5OSAxMDMuNjg0IDIxNS4xOTkgMTAzLjlWMTA0LjU4NEMyMTUuMTk5IDEwNC44IDIxNS4wMzcgMTA0Ljk2MiAyMTQuODIxIDEwNC45NjJIMjEyLjMwMVYxMTAuNTZIMjE0LjgyMUMyMTUuMDM3IDExMC41NiAyMTUuMTk5IDExMC43MDQgMjE1LjE5OSAxMTAuOTM4VjExMS42MDRDMjE1LjE5OSAxMTEuODIgMjE1LjAzNyAxMTIgMjE0LjgyMSAxMTJaTTIyNS4wMzYgMTEySDIyNC4xOUMyMjQuMDQ2IDExMiAyMjMuOTM4IDExMS45MSAyMjMuOTIgMTExLjc2NkwyMjMuODEyIDExMS4yNjJDMjIyLjg1OCAxMTEuODAyIDIyMS44NSAxMTIuMTI2IDIyMC45NjggMTEyLjEyNkMyMTkuNTI4IDExMi4xMjYgMjE4LjQzIDExMS4yNDQgMjE4LjQzIDEwOC45NFYxMDMuOTE4QzIxOC40MyAxMDMuNjg0IDIxOC41OTIgMTAzLjUyMiAyMTguODA4IDEwMy41MjJIMjE5LjY5QzIxOS45MDYgMTAzLjUyMiAyMjAuMDY4IDEwMy42ODQgMjIwLjA2OCAxMDMuOVYxMDkuMTkyQzIyMC4wNjggMTEwLjIxOCAyMjAuNTkgMTEwLjU2IDIyMS4yOTIgMTEwLjU2QzIyMi4wNjYgMTEwLjU2IDIyMy4wNTYgMTEwLjE0NiAyMjMuNzIyIDEwOS43NVYxMDMuOTE4QzIyMy43MjIgMTAzLjY4NCAyMjMuODg0IDEwMy41MjIgMjI0LjEgMTAzLjUyMkgyMjUuMDM2QzIyNS4yNTIgMTAzLjUyMiAyMjUuNDE0IDEwMy42ODQgMjI1LjQxNCAxMDMuOVYxMTEuNjIyQzIyNS40MTQgMTExLjgzOCAyMjUuMjUyIDExMiAyMjUuMDM2IDExMlpNMjMxLjkyMiAxMTAuNzIyQzIzMi41NTIgMTEwLjcyMiAyMzMuMTgyIDExMC40MTYgMjMzLjU0MiAxMDkuOTNDMjMzLjcyMiAxMDkuNjc4IDIzNC4wMSAxMDkuNjk2IDIzNC4xNzIgMTA5Ljg0TDIzNC41MzIgMTEwLjE0NkMyMzQuNzQ4IDExMC4zMjYgMjM0Ljc2NiAxMTAuNTk2IDIzNC42MjIgMTEwLjc5NEMyMzMuODMgMTExLjg3NCAyMzIuNjk2IDExMi4yMzQgMjMxLjg1IDExMi4yMzRDMjI5Ljk0MiAxMTIuMjM0IDIyOC40MTIgMTEwLjc1OCAyMjguNDEyIDEwOC45NFYxMDYuNjM2QzIyOC40MTIgMTA0LjgxOCAyMjkuOTQyIDEwMy4zNiAyMzEuODUgMTAzLjM2QzIzMi42OTYgMTAzLjM2IDIzMy44MyAxMDMuNzIgMjM0LjYyMiAxMDQuOEMyMzQuNzY2IDEwNC45OTggMjM0Ljc0OCAxMDUuMjY4IDIzNC41MzIgMTA1LjQ0OEwyMzQuMTcyIDEwNS43NTRDMjM0LjAxIDEwNS44OTggMjMzLjcyMiAxMDUuOTE2IDIzMy41NDIgMTA1LjY2NEMyMzMuMTgyIDEwNS4xNzggMjMyLjU1MiAxMDQuODU0IDIzMS45MjIgMTA0Ljg1NEMyMzAuOTE0IDEwNC44NTQgMjMwLjAzMiAxMDUuNjQ2IDIzMC4wMzIgMTA2LjYxOFYxMDguOTU4QzIzMC4wMzIgMTA5LjkxMiAyMzAuOTE0IDExMC43MjIgMjMxLjkyMiAxMTAuNzIyWk0yNDEuNzc0IDEwNi42MzZMMjQ0LjYxOCAxMTEuNDc4QzI0NC43NDQgMTExLjY3NiAyNDQuNiAxMTIgMjQ0LjMzIDExMkgyNDMuNDEyQzI0My4xNDIgMTEyIDI0Mi45OCAxMTEuODc0IDI0Mi44NTQgMTExLjY0TDI0MC42NCAxMDcuNzdMMjM5LjM0NCAxMDguOTU4VjExMS42MjJDMjM5LjM0NCAxMTEuODM4IDIzOS4xODIgMTEyIDIzOC45NjYgMTEySDIzOC4xMzhDMjM3LjkyMiAxMTIgMjM3Ljc2IDExMS44MzggMjM3Ljc2IDExMS42MjJWMTAwLjNDMjM3Ljc2IDEwMC4wODQgMjM3LjkyMiA5OS45MjIgMjM4LjEzOCA5OS45MjJIMjM4Ljk2NkMyMzkuMTgyIDk5LjkyMiAyMzkuMzQ0IDEwMC4wODQgMjM5LjM0NCAxMDAuM1YxMDYuODE2TDI0Mi43NDYgMTAzLjQ2OEMyNDIuOTA4IDEwMy4zMDYgMjQzLjE2IDEwMy4zMjQgMjQzLjMwNCAxMDMuNDg2TDI0My44MjYgMTA0LjAwOEMyNDQuMDA2IDEwNC4yMDYgMjQzLjk1MiAxMDQuNDA0IDI0My44MDggMTA0LjU2NkwyNDEuNzc0IDEwNi42MzZaIiBmaWxsPSJibGFjayIvPgo8cGF0aCBkPSJNMTUyLjg2IDEyNy4yMDhIMTUwLjE0OFYxMzAuODJDMTUwLjE0OCAxMzAuOTE2IDE1MC4wNzYgMTMxIDE0OS45NTYgMTMxSDE0OS4zOTJDMTQ5LjI3MiAxMzEgMTQ5LjIgMTMwLjkxNiAxNDkuMiAxMzAuODJWMTIzLjc4OEMxNDkuMiAxMjMuNjkyIDE0OS4yNzIgMTIzLjU5NiAxNDkuMzkyIDEyMy41OTZIMTQ5Ljk1NkMxNTAuMDc2IDEyMy41OTYgMTUwLjE0OCAxMjMuNjkyIDE1MC4xNDggMTIzLjc4OFYxMjYuMzQ0SDE1Mi44NlYxMjMuNzg4QzE1Mi44NiAxMjMuNjkyIDE1Mi45MzIgMTIzLjU5NiAxNTMuMDUyIDEyMy41OTZIMTUzLjYxNkMxNTMuNzM2IDEyMy41OTYgMTUzLjgwOCAxMjMuNjkyIDE1My44MDggMTIzLjc4OFYxMzAuODJDMTUzLjgwOCAxMzAuOTE2IDE1My43MzYgMTMxIDE1My42MTYgMTMxSDE1My4wNTJDMTUyLjkzMiAxMzEgMTUyLjg2IDEzMC45MTYgMTUyLjg2IDEzMC44MlYxMjcuMjA4Wk0xNTguNzE2IDEyNS42VjEzMC4xODRIMTYwLjMyNEMxNjAuNDMyIDEzMC4xODQgMTYwLjUxNiAxMzAuMjY4IDE2MC41MTYgMTMwLjM3NlYxMzAuODA4QzE2MC41MTYgMTMwLjkxNiAxNjAuNDMyIDEzMSAxNjAuMzI0IDEzMUgxNTYuMTZDMTU2LjA1MiAxMzEgMTU1Ljk2OCAxMzAuOTE2IDE1NS45NjggMTMwLjgwOFYxMzAuMzc2QzE1NS45NjggMTMwLjI2OCAxNTYuMDUyIDEzMC4xODQgMTU2LjE2IDEzMC4xODRIMTU3Ljc4VjEyNi4xNjRIMTU2Ljk3NkMxNTYuODggMTI2LjE2NCAxNTYuNzk2IDEyNi4wOCAxNTYuNzk2IDEyNS45NzJWMTI1LjUyOEMxNTYuNzk2IDEyNS40MiAxNTYuODggMTI1LjM0OCAxNTYuOTc2IDEyNS4zNDhIMTU4LjQ2NEMxNTguNTk2IDEyNS4zNDggMTU4LjcxNiAxMjUuNDY4IDE1OC43MTYgMTI1LjZaTTE1Ny4yMTYgMTIzLjQ2NEMxNTcuMjE2IDEyMy4wNDQgMTU3LjU2NCAxMjIuNjk2IDE1Ny45ODQgMTIyLjY5NkMxNTguNDA0IDEyMi42OTYgMTU4Ljc1MiAxMjMuMDQ0IDE1OC43NTIgMTIzLjQ2NEMxNTguNzUyIDEyMy44ODQgMTU4LjQwNCAxMjQuMjMyIDE1Ny45ODQgMTI0LjIzMkMxNTcuNTY0IDEyNC4yMzIgMTU3LjIxNiAxMjMuODg0IDE1Ny4yMTYgMTIzLjQ2NFpNMTY1LjE4NSAxMjMuMTRWMTMwLjE4NEgxNjYuNzkzQzE2Ni45MDEgMTMwLjE4NCAxNjYuOTg1IDEzMC4yNjggMTY2Ljk4NSAxMzAuMzc2VjEzMC44MDhDMTY2Ljk4NSAxMzAuOTE2IDE2Ni45MDEgMTMxIDE2Ni43OTMgMTMxSDE2Mi42MjlDMTYyLjUyMSAxMzEgMTYyLjQzNyAxMzAuOTE2IDE2Mi40MzcgMTMwLjgwOFYxMzAuMzc2QzE2Mi40MzcgMTMwLjI2OCAxNjIuNTIxIDEzMC4xODQgMTYyLjYyOSAxMzAuMTg0SDE2NC4yNDlWMTIzLjcwNEgxNjMuNDQ1QzE2My4zNDkgMTIzLjcwNCAxNjMuMjY1IDEyMy42MiAxNjMuMjY1IDEyMy41MTJWMTIzLjA2OEMxNjMuMjY1IDEyMi45NiAxNjMuMzQ5IDEyMi44ODggMTYzLjQ0NSAxMjIuODg4SDE2NC45MzNDMTY1LjA2NSAxMjIuODg4IDE2NS4xODUgMTIzLjAwOCAxNjUuMTg1IDEyMy4xNFpNMTcxLjY1MyAxMjMuMTRWMTMwLjE4NEgxNzMuMjYxQzE3My4zNjkgMTMwLjE4NCAxNzMuNDUzIDEzMC4yNjggMTczLjQ1MyAxMzAuMzc2VjEzMC44MDhDMTczLjQ1MyAxMzAuOTE2IDE3My4zNjkgMTMxIDE3My4yNjEgMTMxSDE2OS4wOTdDMTY4Ljk4OSAxMzEgMTY4LjkwNSAxMzAuOTE2IDE2OC45MDUgMTMwLjgwOFYxMzAuMzc2QzE2OC45MDUgMTMwLjI2OCAxNjguOTg5IDEzMC4xODQgMTY5LjA5NyAxMzAuMTg0SDE3MC43MTdWMTIzLjcwNEgxNjkuOTEzQzE2OS44MTcgMTIzLjcwNCAxNjkuNzMzIDEyMy42MiAxNjkuNzMzIDEyMy41MTJWMTIzLjA2OEMxNjkuNzMzIDEyMi45NiAxNjkuODE3IDEyMi44ODggMTY5LjkxMyAxMjIuODg4SDE3MS40MDFDMTcxLjUzMyAxMjIuODg4IDE3MS42NTMgMTIzLjAwOCAxNzEuNjUzIDEyMy4xNFpNMTc2LjM0NiAxMjcuMzUyVjEyNy42NTJIMTc5LjAyMlYxMjcuMzUyQzE3OS4wMjIgMTI2LjY0NCAxNzguNDM0IDEyNi4wNjggMTc3LjY5IDEyNi4wNjhDMTc2Ljk0NiAxMjYuMDY4IDE3Ni4zNDYgMTI2LjY0NCAxNzYuMzQ2IDEyNy4zNTJaTTE3OS41MDIgMTI4LjQzMkgxNzYuMzQ2VjEyOC44MjhDMTc2LjM0NiAxMzAuMDUyIDE3Ny4wMTggMTMwLjE5NiAxNzguNzgyIDEzMC4xOTZDMTc4LjkyNiAxMzAuMTk2IDE3OS4wMSAxMzAuMjY4IDE3OS4wMSAxMzAuNDEyVjEzMC43NzJDMTc5LjAxIDEzMC45MTYgMTc4LjkyNiAxMzEgMTc4Ljc4MiAxMzFIMTc4LjMyNkMxNzYuNjQ2IDEzMSAxNzUuNDEgMTMwLjczNiAxNzUuNDEgMTI4Ljc2OFYxMjcuMzY0QzE3NS40MSAxMjYuMTY0IDE3Ni40MyAxMjUuMjA0IDE3Ny42OSAxMjUuMjA0QzE3OC45NSAxMjUuMjA0IDE3OS45NTggMTI2LjE2NCAxNzkuOTU4IDEyNy4zNjRWMTI3Ljk3NkMxNzkuOTU4IDEyOC4yMjggMTc5Ljc1NCAxMjguNDMyIDE3OS41MDIgMTI4LjQzMlpNMTg0LjUwOSAxMjMuMTRWMTMwLjE4NEgxODYuMTE3QzE4Ni4yMjUgMTMwLjE4NCAxODYuMzA5IDEzMC4yNjggMTg2LjMwOSAxMzAuMzc2VjEzMC44MDhDMTg2LjMwOSAxMzAuOTE2IDE4Ni4yMjUgMTMxIDE4Ni4xMTcgMTMxSDE4MS45NTNDMTgxLjg0NSAxMzEgMTgxLjc2MSAxMzAuOTE2IDE4MS43NjEgMTMwLjgwOFYxMzAuMzc2QzE4MS43NjEgMTMwLjI2OCAxODEuODQ1IDEzMC4xODQgMTgxLjk1MyAxMzAuMTg0SDE4My41NzNWMTIzLjcwNEgxODIuNzY5QzE4Mi42NzMgMTIzLjcwNCAxODIuNTg5IDEyMy42MiAxODIuNTg5IDEyMy41MTJWMTIzLjA2OEMxODIuNTg5IDEyMi45NiAxODIuNjczIDEyMi44ODggMTgyLjc2OSAxMjIuODg4SDE4NC4yNTdDMTg0LjM4OSAxMjIuODg4IDE4NC41MDkgMTIzLjAwOCAxODQuNTA5IDEyMy4xNFpNMTk0LjYwNSAxMzEuMTJDMTkzLjk5MyAxMzEuMTIgMTkzLjE4OSAxMzAuOTg4IDE5Mi40NDUgMTMwLjY3NkMxOTIuMzAxIDEzMC42MTYgMTkyLjI2NSAxMzAuNTIgMTkyLjMwMSAxMzAuNEwxOTIuNDMzIDEzMC4wMDRDMTkyLjQ4MSAxMjkuODcyIDE5Mi42MDEgMTI5Ljg0OCAxOTIuNzIxIDEyOS44OTZDMTkzLjM1NyAxMzAuMTQ4IDE5NC4wMTcgMTMwLjI2OCAxOTQuNTQ1IDEzMC4yNjhDMTk1LjMxMyAxMzAuMjY4IDE5NS44MDUgMTI5Ljg5NiAxOTUuODQxIDEyOS4yMjRDMTk1Ljg4OSAxMjguNDU2IDE5NS4zNDkgMTI4LjE4IDE5NC4zMTcgMTI3Ljc0OEMxOTIuNTc3IDEyNy4wMjggMTkxLjk4OSAxMjYuMzQ0IDE5Mi4wODUgMTI1LjNDMTkyLjE4MSAxMjQuMjA4IDE5My4wNDUgMTIzLjQ3NiAxOTQuMjY5IDEyMy40NzZDMTk0LjgyMSAxMjMuNDc2IDE5NS40OTMgMTIzLjYwOCAxOTYuMjM3IDEyMy45MkMxOTYuMzgxIDEyMy45OCAxOTYuNDE3IDEyNC4wNzYgMTk2LjM4MSAxMjQuMTk2TDE5Ni4yNDkgMTI0LjU5MkMxOTYuMjAxIDEyNC43MjQgMTk2LjA4MSAxMjQuNzQ4IDE5NS45NjEgMTI0LjdDMTk1LjMyNSAxMjQuNDQ4IDE5NC43OTcgMTI0LjMyOCAxOTQuMzI5IDEyNC4zMjhDMTkzLjU2MSAxMjQuMzI4IDE5My4wNDUgMTI0LjcgMTkzLjAwOSAxMjUuMzcyQzE5Mi45NjEgMTI2LjE0IDE5My42OTMgMTI2LjQ4OCAxOTQuNTQ1IDEyNi44MzZDMTk2LjI4NSAxMjcuNTU2IDE5Ni44ODUgMTI4LjEzMiAxOTYuNzg5IDEyOS4yOTZDMTk2LjY5MyAxMzAuMzg4IDE5NS44MjkgMTMxLjEyIDE5NC42MDUgMTMxLjEyWk0xOTkuODQ3IDEyMy4wNjhWMTI1LjgxNkMyMDAuNDgzIDEyNS40NjggMjAxLjE1NSAxMjUuMjQgMjAxLjc2NyAxMjUuMjRDMjAyLjczOSAxMjUuMjQgMjAzLjQ5NSAxMjUuNzkyIDIwMy40OTUgMTI3LjM2NFYxMzAuODA4QzIwMy40OTUgMTMwLjkxNiAyMDMuNDIzIDEzMSAyMDMuMzE1IDEzMUgyMDIuNzM5QzIwMi42NDMgMTMxIDIwMi41NTkgMTMwLjkxNiAyMDIuNTU5IDEzMC44MDhWMTI3LjE0OEMyMDIuNTU5IDEyNi4zOCAyMDIuMTM5IDEyNi4xMTYgMjAxLjU5OSAxMjYuMTE2QzIwMS4wMzUgMTI2LjExNiAyMDAuMzM5IDEyNi40MDQgMTk5Ljg0NyAxMjYuNjkyVjEzMC44MDhDMTk5Ljg0NyAxMzAuOTE2IDE5OS43NTEgMTMxIDE5OS42NTUgMTMxSDE5OS4wOTFDMTk4Ljk3MSAxMzEgMTk4LjkyMyAxMzAuOTE2IDE5OC45MjMgMTMwLjgwOFYxMjMuMDY4QzE5OC45MjMgMTIyLjk3MiAxOTguOTk1IDEyMi44ODggMTk5LjExNSAxMjIuODg4SDE5OS42NTVDMTk5Ljc3NSAxMjIuODg4IDE5OS44NDcgMTIyLjk3MiAxOTkuODQ3IDEyMy4wNjhaTTIwNi4yNjQgMTI3LjM1MlYxMjcuNjUySDIwOC45NFYxMjcuMzUyQzIwOC45NCAxMjYuNjQ0IDIwOC4zNTIgMTI2LjA2OCAyMDcuNjA4IDEyNi4wNjhDMjA2Ljg2NCAxMjYuMDY4IDIwNi4yNjQgMTI2LjY0NCAyMDYuMjY0IDEyNy4zNTJaTTIwOS40MiAxMjguNDMySDIwNi4yNjRWMTI4LjgyOEMyMDYuMjY0IDEzMC4wNTIgMjA2LjkzNiAxMzAuMTk2IDIwOC43IDEzMC4xOTZDMjA4Ljg0NCAxMzAuMTk2IDIwOC45MjggMTMwLjI2OCAyMDguOTI4IDEzMC40MTJWMTMwLjc3MkMyMDguOTI4IDEzMC45MTYgMjA4Ljg0NCAxMzEgMjA4LjcgMTMxSDIwOC4yNDRDMjA2LjU2NCAxMzEgMjA1LjMyOCAxMzAuNzM2IDIwNS4zMjggMTI4Ljc2OFYxMjcuMzY0QzIwNS4zMjggMTI2LjE2NCAyMDYuMzQ4IDEyNS4yMDQgMjA3LjYwOCAxMjUuMjA0QzIwOC44NjggMTI1LjIwNCAyMDkuODc2IDEyNi4xNjQgMjA5Ljg3NiAxMjcuMzY0VjEyNy45NzZDMjA5Ljg3NiAxMjguMjI4IDIwOS42NzIgMTI4LjQzMiAyMDkuNDIgMTI4LjQzMlpNMjE0LjQyNyAxMjMuMTRWMTMwLjE4NEgyMTYuMDM1QzIxNi4xNDMgMTMwLjE4NCAyMTYuMjI3IDEzMC4yNjggMjE2LjIyNyAxMzAuMzc2VjEzMC44MDhDMjE2LjIyNyAxMzAuOTE2IDIxNi4xNDMgMTMxIDIxNi4wMzUgMTMxSDIxMS44NzFDMjExLjc2MyAxMzEgMjExLjY3OSAxMzAuOTE2IDIxMS42NzkgMTMwLjgwOFYxMzAuMzc2QzIxMS42NzkgMTMwLjI2OCAyMTEuNzYzIDEzMC4xODQgMjExLjg3MSAxMzAuMTg0SDIxMy40OTFWMTIzLjcwNEgyMTIuNjg3QzIxMi41OTEgMTIzLjcwNCAyMTIuNTA3IDEyMy42MiAyMTIuNTA3IDEyMy41MTJWMTIzLjA2OEMyMTIuNTA3IDEyMi45NiAyMTIuNTkxIDEyMi44ODggMjEyLjY4NyAxMjIuODg4SDIxNC4xNzVDMjE0LjMwNyAxMjIuODg4IDIxNC40MjcgMTIzLjAwOCAyMTQuNDI3IDEyMy4xNFpNMjE5LjI2NCAxMjUuNTI4VjEyNS43MkMyMTkuNjcyIDEyNS40NjggMjIwLjE1MiAxMjUuMjg4IDIyMC41ODQgMTI1LjI4OEMyMjAuOTMyIDEyNS4yODggMjIxLjI0NCAxMjUuNDA4IDIyMS40MTIgMTI1LjcyQzIyMS44NDQgMTI1LjQ2OCAyMjIuMzYgMTI1LjI3NiAyMjIuNzkyIDEyNS4yNzZDMjIzLjM5MiAxMjUuMjc2IDIyMy44NzIgMTI1LjYxMiAyMjMuODcyIDEyNi41MzZWMTMwLjgwOEMyMjMuODcyIDEzMC45MTYgMjIzLjc4OCAxMzEgMjIzLjY4IDEzMUgyMjMuMTA0QzIyMi45OTYgMTMxIDIyMi45MTIgMTMwLjkxNiAyMjIuOTEyIDEzMC44MDhWMTI2LjYwOEMyMjIuOTEyIDEyNi4yMTIgMjIyLjcyIDEyNi4wOCAyMjIuNDU2IDEyNi4wOEMyMjIuMjA0IDEyNi4wOCAyMjEuODkyIDEyNi4xNjQgMjIxLjYwNCAxMjYuMzJDMjIxLjYxNiAxMjYuNDA0IDIyMS42MTYgMTI2LjQ2NCAyMjEuNjE2IDEyNi41MzZWMTMwLjgwOEMyMjEuNjE2IDEzMC45MTYgMjIxLjUzMiAxMzEgMjIxLjQyNCAxMzFIMjIwLjkyQzIyMC44MjQgMTMxIDIyMC43MjggMTMwLjkxNiAyMjAuNzI4IDEzMC44MDhWMTI2LjYwOEMyMjAuNzI4IDEyNi4yMTIgMjIwLjUzNiAxMjYuMDggMjIwLjI2IDEyNi4wOEMyMTkuOTg0IDEyNi4wOCAyMTkuNjI0IDEyNi4yIDIxOS4zMzYgMTI2LjM1NlYxMzAuODA4QzIxOS4zMzYgMTMwLjkxNiAyMTkuMjUyIDEzMSAyMTkuMTQ0IDEzMUgyMTguNThDMjE4LjQ3MiAxMzEgMjE4LjM4OCAxMzAuOTE2IDIxOC4zODggMTMwLjgwOFYxMjUuNTI4QzIxOC4zODggMTI1LjQzMiAyMTguNDYgMTI1LjM0OCAyMTguNTggMTI1LjM0OEgyMTkuMDcyQzIxOS4xOTIgMTI1LjM0OCAyMTkuMjY0IDEyNS40MzIgMjE5LjI2NCAxMjUuNTI4Wk0yMjkuMzc2IDEzMC44MDhWMTMwLjU2OEMyMjguOTQ0IDEzMC44OTIgMjI4LjMwOCAxMzEuMTIgMjI3LjY3MiAxMzEuMTJDMjI2LjY1MiAxMzEuMTIgMjI1LjcxNiAxMzAuNjA0IDIyNS42NjggMTI5LjQyOEMyMjUuNjIgMTI4LjIwNCAyMjYuNzM2IDEyNy41NDQgMjI4LjAzMiAxMjcuNTQ0SDIyOS4zNTJWMTI3LjE2QzIyOS4zNTIgMTI1Ljk0OCAyMjguNTg0IDEyNi4xMjggMjI2LjkxNiAxMjYuMTI4QzIyNi43NzIgMTI2LjEyOCAyMjYuNjg4IDEyNi4wNTYgMjI2LjY4OCAxMjUuOTEyVjEyNS41NzZDMjI2LjY4OCAxMjUuNDMyIDIyNi43NzIgMTI1LjM2IDIyNi45MTYgMTI1LjM0OEMyMjcuMzcyIDEyNS4zMTIgMjI3Ljc2OCAxMjUuMjg4IDIyOC4xMjggMTI1LjI4OEMyMjkuNjA0IDEyNS4yODggMjMwLjI1MiAxMjUuNzA4IDIzMC4yNTIgMTI3LjQ4NFYxMzAuODA4QzIzMC4yNTIgMTMwLjkxNiAyMzAuMTggMTMxIDIzMC4wNiAxMzFIMjI5LjU2OEMyMjkuNDcyIDEzMSAyMjkuMzc2IDEzMC45MTYgMjI5LjM3NiAxMzAuODA4Wk0yMjkuMzY0IDEyOS42OFYxMjguM0gyMjguMDQ0QzIyNy4wNzIgMTI4LjMgMjI2LjUyIDEyOC43NTYgMjI2LjU2OCAxMjkuNDUyQzIyNi42MTYgMTMwLjA2NCAyMjcuMTA4IDEzMC4zMTYgMjI3LjcyIDEzMC4zMTZDMjI4LjMzMiAxMzAuMzE2IDIyOS4wNCAxMzAuMDY0IDIyOS4zNjQgMTI5LjY4Wk0yMzMuNDA4IDEyNS41MjhWMTI1LjgyOEMyMzQuMDU2IDEyNS40NjggMjM0Ljc1MiAxMjUuMjI4IDIzNS4zNzYgMTI1LjIyOEMyMzYuMzQ4IDEyNS4yMjggMjM3LjEwNCAxMjUuNzggMjM3LjEwNCAxMjcuMzRWMTMwLjgwOEMyMzcuMTA0IDEzMC45MTYgMjM3LjAzMiAxMzEgMjM2LjkyNCAxMzFIMjM2LjM0OEMyMzYuMjUyIDEzMSAyMzYuMTY4IDEzMC45MTYgMjM2LjE2OCAxMzAuODA4VjEyNy4xNDhDMjM2LjE2OCAxMjYuMzggMjM1Ljc0OCAxMjYuMTE2IDIzNS4yMDggMTI2LjExNkMyMzQuNjQ0IDEyNi4xMTYgMjMzLjk0OCAxMjYuNDA0IDIzMy40NTYgMTI2LjY5MlYxMzAuODA4QzIzMy40NTYgMTMwLjkxNiAyMzMuMzYgMTMxIDIzMy4yNjQgMTMxSDIzMi43QzIzMi41OCAxMzEgMjMyLjUzMiAxMzAuOTE2IDIzMi41MzIgMTMwLjgwOFYxMjUuNTI4QzIzMi41MzIgMTI1LjQzMiAyMzIuNjA0IDEyNS4zNDggMjMyLjcyNCAxMjUuMzQ4SDIzMy4yMTZDMjMzLjMzNiAxMjUuMzQ4IDIzMy40MDggMTI1LjQzMiAyMzMuNDA4IDEyNS41MjhaIiBmaWxsPSIjMTcxNzE3Ii8+CjxwYXRoIGQ9Ik0yMzAuNzQgMzIuODg5VjI4LjU5MDVDMjMwLjc0IDI4LjUwOTEgMjMwLjgxNCAyOC40MzUxIDIzMC44OTUgMjguNDM1MUgyMzMuNDYyQzIzMy41MjIgMjguNDM1MSAyMzMuNTgxIDI4LjQ3OTUgMjMzLjU4MSAyOC41NDYxVjI4Ljg1NjlDMjMzLjU4MSAyOC45MjM0IDIzMy41MjIgMjguOTc1MiAyMzMuNDYyIDI4Ljk3NTJIMjMxLjMyNFYzMC4xMjk0SDIzMi41MDFDMjMyLjU2IDMwLjEyOTQgMjMyLjYxOSAzMC4xNzM4IDIzMi42MTkgMzAuMjQwNFYzMC41NDM3QzIzMi42MTkgMzAuNjEwMyAyMzIuNTYgMzAuNjYyMSAyMzIuNTAxIDMwLjY2MjFIMjMxLjMyNFYzMi44ODlDMjMxLjMyNCAzMi45NDgyIDIzMS4yOCAzMyAyMzEuMjA2IDMzSDIzMC44NThDMjMwLjc4NCAzMyAyMzAuNzQgMzIuOTQ4MiAyMzAuNzQgMzIuODg5Wk0yMzUuODUgMjkuNjcwN1YzMC4yOTIyQzIzNi4xMzEgMjkuNjkyOSAyMzYuNjE5IDI5LjUxNTMgMjM3LjE4MiAyOS41MTUzSDIzNy4zNTJDMjM3LjQ0MSAyOS41MTUzIDIzNy40OTMgMjkuNTU5NyAyMzcuNDkzIDI5LjY0ODVWMjkuOTE0OEMyMzcuNDkzIDMwLjAwMzYgMjM3LjQ0MSAzMC4wNDA2IDIzNy4zNTIgMzAuMDQwNkgyMzcuMTgyQzIzNi4zODMgMzAuMDQwNiAyMzYuMDcyIDMwLjUyODkgMjM1Ljg1IDMwLjg0N1YzMi40OTY5SDIzNi43NzVDMjM2Ljg0MSAzMi40OTY5IDIzNi44OTMgMzIuNTQ4NyAyMzYuODkzIDMyLjYxNTNWMzIuODgxNkMyMzYuODkzIDMyLjk0ODIgMjM2Ljg0MSAzMyAyMzYuNzc1IDMzSDIzNC44MDdDMjM0Ljc0IDMzIDIzNC42ODggMzIuOTQ4MiAyMzQuNjg4IDMyLjg4MTZWMzIuNjE1M0MyMzQuNjg4IDMyLjU0ODcgMjM0Ljc0IDMyLjQ5NjkgMjM0LjgwNyAzMi40OTY5SDIzNS4zMzJWMzAuMDE4NEgyMzQuODA3QzIzNC43NCAzMC4wMTg0IDIzNC42ODggMjkuOTY2NiAyMzQuNjg4IDI5LjlWMjkuNjI2M0MyMzQuNjg4IDI5LjU1OTcgMjM0Ljc0IDI5LjUxNTMgMjM0LjgwNyAyOS41MTUzSDIzNS42OTVDMjM1Ljc3NiAyOS41MTUzIDIzNS44NSAyOS41ODkzIDIzNS44NSAyOS42NzA3Wk0yNDAuMjE5IDI5LjY3MDdWMzIuNDk2OUgyNDEuMjExQzI0MS4yNzcgMzIuNDk2OSAyNDEuMzI5IDMyLjU0ODcgMjQxLjMyOSAzMi42MTUzVjMyLjg4MTZDMjQxLjMyOSAzMi45NDgyIDI0MS4yNzcgMzMgMjQxLjIxMSAzM0gyMzguNjQzQzIzOC41NzcgMzMgMjM4LjUyNSAzMi45NDgyIDIzOC41MjUgMzIuODgxNlYzMi42MTUzQzIzOC41MjUgMzIuNTQ4NyAyMzguNTc3IDMyLjQ5NjkgMjM4LjY0MyAzMi40OTY5SDIzOS42NDJWMzAuMDE4NEgyMzkuMTQ2QzIzOS4wODcgMzAuMDE4NCAyMzkuMDM1IDI5Ljk2NjYgMjM5LjAzNSAyOS45VjI5LjYyNjNDMjM5LjAzNSAyOS41NTk3IDIzOS4wODcgMjkuNTE1MyAyMzkuMTQ2IDI5LjUxNTNIMjQwLjA2NEMyNDAuMTQ1IDI5LjUxNTMgMjQwLjIxOSAyOS41ODkzIDI0MC4yMTkgMjkuNjcwN1pNMjM5LjI5NCAyOC4zNTM4QzIzOS4yOTQgMjguMDk0OCAyMzkuNTA5IDI3Ljg4MDMgMjM5Ljc2OCAyNy44ODAzQzI0MC4wMjcgMjcuODgwMyAyNDAuMjQxIDI4LjA5NDggMjQwLjI0MSAyOC4zNTM4QzI0MC4yNDEgMjguNjEyNyAyNDAuMDI3IDI4LjgyNzMgMjM5Ljc2OCAyOC44MjczQzIzOS41MDkgMjguODI3MyAyMzkuMjk0IDI4LjYxMjcgMjM5LjI5NCAyOC4zNTM4Wk0yNDQuODIyIDI3Ljk5ODZIMjQ1LjE2OUMyNDUuMjQzIDI3Ljk5ODYgMjQ1LjI4OCAyOC4wNTc4IDI0NS4yODggMjguMTE3VjMyLjg4OUMyNDUuMjg4IDMyLjk0ODIgMjQ1LjI0MyAzMyAyNDUuMTY5IDMzSDI0NC44NjZDMjQ0LjgwNyAzMyAyNDQuNzU1IDMyLjk2MyAyNDQuNzU1IDMyLjkwMzhWMzIuNjUyM0MyNDQuNTcgMzIuOTI2IDI0NC4yMjIgMzMuMDc0IDI0My44NDUgMzMuMDc0QzI0My4wNjggMzMuMDc0IDI0Mi40MzkgMzIuNDc0NyAyNDIuNDM5IDMxLjczNDlWMzAuNzgwNUMyNDIuNDM5IDMwLjA0MDYgMjQzLjA2OCAyOS40NDg3IDI0My44NDUgMjkuNDQ4N0MyNDQuMTkzIDI5LjQ0ODcgMjQ0LjQ4MSAyOS41NzQ1IDI0NC43MDMgMjkuNzgxN1YyOC4xMTdDMjQ0LjcwMyAyOC4wNTc4IDI0NC43NDggMjcuOTk4NiAyNDQuODIyIDI3Ljk5ODZaTTI0My4wMTYgMzAuODE3NVYzMS43MTI3QzI0My4wMTYgMzIuMTg2MiAyNDMuNDAxIDMyLjU2MzUgMjQzLjg3NSAzMi41NjM1QzI0NC4zNDggMzIuNTYzNSAyNDQuNzI1IDMyLjE4NjIgMjQ0LjcyNSAzMS43MTI3VjMwLjgxNzVDMjQ0LjcyNSAzMC4zNDM5IDI0NC4zNDggMjkuOTU5MiAyNDMuODc1IDI5Ljk1OTJDMjQzLjQwMSAyOS45NTkyIDI0My4wMTYgMzAuMzQzOSAyNDMuMDE2IDMwLjgxNzVaTTI0OC44MjkgMzIuODgxNlYzMi43MzM3QzI0OC41NjMgMzIuOTMzNCAyNDguMTcxIDMzLjA3NCAyNDcuNzc5IDMzLjA3NEMyNDcuMTUgMzMuMDc0IDI0Ni41NzMgMzIuNzU1OSAyNDYuNTQzIDMyLjAzMDhDMjQ2LjUxMyAzMS4yNzYyIDI0Ny4yMDIgMzAuODY5MiAyNDguMDAxIDMwLjg2OTJIMjQ4LjgxNFYzMC42MzI1QzI0OC44MTQgMjkuODg1MiAyNDguMzQxIDI5Ljk5NjIgMjQ3LjMxMyAyOS45OTYyQzI0Ny4yMjQgMjkuOTk2MiAyNDcuMTcyIDI5Ljk1MTggMjQ3LjE3MiAyOS44NjNWMjkuNjU1OUMyNDcuMTcyIDI5LjU2NzEgMjQ3LjIyNCAyOS41MjI3IDI0Ny4zMTMgMjkuNTE1M0MyNDcuNTk0IDI5LjQ5MzEgMjQ3LjgzOCAyOS40NzgzIDI0OC4wNiAyOS40NzgzQzI0OC45NyAyOS40NzgzIDI0OS4zNjkgMjkuNzM3MyAyNDkuMzY5IDMwLjgzMjJWMzIuODgxNkMyNDkuMzY5IDMyLjk0ODIgMjQ5LjMyNSAzMyAyNDkuMjUxIDMzSDI0OC45NDhDMjQ4Ljg4OCAzMyAyNDguODI5IDMyLjk0ODIgMjQ4LjgyOSAzMi44ODE2Wk0yNDguODIyIDMyLjE4NjJWMzEuMzM1M0gyNDguMDA4QzI0Ny40MDkgMzEuMzM1MyAyNDcuMDY4IDMxLjYxNjUgMjQ3LjA5OCAzMi4wNDU2QzI0Ny4xMjggMzIuNDIyOSAyNDcuNDMxIDMyLjU3ODMgMjQ3LjgwOCAzMi41NzgzQzI0OC4xODYgMzIuNTc4MyAyNDguNjIyIDMyLjQyMjkgMjQ4LjgyMiAzMi4xODYyWk0yNTIuODc2IDMzLjA3NFYzMi43MjYzQzI1Mi41MTQgMzIuOTU1NiAyNTIuMTY2IDMzLjA2NjYgMjUxLjcxNSAzMy4wNjY2QzI1MS4xMTUgMzMuMDY2NiAyNTAuNjI3IDMyLjcxODkgMjUwLjYyNyAzMS43NTcxVjI5LjYzMzdDMjUwLjYyNyAyOS41NjcxIDI1MC42NzEgMjkuNTE1MyAyNTAuNzM4IDI5LjUxNTNIMjUxLjA5M0MyNTEuMTUyIDI5LjUxNTMgMjUxLjIwNCAyOS41NjcxIDI1MS4yMDQgMjkuNjMzN1YzMS44OTAyQzI1MS4yMDQgMzIuMzYzNyAyNTEuNDYzIDMyLjUxOTEgMjUxLjc5NiAzMi41MTkxQzI1Mi4xODggMzIuNTE5MSAyNTIuNjEgMzIuMzU2MyAyNTIuODc2IDMyLjE3MTRWMjkuNjMzN0MyNTIuODc2IDI5LjU2NzEgMjUyLjkzNSAyOS41MTUzIDI1Mi45OTUgMjkuNTE1M0gyNTMuMzVDMjUzLjQyNCAyOS41MTUzIDI1My40NTMgMjkuNTY3MSAyNTMuNDUzIDI5LjYzMzdWMzMuMTc3NkMyNTMuNDUzIDM0LjM2MTMgMjUyLjY3NiAzNC41MTY3IDI1MS42NDEgMzQuNTE2N0gyNTEuMzgyQzI1MS4yOTMgMzQuNTE2NyAyNTEuMjQxIDM0LjQ2NDkgMjUxLjI0MSAzNC4zNzYxVjM0LjE1NDJDMjUxLjI0MSAzNC4wNjU0IDI1MS4yOTMgMzQuMDIxIDI1MS4zODIgMzQuMDIxQzI1Mi41MzYgMzQuMDIxIDI1Mi44NzYgMzMuOTQ3IDI1Mi44NzYgMzMuMDc0Wk0yNTcuNTI4IDMyLjEwNDhDMjU3Ljc4NyAzMi40MDgxIDI1OC4xMiAzMi41NTYxIDI1OC40NTIgMzIuNTU2MUMyNTkuMDQ0IDMyLjU1NjEgMjU5LjQ0NCAzMi4wODI2IDI1OS40NDQgMzEuNTU3M0MyNTkuNDQ0IDMwLjk0MzIgMjU4Ljk5MyAzMC41ODA3IDI1OC40NzUgMzAuNTgwN0MyNTguMjM4IDMwLjU4MDcgMjU3Ljk5NCAzMC42NDczIDI1Ny43NjQgMzAuODAyN0MyNTcuNjc2IDMwLjg2MTggMjU3LjU5NCAzMC44NjkyIDI1Ny41MDUgMzAuODE3NUwyNTcuMjg0IDMwLjY5MTdWMjguNTYwOUMyNTcuMjg0IDI4LjQ4NjkgMjU3LjM0MyAyOC40MzUxIDI1Ny40MDkgMjguNDM1MUgyNTkuNTRDMjU5LjYwNyAyOC40MzUxIDI1OS42NjYgMjguNDg2OSAyNTkuNjY2IDI4LjU2ODNWMjguODQyMUMyNTkuNjY2IDI4LjkxNiAyNTkuNjA3IDI4Ljk3NTIgMjU5LjU0IDI4Ljk3NTJIMjU3Ljg0NlYzMC4yMjU2QzI1OC4wNzUgMzAuMTE0NiAyNTguMzE5IDMwLjA2MjggMjU4LjU1NiAzMC4wNjI4QzI1OS4zMTggMzAuMDYyOCAyNjAuMDIxIDMwLjYzMjUgMjYwLjAyMSAzMS41NDk5QzI2MC4wMjEgMzIuNTMzOSAyNTkuMjY2IDMzLjEwMzYgMjU4LjQ4MiAzMy4xMDM2QzI1OC4wMDEgMzMuMTAzNiAyNTcuNDk4IDMyLjg4OSAyNTcuMTU4IDMyLjQyMjlDMjU3LjA5OSAzMi4zNDE1IDI1Ny4xMDYgMzIuMjUyOCAyNTcuMTggMzIuMTg2MkwyNTcuMjkxIDMyLjA5QzI1Ny4zNjUgMzIuMDIzNCAyNTcuNDYxIDMyLjAzMDggMjU3LjUyOCAzMi4xMDQ4Wk0yNjIuMjM1IDMwLjAxODRWMzEuNDgzM0MyNjIuMjM1IDMyLjQ1MjUgMjYyLjU3NSAzMi40OTY5IDI2My42NzcgMzIuNDk2OUMyNjMuNzY2IDMyLjQ5NjkgMjYzLjgxOCAzMi41NDEzIDI2My44MTggMzIuNjMwMVYzMi44NTk0QzI2My44MTggMzIuOTQ4MiAyNjMuNzY2IDMzIDI2My42NzcgMzNIMjYzLjQ3QzI2Mi40MjcgMzMgMjYxLjY1IDMyLjg0NDYgMjYxLjY1IDMxLjY2MDlWMzAuMDE4NEgyNjEuMTY5QzI2MS4xMDMgMzAuMDE4NCAyNjEuMDUxIDI5Ljk3NCAyNjEuMDUxIDI5LjlWMjkuNjI2M0MyNjEuMDUxIDI5LjU2NzEgMjYxLjEwMyAyOS41MTUzIDI2MS4xNjkgMjkuNTE1M0gyNjEuNjVWMjguMTE3QzI2MS42NSAyOC4wNTA0IDI2MS43MDkgMjcuOTk4NiAyNjEuNzY5IDI3Ljk5ODZIMjYyLjExNkMyNjIuMTkgMjcuOTk4NiAyNjIuMjM1IDI4LjA1MDQgMjYyLjIzNSAyOC4xMTdWMjkuNTE1M0gyNjMuMzQ1QzI2My40MTEgMjkuNTE1MyAyNjMuNDYzIDI5LjU2NzEgMjYzLjQ2MyAyOS42MjYzVjI5LjlDMjYzLjQ2MyAyOS45NzQgMjYzLjQxMSAzMC4wMTg0IDI2My4zNDUgMzAuMDE4NEgyNjIuMjM1Wk0yNjUuNTcxIDI4LjEwOTZWMjkuODAzOUMyNjUuOTYzIDI5LjU4OTMgMjY2LjM3NyAyOS40NDg3IDI2Ni43NTUgMjkuNDQ4N0MyNjcuMzU0IDI5LjQ0ODcgMjY3LjgyIDI5Ljc4OTEgMjY3LjgyIDMwLjc1ODNWMzIuODgxNkMyNjcuODIgMzIuOTQ4MiAyNjcuNzc2IDMzIDI2Ny43MDkgMzNIMjY3LjM1NEMyNjcuMjk1IDMzIDI2Ny4yNDMgMzIuOTQ4MiAyNjcuMjQzIDMyLjg4MTZWMzAuNjI1MUMyNjcuMjQzIDMwLjE1MTYgMjY2Ljk4NCAyOS45ODg4IDI2Ni42NTEgMjkuOTg4OEMyNjYuMzAzIDI5Ljk4ODggMjY1Ljg3NCAzMC4xNjY0IDI2NS41NzEgMzAuMzQzOVYzMi44ODE2QzI2NS41NzEgMzIuOTQ4MiAyNjUuNTEyIDMzIDI2NS40NTIgMzNIMjY1LjEwNUMyNjUuMDMxIDMzIDI2NS4wMDEgMzIuOTQ4MiAyNjUuMDAxIDMyLjg4MTZWMjguMTA5NkMyNjUuMDAxIDI4LjA1MDQgMjY1LjA0NiAyNy45OTg2IDI2NS4xMTkgMjcuOTk4NkgyNjUuNDUyQzI2NS41MjYgMjcuOTk4NiAyNjUuNTcxIDI4LjA1MDQgMjY1LjU3MSAyOC4xMDk2Wk0yNjkuMDgzIDMzLjY5NTVMMjY5LjM4NyAzMi40Mzc3QzI2OS40MTYgMzIuMzExOSAyNjkuNDQ2IDMyLjI4OTcgMjY5LjU1NyAzMi4yODk3SDI3MC4wODJDMjcwLjE1NiAzMi4yODk3IDI3MC4xOTMgMzIuMzQxNSAyNzAuMTU2IDMyLjQyMjlMMjY5LjUyIDMzLjg2NTZDMjY5LjQ5IDMzLjkzOTYgMjY5LjQzMSAzMy45NjkyIDI2OS4zNSAzMy45MzIyTDI2OS4xNzIgMzMuODU4MkMyNjkuMDk4IDMzLjgyODYgMjY5LjA2MSAzMy43ODQyIDI2OS4wODMgMzMuNjk1NVpNMjc2LjI2IDMyLjg4OUwyNzUuODIzIDMxLjIwMjJIMjc0Ljc4N0wyNzQuMzUxIDMyLjg4OUMyNzQuMzM2IDMyLjk1NTYgMjc0LjI3NyAzMyAyNzQuMjEgMzNIMjczLjg5MkMyNzMuODMzIDMzIDI3My43ODkgMzIuOTQ4MiAyNzMuODAzIDMyLjg4OUwyNzQuOTQzIDI4LjU4MzFDMjc0Ljk3MiAyOC40Nzk1IDI3NS4wMzkgMjguNDM1MSAyNzUuMTQzIDI4LjQzNTFIMjc1LjQ2OEMyNzUuNTcyIDI4LjQzNTEgMjc1LjYzOCAyOC40Nzk1IDI3NS42NjggMjguNTgzMUwyNzYuODA3IDMyLjg4OUMyNzYuODIyIDMyLjk0ODIgMjc2Ljc3OCAzMyAyNzYuNzE4IDMzSDI3Ni40QzI3Ni4zMzQgMzMgMjc2LjI3NSAzMi45NTU2IDI3Ni4yNiAzMi44ODlaTTI3NS4zMDUgMjkuMTIzMkwyNzQuOTIxIDMwLjY2OTVIMjc1LjY4M0wyNzUuMzA1IDI5LjEyMzJaTTI4MC4yMDIgMzIuODg5VjMyLjcwNDFDMjc5LjgzMiAzMi45MjYgMjc5LjM5NiAzMy4wNjY2IDI3OS4wMTEgMzMuMDY2NkMyNzguNDEyIDMzLjA2NjYgMjc3LjkyMyAzMi43MTg5IDI3Ny45MjMgMzEuNzU3MVYyOS42MzM3QzI3Ny45MjMgMjkuNTY3MSAyNzcuOTY4IDI5LjUxNTMgMjc4LjAzNCAyOS41MTUzSDI3OC4zODlDMjc4LjQ0OSAyOS41MTUzIDI3OC41IDI5LjU2NzEgMjc4LjUgMjkuNjMzN1YzMS44OTAyQzI3OC41IDMyLjM2MzcgMjc4Ljc1OSAzMi41MTkxIDI3OS4wOTIgMzIuNTE5MUMyNzkuNDU1IDMyLjUxOTEgMjc5Ljg5MSAzMi4zNDg5IDI4MC4xNzIgMzIuMTcxNFYyOS42MzM3QzI4MC4xNzIgMjkuNTY3MSAyODAuMjMyIDI5LjUxNTMgMjgwLjI5MSAyOS41MTUzSDI4MC42MzlDMjgwLjcxMyAyOS41MTUzIDI4MC43NDIgMjkuNTY3MSAyODAuNzQyIDI5LjYzMzdWMzIuODg5QzI4MC43NDIgMzIuOTQ4MiAyODAuNjk4IDMzIDI4MC42MjQgMzNIMjgwLjMyQzI4MC4yNDYgMzMgMjgwLjIwMiAzMi45NDgyIDI4MC4yMDIgMzIuODg5Wk0yODQuMjYgMzEuODAxNFYzMC43MjEzQzI4NC4yNiAzMC4yOTk2IDI4My44NjEgMjkuOTU5MiAyODMuNDE3IDI5Ljk1OTJDMjgyLjk1OCAyOS45NTkyIDI4Mi41ODEgMzAuMzE0NCAyODIuNTgxIDMwLjc1MDlWMzEuNzcxOUMyODIuNTgxIDMyLjIwODQgMjgyLjk1OCAzMi41NjM1IDI4My40MTcgMzIuNTYzNUMyODMuODYxIDMyLjU2MzUgMjg0LjI2IDMyLjIyMzIgMjg0LjI2IDMxLjgwMTRaTTI4NC44MzggMjkuNjI2M1YzMy4xNzc2QzI4NC44MzggMzQuMzYxMyAyODQuMDYxIDM0LjUxNjcgMjgzLjAyNSAzNC41MTY3SDI4Mi43NjZDMjgyLjY3NyAzNC41MTY3IDI4Mi42MjUgMzQuNDY0OSAyODIuNjI1IDM0LjM3NjFWMzQuMTU0MkMyODIuNjI1IDM0LjA2NTQgMjgyLjY3NyAzNC4wMjEgMjgyLjc2NiAzNC4wMjFDMjgzLjkyIDM0LjAyMSAyODQuMjYgMzMuOTQ3IDI4NC4yNiAzMy4wNzRWMzIuNzcwNkMyODQuMDI0IDMyLjk3MDQgMjgzLjczNSAzMy4wNzQgMjgzLjQwMiAzMy4wNzRDMjgyLjYyNSAzMy4wNzQgMjgxLjk5NyAzMi40NzQ3IDI4MS45OTcgMzEuNzQyM1YzMC43ODA1QzI4MS45OTcgMzAuMDQ4IDI4Mi42MjUgMjkuNDQ4NyAyODMuNDAyIDI5LjQ0ODdDMjgzLjc1NyAyOS40NDg3IDI4NC4xMjcgMjkuNjA0MSAyODQuMzEyIDI5Ljg3NzhWMjkuNjI2M0MyODQuMzEyIDI5LjU2NzEgMjg0LjM2NCAyOS41MTUzIDI4NC40MjMgMjkuNTE1M0gyODQuNzE5QzI4NC43OTMgMjkuNTE1MyAyODQuODM4IDI5LjU2NzEgMjg0LjgzOCAyOS42MjYzWk0yODguNDQ2IDMyLjg4OVYzMi43MDQxQzI4OC4wNzYgMzIuOTI2IDI4Ny42MzkgMzMuMDY2NiAyODcuMjU1IDMzLjA2NjZDMjg2LjY1NSAzMy4wNjY2IDI4Ni4xNjcgMzIuNzE4OSAyODYuMTY3IDMxLjc1NzFWMjkuNjMzN0MyODYuMTY3IDI5LjU2NzEgMjg2LjIxMSAyOS41MTUzIDI4Ni4yNzggMjkuNTE1M0gyODYuNjMzQzI4Ni42OTIgMjkuNTE1MyAyODYuNzQ0IDI5LjU2NzEgMjg2Ljc0NCAyOS42MzM3VjMxLjg5MDJDMjg2Ljc0NCAzMi4zNjM3IDI4Ny4wMDMgMzIuNTE5MSAyODcuMzM2IDMyLjUxOTFDMjg3LjY5OSAzMi41MTkxIDI4OC4xMzUgMzIuMzQ4OSAyODguNDE2IDMyLjE3MTRWMjkuNjMzN0MyODguNDE2IDI5LjU2NzEgMjg4LjQ3NSAyOS41MTUzIDI4OC41MzUgMjkuNTE1M0gyODguODgyQzI4OC45NTYgMjkuNTE1MyAyODguOTg2IDI5LjU2NzEgMjg4Ljk4NiAyOS42MzM3VjMyLjg4OUMyODguOTg2IDMyLjk0ODIgMjg4Ljk0MiAzMyAyODguODY4IDMzSDI4OC41NjRDMjg4LjQ5IDMzIDI4OC40NDYgMzIuOTQ4MiAyODguNDQ2IDMyLjg4OVpNMjkxLjY3NiAyOS45MTQ4QzI5MS4xOTUgMjkuOTE0OCAyOTAuOTE0IDMwLjAyNTggMjkwLjg3NyAzMC4zNDM5QzI5MC44MzIgMzAuNzI4NyAyOTEuMjgzIDMwLjg4NCAyOTEuODMxIDMxLjAwOThDMjkyLjg2NyAzMS4yNDY2IDI5My4yMDcgMzEuNjA5MSAyOTMuMTYzIDMyLjIxNThDMjkzLjEyNiAzMi43MjYzIDI5Mi42IDMzLjA4ODggMjkxLjc2NCAzMy4wODg4QzI5MS40MDkgMzMuMDg4OCAyOTEuMDAyIDMzLjAyMjIgMjkwLjU0NCAzMi44ODlDMjkwLjQ2MiAzMi44NjY4IDI5MC40MjUgMzIuODA3NiAyOTAuNDQgMzIuNzI2M0wyOTAuNDc3IDMyLjU1NjFDMjkwLjQ5OSAzMi40NjczIDI5MC41NzMgMzIuNDM3NyAyOTAuNjYyIDMyLjQ1OTlDMjkxLjA1NCAzMi41NTYxIDI5MS40MjQgMzIuNjA3OSAyOTEuNzUgMzIuNjA3OUMyOTIuMjE2IDMyLjYwNzkgMjkyLjU3MSAzMi40ODk1IDI5Mi42MDggMzIuMTcxNEMyOTIuNjUyIDMxLjc4NjcgMjkyLjIwMSAzMS42MjM5IDI5MS42ODMgMzEuNTA1NUMyOTAuNjQgMzEuMjY4OCAyOTAuMjc3IDMwLjkyMSAyOTAuMzIyIDMwLjMxNDRDMjkwLjM1OSAyOS44MDM5IDI5MC44NCAyOS40NDEzIDI5MS42NTMgMjkuNDQxM0MyOTIuMDA5IDI5LjQ0MTMgMjkyLjM4NiAyOS41MDc5IDI5Mi44NDUgMjkuNjQxMUMyOTIuOTI2IDI5LjY2MzMgMjkyLjk2MyAyOS43MjI1IDI5Mi45NDggMjkuODAzOUwyOTIuOTExIDI5Ljk3NEMyOTIuODg5IDMwLjA2MjggMjkyLjgxNSAzMC4wOTI0IDI5Mi43MjYgMzAuMDcwMkMyOTIuMzM0IDI5Ljk3NCAyOTIuMDAxIDI5LjkxNDggMjkxLjY3NiAyOS45MTQ4Wk0yOTUuNDYzIDMwLjAxODRWMzEuNDgzM0MyOTUuNDYzIDMyLjQ1MjUgMjk1LjgwMyAzMi40OTY5IDI5Ni45MDYgMzIuNDk2OUMyOTYuOTk0IDMyLjQ5NjkgMjk3LjA0NiAzMi41NDEzIDI5Ny4wNDYgMzIuNjMwMVYzMi44NTk0QzI5Ny4wNDYgMzIuOTQ4MiAyOTYuOTk0IDMzIDI5Ni45MDYgMzNIMjk2LjY5OEMyOTUuNjU1IDMzIDI5NC44NzggMzIuODQ0NiAyOTQuODc4IDMxLjY2MDlWMzAuMDE4NEgyOTQuMzk3QzI5NC4zMzEgMzAuMDE4NCAyOTQuMjc5IDI5Ljk3NCAyOTQuMjc5IDI5LjlWMjkuNjI2M0MyOTQuMjc5IDI5LjU2NzEgMjk0LjMzMSAyOS41MTUzIDI5NC4zOTcgMjkuNTE1M0gyOTQuODc4VjI4LjExN0MyOTQuODc4IDI4LjA1MDQgMjk0LjkzOCAyNy45OTg2IDI5NC45OTcgMjcuOTk4NkgyOTUuMzQ0QzI5NS40MTggMjcuOTk4NiAyOTUuNDYzIDI4LjA1MDQgMjk1LjQ2MyAyOC4xMTdWMjkuNTE1M0gyOTYuNTczQzI5Ni42MzkgMjkuNTE1MyAyOTYuNjkxIDI5LjU2NzEgMjk2LjY5MSAyOS42MjYzVjI5LjlDMjk2LjY5MSAyOS45NzQgMjk2LjYzOSAzMC4wMTg0IDI5Ni41NzMgMzAuMDE4NEgyOTUuNDYzWk0zMDIuNyAzMi40NTk5VjMyLjIwODRDMzAyLjcgMzIuMTQxOCAzMDIuNzUyIDMyLjA5IDMwMi44MTkgMzIuMDlIMzAzLjAzM0MzMDMuMSAzMi4wOSAzMDMuMTUyIDMyLjE0MTggMzAzLjE1MiAzMi4yMDg0VjMyLjkwMzhDMzAzLjE1MiAzMi45NTU2IDMwMy4xIDMzIDMwMy4wNTUgMzNIMzAwLjU0QzMwMC40NTggMzMgMzAwLjM4NCAzMi45MjYgMzAwLjM4NCAzMi44NDQ2VjMyLjQxNTVMMzAxLjk3NSAzMC43NjU3QzMwMi40NzEgMzAuMjQ3OCAzMDIuNTg5IDI5Ljk4MTQgMzAyLjU4MiAyOS42MTE1QzMwMi41NzQgMjkuMTY3NiAzMDIuMTY4IDI4LjkwMTIgMzAxLjc5OCAyOC45MDEyQzMwMS4yNzIgMjguOTAxMiAzMDEuMDEzIDI5LjE4MjQgMzAwLjgxNCAyOS41MDc5QzMwMC43NjIgMjkuNTg5MyAzMDAuNjczIDI5LjYxMTUgMzAwLjU5MiAyOS41NTk3TDMwMC40MzYgMjkuNDYzNUMzMDAuMzYyIDI5LjQxOTEgMzAwLjM1NSAyOS4zMzc4IDMwMC4zODQgMjkuMjU2NEMzMDAuNjIxIDI4LjY0OTcgMzAxLjIwNiAyOC4zNDY0IDMwMS43OTggMjguMzQ2NEMzMDIuNDcxIDI4LjM0NjQgMzAzLjE4OCAyOC44MDUxIDMwMy4yMDMgMjkuNTk2N0MzMDMuMjE4IDMwLjE0NDIgMzAyLjkzIDMwLjYxMDMgMzAyLjQ4NiAzMS4wMzk0TDMwMS4wMTMgMzIuNDU5OUgzMDIuN1pNMzA1Ljc1MSAzMy4xMDM2QzMwNC41OTcgMzMuMTAzNiAzMDQuMjY0IDMxLjgwMTQgMzA0LjI2NCAzMC43MjEzQzMwNC4yNjQgMjkuNjQ4NSAzMDQuNTk3IDI4LjM1MzggMzA1Ljc1MSAyOC4zNTM4QzMwNi45MDUgMjguMzUzOCAzMDcuMjM4IDI5LjY0ODUgMzA3LjIzOCAzMC43MjEzQzMwNy4yMzggMzEuODAxNCAzMDYuOTA1IDMzLjEwMzYgMzA1Ljc1MSAzMy4xMDM2Wk0zMDUuNzUxIDMyLjU4NTdDMzA2LjUyMSAzMi41ODU3IDMwNi42MDkgMzEuMzg3MSAzMDYuNjA5IDMwLjcyMTNDMzA2LjYwOSAzMC4wNzc2IDMwNi41MjEgMjguODcxNyAzMDUuNzUxIDI4Ljg3MTdDMzA0Ljk4MiAyOC44NzE3IDMwNC44OTMgMzAuMDc3NiAzMDQuODkzIDMwLjcyMTNDMzA0Ljg5MyAzMS4zODcxIDMwNC45ODIgMzIuNTg1NyAzMDUuNzUxIDMyLjU4NTdaTTMxMC41OTcgMzIuNDU5OVYzMi4yMDg0QzMxMC41OTcgMzIuMTQxOCAzMTAuNjQ5IDMyLjA5IDMxMC43MTYgMzIuMDlIMzEwLjkzQzMxMC45OTcgMzIuMDkgMzExLjA0OCAzMi4xNDE4IDMxMS4wNDggMzIuMjA4NFYzMi45MDM4QzMxMS4wNDggMzIuOTU1NiAzMTAuOTk3IDMzIDMxMC45NTIgMzNIMzA4LjQzN0MzMDguMzU1IDMzIDMwOC4yODEgMzIuOTI2IDMwOC4yODEgMzIuODQ0NlYzMi40MTU1TDMwOS44NzIgMzAuNzY1N0MzMTAuMzY4IDMwLjI0NzggMzEwLjQ4NiAyOS45ODE0IDMxMC40NzkgMjkuNjExNUMzMTAuNDcxIDI5LjE2NzYgMzEwLjA2NSAyOC45MDEyIDMwOS42OTUgMjguOTAxMkMzMDkuMTY5IDI4LjkwMTIgMzA4LjkxIDI5LjE4MjQgMzA4LjcxMSAyOS41MDc5QzMwOC42NTkgMjkuNTg5MyAzMDguNTcgMjkuNjExNSAzMDguNDg5IDI5LjU1OTdMMzA4LjMzMyAyOS40NjM1QzMwOC4yNTkgMjkuNDE5MSAzMDguMjUyIDI5LjMzNzggMzA4LjI4MSAyOS4yNTY0QzMwOC41MTggMjguNjQ5NyAzMDkuMTAzIDI4LjM0NjQgMzA5LjY5NSAyOC4zNDY0QzMxMC4zNjggMjguMzQ2NCAzMTEuMDg1IDI4LjgwNTEgMzExLjEgMjkuNTk2N0MzMTEuMTE1IDMwLjE0NDIgMzEwLjgyNyAzMC42MTAzIDMxMC4zODMgMzEuMDM5NEwzMDguOTEgMzIuNDU5OUgzMTAuNTk3Wk0zMTIuODQyIDMxLjYyMzlDMzEyLjg0MiAzMi4xNTY2IDMxMy4xOTcgMzIuNTkzMSAzMTMuNjc4IDMyLjU5MzFDMzE0LjE1MSAzMi41OTMxIDMxNC41MDYgMzIuMTU2NiAzMTQuNTA2IDMxLjYyMzlDMzE0LjUwNiAzMS4wOTg2IDMxNC4xNTEgMzAuNjY5NSAzMTMuNjc4IDMwLjY2OTVDMzEzLjE5NyAzMC42Njk1IDMxMi44NDIgMzEuMDk4NiAzMTIuODQyIDMxLjYyMzlaTTMxNC40NTUgMjguMzYxMkgzMTQuNjAzQzMxNC42OTEgMjguMzYxMiAzMTQuNzQzIDI4LjQxMjkgMzE0Ljc0MyAyOC41MDE3VjI4LjY3OTNDMzE0Ljc0MyAyOC43NjgxIDMxNC42OTEgMjguODEyNSAzMTQuNjAzIDI4LjgxMjVDMzEzLjY0MSAyOC44MTI1IDMxMi44NDIgMjkuNTUyMyAzMTIuNzYgMzAuNjYyMUMzMTIuOTY4IDMwLjMxNDQgMzEzLjM4OSAzMC4xMzY4IDMxMy43MyAzMC4xMzY4QzMxNC40OTIgMzAuMTM2OCAzMTUuMDkxIDMwLjgxNzUgMzE1LjA5MSAzMS42MjM5QzMxNS4wOTEgMzIuNDM3NyAzMTQuNDkyIDMzLjEwMzYgMzEzLjcyMiAzMy4xMDM2QzMxMy4yNDkgMzMuMTAzNiAzMTIuODY0IDMyLjkxODYgMzEyLjU4MyAzMi41NDg3QzMxMi4yOTQgMzIuMTY0IDMxMi4xNjEgMzEuNjY4MyAzMTIuMTYxIDMxLjA1NDJDMzEyLjE2MSAzMC4yNDA0IDMxMi4zNjggMjkuNTg5MyAzMTIuNzk3IDI5LjA5MzZDMzEzLjE5NyAyOC42MzQ5IDMxMy43NzQgMjguMzYxMiAzMTQuNDU1IDI4LjM2MTJaIiBmaWxsPSIjMTcxNzE3Ii8+Cjwvc3ZnPgo=",
+          "photoCustomLabel": "Screenshot01.svg"
+        },
+        "measured": {
+          "width": 290,
+          "height": 726
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "message-53",
+        "type": "message",
+        "position": {
+          "x": -5870.816246976421,
+          "y": -381.0215314825159
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "oh no, they stabbed someone",
+          "buttonLabel": "Oopsie",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 50,
+          "locationY": 50,
+          "delaySeconds": 1
+        },
+        "measured": {
+          "width": 290,
+          "height": 545
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "result-win-1785066101684",
+        "type": "result",
+        "position": {
+          "x": -6000.3512241897915,
+          "y": 3131.4708452967657
+        },
+        "data": {
+          "nodeType": "result",
+          "resultType": "win",
+          "caseId": "866",
+          "label": "Win 7",
+          "winImage": "pizza",
+          "winTitle": "Win",
+          "winFooterText": "Best day at work",
+          "winCtaLabel": "Bring me the next challenge!"
+        },
+        "measured": {
+          "width": 235,
+          "height": 336
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "message-56",
+        "type": "message",
+        "position": {
+          "x": -5645.168358159898,
+          "y": -1233.7980682777807
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "Great, Let him enjoy Yom HaAtzmaut!",
+          "buttonLabel": "Sure",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 20,
+          "locationY": 40
+        },
+        "measured": {
+          "width": 290,
+          "height": 545
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "message-57",
+        "type": "message",
+        "position": {
+          "x": -5867.767780495623,
+          "y": 1082.5337215156212
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "Just arrest someone and get them off our backs.",
+          "delaySeconds": 0,
+          "buttonLabel": "Sure",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 20,
+          "locationY": 40
+        },
+        "measured": {
+          "width": 290,
+          "height": 545
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "message-58",
+        "type": "message",
+        "position": {
+          "x": -5996.073663140399,
+          "y": 1884.2838482338543
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "Nicely done. We can't put a cop in every pizzeria, can we?\n",
+          "buttonLabel": "Right",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 20,
+          "locationY": 80
+        },
+        "measured": {
+          "width": 290,
+          "height": 545
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "second-arrest-1785537118659",
+        "type": "secondArrest",
+        "position": {
+          "x": -5935.254171913711,
+          "y": 1675.3364714220447
+        },
+        "data": {
+          "nodeType": "secondArrest"
+        },
+        "measured": {
+          "width": 268,
+          "height": 116
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "message-59",
+        "type": "message",
+        "position": {
+          "x": -6016.090339468016,
+          "y": 2504.857101945829
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "Go bring pizza to the office! it's on me",
+          "delaySeconds": 0,
+          "buttonLabel": "Great!",
+          "buttonLinkType": "edge",
+          "buttonUrl": "",
+          "locationX": 40,
+          "locationY": 80
+        },
+        "measured": {
+          "width": 290,
+          "height": 545
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "message-60",
+        "type": "message",
+        "position": {
+          "x": -6415.186668385429,
+          "y": -2108.153749642333
+        },
+        "data": {
+          "nodeType": "message",
+          "messageType": "link",
+          "content": "Break time! Go earn some promotion points.",
+          "delaySeconds": 0,
+          "buttonLabel": "So fun!",
+          "buttonLinkType": "miniGame",
+          "buttonUrl": "",
+          "locationX": 80,
+          "locationY": 20
+        },
+        "measured": {
+          "width": 290,
+          "height": 545
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "mini-game-1785579048911",
+        "type": "miniGame",
+        "position": {
+          "x": -6502.2890149519335,
+          "y": -1440.5091535260399
+        },
+        "data": {
+          "nodeType": "miniGame",
+          "label": "Mini Game"
+        },
+        "measured": {
+          "width": 468,
+          "height": 68
+        },
+        "selected": false,
+        "dragging": false
+      },
+      {
+        "id": "points-1785598847053",
+        "type": "points",
+        "position": {
+          "x": -876.6683527318637,
+          "y": -475.38598274413647
+        },
+        "data": {
+          "nodeType": "points",
+          "amount": -200
+        },
+        "measured": {
+          "width": 340,
+          "height": 99
+        },
+        "selected": false,
+        "dragging": false
+      }
+    ],
+    "edges": [
+      {
+        "id": "tut-e-welcome-learn",
+        "source": "tut-msg-welcome",
+        "target": "tut-msg-learn"
+      },
+      {
+        "id": "tut-e-learn-rewards",
+        "source": "tut-msg-learn",
+        "target": "tut-msg-rewards",
+        "selected": false
+      },
+      {
+        "id": "tut-e-start-details",
+        "source": "tut-msg-start",
+        "target": "tut-msg-details"
+      },
+      {
+        "id": "tut-e-details-check",
+        "source": "tut-msg-details",
+        "target": "tut-msg-check"
+      },
+      {
+        "id": "tut-e-trig-expand-msg",
+        "source": "tut-trig-expand",
+        "target": "tut-msg-attachment"
+      },
+      {
+        "id": "tut-e-trig-attach-msg",
+        "source": "tut-trig-attach",
+        "target": "tut-msg-decide"
+      },
+      {
+        "id": "tut-e-result-newcase",
+        "source": "tut-result-891-win",
+        "target": "tut-msg-newcase",
+        "selected": false
+      },
+      {
+        "source": "tut-msg-check",
+        "target": "case-1779636506164",
+        "id": "xy-edge__tut-msg-check-case-1779636506164"
+      },
+      {
+        "source": "case-1779636506164",
+        "sourceHandle": "release",
+        "target": "tut-msg-goodjob",
+        "id": "xy-edge__case-1779636506164release-tut-msg-goodjob"
+      },
+      {
+        "source": "case-1779636506164",
+        "sourceHandle": "trigger",
+        "target": "tut-trig-expand",
+        "id": "xy-edge__case-1779636506164trigger-tut-trig-expand"
+      },
+      {
+        "source": "case-1779636506164",
+        "sourceHandle": "trigger",
+        "target": "tut-trig-attach",
+        "id": "xy-edge__case-1779636506164trigger-tut-trig-attach"
+      },
+      {
+        "source": "tut-trig-arrest-retry",
+        "target": "tut-msg-anotherchance",
+        "id": "xy-edge__tut-trig-arrest-retry-tut-msg-anotherchance"
+      },
+      {
+        "source": "case-1779636506164",
+        "sourceHandle": "trigger",
+        "target": "tut-trig-arrest-retry",
+        "id": "xy-edge__case-1779636506164trigger-tut-trig-arrest-retry"
+      },
+      {
+        "source": "tut-msg-newcase",
+        "target": "case-1780220269508",
+        "id": "xy-edge__tut-msg-newcase-case-1780220269508"
+      },
+      {
+        "source": "case-1780220269508",
+        "sourceHandle": "trigger",
+        "target": "trigger-1780766666579",
+        "id": "xy-edge__case-1780220269508trigger-trigger-1780766666579"
+      },
+      {
+        "source": "trigger-1780766666579",
+        "target": "message-10",
+        "id": "xy-edge__trigger-1780766666579-message-10"
+      },
+      {
+        "source": "case-1780220269508",
+        "sourceHandle": "release",
+        "target": "message-11",
+        "id": "xy-edge__case-1780220269508arrest-message-11"
+      },
+      {
+        "source": "tut-msg-goodjob",
+        "target": "message-9",
+        "id": "xy-edge__tut-msg-goodjob-message-9"
+      },
+      {
+        "source": "message-9",
+        "target": "tut-result-891-win",
+        "id": "xy-edge__message-9-tut-result-891-win"
+      },
+      {
+        "source": "case-1780165634534",
+        "sourceHandle": "arrest",
+        "target": "message-12",
+        "id": "xy-edge__case-1780165634534arrest-message-12"
+      },
+      {
+        "source": "case-1780165634534",
+        "sourceHandle": "release",
+        "target": "message-13",
+        "id": "xy-edge__case-1780165634534release-message-13"
+      },
+      {
+        "source": "message-14",
+        "target": "result-win-1780988106070",
+        "id": "xy-edge__message-14-result-win-1780988106070"
+      },
+      {
+        "source": "message-16",
+        "target": "case-1780165634534",
+        "id": "xy-edge__message-16-case-1780165634534"
+      },
+      {
+        "source": "operation-1780953719956",
+        "target": "result-win-1780988357022",
+        "id": "xy-edge__operation-1780953719956-result-win-1780988357022"
+      },
+      {
+        "source": "result-win-1780988106070",
+        "target": "message-16",
+        "id": "xy-edge__result-win-1780988106070-message-16"
+      },
+      {
+        "source": "case-1780165634534",
+        "sourceHandle": "trigger",
+        "target": "trigger-1780992110265",
+        "id": "xy-edge__case-1780165634534trigger-trigger-1780992110265"
+      },
+      {
+        "source": "trigger-1780992110265",
+        "target": "message-18",
+        "id": "xy-edge__trigger-1780992110265-message-18"
+      },
+      {
+        "source": "message-12",
+        "target": "message-19",
+        "id": "xy-edge__message-12-message-19"
+      },
+      {
+        "source": "message-19",
+        "target": "operation-1780953719956",
+        "id": "xy-edge__message-19-operation-1780953719956"
+      },
+      {
+        "source": "case-1781506742927",
+        "sourceHandle": "trigger",
+        "target": "message-21",
+        "id": "xy-edge__case-1781506742927trigger-message-21"
+      },
+      {
+        "source": "message-23",
+        "target": "message-24",
+        "id": "xy-edge__message-23-message-24"
+      },
+      {
+        "source": "tut-msg-anotherchance",
+        "target": "message-27",
+        "id": "xy-edge__tut-msg-anotherchance-message-27"
+      },
+      {
+        "source": "message-11",
+        "target": "message-28",
+        "id": "xy-edge__message-11-message-28"
+      },
+      {
+        "source": "message-28",
+        "target": "message-16",
+        "id": "xy-edge__message-28-message-16"
+      },
+      {
+        "source": "message-29",
+        "target": "operation-1780953719956",
+        "id": "xy-edge__message-29-operation-1780953719956"
+      },
+      {
+        "source": "case-1780220269508",
+        "sourceHandle": "arrest",
+        "target": "message-31",
+        "id": "xy-edge__case-1780220269508arrest-message-31"
+      },
+      {
+        "source": "message-31",
+        "target": "message-14",
+        "id": "xy-edge__message-31-message-14"
+      },
+      {
+        "id": "tut-e-goodjob-result",
+        "source": "tut-msg-goodjob",
+        "target": "tut-result-891-win"
+      },
+      {
+        "source": "login",
+        "target": "tut-msg-welcome",
+        "id": "xy-edge__login-tut-msg-welcome"
+      },
+      {
+        "source": "message-32",
+        "target": "message-33",
+        "id": "xy-edge__message-32-message-33"
+      },
+      {
+        "source": "message-33",
+        "target": "result-win-1782311964781",
+        "id": "xy-edge__message-33-result-win-1782311964781"
+      },
+      {
+        "source": "result-win-1780988357022",
+        "target": "message-32",
+        "id": "xy-edge__result-win-1780988357022-message-32"
+      },
+      {
+        "source": "message-34",
+        "target": "case-1783174291135",
+        "id": "xy-edge__message-34-case-1783174291135"
+      },
+      {
+        "source": "case-1783174291135",
+        "sourceHandle": "trigger",
+        "target": "trigger-1783175960515",
+        "id": "xy-edge__case-1783174291135trigger-trigger-1783175960515"
+      },
+      {
+        "source": "trigger-1783175960515",
+        "target": "message-35",
+        "id": "xy-edge__trigger-1783175960515-message-35"
+      },
+      {
+        "source": "case-1783174291135",
+        "sourceHandle": "release",
+        "target": "message-37",
+        "id": "xy-edge__case-1783174291135release-message-37"
+      },
+      {
+        "source": "message-36",
+        "target": "message-38",
+        "id": "xy-edge__message-36-message-38"
+      },
+      {
+        "source": "message-37",
+        "target": "message-39",
+        "id": "xy-edge__message-37-message-39"
+      },
+      {
+        "source": "case-1784873163332",
+        "sourceHandle": "trigger",
+        "target": "trigger-1784874300580",
+        "id": "xy-edge__case-1784873163332trigger-trigger-1784874300580"
+      },
+      {
+        "source": "trigger-1784874300580",
+        "target": "message-40",
+        "id": "xy-edge__trigger-1784874300580-message-40"
+      },
+      {
+        "source": "case-1784873163332",
+        "sourceHandle": "arrest",
+        "target": "message-42",
+        "id": "xy-edge__case-1784873163332arrest-message-42"
+      },
+      {
+        "source": "message-42",
+        "target": "message-41",
+        "id": "xy-edge__message-42-message-41"
+      },
+      {
+        "source": "message-41",
+        "target": "message-43",
+        "id": "xy-edge__message-41-message-43"
+      },
+      {
+        "source": "case-1784873163332",
+        "sourceHandle": "release",
+        "target": "message-44",
+        "id": "xy-edge__case-1784873163332release-message-44"
+      },
+      {
+        "source": "message-44",
+        "target": "message-45",
+        "id": "xy-edge__message-44-message-45"
+      },
+      {
+        "source": "message-45",
+        "target": "result-win-1784877414889",
+        "id": "xy-edge__message-45-result-win-1784877414889"
+      },
+      {
+        "source": "case-1783174291135",
+        "sourceHandle": "arrest",
+        "target": "message-46",
+        "id": "xy-edge__case-1783174291135arrest-message-46"
+      },
+      {
+        "source": "message-46",
+        "target": "message-36",
+        "id": "xy-edge__message-46-message-36"
+      },
+      {
+        "source": "message-39",
+        "target": "result-win-1784877674028",
+        "id": "xy-edge__message-39-result-win-1784877674028"
+      },
+      {
+        "source": "message-47",
+        "target": "case-1784873163332",
+        "id": "xy-edge__message-47-case-1784873163332"
+      },
+      {
+        "source": "message-48",
+        "target": "case-1785011742640",
+        "id": "xy-edge__message-48-case-1785011742640"
+      },
+      {
+        "source": "case-1785011742640",
+        "sourceHandle": "trigger",
+        "target": "trigger-1785051287112",
+        "id": "xy-edge__case-1785011742640trigger-trigger-1785051287112"
+      },
+      {
+        "source": "trigger-1785051287112",
+        "target": "message-49",
+        "id": "xy-edge__trigger-1785051287112-message-49"
+      },
+      {
+        "source": "message-43",
+        "target": "message-48",
+        "id": "xy-edge__message-43-message-48"
+      },
+      {
+        "source": "result-win-1784877414889",
+        "target": "message-48",
+        "id": "xy-edge__result-win-1784877414889-message-48"
+      },
+      {
+        "source": "message-38",
+        "target": "message-47",
+        "id": "xy-edge__message-38-message-47"
+      },
+      {
+        "source": "result-win-1784877674028",
+        "target": "message-47",
+        "id": "xy-edge__result-win-1784877674028-message-47"
+      },
+      {
+        "source": "result-win-1782311964781",
+        "target": "message-34",
+        "id": "xy-edge__result-win-1782311964781-message-34"
+      },
+      {
+        "source": "case-1781506742927",
+        "sourceHandle": "arrest",
+        "target": "ranking-final-pending-case-7",
+        "id": "xy-edge__case-1781506742927arrest-ranking-final-pending-case-7"
+      },
+      {
+        "source": "case-1781506742927",
+        "sourceHandle": "release",
+        "target": "ranking-final-pending-case-7",
+        "id": "xy-edge__case-1781506742927release-ranking-final-pending-case-7"
+      },
+      {
+        "source": "message-case-7-announcement",
+        "target": "case-1781506742927",
+        "id": "xy-edge__message-case-7-announcement-case-1781506742927"
+      },
+      {
+        "source": "case-1785011742640",
+        "sourceHandle": "release",
+        "target": "message-56",
+        "id": "xy-edge__case-1785011742640release-message-56"
+      },
+      {
+        "source": "message-56",
+        "target": "message-53",
+        "id": "xy-edge__message-56-message-53"
+      },
+      {
+        "source": "message-53",
+        "target": "message-52",
+        "id": "xy-edge__message-53-message-52"
+      },
+      {
+        "source": "message-52",
+        "target": "message-57",
+        "id": "xy-edge__message-52-message-57"
+      },
+      {
+        "source": "message-57",
+        "target": "second-arrest-1785537118659",
+        "id": "xy-edge__message-57-second-arrest-1785537118659"
+      },
+      {
+        "source": "second-arrest-1785537118659",
+        "target": "message-58",
+        "id": "xy-edge__second-arrest-1785537118659arrest-message-58",
+        "sourceHandle": "arrest"
+      },
+      {
+        "source": "case-1785011742640",
+        "sourceHandle": "arrest",
+        "target": "message-51",
+        "id": "xy-edge__case-1785011742640arrest-message-51"
+      },
+      {
+        "source": "message-51",
+        "target": "message-53",
+        "id": "xy-edge__message-51-message-53"
+      },
+      {
+        "source": "second-arrest-1785537118659",
+        "sourceHandle": "release",
+        "target": "message-57",
+        "id": "xy-edge__second-arrest-1785537118659release-message-57"
+      },
+      {
+        "source": "message-58",
+        "target": "message-59",
+        "id": "xy-edge__message-58-message-59"
+      },
+      {
+        "source": "message-59",
+        "target": "result-win-1785066101684",
+        "id": "xy-edge__message-59-result-win-1785066101684"
+      },
+      {
+        "source": "mini-game-1785579048911",
+        "target": "message-case-7-announcement",
+        "id": "xy-edge__mini-game-1785579048911-message-case-7-announcement",
+        "selected": false
+      },
+      {
+        "source": "result-win-1785066101684",
+        "target": "message-60",
+        "id": "xy-edge__result-win-1785066101684-message-60"
+      },
+      {
+        "source": "message-60",
+        "target": "mini-game-1785579048911",
+        "id": "xy-edge__message-60-mini-game-1785579048911"
+      },
+      {
+        "source": "message-13",
+        "target": "message-29",
+        "id": "xy-edge__message-13-message-29"
+      },
+      {
+        "source": "tut-msg-rewards",
+        "target": "message-23",
+        "id": "xy-edge__tut-msg-rewards-message-23"
+      },
+      {
+        "source": "message-24",
+        "target": "message-25",
+        "id": "xy-edge__message-24-message-25"
+      },
+      {
+        "source": "message-25",
+        "target": "tut-msg-start",
+        "id": "xy-edge__message-25-tut-msg-start"
+      }
+    ]
+  }
+}

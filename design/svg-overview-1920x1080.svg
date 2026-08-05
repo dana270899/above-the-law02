@@ -1,0 +1,1280 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <rect width="1920" height="1080" fill="#e9edf3"/>
+  <text x="18" y="27" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#151922">SVG asset overview</text>
+  <text x="18" y="45" font-family="Arial, sans-serif" font-size="11" fill="#596273">182 files · 1920 × 1080 · hover a tile for its full project path</text>
+
+  <g>
+    <title>assets/images/achievements/chevron-fill.svg</title>
+    <rect x="18" y="56" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/achievements/chevron-fill.svg" x="25" y="63" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="19" y="108" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="81.57142857142857" y="120" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">chevron-fill</text>
+  </g>
+  <g>
+    <title>assets/images/achievements/chevron-lose.svg</title>
+    <rect x="153.14285714285714" y="56" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/achievements/chevron-lose.svg" x="160.14285714285714" y="63" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="154.14285714285714" y="108" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="216.71428571428572" y="120" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">chevron-lose</text>
+  </g>
+  <g>
+    <title>assets/images/achievements/chevron-new.svg</title>
+    <rect x="288.2857142857143" y="56" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/achievements/chevron-new.svg" x="295.2857142857143" y="63" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="289.2857142857143" y="108" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="351.85714285714283" y="120" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">chevron-new</text>
+  </g>
+  <g>
+    <title>assets/images/achievements/chevron-win.svg</title>
+    <rect x="423.42857142857144" y="56" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/achievements/chevron-win.svg" x="430.42857142857144" y="63" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="424.42857142857144" y="108" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="487" y="120" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">chevron-win</text>
+  </g>
+  <g>
+    <title>assets/images/achievements/chevron.svg</title>
+    <rect x="558.5714285714286" y="56" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/achievements/chevron.svg" x="565.5714285714286" y="63" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="559.5714285714286" y="108" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="622.1428571428571" y="120" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">chevron</text>
+  </g>
+  <g>
+    <title>assets/images/achievements/shield-win.svg</title>
+    <rect x="693.7142857142857" y="56" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/achievements/shield-win.svg" x="700.7142857142857" y="63" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="694.7142857142857" y="108" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="757.2857142857142" y="120" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">shield-win</text>
+  </g>
+  <g>
+    <title>assets/images/achievements/shield.svg</title>
+    <rect x="828.8571428571429" y="56" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/achievements/shield.svg" x="835.8571428571429" y="63" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="829.8571428571429" y="108" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="892.4285714285714" y="120" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">shield</text>
+  </g>
+  <g>
+    <title>assets/images/arrow-forward.svg</title>
+    <rect x="964" y="56" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/arrow-forward.svg" x="971" y="63" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="965" y="108" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1027.5714285714287" y="120" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">arrow-forward</text>
+  </g>
+  <g>
+    <title>assets/images/badge-inner.svg</title>
+    <rect x="1099.142857142857" y="56" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/badge-inner.svg" x="1106.142857142857" y="63" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1100.142857142857" y="108" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1162.7142857142858" y="120" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">badge-inner</text>
+  </g>
+  <g>
+    <title>assets/images/boss/boss-cheekL.svg</title>
+    <rect x="1234.2857142857142" y="56" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/boss/boss-cheekL.svg" x="1241.2857142857142" y="63" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1235.2857142857142" y="108" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1297.857142857143" y="120" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">boss-cheekL</text>
+  </g>
+  <g>
+    <title>assets/images/boss/boss-cheekR.svg</title>
+    <rect x="1369.4285714285713" y="56" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/boss/boss-cheekR.svg" x="1376.4285714285713" y="63" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1370.4285714285713" y="108" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1433" y="120" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">boss-cheekR</text>
+  </g>
+  <g>
+    <title>assets/images/boss/boss-glasses.svg</title>
+    <rect x="1504.5714285714284" y="56" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/boss/boss-glasses.svg" x="1511.5714285714284" y="63" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1505.5714285714284" y="108" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1568.142857142857" y="120" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">boss-glasses</text>
+  </g>
+  <g>
+    <title>assets/images/boss/boss-hair.svg</title>
+    <rect x="1639.7142857142858" y="56" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/boss/boss-hair.svg" x="1646.7142857142858" y="63" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1640.7142857142858" y="108" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1703.2857142857144" y="120" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">boss-hair</text>
+  </g>
+  <g>
+    <title>assets/images/boss/boss-mouth.svg</title>
+    <rect x="1774.857142857143" y="56" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/boss/boss-mouth.svg" x="1781.857142857143" y="63" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1775.857142857143" y="108" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1838.4285714285716" y="120" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">boss-mouth</text>
+  </g>
+  <g>
+    <title>assets/images/boss/boss-mustache.svg</title>
+    <rect x="18" y="134" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/boss/boss-mustache.svg" x="25" y="141" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="19" y="186" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="81.57142857142857" y="198" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">boss-mustache</text>
+  </g>
+  <g>
+    <title>assets/images/boss/boss-nose.svg</title>
+    <rect x="153.14285714285714" y="134" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/boss/boss-nose.svg" x="160.14285714285714" y="141" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="154.14285714285714" y="186" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="216.71428571428572" y="198" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">boss-nose</text>
+  </g>
+  <g>
+    <title>assets/images/boss/boss-noseline.svg</title>
+    <rect x="288.2857142857143" y="134" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/boss/boss-noseline.svg" x="295.2857142857143" y="141" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="289.2857142857143" y="186" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="351.85714285714283" y="198" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">boss-noseline</text>
+  </g>
+  <g>
+    <title>assets/images/boss/boss-stache2.svg</title>
+    <rect x="423.42857142857144" y="134" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/boss/boss-stache2.svg" x="430.42857142857144" y="141" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="424.42857142857144" y="186" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="487" y="198" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">boss-stache2</text>
+  </g>
+  <g>
+    <title>assets/images/boss/mic.svg</title>
+    <rect x="558.5714285714286" y="134" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/boss/mic.svg" x="565.5714285714286" y="141" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="559.5714285714286" y="186" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="622.1428571428571" y="198" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">mic</text>
+  </g>
+  <g>
+    <title>assets/images/case-window/arrow-expanded.svg</title>
+    <rect x="693.7142857142857" y="134" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/case-window/arrow-expanded.svg" x="700.7142857142857" y="141" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="694.7142857142857" y="186" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="757.2857142857142" y="198" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">arrow-expanded</text>
+  </g>
+  <g>
+    <title>assets/images/case-window/arrow-forward-alt.svg</title>
+    <rect x="828.8571428571429" y="134" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/case-window/arrow-forward-alt.svg" x="835.8571428571429" y="141" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="829.8571428571429" y="186" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="892.4285714285714" y="198" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">arrow-forward-alt</text>
+  </g>
+  <g>
+    <title>assets/images/case-window/arrow-forward.svg</title>
+    <rect x="964" y="134" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/case-window/arrow-forward.svg" x="971" y="141" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="965" y="186" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1027.5714285714287" y="198" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">arrow-forward</text>
+  </g>
+  <g>
+    <title>assets/images/case-window/arrow.svg</title>
+    <rect x="1099.142857142857" y="134" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/case-window/arrow.svg" x="1106.142857142857" y="141" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1100.142857142857" y="186" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1162.7142857142858" y="198" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">arrow</text>
+  </g>
+  <g>
+    <title>assets/images/case-window/attachment.svg</title>
+    <rect x="1234.2857142857142" y="134" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/case-window/attachment.svg" x="1241.2857142857142" y="141" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1235.2857142857142" y="186" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1297.857142857143" y="198" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">attachment</text>
+  </g>
+  <g>
+    <title>assets/images/case-window/close.svg</title>
+    <rect x="1369.4285714285713" y="134" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/case-window/close.svg" x="1376.4285714285713" y="141" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1370.4285714285713" y="186" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1433" y="198" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">close</text>
+  </g>
+  <g>
+    <title>assets/images/case-window/expand.svg</title>
+    <rect x="1504.5714285714284" y="134" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/case-window/expand.svg" x="1511.5714285714284" y="141" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1505.5714285714284" y="186" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1568.142857142857" y="198" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">expand</text>
+  </g>
+  <g>
+    <title>assets/images/case-window/id-photos/id-photo01.svg</title>
+    <rect x="1639.7142857142858" y="134" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/case-window/id-photos/id-photo01.svg" x="1646.7142857142858" y="141" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1640.7142857142858" y="186" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1703.2857142857144" y="198" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">id-photo01</text>
+  </g>
+  <g>
+    <title>assets/images/case-window/id-photos/id-photo02.svg</title>
+    <rect x="1774.857142857143" y="134" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/case-window/id-photos/id-photo02.svg" x="1781.857142857143" y="141" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1775.857142857143" y="186" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1838.4285714285716" y="198" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">id-photo02</text>
+  </g>
+  <g>
+    <title>assets/images/case-window/id-photos/id-photo03.svg</title>
+    <rect x="18" y="212" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/case-window/id-photos/id-photo03.svg" x="25" y="219" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="19" y="264" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="81.57142857142857" y="276" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">id-photo03</text>
+  </g>
+  <g>
+    <title>assets/images/case-window/id-photos/id-photo04.svg</title>
+    <rect x="153.14285714285714" y="212" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/case-window/id-photos/id-photo04.svg" x="160.14285714285714" y="219" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="154.14285714285714" y="264" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="216.71428571428572" y="276" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">id-photo04</text>
+  </g>
+  <g>
+    <title>assets/images/case-window/id-photos/id-photo05.svg</title>
+    <rect x="288.2857142857143" y="212" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/case-window/id-photos/id-photo05.svg" x="295.2857142857143" y="219" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="289.2857142857143" y="264" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="351.85714285714283" y="276" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">id-photo05</text>
+  </g>
+  <g>
+    <title>assets/images/case-window/id-photos/id-photo06.svg</title>
+    <rect x="423.42857142857144" y="212" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/case-window/id-photos/id-photo06.svg" x="430.42857142857144" y="219" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="424.42857142857144" y="264" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="487" y="276" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">id-photo06</text>
+  </g>
+  <g>
+    <title>assets/images/case-window/link.svg</title>
+    <rect x="558.5714285714286" y="212" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/case-window/link.svg" x="565.5714285714286" y="219" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="559.5714285714286" y="264" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="622.1428571428571" y="276" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">link</text>
+  </g>
+  <g>
+    <title>assets/images/case-window/minimize.svg</title>
+    <rect x="693.7142857142857" y="212" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/case-window/minimize.svg" x="700.7142857142857" y="219" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="694.7142857142857" y="264" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="757.2857142857142" y="276" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">minimize</text>
+  </g>
+  <g>
+    <title>assets/images/case-window/photo-default.svg</title>
+    <rect x="828.8571428571429" y="212" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/case-window/photo-default.svg" x="835.8571428571429" y="219" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="829.8571428571429" y="264" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="892.4285714285714" y="276" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">photo-default</text>
+  </g>
+  <g>
+    <title>assets/images/case-window/photo-mouth.svg</title>
+    <rect x="964" y="212" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/case-window/photo-mouth.svg" x="971" y="219" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="965" y="264" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1027.5714285714287" y="276" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">photo-mouth</text>
+  </g>
+  <g>
+    <title>assets/images/Cursor_Default.svg</title>
+    <rect x="1099.142857142857" y="212" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/Cursor_Default.svg" x="1106.142857142857" y="219" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1100.142857142857" y="264" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1162.7142857142858" y="276" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Cursor_Default</text>
+  </g>
+  <g>
+    <title>assets/images/Cursor_Drag.svg</title>
+    <rect x="1234.2857142857142" y="212" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/Cursor_Drag.svg" x="1241.2857142857142" y="219" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1235.2857142857142" y="264" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1297.857142857143" y="276" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Cursor_Drag</text>
+  </g>
+  <g>
+    <title>assets/images/Cursor_Hover.svg</title>
+    <rect x="1369.4285714285713" y="212" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/Cursor_Hover.svg" x="1376.4285714285713" y="219" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1370.4285714285713" y="264" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1433" y="276" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Cursor_Hover</text>
+  </g>
+  <g>
+    <title>assets/images/Cursor_HoverDrag.svg</title>
+    <rect x="1504.5714285714284" y="212" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/Cursor_HoverDrag.svg" x="1511.5714285714284" y="219" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1505.5714285714284" y="264" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1568.142857142857" y="276" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Cursor_HoverDrag</text>
+  </g>
+  <g>
+    <title>assets/images/Cursor_Type.svg</title>
+    <rect x="1639.7142857142858" y="212" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/Cursor_Type.svg" x="1646.7142857142858" y="219" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1640.7142857142858" y="264" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1703.2857142857144" y="276" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Cursor_Type</text>
+  </g>
+  <g>
+    <title>assets/images/Cursor_Unavailable.svg</title>
+    <rect x="1774.857142857143" y="212" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/Cursor_Unavailable.svg" x="1781.857142857143" y="219" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1775.857142857143" y="264" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1838.4285714285716" y="276" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Cursor_Unavailable</text>
+  </g>
+  <g>
+    <title>assets/images/desktop/book-line1.svg</title>
+    <rect x="18" y="290" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/desktop/book-line1.svg" x="25" y="297" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="19" y="342" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="81.57142857142857" y="354" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">book-line1</text>
+  </g>
+  <g>
+    <title>assets/images/desktop/book-rect5.svg</title>
+    <rect x="153.14285714285714" y="290" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/desktop/book-rect5.svg" x="160.14285714285714" y="297" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="154.14285714285714" y="342" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="216.71428571428572" y="354" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">book-rect5</text>
+  </g>
+  <g>
+    <title>assets/images/desktop/book-rect6.svg</title>
+    <rect x="288.2857142857143" y="290" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/desktop/book-rect6.svg" x="295.2857142857143" y="297" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="289.2857142857143" y="342" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="351.85714285714283" y="354" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">book-rect6</text>
+  </g>
+  <g>
+    <title>assets/images/desktop/book-rect7.svg</title>
+    <rect x="423.42857142857144" y="290" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/desktop/book-rect7.svg" x="430.42857142857144" y="297" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="424.42857142857144" y="342" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="487" y="354" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">book-rect7</text>
+  </g>
+  <g>
+    <title>assets/images/desktop/Cases_Illustration.svg</title>
+    <rect x="558.5714285714286" y="290" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/desktop/Cases_Illustration.svg" x="565.5714285714286" y="297" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="559.5714285714286" y="342" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="622.1428571428571" y="354" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Cases_Illustration</text>
+  </g>
+  <g>
+    <title>assets/images/desktop/cases-rect21.svg</title>
+    <rect x="693.7142857142857" y="290" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/desktop/cases-rect21.svg" x="700.7142857142857" y="297" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="694.7142857142857" y="342" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="757.2857142857142" y="354" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">cases-rect21</text>
+  </g>
+  <g>
+    <title>assets/images/desktop/cases-rect22.svg</title>
+    <rect x="828.8571428571429" y="290" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/desktop/cases-rect22.svg" x="835.8571428571429" y="297" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="829.8571428571429" y="342" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="892.4285714285714" y="354" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">cases-rect22</text>
+  </g>
+  <g>
+    <title>assets/images/desktop/cases-rect23.svg</title>
+    <rect x="964" y="290" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/desktop/cases-rect23.svg" x="971" y="297" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="965" y="342" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1027.5714285714287" y="354" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">cases-rect23</text>
+  </g>
+  <g>
+    <title>assets/images/desktop/logo-inner.svg</title>
+    <rect x="1099.142857142857" y="290" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/desktop/logo-inner.svg" x="1106.142857142857" y="297" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1100.142857142857" y="342" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1162.7142857142858" y="354" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">logo-inner</text>
+  </g>
+  <g>
+    <title>assets/images/desktop/logo-outer.svg</title>
+    <rect x="1234.2857142857142" y="290" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/desktop/logo-outer.svg" x="1241.2857142857142" y="297" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1235.2857142857142" y="342" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1297.857142857143" y="354" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">logo-outer</text>
+  </g>
+  <g>
+    <title>assets/images/desktop/Messages/Screenshot01.svg</title>
+    <rect x="1369.4285714285713" y="290" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/desktop/Messages/Screenshot01.svg" x="1376.4285714285713" y="297" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1370.4285714285713" y="342" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1433" y="354" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Screenshot01</text>
+  </g>
+  <g>
+    <title>assets/images/desktop/op-ellipse8.svg</title>
+    <rect x="1504.5714285714284" y="290" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/desktop/op-ellipse8.svg" x="1511.5714285714284" y="297" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1505.5714285714284" y="342" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1568.142857142857" y="354" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">op-ellipse8</text>
+  </g>
+  <g>
+    <title>assets/images/desktop/op-line10.svg</title>
+    <rect x="1639.7142857142858" y="290" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/desktop/op-line10.svg" x="1646.7142857142858" y="297" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1640.7142857142858" y="342" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1703.2857142857144" y="354" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">op-line10</text>
+  </g>
+  <g>
+    <title>assets/images/desktop/op-line11.svg</title>
+    <rect x="1774.857142857143" y="290" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/desktop/op-line11.svg" x="1781.857142857143" y="297" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1775.857142857143" y="342" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1838.4285714285716" y="354" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">op-line11</text>
+  </g>
+  <g>
+    <title>assets/images/desktop/op-line7.svg</title>
+    <rect x="18" y="368" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/desktop/op-line7.svg" x="25" y="375" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="19" y="420" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="81.57142857142857" y="432" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">op-line7</text>
+  </g>
+  <g>
+    <title>assets/images/desktop/op-line9.svg</title>
+    <rect x="153.14285714285714" y="368" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/desktop/op-line9.svg" x="160.14285714285714" y="375" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="154.14285714285714" y="420" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="216.71428571428572" y="432" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">op-line9</text>
+  </g>
+  <g>
+    <title>assets/images/desktop/op-rect15.svg</title>
+    <rect x="288.2857142857143" y="368" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/desktop/op-rect15.svg" x="295.2857142857143" y="375" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="289.2857142857143" y="420" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="351.85714285714283" y="432" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">op-rect15</text>
+  </g>
+  <g>
+    <title>assets/images/desktop/op-rect16.svg</title>
+    <rect x="423.42857142857144" y="368" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/desktop/op-rect16.svg" x="430.42857142857144" y="375" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="424.42857142857144" y="420" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="487" y="432" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">op-rect16</text>
+  </g>
+  <g>
+    <title>assets/images/desktop/Operations_Illustration_Blue.svg</title>
+    <rect x="558.5714285714286" y="368" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/desktop/Operations_Illustration_Blue.svg" x="565.5714285714286" y="375" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="559.5714285714286" y="420" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="622.1428571428571" y="432" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Operations_Illustration_Blue</text>
+  </g>
+  <g>
+    <title>assets/images/desktop/Operations_Illustration.svg</title>
+    <rect x="693.7142857142857" y="368" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/desktop/Operations_Illustration.svg" x="700.7142857142857" y="375" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="694.7142857142857" y="420" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="757.2857142857142" y="432" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Operations_Illustration</text>
+  </g>
+  <g>
+    <title>assets/images/desktop/Operations_Illustration02.svg</title>
+    <rect x="828.8571428571429" y="368" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/desktop/Operations_Illustration02.svg" x="835.8571428571429" y="375" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="829.8571428571429" y="420" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="892.4285714285714" y="432" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Operations_Illustration02</text>
+  </g>
+  <g>
+    <title>assets/images/desktop/RuleBook_Illustration.svg</title>
+    <rect x="964" y="368" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/desktop/RuleBook_Illustration.svg" x="971" y="375" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="965" y="420" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1027.5714285714287" y="432" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">RuleBook_Illustration</text>
+  </g>
+  <g>
+    <title>assets/images/desktop/Sound_Illustration_S.svg</title>
+    <rect x="1099.142857142857" y="368" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/desktop/Sound_Illustration_S.svg" x="1106.142857142857" y="375" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1100.142857142857" y="420" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1162.7142857142858" y="432" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Sound_Illustration_S</text>
+  </g>
+  <g>
+    <title>assets/images/desktop/Trash_Illustration_S.svg</title>
+    <rect x="1234.2857142857142" y="368" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/desktop/Trash_Illustration_S.svg" x="1241.2857142857142" y="375" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1235.2857142857142" y="420" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1297.857142857143" y="432" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Trash_Illustration_S</text>
+  </g>
+  <g>
+    <title>assets/images/desktop/trash-ellipse7.svg</title>
+    <rect x="1369.4285714285713" y="368" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/desktop/trash-ellipse7.svg" x="1376.4285714285713" y="375" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1370.4285714285713" y="420" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1433" y="432" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">trash-ellipse7</text>
+  </g>
+  <g>
+    <title>assets/images/desktop/trash-group22.svg</title>
+    <rect x="1504.5714285714284" y="368" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/desktop/trash-group22.svg" x="1511.5714285714284" y="375" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1505.5714285714284" y="420" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1568.142857142857" y="432" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">trash-group22</text>
+  </g>
+  <g>
+    <title>assets/images/desktop/trash-rect12.svg</title>
+    <rect x="1639.7142857142858" y="368" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/desktop/trash-rect12.svg" x="1646.7142857142858" y="375" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1640.7142857142858" y="420" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1703.2857142857144" y="432" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">trash-rect12</text>
+  </g>
+  <g>
+    <title>assets/images/desktop/trash-rect13.svg</title>
+    <rect x="1774.857142857143" y="368" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/desktop/trash-rect13.svg" x="1781.857142857143" y="375" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1775.857142857143" y="420" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1838.4285714285716" y="432" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">trash-rect13</text>
+  </g>
+  <g>
+    <title>assets/images/desktop/trash-rect14.svg</title>
+    <rect x="18" y="446" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/desktop/trash-rect14.svg" x="25" y="453" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="19" y="498" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="81.57142857142857" y="510" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">trash-rect14</text>
+  </g>
+  <g>
+    <title>assets/images/desktop/Trash/Crocodile photo - s.svg</title>
+    <rect x="153.14285714285714" y="446" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/desktop/Trash/Crocodile%20photo%20-%20s.svg" x="160.14285714285714" y="453" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="154.14285714285714" y="498" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="216.71428571428572" y="510" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Crocodile photo - s</text>
+  </g>
+  <g>
+    <title>assets/images/desktop/Trash/Crocodile photo.svg</title>
+    <rect x="288.2857142857143" y="446" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/desktop/Trash/Crocodile%20photo.svg" x="295.2857142857143" y="453" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="289.2857142857143" y="498" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="351.85714285714283" y="510" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Crocodile photo</text>
+  </g>
+  <g>
+    <title>assets/images/desktop/Whack_Illustration.svg</title>
+    <rect x="423.42857142857144" y="446" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/desktop/Whack_Illustration.svg" x="430.42857142857144" y="453" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="424.42857142857144" y="498" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="487" y="510" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Whack_Illustration</text>
+  </g>
+  <g>
+    <title>assets/images/footage-window/back-bruise.svg</title>
+    <rect x="558.5714285714286" y="446" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/footage-window/back-bruise.svg" x="565.5714285714286" y="453" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="559.5714285714286" y="498" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="622.1428571428571" y="510" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">back-bruise</text>
+  </g>
+  <g>
+    <title>assets/images/footage-window/back-view.svg</title>
+    <rect x="693.7142857142857" y="446" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/footage-window/back-view.svg" x="700.7142857142857" y="453" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="694.7142857142857" y="498" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="757.2857142857142" y="510" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">back-view</text>
+  </g>
+  <g>
+    <title>assets/images/footage-window/exp-beard.svg</title>
+    <rect x="828.8571428571429" y="446" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/footage-window/exp-beard.svg" x="835.8571428571429" y="453" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="829.8571428571429" y="498" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="892.4285714285714" y="510" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">exp-beard</text>
+  </g>
+  <g>
+    <title>assets/images/footage-window/exp-body.svg</title>
+    <rect x="964" y="446" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/footage-window/exp-body.svg" x="971" y="453" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="965" y="498" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1027.5714285714287" y="510" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">exp-body</text>
+  </g>
+  <g>
+    <title>assets/images/footage-window/exp-eye.svg</title>
+    <rect x="1099.142857142857" y="446" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/footage-window/exp-eye.svg" x="1106.142857142857" y="453" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1100.142857142857" y="498" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1162.7142857142858" y="510" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">exp-eye</text>
+  </g>
+  <g>
+    <title>assets/images/footage-window/exp-eyebrows.svg</title>
+    <rect x="1234.2857142857142" y="446" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/footage-window/exp-eyebrows.svg" x="1241.2857142857142" y="453" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1235.2857142857142" y="498" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1297.857142857143" y="510" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">exp-eyebrows</text>
+  </g>
+  <g>
+    <title>assets/images/footage-window/exp-hair-mask.svg</title>
+    <rect x="1369.4285714285713" y="446" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/footage-window/exp-hair-mask.svg" x="1376.4285714285713" y="453" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1370.4285714285713" y="498" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1433" y="510" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">exp-hair-mask</text>
+  </g>
+  <g>
+    <title>assets/images/footage-window/exp-hair.svg</title>
+    <rect x="1504.5714285714284" y="446" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/footage-window/exp-hair.svg" x="1511.5714285714284" y="453" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1505.5714285714284" y="498" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1568.142857142857" y="510" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">exp-hair</text>
+  </g>
+  <g>
+    <title>assets/images/footage-window/exp-mouth.svg</title>
+    <rect x="1639.7142857142858" y="446" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/footage-window/exp-mouth.svg" x="1646.7142857142858" y="453" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1640.7142857142858" y="498" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1703.2857142857144" y="510" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">exp-mouth</text>
+  </g>
+  <g>
+    <title>assets/images/footage-window/exp-nose.svg</title>
+    <rect x="1774.857142857143" y="446" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/footage-window/exp-nose.svg" x="1781.857142857143" y="453" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1775.857142857143" y="498" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1838.4285714285716" y="510" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">exp-nose</text>
+  </g>
+  <g>
+    <title>assets/images/footage-window/exp-wall-shadow.svg</title>
+    <rect x="18" y="524" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/footage-window/exp-wall-shadow.svg" x="25" y="531" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="19" y="576" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="81.57142857142857" y="588" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">exp-wall-shadow</text>
+  </g>
+  <g>
+    <title>assets/images/footage-window/figure-arm.svg</title>
+    <rect x="153.14285714285714" y="524" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/footage-window/figure-arm.svg" x="160.14285714285714" y="531" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="154.14285714285714" y="576" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="216.71428571428572" y="588" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">figure-arm</text>
+  </g>
+  <g>
+    <title>assets/images/footage-window/figure-body.svg</title>
+    <rect x="288.2857142857143" y="524" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/footage-window/figure-body.svg" x="295.2857142857143" y="531" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="289.2857142857143" y="576" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="351.85714285714283" y="588" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">figure-body</text>
+  </g>
+  <g>
+    <title>assets/images/footage-window/figure-head.svg</title>
+    <rect x="423.42857142857144" y="524" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/footage-window/figure-head.svg" x="430.42857142857144" y="531" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="424.42857142857144" y="576" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="487" y="588" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">figure-head</text>
+  </g>
+  <g>
+    <title>assets/images/footage-window/flag-triangle.svg</title>
+    <rect x="558.5714285714286" y="524" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/footage-window/flag-triangle.svg" x="565.5714285714286" y="531" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="559.5714285714286" y="576" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="622.1428571428571" y="588" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">flag-triangle</text>
+  </g>
+  <g>
+    <title>assets/images/footage-window/Footage_arab_violence.svg</title>
+    <rect x="693.7142857142857" y="524" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/footage-window/Footage_arab_violence.svg" x="700.7142857142857" y="531" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="694.7142857142857" y="576" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="757.2857142857142" y="588" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Footage_arab_violence</text>
+  </g>
+  <g>
+    <title>assets/images/footage-window/Footage_grafitti.svg</title>
+    <rect x="828.8571428571429" y="524" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/footage-window/Footage_grafitti.svg" x="835.8571428571429" y="531" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="829.8571428571429" y="576" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="892.4285714285714" y="588" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Footage_grafitti</text>
+  </g>
+  <g>
+    <title>assets/images/footage-window/Footage_indecent_exposure.svg</title>
+    <rect x="964" y="524" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/footage-window/Footage_indecent_exposure.svg" x="971" y="531" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="965" y="576" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1027.5714285714287" y="588" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Footage_indecent_exposure</text>
+  </g>
+  <g>
+    <title>assets/images/footage-window/Footage_jewish_violence.svg</title>
+    <rect x="1099.142857142857" y="524" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/footage-window/Footage_jewish_violence.svg" x="1106.142857142857" y="531" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1100.142857142857" y="576" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1162.7142857142858" y="588" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Footage_jewish_violence</text>
+  </g>
+  <g>
+    <title>assets/images/footage-window/Footage_teens01.svg</title>
+    <rect x="1234.2857142857142" y="524" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/footage-window/Footage_teens01.svg" x="1241.2857142857142" y="531" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1235.2857142857142" y="576" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1297.857142857143" y="588" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Footage_teens01</text>
+  </g>
+  <g>
+    <title>assets/images/footage-window/Footage_teens02.svg</title>
+    <rect x="1369.4285714285713" y="524" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/footage-window/Footage_teens02.svg" x="1376.4285714285713" y="531" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1370.4285714285713" y="576" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1433" y="588" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Footage_teens02</text>
+  </g>
+  <g>
+    <title>assets/images/footage-window/front-mouth.svg</title>
+    <rect x="1504.5714285714284" y="524" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/footage-window/front-mouth.svg" x="1511.5714285714284" y="531" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1505.5714285714284" y="576" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1568.142857142857" y="588" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">front-mouth</text>
+  </g>
+  <g>
+    <title>assets/images/footage-window/front-view.svg</title>
+    <rect x="1639.7142857142858" y="524" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/footage-window/front-view.svg" x="1646.7142857142858" y="531" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1640.7142857142858" y="576" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1703.2857142857144" y="588" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">front-view</text>
+  </g>
+  <g>
+    <title>assets/images/footage-window/Sketch.svg</title>
+    <rect x="1774.857142857143" y="524" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/footage-window/Sketch.svg" x="1781.857142857143" y="531" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1775.857142857143" y="576" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1838.4285714285716" y="588" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Sketch</text>
+  </g>
+  <g>
+    <title>assets/images/footage-window/split-divider.svg</title>
+    <rect x="18" y="602" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/footage-window/split-divider.svg" x="25" y="609" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="19" y="654" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="81.57142857142857" y="666" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">split-divider</text>
+  </g>
+  <g>
+    <title>assets/images/footage-window/spray-can-tip.svg</title>
+    <rect x="153.14285714285714" y="602" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/footage-window/spray-can-tip.svg" x="160.14285714285714" y="609" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="154.14285714285714" y="654" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="216.71428571428572" y="666" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">spray-can-tip</text>
+  </g>
+  <g>
+    <title>assets/images/footage-window/spray-can.svg</title>
+    <rect x="288.2857142857143" y="602" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/footage-window/spray-can.svg" x="295.2857142857143" y="609" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="289.2857142857143" y="654" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="351.85714285714283" y="666" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">spray-can</text>
+  </g>
+  <g>
+    <title>assets/images/login-screen/add_photo_alternate.svg</title>
+    <rect x="423.42857142857144" y="602" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/login-screen/add_photo_alternate.svg" x="430.42857142857144" y="609" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="424.42857142857144" y="654" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="487" y="666" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">add_photo_alternate</text>
+  </g>
+  <g>
+    <title>assets/images/login-screen/arrow_forward.svg</title>
+    <rect x="558.5714285714286" y="602" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/login-screen/arrow_forward.svg" x="565.5714285714286" y="609" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="559.5714285714286" y="654" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="622.1428571428571" y="666" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">arrow_forward</text>
+  </g>
+  <g>
+    <title>assets/images/login-screen/Flower.svg</title>
+    <rect x="693.7142857142857" y="602" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/login-screen/Flower.svg" x="700.7142857142857" y="609" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="694.7142857142857" y="654" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="757.2857142857142" y="666" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Flower</text>
+  </g>
+  <g>
+    <title>assets/images/login-screen/Gun.svg</title>
+    <rect x="828.8571428571429" y="602" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/login-screen/Gun.svg" x="835.8571428571429" y="609" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="829.8571428571429" y="654" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="892.4285714285714" y="666" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Gun</text>
+  </g>
+  <g>
+    <title>assets/images/login-screen/Logo-S.svg</title>
+    <rect x="964" y="602" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/login-screen/Logo-S.svg" x="971" y="609" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="965" y="654" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1027.5714285714287" y="666" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Logo-S</text>
+  </g>
+  <g>
+    <title>assets/images/login-screen/Man.svg</title>
+    <rect x="1099.142857142857" y="602" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/login-screen/Man.svg" x="1106.142857142857" y="609" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1100.142857142857" y="654" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1162.7142857142858" y="666" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Man</text>
+  </g>
+  <g>
+    <title>assets/images/login-screen/Woman.svg</title>
+    <rect x="1234.2857142857142" y="602" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/login-screen/Woman.svg" x="1241.2857142857142" y="609" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1235.2857142857142" y="654" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1297.857142857143" y="666" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Woman</text>
+  </g>
+  <g>
+    <title>assets/images/Logo.svg</title>
+    <rect x="1369.4285714285713" y="602" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/Logo.svg" x="1376.4285714285713" y="609" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1370.4285714285713" y="654" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1433" y="666" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Logo</text>
+  </g>
+  <g>
+    <title>assets/images/mini-game/game_bg.svg</title>
+    <rect x="1504.5714285714284" y="602" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/mini-game/game_bg.svg" x="1511.5714285714284" y="609" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1505.5714285714284" y="654" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1568.142857142857" y="666" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">game_bg</text>
+  </g>
+  <g>
+    <title>assets/images/mini-game/Grandma01_default.svg</title>
+    <rect x="1639.7142857142858" y="602" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/mini-game/Grandma01_default.svg" x="1646.7142857142858" y="609" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1640.7142857142858" y="654" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1703.2857142857144" y="666" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Grandma01_default</text>
+  </g>
+  <g>
+    <title>assets/images/mini-game/Grandma01_hit.svg</title>
+    <rect x="1774.857142857143" y="602" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/mini-game/Grandma01_hit.svg" x="1781.857142857143" y="609" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1775.857142857143" y="654" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1838.4285714285716" y="666" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Grandma01_hit</text>
+  </g>
+  <g>
+    <title>assets/images/mini-game/Grandma02_default.svg</title>
+    <rect x="18" y="680" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/mini-game/Grandma02_default.svg" x="25" y="687" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="19" y="732" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="81.57142857142857" y="744" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Grandma02_default</text>
+  </g>
+  <g>
+    <title>assets/images/mini-game/Grandma02_hit.svg</title>
+    <rect x="153.14285714285714" y="680" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/mini-game/Grandma02_hit.svg" x="160.14285714285714" y="687" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="154.14285714285714" y="732" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="216.71428571428572" y="744" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Grandma02_hit</text>
+  </g>
+  <g>
+    <title>assets/images/mini-game/Grandma03_default.svg</title>
+    <rect x="288.2857142857143" y="680" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/mini-game/Grandma03_default.svg" x="295.2857142857143" y="687" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="289.2857142857143" y="732" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="351.85714285714283" y="744" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Grandma03_default</text>
+  </g>
+  <g>
+    <title>assets/images/mini-game/Grandma03_hit.svg</title>
+    <rect x="423.42857142857144" y="680" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/mini-game/Grandma03_hit.svg" x="430.42857142857144" y="687" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="424.42857142857144" y="732" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="487" y="744" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Grandma03_hit</text>
+  </g>
+  <g>
+    <title>assets/images/mini-game/Hammer.svg</title>
+    <rect x="558.5714285714286" y="680" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/mini-game/Hammer.svg" x="565.5714285714286" y="687" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="559.5714285714286" y="732" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="622.1428571428571" y="744" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Hammer</text>
+  </g>
+  <g>
+    <title>assets/images/mini-game/Life-empty.svg</title>
+    <rect x="693.7142857142857" y="680" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/mini-game/Life-empty.svg" x="700.7142857142857" y="687" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="694.7142857142857" y="732" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="757.2857142857142" y="744" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Life-empty</text>
+  </g>
+  <g>
+    <title>assets/images/mini-game/Life-full.svg</title>
+    <rect x="828.8571428571429" y="680" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/mini-game/Life-full.svg" x="835.8571428571429" y="687" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="829.8571428571429" y="732" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="892.4285714285714" y="744" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Life-full</text>
+  </g>
+  <g>
+    <title>assets/images/operation-window/arc.svg</title>
+    <rect x="964" y="680" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/operation-window/arc.svg" x="971" y="687" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="965" y="732" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1027.5714285714287" y="744" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">arc</text>
+  </g>
+  <g>
+    <title>assets/images/operation-window/Blindfold.svg</title>
+    <rect x="1099.142857142857" y="680" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/operation-window/Blindfold.svg" x="1106.142857142857" y="687" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1100.142857142857" y="732" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1162.7142857142858" y="744" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Blindfold</text>
+  </g>
+  <g>
+    <title>assets/images/operation-window/Boss.svg</title>
+    <rect x="1234.2857142857142" y="680" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/operation-window/Boss.svg" x="1241.2857142857142" y="687" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1235.2857142857142" y="732" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1297.857142857143" y="744" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Boss</text>
+  </g>
+  <g>
+    <title>assets/images/operation-window/Dog.svg</title>
+    <rect x="1369.4285714285713" y="680" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/operation-window/Dog.svg" x="1376.4285714285713" y="687" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1370.4285714285713" y="732" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1433" y="744" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Dog</text>
+  </g>
+  <g>
+    <title>assets/images/operation-window/Forces.svg</title>
+    <rect x="1504.5714285714284" y="680" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/operation-window/Forces.svg" x="1511.5714285714284" y="687" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1505.5714285714284" y="732" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1568.142857142857" y="744" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Forces</text>
+  </g>
+  <g>
+    <title>assets/images/operation-window/lock.svg</title>
+    <rect x="1639.7142857142858" y="680" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/operation-window/lock.svg" x="1646.7142857142858" y="687" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1640.7142857142858" y="732" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1703.2857142857144" y="744" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">lock</text>
+  </g>
+  <g>
+    <title>assets/images/operation-window/needle.svg</title>
+    <rect x="1774.857142857143" y="680" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/operation-window/needle.svg" x="1781.857142857143" y="687" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1775.857142857143" y="732" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1838.4285714285716" y="744" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">needle</text>
+  </g>
+  <g>
+    <title>assets/images/operation-window/Press.svg</title>
+    <rect x="18" y="758" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/operation-window/Press.svg" x="25" y="765" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="19" y="810" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="81.57142857142857" y="822" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Press</text>
+  </g>
+  <g>
+    <title>assets/images/player-arm-left.svg</title>
+    <rect x="153.14285714285714" y="758" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/player-arm-left.svg" x="160.14285714285714" y="765" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="154.14285714285714" y="810" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="216.71428571428572" y="822" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">player-arm-left</text>
+  </g>
+  <g>
+    <title>assets/images/player-arm-right.svg</title>
+    <rect x="288.2857142857143" y="758" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/player-arm-right.svg" x="295.2857142857143" y="765" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="289.2857142857143" y="810" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="351.85714285714283" y="822" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">player-arm-right</text>
+  </g>
+  <g>
+    <title>assets/images/player-body-mask.svg</title>
+    <rect x="423.42857142857144" y="758" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/player-body-mask.svg" x="430.42857142857144" y="765" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="424.42857142857144" y="810" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="487" y="822" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">player-body-mask</text>
+  </g>
+  <g>
+    <title>assets/images/player-detail-1.svg</title>
+    <rect x="558.5714285714286" y="758" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/player-detail-1.svg" x="565.5714285714286" y="765" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="559.5714285714286" y="810" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="622.1428571428571" y="822" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">player-detail-1</text>
+  </g>
+  <g>
+    <title>assets/images/player-detail-2.svg</title>
+    <rect x="693.7142857142857" y="758" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/player-detail-2.svg" x="700.7142857142857" y="765" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="694.7142857142857" y="810" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="757.2857142857142" y="822" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">player-detail-2</text>
+  </g>
+  <g>
+    <title>assets/images/player-eye-left.svg</title>
+    <rect x="828.8571428571429" y="758" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/player-eye-left.svg" x="835.8571428571429" y="765" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="829.8571428571429" y="810" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="892.4285714285714" y="822" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">player-eye-left</text>
+  </g>
+  <g>
+    <title>assets/images/player-eye-right.svg</title>
+    <rect x="964" y="758" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/player-eye-right.svg" x="971" y="765" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="965" y="810" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1027.5714285714287" y="822" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">player-eye-right</text>
+  </g>
+  <g>
+    <title>assets/images/player-eyebrow-left.svg</title>
+    <rect x="1099.142857142857" y="758" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/player-eyebrow-left.svg" x="1106.142857142857" y="765" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1100.142857142857" y="810" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1162.7142857142858" y="822" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">player-eyebrow-left</text>
+  </g>
+  <g>
+    <title>assets/images/player-eyebrow-right.svg</title>
+    <rect x="1234.2857142857142" y="758" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/player-eyebrow-right.svg" x="1241.2857142857142" y="765" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1235.2857142857142" y="810" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1297.857142857143" y="822" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">player-eyebrow-right</text>
+  </g>
+  <g>
+    <title>assets/images/player-nose.svg</title>
+    <rect x="1369.4285714285713" y="758" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/player-nose.svg" x="1376.4285714285713" y="765" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1370.4285714285713" y="810" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1433" y="822" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">player-nose</text>
+  </g>
+  <g>
+    <title>assets/images/Player.svg</title>
+    <rect x="1504.5714285714284" y="758" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/Player.svg" x="1511.5714285714284" y="765" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1505.5714285714284" y="810" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1568.142857142857" y="822" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Player</text>
+  </g>
+  <g>
+    <title>assets/images/ranking-board/Boss on Crocodile.svg</title>
+    <rect x="1639.7142857142858" y="758" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/ranking-board/Boss%20on%20Crocodile.svg" x="1646.7142857142858" y="765" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1640.7142857142858" y="810" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1703.2857142857144" y="822" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Boss on Crocodile</text>
+  </g>
+  <g>
+    <title>assets/images/ranking-board/score-ribbon.svg</title>
+    <rect x="1774.857142857143" y="758" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/ranking-board/score-ribbon.svg" x="1781.857142857143" y="765" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1775.857142857143" y="810" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1838.4285714285716" y="822" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">score-ribbon</text>
+  </g>
+  <g>
+    <title>assets/images/symbol.svg</title>
+    <rect x="18" y="836" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/symbol.svg" x="25" y="843" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="19" y="888" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="81.57142857142857" y="900" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">symbol</text>
+  </g>
+  <g>
+    <title>assets/images/win-screens/BdsmParty/bg.svg</title>
+    <rect x="153.14285714285714" y="836" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/win-screens/BdsmParty/bg.svg" x="160.14285714285714" y="843" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="154.14285714285714" y="888" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="216.71428571428572" y="900" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">bg</text>
+  </g>
+  <g>
+    <title>assets/images/win-screens/BdsmParty/Envelope bg.svg</title>
+    <rect x="288.2857142857143" y="836" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/win-screens/BdsmParty/Envelope%20bg.svg" x="295.2857142857143" y="843" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="289.2857142857143" y="888" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="351.85714285714283" y="900" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Envelope bg</text>
+  </g>
+  <g>
+    <title>assets/images/win-screens/BdsmParty/Envelope open.svg</title>
+    <rect x="423.42857142857144" y="836" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/win-screens/BdsmParty/Envelope%20open.svg" x="430.42857142857144" y="843" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="424.42857142857144" y="888" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="487" y="900" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Envelope open</text>
+  </g>
+  <g>
+    <title>assets/images/win-screens/BdsmParty/Envelope.svg</title>
+    <rect x="558.5714285714286" y="836" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/win-screens/BdsmParty/Envelope.svg" x="565.5714285714286" y="843" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="559.5714285714286" y="888" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="622.1428571428571" y="900" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Envelope</text>
+  </g>
+  <g>
+    <title>assets/images/win-screens/BdsmParty/Invitation.svg</title>
+    <rect x="693.7142857142857" y="836" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/win-screens/BdsmParty/Invitation.svg" x="700.7142857142857" y="843" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="694.7142857142857" y="888" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="757.2857142857142" y="900" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Invitation</text>
+  </g>
+  <g>
+    <title>assets/images/win-screens/BdsmParty/stamp.svg</title>
+    <rect x="828.8571428571429" y="836" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/win-screens/BdsmParty/stamp.svg" x="835.8571428571429" y="843" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="829.8571428571429" y="888" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="892.4285714285714" y="900" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">stamp</text>
+  </g>
+  <g>
+    <title>assets/images/win-screens/BdsmParty/Win03.svg</title>
+    <rect x="964" y="836" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/win-screens/BdsmParty/Win03.svg" x="971" y="843" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="965" y="888" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1027.5714285714287" y="900" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Win03</text>
+  </g>
+  <g>
+    <title>assets/images/win-screens/Eilat/arm.svg</title>
+    <rect x="1099.142857142857" y="836" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/win-screens/Eilat/arm.svg" x="1106.142857142857" y="843" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1100.142857142857" y="888" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1162.7142857142858" y="900" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">arm</text>
+  </g>
+  <g>
+    <title>assets/images/win-screens/Eilat/chair.svg</title>
+    <rect x="1234.2857142857142" y="836" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/win-screens/Eilat/chair.svg" x="1241.2857142857142" y="843" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1235.2857142857142" y="888" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1297.857142857143" y="900" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">chair</text>
+  </g>
+  <g>
+    <title>assets/images/win-screens/Eilat/thumb.svg</title>
+    <rect x="1369.4285714285713" y="836" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/win-screens/Eilat/thumb.svg" x="1376.4285714285713" y="843" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1370.4285714285713" y="888" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1433" y="900" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">thumb</text>
+  </g>
+  <g>
+    <title>assets/images/win-screens/Eilat/WinScreen_Eilat-bg.svg</title>
+    <rect x="1504.5714285714284" y="836" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/win-screens/Eilat/WinScreen_Eilat-bg.svg" x="1511.5714285714284" y="843" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1505.5714285714284" y="888" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1568.142857142857" y="900" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">WinScreen_Eilat-bg</text>
+  </g>
+  <g>
+    <title>assets/images/win-screens/KippahCutting/Cursor_Scissors01.svg</title>
+    <rect x="1639.7142857142858" y="836" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/win-screens/KippahCutting/Cursor_Scissors01.svg" x="1646.7142857142858" y="843" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1640.7142857142858" y="888" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1703.2857142857144" y="900" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Cursor_Scissors01</text>
+  </g>
+  <g>
+    <title>assets/images/win-screens/KippahCutting/Cursor_Scissors02.svg</title>
+    <rect x="1774.857142857143" y="836" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/win-screens/KippahCutting/Cursor_Scissors02.svg" x="1781.857142857143" y="843" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1775.857142857143" y="888" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1838.4285714285716" y="900" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Cursor_Scissors02</text>
+  </g>
+  <g>
+    <title>assets/images/win-screens/KippahCutting/Cursor02_Scissors01.svg</title>
+    <rect x="18" y="914" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/win-screens/KippahCutting/Cursor02_Scissors01.svg" x="25" y="921" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="19" y="966" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="81.57142857142857" y="978" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Cursor02_Scissors01</text>
+  </g>
+  <g>
+    <title>assets/images/win-screens/KippahCutting/Cursor02_Scissors02.svg</title>
+    <rect x="153.14285714285714" y="914" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/win-screens/KippahCutting/Cursor02_Scissors02.svg" x="160.14285714285714" y="921" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="154.14285714285714" y="966" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="216.71428571428572" y="978" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Cursor02_Scissors02</text>
+  </g>
+  <g>
+    <title>assets/images/win-screens/KippahCutting/Kippah_hand01.svg</title>
+    <rect x="288.2857142857143" y="914" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/win-screens/KippahCutting/Kippah_hand01.svg" x="295.2857142857143" y="921" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="289.2857142857143" y="966" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="351.85714285714283" y="978" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Kippah_hand01</text>
+  </g>
+  <g>
+    <title>assets/images/win-screens/KippahCutting/Kippah_hand02.svg</title>
+    <rect x="423.42857142857144" y="914" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/win-screens/KippahCutting/Kippah_hand02.svg" x="430.42857142857144" y="921" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="424.42857142857144" y="966" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="487" y="978" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Kippah_hand02</text>
+  </g>
+  <g>
+    <title>assets/images/win-screens/KippahCutting/Kippah_hand03.svg</title>
+    <rect x="558.5714285714286" y="914" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/win-screens/KippahCutting/Kippah_hand03.svg" x="565.5714285714286" y="921" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="559.5714285714286" y="966" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="622.1428571428571" y="978" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Kippah_hand03</text>
+  </g>
+  <g>
+    <title>assets/images/win-screens/KippahCutting/Kippah_left_01.svg</title>
+    <rect x="693.7142857142857" y="914" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/win-screens/KippahCutting/Kippah_left_01.svg" x="700.7142857142857" y="921" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="694.7142857142857" y="966" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="757.2857142857142" y="978" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Kippah_left_01</text>
+  </g>
+  <g>
+    <title>assets/images/win-screens/KippahCutting/Kippah_left_02.svg</title>
+    <rect x="828.8571428571429" y="914" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/win-screens/KippahCutting/Kippah_left_02.svg" x="835.8571428571429" y="921" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="829.8571428571429" y="966" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="892.4285714285714" y="978" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Kippah_left_02</text>
+  </g>
+  <g>
+    <title>assets/images/win-screens/KippahCutting/Kippah_left_03.svg</title>
+    <rect x="964" y="914" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/win-screens/KippahCutting/Kippah_left_03.svg" x="971" y="921" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="965" y="966" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1027.5714285714287" y="978" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Kippah_left_03</text>
+  </g>
+  <g>
+    <title>assets/images/win-screens/KippahCutting/Kippah_right_01.svg</title>
+    <rect x="1099.142857142857" y="914" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/win-screens/KippahCutting/Kippah_right_01.svg" x="1106.142857142857" y="921" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1100.142857142857" y="966" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1162.7142857142858" y="978" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Kippah_right_01</text>
+  </g>
+  <g>
+    <title>assets/images/win-screens/KippahCutting/Kippah_right_02.svg</title>
+    <rect x="1234.2857142857142" y="914" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/win-screens/KippahCutting/Kippah_right_02.svg" x="1241.2857142857142" y="921" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1235.2857142857142" y="966" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1297.857142857143" y="978" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Kippah_right_02</text>
+  </g>
+  <g>
+    <title>assets/images/win-screens/KippahCutting/Kippah_right_03.svg</title>
+    <rect x="1369.4285714285713" y="914" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/win-screens/KippahCutting/Kippah_right_03.svg" x="1376.4285714285713" y="921" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1370.4285714285713" y="966" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1433" y="978" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Kippah_right_03</text>
+  </g>
+  <g>
+    <title>assets/images/win-screens/KippahCutting/trail.svg</title>
+    <rect x="1504.5714285714284" y="914" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/win-screens/KippahCutting/trail.svg" x="1511.5714285714284" y="921" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1505.5714285714284" y="966" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1568.142857142857" y="978" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">trail</text>
+  </g>
+  <g>
+    <title>assets/images/win-screens/Picnic/Bg.svg</title>
+    <rect x="1639.7142857142858" y="914" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/win-screens/Picnic/Bg.svg" x="1646.7142857142858" y="921" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1640.7142857142858" y="966" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1703.2857142857144" y="978" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Bg</text>
+  </g>
+  <g>
+    <title>assets/images/win-screens/Picnic/Bread.svg</title>
+    <rect x="1774.857142857143" y="914" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/win-screens/Picnic/Bread.svg" x="1781.857142857143" y="921" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1775.857142857143" y="966" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1838.4285714285716" y="978" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Bread</text>
+  </g>
+  <g>
+    <title>assets/images/win-screens/Picnic/Glass01.svg</title>
+    <rect x="18" y="992" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/win-screens/Picnic/Glass01.svg" x="25" y="999" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="19" y="1044" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="81.57142857142857" y="1056" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Glass01</text>
+  </g>
+  <g>
+    <title>assets/images/win-screens/Picnic/Glass02.svg</title>
+    <rect x="153.14285714285714" y="992" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/win-screens/Picnic/Glass02.svg" x="160.14285714285714" y="999" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="154.14285714285714" y="1044" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="216.71428571428572" y="1056" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Glass02</text>
+  </g>
+  <g>
+    <title>assets/images/win-screens/Picnic/Pesto.svg</title>
+    <rect x="288.2857142857143" y="992" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/win-screens/Picnic/Pesto.svg" x="295.2857142857143" y="999" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="289.2857142857143" y="1044" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="351.85714285714283" y="1056" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Pesto</text>
+  </g>
+  <g>
+    <title>assets/images/win-screens/Picnic/PicnicBag.svg</title>
+    <rect x="423.42857142857144" y="992" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/win-screens/Picnic/PicnicBag.svg" x="430.42857142857144" y="999" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="424.42857142857144" y="1044" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="487" y="1056" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">PicnicBag</text>
+  </g>
+  <g>
+    <title>assets/images/win-screens/Picnic/Weapon.svg</title>
+    <rect x="558.5714285714286" y="992" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/win-screens/Picnic/Weapon.svg" x="565.5714285714286" y="999" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="559.5714285714286" y="1044" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="622.1428571428571" y="1056" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Weapon</text>
+  </g>
+  <g>
+    <title>assets/images/win-screens/Picnic/Wine.svg</title>
+    <rect x="693.7142857142857" y="992" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/win-screens/Picnic/Wine.svg" x="700.7142857142857" y="999" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="694.7142857142857" y="1044" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="757.2857142857142" y="1056" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Wine</text>
+  </g>
+  <g>
+    <title>assets/images/win-screens/Pizza/bg.svg</title>
+    <rect x="828.8571428571429" y="992" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/win-screens/Pizza/bg.svg" x="835.8571428571429" y="999" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="829.8571428571429" y="1044" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="892.4285714285714" y="1056" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">bg</text>
+  </g>
+  <g>
+    <title>assets/images/win-screens/Pizza/Fight.svg</title>
+    <rect x="964" y="992" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/win-screens/Pizza/Fight.svg" x="971" y="999" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="965" y="1044" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1027.5714285714287" y="1056" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Fight</text>
+  </g>
+  <g>
+    <title>assets/images/win-screens/Pizza/Pizza.svg</title>
+    <rect x="1099.142857142857" y="992" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/win-screens/Pizza/Pizza.svg" x="1106.142857142857" y="999" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1100.142857142857" y="1044" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1162.7142857142858" y="1056" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Pizza</text>
+  </g>
+  <g>
+    <title>assets/images/win-screens/Pizza/Police.svg</title>
+    <rect x="1234.2857142857142" y="992" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/win-screens/Pizza/Police.svg" x="1241.2857142857142" y="999" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1235.2857142857142" y="1044" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1297.857142857143" y="1056" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Police</text>
+  </g>
+  <g>
+    <title>assets/images/win-screens/PunchingDummy/PunchingDummy_glove_cursor.svg</title>
+    <rect x="1369.4285714285713" y="992" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/win-screens/PunchingDummy/PunchingDummy_glove_cursor.svg" x="1376.4285714285713" y="999" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1370.4285714285713" y="1044" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1433" y="1056" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">PunchingDummy_glove_cursor</text>
+  </g>
+  <g>
+    <title>assets/images/win-screens/Win03.svg</title>
+    <rect x="1504.5714285714284" y="992" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/win-screens/Win03.svg" x="1511.5714285714284" y="999" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1505.5714285714284" y="1044" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1568.142857142857" y="1056" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">Win03</text>
+  </g>
+  <g>
+    <title>assets/images/win-screens/WinScreen_KippahCutting.svg</title>
+    <rect x="1639.7142857142858" y="992" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/win-screens/WinScreen_KippahCutting.svg" x="1646.7142857142858" y="999" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1640.7142857142858" y="1044" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1703.2857142857144" y="1056" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">WinScreen_KippahCutting</text>
+  </g>
+  <g>
+    <title>assets/images/win-screens/WinScreen_PunchingDummy.svg</title>
+    <rect x="1774.857142857143" y="992" width="127.14285714285714" height="70" rx="7" fill="#ffffff" stroke="#d8dde6"/>
+    <image href="../assets/images/win-screens/WinScreen_PunchingDummy.svg" x="1781.857142857143" y="999" width="113.14285714285714" height="38" preserveAspectRatio="xMidYMid meet"/>
+    <rect x="1775.857142857143" y="1044" width="125.14285714285714" height="17" rx="0 0 6 6" fill="#f2f4f8"/>
+    <text x="1838.4285714285716" y="1056" text-anchor="middle" font-family="Arial, sans-serif" font-size="8" fill="#28303d">WinScreen_PunchingDummy</text>
+  </g>
+</svg>

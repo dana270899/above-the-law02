@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import type { ReactNode } from 'react'
 import { EditorPage } from '@/pages/EditorPage'
 import { GameSessionRoute } from '@/components/game/GameSessionRoute'
+import { GameContentProvider } from '@/components/game/GameContentProvider'
 import { CreditsPage } from '@/pages/CreditsPage'
 import { DesktopPage } from '@/pages/DesktopPage'
 import { LoginPage } from '@/pages/LoginPage'
@@ -11,6 +12,7 @@ import { assetUrl, routerBasename } from '@/lib/paths'
 import { caseNumberForOrder } from '@/lib/caseOrder'
 import { RankingPage } from '@/components/game/RankingPage/RankingPage'
 import { WhackAMole } from '@/components/WhackAMole'
+import { ReadOnlyStudioPage } from '@/pages/ReadOnlyStudioPage'
 import type { PlayerProfile, RunScore } from '@/lib/scoring'
 
 const RANKING_START_PROFILE: PlayerProfile = {
@@ -90,6 +92,7 @@ export default function App() {
         <Route path="/game" element={<GameSessionRoute />} />
         <Route path="/credits" element={<CreditsPage />} />
         <Route path="/editor" element={<EditorPage />} />
+        <Route path="/showcase" element={<GameContentProvider><ReadOnlyStudioPage /></GameContentProvider>} />
         <Route path="/ranking-preview" element={<WinScreenStage><RankingPage profile={{ name: 'Dana Officer', photo: RANKING_PREVIEW_PHOTO, photoPreviewUrl: assetUrl('/images/login-screen/Flower.svg') }} run={{ total: 1000, target: 600, won: false, cases: [
           { caseId: caseNumberForOrder(1), title: 'Case 1', important: false, attempt: 2, correct: true, basePoints: 50, speedPoints: 18, elapsedSeconds: 76, totalPoints: 68 },
           { caseId: caseNumberForOrder(2), title: 'Case 2', important: false, attempt: 1, correct: true, basePoints: 100, speedPoints: 34, elapsedSeconds: 39, totalPoints: 134 },

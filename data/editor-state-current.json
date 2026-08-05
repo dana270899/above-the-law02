@@ -114,7 +114,7 @@
               "statusColor": "red",
               "date": "08/02/2026",
               "fileUrl": "",
-              "details": "Subject suspected in a **large-scale security** incident involving **Palestinian flag graffiti** on a municipal building wall.\n\nIt looks like him but we are not sure.",
+              "details": "Subject suspected in a large-scale security incident involving Palestinian flag graffiti on a municipal building wall.\n\nIt looks like him but we are not sure.",
               "fileFootageVariant": "graffiti-video"
             }
           ],
@@ -174,7 +174,7 @@
               "statusColor": "yellow",
               "date": "08/02/2026",
               "fileUrl": "",
-              "details": "His wife claims he assaulted her. The suspect suggests she is exaggerating the incident.\nBut who knows with these women? Could be true, could be a story.",
+              "details": "His wife claims he assaulted her. The suspect suggests she is exaggerating the incident.\n\nBut who knows with these women? Could be true, could be a story.",
               "fileFootageVariant": "jewish-violence"
             }
           ],
@@ -1891,7 +1891,7 @@
               "date": "22/12/2025",
               "status": "Released",
               "statusColor": "green",
-              "details": "Previously questioned after stealing 27 traffic cones and assaulting a security guard.\n\nPromised not to do it again."
+              "details": "Previously convicted for participating in a street fight.\n\nPromised not to do it again."
             }
           ],
           "criminalRecordEmptyText": "No criminal record yet.",

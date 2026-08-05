@@ -58,7 +58,7 @@
    outlines/inset shadows to avoid shrinking their content boxes. */
 .caseWindowV2 {
   position: relative;
-  width: 1186px;
+  width: 1170px;
   height: 906px;
   border: 0;
   outline: 0;
@@ -827,18 +827,31 @@
   order: 2;
 }
 
-/* Shared Figma column geometry for Suspicion and Criminal Record.
-   Headers distribute 24px gaps between their labels; data rows reserve
-   16px after the disclosure arrow and 28px between content columns. */
+/* Figma 967:56891 column geometry. The panel itself fills the 833px
+   content area; its 24px inset leaves a fixed 785px table. The table's
+   24px inset then leaves 737px headers/rows, while each row's own 16px
+   inset leaves 705px for the disclosure icon and columns. */
 .caseWindowV2 [data-spot='case.suspicions'],
 .caseWindowV2 [data-spot='case.criminalRecord'] {
   --case-subject-column: 286px;
   --case-date-column: 120px;
+  --case-table-width: 785px;
+  --case-row-width: 737px;
+}
+
+.caseWindowV2 [data-spot='case.suspicions'] {
   --case-end-column: 203px;
-  --case-table-width: 801px;
-  --case-row-width: 753px;
-  --case-header-columns: 24px 24px var(--case-subject-column) 20px var(--case-date-column) 28px var(--case-end-column);
-  --case-row-columns: 24px 16px var(--case-subject-column) 24px var(--case-date-column) 32px var(--case-end-column);
+  --case-header-columns: 24px 24px var(--case-subject-column) 24px var(--case-date-column) 24px var(--case-end-column);
+  --case-row-columns: 24px 16px var(--case-subject-column) 28px var(--case-date-column) 28px var(--case-end-column);
+}
+
+/* Criminal Record uses a fixed 120px status column. Keep the header on
+   the exact same grid as each conviction row so every heading begins at
+   the left edge of its content column. */
+.caseWindowV2 [data-spot='case.criminalRecord'] {
+  --case-end-column: 120px;
+  --case-row-columns: 24px 16px var(--case-subject-column) 28px var(--case-date-column) 1fr var(--case-end-column);
+  --case-header-columns: var(--case-row-columns);
 }
 
 /* CaseWindowV2 — Figma 767:55761 criminal-record states. */
