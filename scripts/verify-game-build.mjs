@@ -10,6 +10,10 @@ const approvedVercelRewrite = {
   source: '/((?!editor(?:/|$)|api/editor(?:[-/]|$)).*)',
   destination: '/index.html',
 }
+const approvedShowcaseRewrite = {
+  source: '/showcase',
+  destination: '/showcase.html',
+}
 
 const errors = []
 
@@ -119,7 +123,6 @@ for (const file of files) {
     ['editor state API', /\/api\/editor-state/],
     ['editor versions API', /\/api\/editor-versions/],
     ['editor loading UI', /Loading editor graph/],
-    ['React Flow editor styles', /\.react-flow__/],
   ]
 
   for (const [label, pattern] of forbiddenCode) {
@@ -137,12 +140,14 @@ try {
   const vercelConfig = JSON.parse(fs.readFileSync(vercelConfigPath, 'utf8'))
   const rewrites = Array.isArray(vercelConfig.rewrites) ? vercelConfig.rewrites : []
   const hasOnlyApprovedRewrite =
-    rewrites.length === 1 &&
-    rewrites[0]?.source === approvedVercelRewrite.source &&
-    rewrites[0]?.destination === approvedVercelRewrite.destination
+    rewrites.length === 2 &&
+    rewrites[0]?.source === approvedShowcaseRewrite.source &&
+    rewrites[0]?.destination === approvedShowcaseRewrite.destination &&
+    rewrites[1]?.source === approvedVercelRewrite.source &&
+    rewrites[1]?.destination === approvedVercelRewrite.destination
   if (!hasOnlyApprovedRewrite) {
     errors.push(
-      'Vercel rewrites must contain only the approved SPA fallback with editor/API exclusions.',
+      'Vercel rewrites must contain only the read-only showcase and approved game SPA fallback.',
     )
   }
   const forbiddenCatchAll = rewrites.some(

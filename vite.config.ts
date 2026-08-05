@@ -243,20 +243,33 @@ function gameOnlyBuildPlugin(): Plugin {
   }
 }
 
-export default defineConfig(({ command }) => {
+export default defineConfig(({ command, mode }) => {
   const isLocalDev = command === 'serve'
+  const isShowcaseBuild = command === 'build' && mode === 'showcase'
 
   return {
     base: '/',
     plugins: [
       react(),
-      ...(isLocalDev ? [fileBackedEditorDataPlugin()] : [gameOnlyBuildPlugin()]),
+      ...(isLocalDev
+        ? [fileBackedEditorDataPlugin()]
+        : isShowcaseBuild
+          ? []
+          : [gameOnlyBuildPlugin()]),
     ],
     // Local development serves the full authoring asset tree. Production uses
     // the allow-list copied by gameOnlyBuildPlugin instead.
     publicDir: isLocalDev ? 'assets' : false,
     build: isLocalDev
       ? undefined
+      : isShowcaseBuild
+        ? {
+            emptyOutDir: false,
+            rollupOptions: {
+              input: path.resolve(__dirname, 'showcase.html'),
+            },
+            sourcemap: false,
+          }
       : {
           // Build from an independent HTML root so the local app's import graph
           // is never discovered by Rollup in the first place.

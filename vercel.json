@@ -20,22 +20,16 @@
       "permanent": false
     },
     {
-      "source": "/login",
-      "destination": "/game",
-      "permanent": false
-    },
-    {
       "source": "/ranking-preview",
-      "destination": "/",
-      "permanent": false
-    },
-    {
-      "source": "/win/:path*",
       "destination": "/",
       "permanent": false
     }
   ],
   "rewrites": [
+    {
+      "source": "/showcase",
+      "destination": "/showcase.html"
+    },
     {
       "source": "/((?!editor(?:/|$)|api/editor(?:[-/]|$)).*)",
       "destination": "/index.html"

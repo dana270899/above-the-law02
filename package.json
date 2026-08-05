@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "npm run build:game",
-    "build:game": "tsc -b && vite build --mode game && npm run verify:game-build",
+    "build:game": "tsc -b && vite build --mode game && vite build --mode showcase && npm run verify:game-build",
     "test": "vitest run",
     "preview": "vite preview",
     "verify:game-build": "node scripts/verify-game-build.mjs"

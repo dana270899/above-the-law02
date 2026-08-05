@@ -1,0 +1,35 @@
+.wrap {
+  flex: 1;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.flow {
+  flex: 1;
+}
+
+/* Keep the real node cards pixel-identical while preventing every form,
+   button, checkbox, upload control, and handle from receiving input. */
+.flow :global(.react-flow__node) {
+  pointer-events: none;
+  user-select: none;
+}
+
+.flow :global(.react-flow__handle) {
+  pointer-events: none;
+}
+
+.status {
+  position: absolute;
+  z-index: 10;
+  top: 8px;
+  left: 12px;
+  padding: 6px 10px;
+  border: 1px solid #c9d9e8;
+  border-radius: 4px;
+  background: #eef6ff;
+  color: #24537a;
+  font: 12px sans-serif;
+}
