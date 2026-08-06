@@ -1796,6 +1796,7 @@ export function GamePage() {
           className={[
             styles.caseLayer,
             trashWindowMinimized ? styles.windowHidden : '',
+            activeTutorialMsg ? styles.tutorialColorLayer : '',
             trashWindowMotion === 'minimizing'
               ? styles.windowMinimizing
               : trashWindowMotion === 'restoring'

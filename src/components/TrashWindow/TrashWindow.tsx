@@ -35,12 +35,20 @@ export function TrashWindow({
 }: TrashWindowProps) {
   const [photoOpen, setPhotoOpen] = useState(false)
   const [pos, setPos] = useState<{ x: number; y: number } | null>(null)
+  const [photoPos, setPhotoPos] = useState<{ x: number; y: number } | null>(null)
   const windowRef = useRef<HTMLDivElement | null>(null)
+  const photoWindowRef = useRef<HTMLElement | null>(null)
   const dragRef = useRef<{
     startX: number
     startY: number
     originX: number
     originY: number
+  } | null>(null)
+  const photoDragRef = useRef<{
+    startX: number
+    startY: number
+    originLeft: number
+    originTop: number
   } | null>(null)
 
   function onTitleMouseDown(e: ReactMouseEvent<HTMLDivElement>) {
@@ -89,6 +97,67 @@ export function TrashWindow({
       }
     }
   }, [draggable])
+
+  function onPhotoTitleMouseDown(e: ReactMouseEvent<HTMLDivElement>) {
+    if ((e.target as HTMLElement).closest('button')) return
+    const element = photoWindowRef.current
+    const parent = windowRef.current
+    if (!element || !parent) return
+    const rect = element.getBoundingClientRect()
+    const parentRect = parent.getBoundingClientRect()
+    const scaleX = parentRect.width / parent.offsetWidth
+    const scaleY = parentRect.height / parent.offsetHeight
+    photoDragRef.current = {
+      startX: e.clientX,
+      startY: e.clientY,
+      originLeft: (rect.left - parentRect.left) / scaleX,
+      originTop: (rect.top - parentRect.top) / scaleY,
+    }
+    startDragCursor()
+    e.preventDefault()
+    e.stopPropagation()
+  }
+
+  useEffect(() => {
+    function onMove(e: MouseEvent) {
+      const drag = photoDragRef.current
+      const element = photoWindowRef.current
+      const parent = windowRef.current
+      if (!drag || !element || !parent) return
+      const parentRect = parent.getBoundingClientRect()
+      const elementRect = element.getBoundingClientRect()
+      const scaleX = parentRect.width / parent.offsetWidth
+      const scaleY = parentRect.height / parent.offsetHeight
+      const requestedLeft = parentRect.left
+        + drag.originLeft * scaleX
+        + e.clientX - drag.startX
+      const requestedTop = parentRect.top
+        + drag.originTop * scaleY
+        + e.clientY - drag.startY
+      const width = elementRect.width
+      const left = Math.max(-width + 120, Math.min(window.innerWidth - 120, requestedLeft))
+      const top = Math.max(0, Math.min(window.innerHeight - 40, requestedTop))
+      setPhotoPos({
+        x: (left - parentRect.left) / scaleX,
+        y: (top - parentRect.top) / scaleY,
+      })
+    }
+    function onUp() {
+      if (!photoDragRef.current) return
+      photoDragRef.current = null
+      stopDragCursor()
+    }
+    window.addEventListener('mousemove', onMove)
+    window.addEventListener('mouseup', onUp)
+    return () => {
+      window.removeEventListener('mousemove', onMove)
+      window.removeEventListener('mouseup', onUp)
+      if (photoDragRef.current) {
+        photoDragRef.current = null
+        stopDragCursor()
+      }
+    }
+  }, [])
 
   const positionStyle: CSSProperties = !draggable
     ? {}
@@ -160,13 +229,17 @@ export function TrashWindow({
 
       {photoOpen && (
         <section
+          ref={photoWindowRef}
           className={styles.photoWindow}
+          style={photoPos
+            ? { left: photoPos.x, top: photoPos.y, transform: 'none' }
+            : undefined}
           role="dialog"
           aria-modal="true"
           aria-label="shabat-shalom.png"
         >
           <div className={styles.photoWindowSurface}>
-            <div className={styles.photoWindowBar}>
+            <div className={styles.photoWindowBar} onMouseDown={onPhotoTitleMouseDown}>
               <span>shabat-shalom.png</span>
               <button
                 type="button"
