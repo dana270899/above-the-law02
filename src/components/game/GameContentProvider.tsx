@@ -8,6 +8,8 @@ import {
 } from 'react'
 import { loadGameContent, type SavedGraph } from '@/lib/gameContent'
 import { useFlowAssetPreloader } from '@/hooks/useFlowAssetPreloader'
+import { criticalPhotoAssets } from '@/lib/gamePreloadAssets'
+import { gameAssetPreloader } from '@/lib/gameAssetPreloader'
 
 export interface SharedGameContent {
   graph: SavedGraph
@@ -31,7 +33,16 @@ export function GameContentProvider({ children }: { children: ReactNode }) {
     let active = true
     void loadGameContent()
       .then((loaded) => {
-        if (active && loaded) setGraph(loaded)
+        if (!active || !loaded) return
+        setGraph(loaded)
+
+        // Decode important photos immediately and keep their Image objects
+        // alive. This runs in the background and never blocks Start Game.
+        for (const photo of criticalPhotoAssets(loaded.nodes)) {
+          void gameAssetPreloader.preloadAndRetain(photo, 0).catch((reason) => {
+            console.warn(`Could not preload game photo: ${photo.src}`, reason)
+          })
+        }
       })
       .finally(() => {
         if (active) setIsLoading(false)

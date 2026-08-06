@@ -372,3 +372,20 @@ export function globalFlowAssets(nodes: readonly GameFlowNode[]): GamePreloadAss
     : getBgMusic(musicNode.data.src).src
   return uniqueAssets(optionalAsset('audio', source))
 }
+
+/** Photos that should be decoded once and retained for the whole game session. */
+export function criticalPhotoAssets(
+  nodes: readonly GameFlowNode[],
+): GamePreloadAsset[] {
+  const photos: GamePreloadAsset[] = []
+
+  for (const node of nodes) {
+    if (node.type === 'case') {
+      photos.push(...optionalAsset('image', node.data.window?.photoUrl))
+    } else if (node.type === 'message') {
+      photos.push(...optionalAsset('image', node.data.photoUrl))
+    }
+  }
+
+  return uniqueAssets(photos)
+}
